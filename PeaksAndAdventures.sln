@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures", "PeaksAndAdventures\PeaksAndAdventures.csproj", "{70EBC6BE-C0E8-4DBE-ABFB-11F9F09D3249}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures", "PeaksAndAdventures\PeaksAndAdventures.csproj", "{70EBC6BE-C0E8-4DBE-ABFB-11F9F09D3249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Data", "PeaksAndAdventures.Data\PeaksAndAdventures.Data.csproj", "{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Core", "PeaksAndAdventures.Core\PeaksAndAdventures.Core.csproj", "{6A3A9B24-E190-419B-9042-73506490F8C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{70EBC6BE-C0E8-4DBE-ABFB-11F9F09D3249}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70EBC6BE-C0E8-4DBE-ABFB-11F9F09D3249}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70EBC6BE-C0E8-4DBE-ABFB-11F9F09D3249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A3A9B24-E190-419B-9042-73506490F8C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3A9B24-E190-419B-9042-73506490F8C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3A9B24-E190-419B-9042-73506490F8C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3A9B24-E190-419B-9042-73506490F8C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
