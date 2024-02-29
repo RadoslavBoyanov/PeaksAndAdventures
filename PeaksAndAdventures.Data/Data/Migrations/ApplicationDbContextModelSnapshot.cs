@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PeaksAndAdventures.Data;
-using System;
+using PeaksAndAdventures.Infrastructure.Data;
 
 namespace PeaksAndAdventures.Data.Migrations
 {

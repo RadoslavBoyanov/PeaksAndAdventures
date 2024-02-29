@@ -5,9 +5,11 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures", "PeaksAndAdventures\PeaksAndAdventures.csproj", "{70EBC6BE-C0E8-4DBE-ABFB-11F9F09D3249}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Data", "PeaksAndAdventures.Data\PeaksAndAdventures.Data.csproj", "{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures.Infrastructure", "PeaksAndAdventures.Data\PeaksAndAdventures.Infrastructure.csproj", "{FF06E6E9-62BD-49AC-A531-0C94F76E57CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Core", "PeaksAndAdventures.Core\PeaksAndAdventures.Core.csproj", "{6A3A9B24-E190-419B-9042-73506490F8C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures.Core", "PeaksAndAdventures.Core\PeaksAndAdventures.Core.csproj", "{6A3A9B24-E190-419B-9042-73506490F8C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Common", "PeaksAndAdventures.Common\PeaksAndAdventures.Common.csproj", "{47B021D4-4256-4711-8283-EA175C71C721}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6A3A9B24-E190-419B-9042-73506490F8C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A3A9B24-E190-419B-9042-73506490F8C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A3A9B24-E190-419B-9042-73506490F8C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47B021D4-4256-4711-8283-EA175C71C721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47B021D4-4256-4711-8283-EA175C71C721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47B021D4-4256-4711-8283-EA175C71C721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47B021D4-4256-4711-8283-EA175C71C721}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

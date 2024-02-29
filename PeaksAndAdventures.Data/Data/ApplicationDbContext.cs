@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace PeaksAndAdventures.Data
+namespace PeaksAndAdventures.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
