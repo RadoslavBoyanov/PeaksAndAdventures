@@ -44,5 +44,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Required]
         [Comment("Pictures of the mountain")]
         public string ImageUrls { get; set; } = string.Empty;
+
+        public ICollection<Peak> Peaks { get; set; } = new HashSet<Peak>();
     }
 }
