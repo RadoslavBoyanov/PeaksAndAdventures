@@ -46,5 +46,6 @@ namespace PeaksAndAdventures.Infrastructure.Models
         public string ImageUrls { get; set; } = string.Empty;
 
         public ICollection<Peak> Peaks { get; set; } = new HashSet<Peak>();
+        public ICollection<Lake> Lakes { get; set; } = new HashSet<Lake>();
     }
 }
