@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PeaksAndAdventures.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class PeaksAndAdventuresDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public PeaksAndAdventuresDbContext(DbContextOptions<PeaksAndAdventuresDbContext> options)
             : base(options)
         {
         }

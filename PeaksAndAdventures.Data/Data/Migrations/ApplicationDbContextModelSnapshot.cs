@@ -6,7 +6,7 @@ using PeaksAndAdventures.Infrastructure.Data;
 
 namespace PeaksAndAdventures.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(PeaksAndAdventuresDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
