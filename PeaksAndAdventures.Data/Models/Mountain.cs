@@ -47,5 +47,6 @@ namespace PeaksAndAdventures.Infrastructure.Models
 
         public ICollection<Peak> Peaks { get; set; } = new HashSet<Peak>();
         public ICollection<Lake> Lakes { get; set; } = new HashSet<Lake>();
+        public ICollection<Waterfall> Waterfalls { get; set; } = new HashSet<Waterfall>();
     }
 }
