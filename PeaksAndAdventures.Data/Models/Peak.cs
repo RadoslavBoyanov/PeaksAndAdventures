@@ -19,14 +19,14 @@ namespace PeaksAndAdventures.Infrastructure.Models
 
         [StringLength(DescriptionMaxLength)]
         [Comment("Peak description")]
-        public string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         [Required]
         [Comment("Peak altitude")]
         public int Altitude { get; set; }
 
         [Comment("Pictures of the peak")]
-        public string ImageUrl { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
 
         [Required]
         [Comment("Mountain id for the peak")]
