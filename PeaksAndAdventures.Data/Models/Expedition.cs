@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
 
 namespace PeaksAndAdventures.Infrastructure.Models
@@ -54,5 +54,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         public int RouteId { get; set; }
         [ForeignKey(nameof(RouteId))] 
         public Route Route { get; set; } = null!;
+
+        public ICollection<TourAgency> TourAgencies { get; set; } = new HashSet<TourAgency>();
     }
 }
