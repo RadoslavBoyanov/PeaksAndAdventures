@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PeaksAndAdventures.Infrastructure.Enums.Hut;
+using PeaksAndAdventures.Infrastructure.Enums.Route;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.RouteValidation;
@@ -59,5 +59,6 @@ namespace PeaksAndAdventures.Infrastructure.Models
         ICollection<Lake> Lakes { get; set; } = new HashSet<Lake>();
         ICollection<Waterfall> Waterfalls { get; set; } = new HashSet<Waterfall>();
         private ICollection<MountainGuide> MountainGuides { get; set; } = new HashSet<MountainGuide>();
+        private ICollection<Expedition> Expeditions { get; set; } = new List<Expedition>();
     }
 }

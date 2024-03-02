@@ -48,6 +48,11 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Comment("Mountain guide profile picture")]
         public string? ImageUrl { get; set; }
 
+        [Comment("Mountain guide tour agency")]
+        public int? TourAgencyId { get; set; }
+        [ForeignKey(nameof(TourAgencyId))] 
+        public TourAgency TourAgency { get; set; } = null!;
+
         [Required]
         [Comment("Navigation property for owner on the model")]
         public string OwnerId { get; set; } = string.Empty;
