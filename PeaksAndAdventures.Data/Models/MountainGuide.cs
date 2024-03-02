@@ -55,5 +55,6 @@ namespace PeaksAndAdventures.Infrastructure.Models
         public IdentityUser Owner { get; set; } = null!;
  
         public ICollection<Mountain> Mountains { get; set; } = new HashSet<Mountain>();
+        public ICollection<Route> Routes { get; set; } = new HashSet<Route>();
     }
 }
