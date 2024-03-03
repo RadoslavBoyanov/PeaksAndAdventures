@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PeaksAndAdventures.Infrastructure;
+using PeaksAndAdventures.Infrastructure.Data;
 
 namespace PeaksAndAdventures.Extensions
 {

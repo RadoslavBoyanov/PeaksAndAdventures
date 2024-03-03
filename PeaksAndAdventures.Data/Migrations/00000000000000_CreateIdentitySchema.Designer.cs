@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using PeaksAndAdventures.Infrastructure;
+using PeaksAndAdventures.Infrastructure.Data;
 
 namespace PeaksAndAdventures.Data.Migrations
 {

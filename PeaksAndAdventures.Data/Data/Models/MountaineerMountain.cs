@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Many-to-many relationship table between mountain guide and mountain")]
     public class MountaineerMountain
@@ -10,7 +10,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Required]
         [Comment("Navigation property for mountain guide")]
         public int MountainGuideId { get; set; }
-        [ForeignKey(nameof(MountainGuideId))] 
+        [ForeignKey(nameof(MountainGuideId))]
         public MountainGuide MountainGuide { get; set; } = null!;
 
         [Required]

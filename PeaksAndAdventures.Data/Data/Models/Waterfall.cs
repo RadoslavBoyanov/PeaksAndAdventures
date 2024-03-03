@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.WaterfallValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Waterfall entity model")]
     public class Waterfall
@@ -27,7 +27,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Required]
         [Comment("Navigation property for mountain")]
         public int MountainId { get; set; }
-        [ForeignKey(nameof(MountainId))] 
+        [ForeignKey(nameof(MountainId))]
         public Mountain Mountain { get; set; } = null!;
     }
 }

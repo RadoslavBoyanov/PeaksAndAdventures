@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Expedition entity model")]
     public class Expedition
@@ -52,7 +52,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Required]
         [Comment("Navigation property for route")]
         public int RouteId { get; set; }
-        [ForeignKey(nameof(RouteId))] 
+        [ForeignKey(nameof(RouteId))]
         public Route Route { get; set; } = null!;
 
         public ICollection<TourAgency> TourAgencies { get; set; } = new HashSet<TourAgency>();

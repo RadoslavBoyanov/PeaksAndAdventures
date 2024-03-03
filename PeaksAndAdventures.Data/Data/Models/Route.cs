@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PeaksAndAdventures.Infrastructure.Enums.Route;
+using PeaksAndAdventures.Infrastructure.Data.Enums.Route;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.RouteValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Route entity model")]
     public class Route
@@ -51,7 +51,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Required]
         [Comment("Navigation property for mountain")]
         public int MountainId { get; set; }
-        [ForeignKey(nameof(MountainId))] 
+        [ForeignKey(nameof(MountainId))]
         public Mountain Mountain { get; set; } = null!;
 
         ICollection<Peak> Peaks { get; set; } = new HashSet<Peak>();

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.MountainGuideValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Mountain guide entity model")]
     public class MountainGuide
@@ -50,15 +50,15 @@ namespace PeaksAndAdventures.Infrastructure.Models
 
         [Comment("Mountain guide tour agency")]
         public int? TourAgencyId { get; set; }
-        [ForeignKey(nameof(TourAgencyId))] 
+        [ForeignKey(nameof(TourAgencyId))]
         public TourAgency TourAgency { get; set; } = null!;
 
         [Required]
         [Comment("Navigation property for owner on the model")]
         public string OwnerId { get; set; } = string.Empty;
-        [ForeignKey(nameof(OwnerId))] 
+        [ForeignKey(nameof(OwnerId))]
         public IdentityUser Owner { get; set; } = null!;
- 
+
         public ICollection<Mountain> Mountains { get; set; } = new HashSet<Mountain>();
         public ICollection<Route> Routes { get; set; } = new HashSet<Route>();
     }

@@ -1,4 +1,4 @@
-﻿namespace PeaksAndAdventures.Infrastructure.Enums.Hut
+﻿namespace PeaksAndAdventures.Infrastructure.Data.Enums.Hut
 {
     /// <summary>
     /// Enumeration for camping

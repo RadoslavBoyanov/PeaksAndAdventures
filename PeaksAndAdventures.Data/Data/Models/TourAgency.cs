@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.TourAgencyValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Tour agency entity model")]
     public class TourAgency
@@ -39,7 +39,7 @@ namespace PeaksAndAdventures.Infrastructure.Models
         [Required]
         [Comment("Tour agency owner")]
         public string OwnerId { get; set; } = string.Empty;
-        [ForeignKey(nameof(OwnerId))] 
+        [ForeignKey(nameof(OwnerId))]
         public IdentityUser Owner { get; set; } = null!;
 
         public ICollection<Expedition> Expeditions { get; set; } = new HashSet<Expedition>();
