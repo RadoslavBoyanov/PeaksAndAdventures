@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PeaksAndAdventures.Infrastructure.Enums.Hut;
+using PeaksAndAdventures.Infrastructure.Data.Enums.Hut;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static PeaksAndAdventures.Common.EntityValidations.HutValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Hut entity model")]
     public class Hut

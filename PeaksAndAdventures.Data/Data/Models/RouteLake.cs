@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
-    [Comment("Many-to-many relationship class between route and peak")]
-    public class RoutePeak
+    [Comment("Many-to-many relationship class between route and lake")]
+    public class RouteLake
     {
         [Required]
         [Comment("Navigation property for route")]
@@ -14,9 +14,9 @@ namespace PeaksAndAdventures.Infrastructure.Models
         public Route Route { get; set; } = null!;
 
         [Required]
-        [Comment("Navigation property for peak")]
-        public int PeakId { get; set; }
-        [ForeignKey(nameof(PeakId))]
-        public Peak Peak { get; set; } = null!;
+        [Comment("Navigation property for lake")]
+        public int LakeId { get; set; }
+        [ForeignKey(nameof(LakeId))]
+        public Lake Lake { get; set; } = null!;
     }
 }

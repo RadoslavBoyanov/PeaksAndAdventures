@@ -80,7 +80,7 @@
             /// <summary>
             /// Constant for lake description
             /// </summary>
-            public const int DescriptionMaxLength = 1600;
+            public const int DescriptionMaxLength = 2000;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@
             /// <summary>
             /// Constant for waterfall description
             /// </summary>
-            public const int DescriptionMaxLength = 1300;
+            public const int DescriptionMaxLength = 1500;
         }
 
         /// <summary>
@@ -148,7 +148,7 @@
             /// <summary>
             /// Constants for route description
             /// </summary>
-            public const int DescriptionMaxLength = 5000;
+            public const int DescriptionMaxLength = 7000;
             public const int DescriptionMinLength = 100;
         }
 
@@ -226,6 +226,11 @@
         public static class ExpeditionValidation
         {
             /// <summary>
+            /// Date time format for start date and end date
+            /// </summary>
+            public const string DateTimeFormat = "dd/MM/yyyy HH:mm";
+
+            /// <summary>
             /// Constants for expedition days
             /// </summary>
             public const int DaysMax = 120;
@@ -279,6 +284,11 @@
             /// </summary>
             public const int ContentMaxLength = 8000;
             public const int ContentMinLength = 300;
+
+            /// <summary>
+            /// Date time format for date published
+            /// </summary>
+            public const string DateTimeFormat = "dd/MM/yyyy HH:mm";
         }
 
         /// <summary>
@@ -292,5 +302,6 @@
             public const int MaxRating = 10;
             public const int MinRating = 1;
         }
+
     }
 }

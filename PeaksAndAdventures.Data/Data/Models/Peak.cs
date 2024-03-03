@@ -1,31 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static PeaksAndAdventures.Common.EntityValidations.LakeValidation;
+using static PeaksAndAdventures.Common.EntityValidations.PeakValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
-    [Comment("Lake entity model")]
-    public class Lake
+    [Comment("Peak model")]
+    public class Peak
     {
         [Key]
-        [Comment("Lake Id")]
+        [Comment("Peak Id")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(NameMaxLength)]
-        [Comment("Lake name")]
+        [Comment("Peak name")]
         public string Name { get; set; } = string.Empty;
 
         [StringLength(DescriptionMaxLength)]
-        [Comment("Lake description")]
+        [Comment("Peak description")]
         public string? Description { get; set; }
 
-        [Comment("Pictures of the lake")]
+        [Required]
+        [Comment("Peak altitude")]
+        public int Altitude { get; set; }
+
+        [Comment("Pictures of the peak")]
         public string? ImageUrl { get; set; }
 
         [Required]
-        [Comment("Navigation property for mountain")]
+        [Comment("Mountain id for the peak")]
         public int MountainId { get; set; }
 
         [ForeignKey(nameof(MountainId))]

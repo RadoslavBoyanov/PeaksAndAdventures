@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static PeaksAndAdventures.Common.EntityValidations.MountainValidation;
 
-namespace PeaksAndAdventures.Infrastructure.Models
+namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
     [Comment("Mountain model")]
     public class Mountain

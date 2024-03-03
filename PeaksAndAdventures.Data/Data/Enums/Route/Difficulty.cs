@@ -1,4 +1,4 @@
-﻿namespace PeaksAndAdventures.Infrastructure.Enums.Route
+﻿namespace PeaksAndAdventures.Infrastructure.Data.Enums.Route
 {
     /// <summary>
     /// Enumeration for difficulty on one route
