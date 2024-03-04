@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PeaksAndAdventures.Data\PeaksAndAdventures.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Img\Stara planina\" />
+  </ItemGroup>
+
 </Project>
