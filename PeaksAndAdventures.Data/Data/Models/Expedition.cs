@@ -47,6 +47,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public string Excludes { get; set; } = string.Empty;
 
         [Comment("What additional services can be included for an additional fee")]
+        [StringLength(ExcludesMaxLength)]
         public string? Extras { get; set; }
 
         [Required]
@@ -56,5 +57,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public Route Route { get; set; } = null!;
 
         public ICollection<TourAgency> TourAgencies { get; set; } = new HashSet<TourAgency>();
+
+        public ICollection<ExpeditionParticipant> ExpeditionsParticipants { get; set; } =
+            new List<ExpeditionParticipant>();
     }
 }
