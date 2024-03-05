@@ -72,5 +72,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public int MountainId { get; set; }
         [ForeignKey(nameof(MountainId))]
         public Mountain Mountain { get; set; } = null!;
+
+        public ICollection<Route> Routes { get; set; } = new HashSet<Route>();
     }
 }
