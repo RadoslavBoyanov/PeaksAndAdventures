@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
 
 namespace PeaksAndAdventures.Infrastructure.Data.Models
@@ -49,6 +50,12 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("What additional services can be included for an additional fee")]
         [StringLength(ExcludesMaxLength)]
         public string? Extras { get; set; }
+
+        [Required]
+        [Comment("Navigation property for organiser of the expedition")]
+        public string OrganiserId { get; set; } = string.Empty;
+        [ForeignKey(nameof(OrganiserId))]
+        public IdentityUser Organiser { get; set; } = null!;
 
         [Required]
         [Comment("Navigation property for route")]
