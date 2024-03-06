@@ -64,6 +64,16 @@
             /// </summary>
             public const int HighestAltitude = 10_000;
             public const int LowestAltitude = 40;
+
+            /// <summary>
+            /// Constant for partition 
+            /// </summary>
+            public const int PartitionMaxLength = 70;
+
+            /// <summary>
+            /// Constant for specific location on the peak
+            /// </summary>
+            public const int SpecificLocationMaxLength = 80;
         }
 
         /// <summary>
