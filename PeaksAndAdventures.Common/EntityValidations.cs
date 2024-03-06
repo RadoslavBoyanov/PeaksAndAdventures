@@ -127,11 +127,6 @@
             public const int DescriptionMaxLength = 2000;
             public const int DescriptionMinLength = 50;
 
-            /// <summary>
-            /// Constants for hut overnight stay
-            /// </summary>
-            public const string OvernightStayMinPrice = "10.00";
-            public const string OvernightStayMaxPrice = "150.00";
 
             /// <summary>
             /// Constant for phone

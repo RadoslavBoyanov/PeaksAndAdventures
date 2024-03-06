@@ -48,11 +48,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public double? Altitude { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        [Comment("Hut overnight price")]
-        public decimal ОvernightPrice { get; set; }
-
-        [Required]
         [Comment("Hut bathroom")]
         public bool HasBathroom { get; set; }
 
@@ -65,7 +60,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public bool HasCanteen { get; set; }
 
         [StringLength(PhoneNumberMaxLength)]
-        [Comment("Mountain guide phone number")]
+        [Comment("Hut phone number")]
         public string? Phone { get; set; }
 
         [Comment("Pictures of the hut")]
