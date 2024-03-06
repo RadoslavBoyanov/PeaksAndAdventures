@@ -59,11 +59,11 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [ForeignKey(nameof(MountainId))]
         public Mountain Mountain { get; set; } = null!;
 
-        public ICollection<Peak> Peaks { get; set; } = new HashSet<Peak>();
-        public ICollection<Hut> Huts { get; set; } = new HashSet<Hut>();
-        public ICollection<Lake> Lakes { get; set; } = new HashSet<Lake>();
-        public ICollection<Waterfall> Waterfalls { get; set; } = new HashSet<Waterfall>();
-        public ICollection<MountainGuide> MountainGuides { get; set; } = new HashSet<MountainGuide>();
+        public ICollection<RoutePeak> RoutesPeaks { get; set; } = new HashSet<RoutePeak>();
+        public ICollection<RouteHut> RoutesHuts { get; set; } = new HashSet<RouteHut>();
+        public ICollection<RouteLake> RoutesLakes { get; set; } = new HashSet<RouteLake>();
+        public ICollection<RouteWaterfall> RouteWaterfalls { get; set; } = new HashSet<RouteWaterfall>();
+        public ICollection<MountaineerRoute> MountaineersRoutes { get; set; } = new HashSet<MountaineerRoute>();
         public ICollection<Expedition> Expeditions { get; set; } = new List<Expedition>();
     }
 }
