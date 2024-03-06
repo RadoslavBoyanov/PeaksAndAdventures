@@ -59,7 +59,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [ForeignKey(nameof(OwnerId))]
         public IdentityUser Owner { get; set; } = null!;
 
-        public ICollection<Mountain> Mountains { get; set; } = new HashSet<Mountain>();
+        public ICollection<MountaineerMountain> MountaineersMountains { get; set; } = new HashSet<MountaineerMountain>();
         public ICollection<MountaineerRoute> MountaineersRoutes { get; set; } = new HashSet<MountaineerRoute>();
     }
 }

@@ -62,7 +62,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public ICollection<RoutePeak> RoutesPeaks { get; set; } = new HashSet<RoutePeak>();
         public ICollection<RouteHut> RoutesHuts { get; set; } = new HashSet<RouteHut>();
         public ICollection<RouteLake> RoutesLakes { get; set; } = new HashSet<RouteLake>();
-        public ICollection<RouteWaterfall> RouteWaterfalls { get; set; } = new HashSet<RouteWaterfall>();
+        public ICollection<RouteWaterfall> RoutesWaterfalls { get; set; } = new HashSet<RouteWaterfall>();
         public ICollection<MountaineerRoute> MountaineersRoutes { get; set; } = new HashSet<MountaineerRoute>();
         public ICollection<Expedition> Expeditions { get; set; } = new List<Expedition>();
     }
