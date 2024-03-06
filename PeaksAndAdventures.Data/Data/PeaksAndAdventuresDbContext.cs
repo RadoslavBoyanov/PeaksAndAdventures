@@ -80,12 +80,6 @@ namespace PeaksAndAdventures.Infrastructure.Data
                 {
                     rl.RouteId, rl.LakeId
                 });
-
-            builder.Entity<RoutePeak>()
-                .HasKey(rp => new
-                {
-                    rp.RouteId, rp.PeakId
-                });
             builder.Entity<RouteWaterfall>()
                 .HasKey(rw => new
                 {
