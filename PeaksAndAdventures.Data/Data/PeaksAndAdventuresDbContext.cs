@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Infrastructure.Data.Models;
+using System.Reflection;
 
 namespace PeaksAndAdventures.Infrastructure.Data
 {
@@ -51,47 +52,8 @@ namespace PeaksAndAdventures.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ExpeditionParticipant>()
-                .HasKey(ep => new
-                {
-                    ep.ExpeditionId, ep.ParticipantId
-                });
 
-            builder.Entity<MountaineerMountain>()
-                .HasKey(mm => new
-                {
-                    mm.MountainGuideId, mm.MountainId
-                });
-
-            builder.Entity<MountaineerRoute>()
-                .HasKey(mr => new
-                {
-                    mr.RouteId, mr.MountainGuideId
-                });
-
-            builder.Entity<RouteHut>()
-                .HasKey(rh => new
-                {
-                    rh.RouteId, rh.HutId
-                });
-
-            builder.Entity<RouteLake>()
-                .HasKey(rl => new
-                {
-                    rl.RouteId, rl.LakeId
-                });
-            builder.Entity<RouteWaterfall>()
-                .HasKey(rw => new
-                {
-                    rw.RouteId, rw.WaterfallId
-                });
-
-            builder.Entity<TourAgencyExpedition>()
-                .HasKey(tae => new
-                {
-                    tae.TourAgencyId, tae.ExpeditionId
-                });
-
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
         }
     }
