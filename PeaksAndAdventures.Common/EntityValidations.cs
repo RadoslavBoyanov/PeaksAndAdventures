@@ -132,6 +132,11 @@
             /// </summary>
             public const string OvernightStayMinPrice = "10.00";
             public const string OvernightStayMaxPrice = "150.00";
+
+            /// <summary>
+            /// Constant for phone
+            /// </summary>
+            public const int PhoneNumberMaxLength = 10;
         }
 
         /// <summary>

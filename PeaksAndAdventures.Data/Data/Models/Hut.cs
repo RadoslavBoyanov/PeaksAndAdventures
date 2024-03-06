@@ -64,6 +64,10 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Hut canteen")]
         public bool HasCanteen { get; set; }
 
+        [StringLength(PhoneNumberMaxLength)]
+        [Comment("Mountain guide phone number")]
+        public string? Phone { get; set; }
+
         [Comment("Pictures of the hut")]
         public string? ImageUrl { get; set; }
 
