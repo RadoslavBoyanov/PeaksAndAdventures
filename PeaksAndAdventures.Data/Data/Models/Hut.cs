@@ -36,7 +36,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Hut work time in seasons")]
         public WorkTime WorkTime { get; set; }
 
-        [Required]
         [Comment("How many people can sleep in hut")]
         public int Places { get; set; }
 
@@ -46,11 +45,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
 
         [Comment("Hut altitude")]
         public double? Altitude { get; set; }
-
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        [Comment("Hut overnight price")]
-        public decimal ОvernightPrice { get; set; }
 
         [Required]
         [Comment("Hut bathroom")]
@@ -64,6 +58,10 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Hut canteen")]
         public bool HasCanteen { get; set; }
 
+        [StringLength(PhoneNumberMaxLength)]
+        [Comment("Hut phone number")]
+        public string? Phone { get; set; }
+
         [Comment("Pictures of the hut")]
         public string? ImageUrl { get; set; }
 
@@ -72,5 +70,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public int MountainId { get; set; }
         [ForeignKey(nameof(MountainId))]
         public Mountain Mountain { get; set; } = null!;
+
+        public ICollection<Route> Routes { get; set; } = new HashSet<Route>();
     }
 }

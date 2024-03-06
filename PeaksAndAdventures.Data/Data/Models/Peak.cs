@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PeaksAndAdventures.Common;
 using static PeaksAndAdventures.Common.EntityValidations.PeakValidation;
 
 namespace PeaksAndAdventures.Infrastructure.Data.Models
@@ -25,6 +26,14 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Peak altitude")]
         public int Altitude { get; set; }
 
+        [StringLength(PartitionMaxLength)]
+        [Comment("Partition in mountain where is the peak")]
+        public string? Partition { get; set; }
+
+        [StringLength(SpecificLocationMaxLength)]
+        [Comment("Peak specific location")]
+        public string? SpecificLocation { get; set; }
+
         [Comment("Pictures of the peak")]
         public string? ImageUrl { get; set; }
 
@@ -34,5 +43,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
 
         [ForeignKey(nameof(MountainId))]
         public Mountain Mountain { get; set; } = null!;
+
+        public ICollection<Route> Routes { get; set; } = new HashSet<Route>();
     }
 }

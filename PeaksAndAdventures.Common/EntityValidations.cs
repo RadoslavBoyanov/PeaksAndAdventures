@@ -64,6 +64,16 @@
             /// </summary>
             public const int HighestAltitude = 10_000;
             public const int LowestAltitude = 40;
+
+            /// <summary>
+            /// Constant for partition 
+            /// </summary>
+            public const int PartitionMaxLength = 70;
+
+            /// <summary>
+            /// Constant for specific location on the peak
+            /// </summary>
+            public const int SpecificLocationMaxLength = 80;
         }
 
         /// <summary>
@@ -117,11 +127,11 @@
             public const int DescriptionMaxLength = 2000;
             public const int DescriptionMinLength = 50;
 
+
             /// <summary>
-            /// Constants for hut overnight stay
+            /// Constant for phone
             /// </summary>
-            public const string OvernightStayMinPrice = "10.00";
-            public const string OvernightStayMaxPrice = "150.00";
+            public const int PhoneNumberMaxLength = 10;
         }
 
         /// <summary>
@@ -129,6 +139,12 @@
         /// </summary>
         public static class RouteValidation
         {
+            /// <summary>
+            /// Constant for name of route - destination points
+            /// </summary>
+            public const int NameMaxLength = 100;
+
+
             /// <summary>
             /// Constant for route starting point
             /// </summary>
