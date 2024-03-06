@@ -1506,7 +1506,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Name = "Броуд пик",
                 Altitude = 8047,
                 Description = "Броуд Пик (наричан преди K3) е дванадесетият по височина връх в света. Намира се в Каракорум, в планинския масив Гашербрум[1] на границата между Китай и Кашмир, на 8 km от К2.",
-                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/5b/7_15_BroadPeak.jpg"
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/5b/7_15_BroadPeak.jpg",
                 MountainId = 11
             });
 
