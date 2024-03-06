@@ -36,7 +36,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Hut work time in seasons")]
         public WorkTime WorkTime { get; set; }
 
-        [Required]
         [Comment("How many people can sleep in hut")]
         public int Places { get; set; }
 
