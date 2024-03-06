@@ -14,6 +14,11 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [StringLength(NameMaxLength)]
+        [Comment("Route key names")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
         [StringLength(StartingPointMaxLength)]
         [Comment("Route starting point")]
         [Column("Starting point")]

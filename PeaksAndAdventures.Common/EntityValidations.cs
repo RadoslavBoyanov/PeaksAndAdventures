@@ -140,6 +140,12 @@
         public static class RouteValidation
         {
             /// <summary>
+            /// Constant for name of route - destination points
+            /// </summary>
+            public const int NameMaxLength = 100;
+
+
+            /// <summary>
             /// Constant for route starting point
             /// </summary>
             public const int StartingPointMaxLength = 60;
