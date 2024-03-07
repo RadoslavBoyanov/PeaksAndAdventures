@@ -8,7 +8,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Article> builder)
         {
-            builder.HasData(GenerateArticles());
+            //builder.HasData(GenerateArticles());
         }
 
         private Article[] GenerateArticles()

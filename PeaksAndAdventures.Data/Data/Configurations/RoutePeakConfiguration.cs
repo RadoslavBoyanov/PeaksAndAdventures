@@ -22,6 +22,45 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 .WithMany(rp => rp.RoutesPeaks)
                 .HasForeignKey(rp => rp.RouteId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            //builder.HasData(GenerateRoutesPeaks());
+        }
+
+        private RoutePeak[] GenerateRoutesPeaks()
+        {
+           ICollection<RoutePeak> routePeaks = new HashSet<RoutePeak>();
+
+           routePeaks.Add(new RoutePeak()
+           {
+               RouteId = 2,
+               PeakId = 31,
+           });
+
+           routePeaks.Add(new RoutePeak()
+           {
+               RouteId = 1,
+               PeakId = 91
+           });
+
+           routePeaks.Add(new RoutePeak()
+           {
+               RouteId = 6,
+               PeakId = 121
+           });
+
+           routePeaks.Add(new RoutePeak()
+           {
+               RouteId = 7,
+               PeakId = 152
+           });
+
+           routePeaks.Add(new RoutePeak()
+           {
+               RouteId = 8,
+               PeakId = 131
+           });
+
+           return routePeaks.ToArray();
         }
     }
 }
