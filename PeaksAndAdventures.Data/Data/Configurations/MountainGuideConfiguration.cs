@@ -15,6 +15,18 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
         {
             ICollection<MountainGuide> mountainGuides = new List<MountainGuide>();
 
+            mountainGuides.Add(new MountainGuide()
+            {
+                Id = 1,
+                Email = "mountaineer@mail.com",
+                Experience = 7,
+                FirstName = "Momchil",
+                LastName = "Panayotov",
+                Phone = "0895123456",
+                TourAgencyId = 1,
+                OwnerId = "dea12856-c198-4129-b3f3-b893d8395082",
+            });
+
             return mountainGuides.ToArray();
         }
     }

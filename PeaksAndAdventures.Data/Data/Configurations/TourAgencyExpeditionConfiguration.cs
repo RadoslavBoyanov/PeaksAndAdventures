@@ -26,6 +26,21 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 .WithMany(ta => ta.TourAgenciesExpeditions)
                 .HasForeignKey(tae => tae.TourAgencyId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(GenerateTourAgencyExpeditions());
+        }
+
+        private TourAgencyExpedition[] GenerateTourAgencyExpeditions()
+        {
+            ICollection<TourAgencyExpedition> tourAgencyExpeditions = new HashSet<TourAgencyExpedition>();
+
+            tourAgencyExpeditions.Add(new TourAgencyExpedition()
+            {
+                TourAgencyId = 1,
+                ExpeditionId = 1
+            });
+
+            return tourAgencyExpeditions.ToArray();
         }
     }
 }

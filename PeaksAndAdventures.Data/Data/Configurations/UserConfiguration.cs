@@ -9,7 +9,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
         public void Configure(EntityTypeBuilder<IdentityUser> builder)
         {
 
-            //builder.HasData(GenerateUsers());
+            builder.HasData(GenerateUsers());
         }
 
         private IEnumerable<IdentityUser> GenerateUsers()
@@ -50,7 +50,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Email = "tourist@mail.com",
                 NormalizedEmail = "tourist@mail.com"
             };
-            users.Add(tourAgencyUser);
+            users.Add(tourist);
 
             return users;
         }

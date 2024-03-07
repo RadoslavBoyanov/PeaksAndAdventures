@@ -26,6 +26,33 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 .WithMany(m => m.MountaineersRoutes)
                 .HasForeignKey(mr => mr.MountainGuideId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(GenerateMountaineerRoutes());
+        }
+
+        private MountaineerRoute[] GenerateMountaineerRoutes()
+        {
+            ICollection<MountaineerRoute> mountaineerRoutes = new HashSet<MountaineerRoute>();
+
+            mountaineerRoutes.Add(new MountaineerRoute()
+            {
+                RouteId = 2,
+                MountainGuideId = 1
+            });
+
+            mountaineerRoutes.Add(new MountaineerRoute()
+            {
+                RouteId = 5,
+                MountainGuideId = 1
+            });
+
+            mountaineerRoutes.Add(new MountaineerRoute()
+            {
+                RouteId = 8,
+                MountainGuideId = 1
+            });
+
+            return mountaineerRoutes.ToArray();
         }
     }
 }
