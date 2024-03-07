@@ -262,7 +262,7 @@
             /// <summary>
             /// Constants for expedition program
             /// </summary>
-            public const int ProgramMaxLength = 4000;
+            public const int ProgramMaxLength = 8000;
             public const int ProgramMinLength = 100;
 
             /// <summary>
