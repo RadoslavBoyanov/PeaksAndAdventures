@@ -1307,7 +1307,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             peaks.Add(new Peak()
             {
                 Id = 131,
-                Name = "Мон Блан",
+                Name = "Монблан",
                 Altitude = 4810,
                 Description = "Монблан (на италиански: Monte Bianco – Бял връх или Бяла планина) е планински връх в Алпите (част от едноименен масив), най-висок в цяла Западна Европа. Спорът дали върхът се намира на френска територия или на френско-италианската граница все още не е решен.",
                 ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR25azvCn83UqRcsHyGFgFjUURzin-Lakak0g&usqp=CAU",

@@ -24,12 +24,12 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Column("Starting point")]
         public string StartingPoint { get; set; } = string.Empty;
 
-        [Required]
+        
         [Comment("Route displacement positive")]
         [Column("Displacement positive")]
         public double DisplacementPositive { get; set; }
 
-        [Required]
+        
         [Comment("Route displacement negative")]
         [Column("Displacement negative")]
         public double DisplacementNegative { get; set; }

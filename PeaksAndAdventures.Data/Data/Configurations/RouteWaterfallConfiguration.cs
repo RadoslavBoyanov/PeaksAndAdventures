@@ -26,6 +26,21 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 .WithMany(w => w.RoutesWaterfalls)
                 .HasForeignKey(w => w.WaterfallId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            //builder.HasData(GenerateRoutesWaterfalls());
+        }
+
+        private RouteWaterfall[] GenerateRoutesWaterfalls()
+        {
+            ICollection<RouteWaterfall> routesWaterfalls = new HashSet<RouteWaterfall>();
+
+            routesWaterfalls.Add(new RouteWaterfall()
+            {
+                RouteId = 5,
+                WaterfallId = 1,
+            });
+
+            return routesWaterfalls.ToArray();
         }
     }
 }

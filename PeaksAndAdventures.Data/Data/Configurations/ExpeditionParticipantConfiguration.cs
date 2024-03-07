@@ -13,6 +13,21 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 {
                     ep.ExpeditionId, ep.ParticipantId
                 });
+
+            builder.HasData(GenerateExpeditionParticipants());
+        }
+
+        private ExpeditionParticipant[] GenerateExpeditionParticipants()
+        {
+            ICollection<ExpeditionParticipant> expeditionParticipants = new HashSet<ExpeditionParticipant>();
+
+            expeditionParticipants.Add(new ExpeditionParticipant()
+            {
+                ExpeditionId = 1,
+                ParticipantId = "2r2410ce-d421-0fc0-03d7-m6n3hk1f591"
+            });
+
+            return expeditionParticipants.ToArray();
         }
     }
 }
