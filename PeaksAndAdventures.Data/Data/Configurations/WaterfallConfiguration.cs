@@ -8,7 +8,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Waterfall> builder)
         {
-            //builder.HasData(GenerateWaterfalls());
+            builder.HasData(GenerateWaterfalls());
         }
 
         private Waterfall[] GenerateWaterfalls()

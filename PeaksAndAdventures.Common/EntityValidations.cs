@@ -166,6 +166,12 @@
             /// </summary>
             public const int DescriptionMaxLength = 7000;
             public const int DescriptionMinLength = 100;
+
+
+            /// <summary>
+            /// Constant for route duration
+            /// </summary>
+            public const int DurationMaxLength = 10;
         }
 
         /// <summary>
@@ -220,7 +226,7 @@
             /// <summary>
             /// Constants for tour agency description
             /// </summary>
-            public const int DescriptionMaxLength = 1000;
+            public const int DescriptionMaxLength = 3000;
             public const int DescriptionMinLength = 30;
 
             /// <summary>

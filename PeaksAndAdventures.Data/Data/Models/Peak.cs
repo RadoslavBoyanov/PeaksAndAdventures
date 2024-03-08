@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PeaksAndAdventures.Common;
 using static PeaksAndAdventures.Common.EntityValidations.PeakValidation;
 
 namespace PeaksAndAdventures.Infrastructure.Data.Models

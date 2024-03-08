@@ -38,9 +38,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Route difficulty")]
         public Difficulty Difficulty { get; set; }
 
-        [Required]
-        [Comment("Route duration")]
-        public TimeSpan Duration { get; set; }
+        [Required] 
+        [Comment("Route duration")] public string Duration { get; set; } = string.Empty;
 
         [Comment("Route rating")]
         public double? Rating { get; set; }

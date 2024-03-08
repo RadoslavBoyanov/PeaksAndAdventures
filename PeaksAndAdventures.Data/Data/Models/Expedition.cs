@@ -52,6 +52,12 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public string? Extras { get; set; }
 
         [Required]
+        [Comment("Navigation property for tour agency")]
+        public int TourAgencyId { get; set; }
+        [ForeignKey(nameof(TourAgencyId))] 
+        public TourAgency TourAgency { get; set; } = null!;
+
+        [Required]
         [Comment("Navigation property for organiser of the expedition")]
         public string OrganiserId { get; set; } = string.Empty;
         [ForeignKey(nameof(OrganiserId))]
@@ -62,8 +68,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public int RouteId { get; set; }
         [ForeignKey(nameof(RouteId))]
         public Route Route { get; set; } = null!;
-
-        public ICollection<TourAgencyExpedition> TourAgenciesExpeditions { get; set; } = new HashSet<TourAgencyExpedition>();
 
         public ICollection<ExpeditionParticipant> ExpeditionsParticipants { get; set; } =
             new List<ExpeditionParticipant>();

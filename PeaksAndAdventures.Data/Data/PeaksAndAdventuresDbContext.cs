@@ -46,14 +46,16 @@ namespace PeaksAndAdventures.Infrastructure.Data
 
         public DbSet<TourAgency> TourAgencies { get; set; } = null!;
 
-        public DbSet<TourAgencyExpedition> TourAgenciesExpeditions { get; set; } = null!;
-
         public DbSet<Waterfall> Waterfalls { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            Assembly configAssembly =
+                Assembly.GetAssembly(typeof(PeaksAndAdventuresDbContext)) ?? Assembly.GetExecutingAssembly();
+
+            builder.ApplyConfigurationsFromAssembly(configAssembly);
+
             base.OnModelCreating(builder);
         }
     }

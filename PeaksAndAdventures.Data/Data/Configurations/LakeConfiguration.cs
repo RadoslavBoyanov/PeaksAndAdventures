@@ -8,7 +8,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Lake> builder)
         {
-            //builder.HasData(GenerateLakes());
+            builder.HasData(GenerateLakes());
         }
 
         private Lake[] GenerateLakes()
