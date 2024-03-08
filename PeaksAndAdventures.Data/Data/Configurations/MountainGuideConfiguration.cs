@@ -8,7 +8,19 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<MountainGuide> builder)
         {
-            //builder.HasData(GenerateMountainGuide());
+            builder
+                .HasOne(mg => mg.TourAgency)
+                .WithMany(ta => ta.MountainGuides)
+                .HasForeignKey(mg => mg.TourAgencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //builder
+            //    .HasOne(ta => ta.Owner)
+            //    .WithMany()
+            //    .HasForeignKey(ta => ta.OwnerId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(GenerateMountainGuide());
         }
 
         private MountainGuide[] GenerateMountainGuide()

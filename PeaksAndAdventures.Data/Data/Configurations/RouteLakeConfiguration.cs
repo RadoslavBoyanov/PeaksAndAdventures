@@ -25,7 +25,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 .HasForeignKey(rl => rl.RouteId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.HasData(GenerateRoutesLakes());
+            builder.HasData(GenerateRoutesLakes());
         }
 
         private RouteLake[] GenerateRoutesLakes()

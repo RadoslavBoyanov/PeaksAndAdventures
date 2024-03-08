@@ -9,7 +9,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Hut> builder)
         {
-            //builder.HasData(GenerateHuts());
+            builder.HasData(GenerateHuts());
         }
 
         private Hut[] GenerateHuts()

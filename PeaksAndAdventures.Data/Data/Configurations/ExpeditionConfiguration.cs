@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PeaksAndAdventures.Infrastructure.Data.Models;
+using System.Reflection.Emit;
 
 namespace PeaksAndAdventures.Infrastructure.Data.Configurations
 {
@@ -8,6 +9,24 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Expedition> builder)
         {
+
+           builder
+                .HasOne(e => e.Route)
+                .WithMany(r => r.Expeditions)
+                .HasForeignKey(e => e.RouteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+           builder.HasOne(e => e.TourAgency)
+               .WithMany(e => e.Expeditions)
+               .HasForeignKey(e => e.TourAgencyId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+           builder
+               .HasMany(e => e.ExpeditionsParticipants)
+               .WithOne(ep => ep.Expedition)
+               .HasForeignKey(ep => ep.ExpeditionId)
+               .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasData(GenerateExpeditions());
         }
 

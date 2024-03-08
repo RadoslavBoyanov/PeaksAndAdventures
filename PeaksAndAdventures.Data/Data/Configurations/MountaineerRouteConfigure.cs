@@ -42,7 +42,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
 
             mountaineerRoutes.Add(new MountaineerRoute()
             {
-                RouteId = 5,
+                RouteId = 6,
                 MountainGuideId = 1
             });
 

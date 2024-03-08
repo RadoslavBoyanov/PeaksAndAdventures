@@ -8,6 +8,12 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Article> builder)
         {
+            //builder
+            //    .HasOne(ta => ta.AuthorId)
+            //    .WithMany()
+            //    .HasForeignKey(ta => ta.AuthorId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasData(GenerateArticles());
         }
 

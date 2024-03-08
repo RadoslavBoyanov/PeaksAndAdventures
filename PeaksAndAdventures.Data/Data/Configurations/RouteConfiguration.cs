@@ -9,7 +9,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Route> builder)
         {
-            //builder.HasData(GenerateRoutes());
+            builder.HasData(GenerateRoutes());
         }
 
         private Route[] GenerateRoutes()
@@ -25,7 +25,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Moderate,
                 DisplacementPositive = 450,
                 DisplacementNegative = 450,
-                Duration = new TimeSpan(0, 2, 40, 00),
+                Rating = 6,
+                Duration = "0.02:40",
                 ImageUrl = "https://planinka.bg/wp-content/uploads/2022/09/DSCF5440-1024x819.webp",
                 MountainId = 3
             });
@@ -39,7 +40,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Moderate,
                 DisplacementNegative = 104,
                 DisplacementPositive = 684,
-                Duration = new TimeSpan(0, 6, 00, 00),
+                Rating = 8,
+                Duration = "0.05:00",
                 ImageUrl = "https://planinka.bg/wp-content/uploads/2022/09/DSC6986-1024x680.webp",
                 MountainId = 2
             });
@@ -54,7 +56,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Moderate,
                 DisplacementNegative = 151,
                 DisplacementPositive = 498,
-                Duration = new TimeSpan(0, 6, 0, 0),
+                Rating = 7,
+                Duration = "0.06:00",
                 ImageUrl = "https://planinka.bg/wp-content/uploads/2022/02/MANE7558-copy-1024x683.webp",
                 MountainId = 1
             });
@@ -68,7 +71,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Moderate,
                 DisplacementNegative = 436,
                 DisplacementPositive = 663,
-                Duration = new TimeSpan(0, 3, 50, 0),
+                Rating = 7,
+                Duration = "0.03:50",
                 ImageUrl = "https://planinka.bg/wp-content/uploads/2022/09/DSCF1021-copy-1024x683.webp",
                 MountainId = 3
             });
@@ -80,7 +84,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Description = "От Калофер до местността Долен Параджик\r\nТръгваме към Райското пръскало от местността Паниците в Калофер. Маршрутът започва по стръмна горска пътека, която продължава около половин час. След като излезем от горския пояс, наклонът рязко намалява. Намираме се на обширни поляни, по които се движим в следващия час и петнайсетина минути. Тук е много горещо в летните дни. Препоръчвам ранно тръгване, за да избегнете обедния ад. Първата чешма се намира двайсетина минути след края на гората, леко вляво.\r\nСлед повече от час вървене на открито, излизаме на разклон в местността Долен Параджик. Наляво е екопътека „Бяла река“, надясно е жълтият маршрут за връх Ботев, а направо е нашата пътека към хижа Рай и Райското пръскало. 5 минути след разклона се открива една от най-красивите гледки по българските планини – към Джендема и връх Ботев над него. Зашеметяваща е! Има няколко пейки, на които да починете с тази гледка насреща. Общо от Калофер до тук е около 1:45 ч.\r\nОт местността Долен Параджик до хижа Рай\r\nНавлизаме в резерват Джендема, по чийто скалисти склонове тече Райското пръскало. Поглед напред разкрива какво ни очаква – слизане до долината под нас и изкачване до гребена на Райските купени отсреща. Хижа Рай се намира на върха му, от другата страна на гората.\r\nЗапочваме леко спускане по широк черен път, който навлиза в букова гора. След 15-20 минути пътят свършва на едно уширение. Вляво от него тръгва тясна горска пътека. Гората се сгъстява, а наклонът се увеличава, но не много. Скоро достигаме река Малка Бъзовица, след която наклонът се обръща нагоре. Малко след нея стигаме до чешмата Мечата глава. Бях по този маршрут през септември и почти не течеше вода по чучура. За щастие след десетина минути има друга чешма, която течеше нормално.\r\nМного скоро наклонът рязко се увеличава – веднага след като прекосим едно поточе. Оттук нататък вървенето става доста тежко в продължение на час и половина, може и повече – почти до хижа Рай. За щастие гората е гъста и предпазва от жаркото слънце. След като излезем от горския пояс, остават пет минутки до хижата. Ето че красивата ни цел се вижда ясно зад нея – Райското пръскало се спуска по Джендема.\r\nОт хижа Рай до Райското пръскало\r\nАко мислим, че се е свършило – не е така. Имаме още половин час до Райското пръскало по също толкова стръмна пътека, колкото досега. Продължаваме от другата страна на хижа Рай, минаваме покрай параклиса и се запътваме в посока водопада. Точно където се прекосява река Пръскалска, на първия завой на пътеката край едни камъни има разклонение. Основният маршрут продължава към Тарзановата пътека и връх Ботев, а вдясно излиза малка пътека, по която ние трябва да тръгнем. Тук ще вметна, че ако идвате май и юни, е много вероятно реката да е пълноводна. Затова е препоръчително да бъдете с хубави непромокаеми обувки.\r\nОттук до Райското пръскало няма много за описване. Само ще обърна внимание, че на места пътеката е сипеста и хлъзгава, но нищо сериозно. След двайсетина минути сме в подножието на водопада.\r\nВъзможност за продължение на маршрута е да слезем и да поемем по маршрута от хижа Рай до връх Ботев или към хижа Васил Левски.",
                 Difficulty = Difficulty.Moderate,
                 DisplacementPositive = 894,
-                Duration = new TimeSpan(0, 5, 00, 00),
+                Rating = 7,
+                Duration = "0.05:00",
                 ImageUrl = "https://izbulgaria.com/wp-content/uploads/2021/07/raiskoto-praskalo-768x576.jpg",
                 MountainId = 1
             });
@@ -95,7 +100,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Difficult,
                 DisplacementPositive = 3669,
                 DisplacementNegative = 3669,
-                Duration = new TimeSpan(40,0,0,0),
+                Rating = 8,
+                Duration = "60.00:00",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Mount_Everest_North_Face.jpg/220px-Mount_Everest_North_Face.jpg",
                 MountainId = 6
             });
@@ -110,7 +116,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Difficult,
                 DisplacementPositive = 3461,
                 DisplacementNegative = 3461,
-                Duration = new TimeSpan(60, 0, 0, 0),
+                Rating = 7,
+                Duration = "40.00:00",
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/K2_Abruzzi_Spur.jpg/220px-K2_Abruzzi_Spur.jpg",
                 MountainId = 11
             });
@@ -124,7 +131,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 Difficulty = Difficulty.Difficult,
                 DisplacementPositive = 2426,
                 DisplacementNegative = 2426,
-                Duration = new TimeSpan(2, 0, 0 ,0),
+                Rating = 8,
+                Duration = "2.00:00",
                 ImageUrl = "https://static.wixstatic.com/media/4bb50d_3e741a5aef4b434aa34a25bc182ea9e0~mv2.jpg/v1/fill/w_979,h_552,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/4bb50d_3e741a5aef4b434aa34a25bc182ea9e0~mv2.jpg",
                 MountainId = 7
             });
