@@ -69,8 +69,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [ForeignKey(nameof(RouteId))]
         public Route Route { get; set; } = null!;
 
-        public ICollection<TourAgencyExpedition> TourAgenciesExpeditions { get; set; } = new HashSet<TourAgencyExpedition>();
-
         public ICollection<ExpeditionParticipant> ExpeditionsParticipants { get; set; } =
             new List<ExpeditionParticipant>();
     }
