@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Infrastructure.Data;
+using PeaksAndAdventures.Infrastructure.Data.Common;
 
 namespace PeaksAndAdventures.Extensions
 {
@@ -18,12 +19,14 @@ namespace PeaksAndAdventures.Extensions
 
             services.AddDbContext<PeaksAndAdventuresDbContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddScoped<IRepository, Repository>();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             return services;
         }
 
-        public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
