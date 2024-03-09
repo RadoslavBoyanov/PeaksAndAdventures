@@ -21,10 +21,10 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             var mountaineerUser = new IdentityUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                UserName = "Mountaineer",
-                NormalizedUserName = "mountaineer",
+                UserName = "mountaineer@mail.com",
+                NormalizedUserName = "mountaineer@mail.com",
                 Email = "mountaineer@mail.com",
-                NormalizedEmail = "agent@mail.com"
+                NormalizedEmail = "mountaineer@mail.com"
             };
             users.Add(mountaineerUser);
 
@@ -33,10 +33,10 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             var tourAgencyUser = new IdentityUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                UserName = "ClimbAndHike",
-                NormalizedUserName = "climbandhike",
-                Email = "climbAndHike@mail.com",
-                NormalizedEmail = "climbandhike@mail.com"
+                UserName = "climbаndhike@mail.com",
+                NormalizedUserName = "climbаndhike@mail.com",
+                Email = "climbаndhike@mail.com",
+                NormalizedEmail = "climbаndhike@mail.com"
             };
             users.Add(tourAgencyUser);
 
@@ -45,12 +45,14 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             var tourist = new IdentityUser()
             {
                 Id = "2r2410ce-d421-0fc0-03d7-m6n3hk1f591e",
-                UserName = "Tourist",
-                NormalizedUserName = "tourist",
+                UserName = "tourist@mail.com",
+                NormalizedUserName = "tourist@mail.com",
                 Email = "tourist@mail.com",
                 NormalizedEmail = "tourist@mail.com"
             };
             users.Add(tourist);
+
+            tourist.PasswordHash = hasher.HashPassword(tourist, "tourist00");
 
             return users;
         }
