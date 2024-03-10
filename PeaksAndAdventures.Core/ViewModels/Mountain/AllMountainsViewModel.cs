@@ -1,6 +1,6 @@
 ﻿namespace PeaksAndAdventures.Core.ViewModels.Mountain
 {
-    public class AllMountains
+    public class AllMountainsViewModel
     {
         public int Id { get; set; }
 
