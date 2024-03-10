@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\Hut\" />
-    <Folder Include="ViewModels\Lake\" />
-    <Folder Include="ViewModels\Waterfall\" />
-    <Folder Include="ViewModels\Peak\" />
+    <ProjectReference Include="..\PeaksAndAdventures.Common\PeaksAndAdventures.Common.csproj" />
+    <ProjectReference Include="..\PeaksAndAdventures.Data\PeaksAndAdventures.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
