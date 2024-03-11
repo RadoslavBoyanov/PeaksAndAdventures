@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.Services;
 using PeaksAndAdventures.Infrastructure.Data;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 
@@ -9,6 +11,12 @@ namespace PeaksAndAdventures.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+	        services.AddScoped<IMountainService, MountainService>();
+            services.AddScoped<IPeakService, PeakService>();
+            services.AddScoped<IHutService, HutService>();
+            services.AddScoped<ILakeService, LakeService>();
+            services.AddScoped<IWaterfallService, WaterfallService>();
+
             return services;
         }
 
