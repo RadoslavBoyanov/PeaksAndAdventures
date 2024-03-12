@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<AllMountainsViewModel>
+
 @{
+	ViewBag.Title = "Планини";
 }
+
+<h2 class="text-center mt-4 mb-3">@ViewBag.Title</h2>
+
+@if (Model != null && Model.Count() > 0)
+{
+	foreach (var mountain in Model)
+	{
+		<div class="d-flex mb-3">
+			<div class="card h-100 text-center">
+				<img class="card-img-top" src="@mountain.ImageUrls" alt="Mountain Image">
+				<div class="card-body">
+					<h4 class="card-title"><strong>@mountain.Name</strong></h4>
+					<div class="more-text" style="display: none;" data-mountain-id="@mountain.Id">
+						<p><strong>Местоположение:</strong> @mountain.Location</p>
+						<p><strong>Климат:</strong> @mountain.Climate</p>
+						<p><strong>Води:</strong> @mountain.Waters</p>
+						<p><strong>Фауна:</strong> @mountain.Fauna</p>
+						<p><strong>Флора:</strong> @mountain.Flora</p>
+					</div>
+					<a href="#" class="btn btn-outline read-more" data-mountain-id="@mountain.Id">Прочети повече</a>
+				</div>
+
+				<a asp-controller="Mountain" asp-action="Edit" asp-route-id="@mountain.Id" class="btn btn-primary btn-sm fw-bold">Редактирай</a>
+			</div>
+		</div>
+	}
+}
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		document.querySelectorAll('.read-more').forEach(function (button) {
+			button.addEventListener('click', function (e) {
+				var mountainId = this.getAttribute('data-mountain-id');
+				var moreText = document.querySelector('[data-mountain-id="' + mountainId + '"]');
+				moreText.style.display = (moreText.style.display === 'none' || moreText.style.display === '') ? 'block' : 'none';
+			
+				// Променяме текста на бутона
+				this.textContent = (moreText.style.display === 'none') ? 'Прочети повече' : 'Скрий';
+
+				// Избягваме връщането на страницата
+				e.preventDefault();
+			});
+		});
+	});
+</script>
+
