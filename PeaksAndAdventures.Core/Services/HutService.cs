@@ -36,6 +36,7 @@ namespace PeaksAndAdventures.Core.Services
                     Phone = h.Phone,
                     ImageUrl = h.ImageUrl,
                     MountainId = h.MountainId,
+                    MountainName = h.Mountain.Name
                 })
                 .ToListAsync();
         }

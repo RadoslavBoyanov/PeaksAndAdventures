@@ -29,7 +29,8 @@ namespace PeaksAndAdventures.Core.Services
                     Altitude = p.Altitude,
                     ImageUrl = p.ImageUrl,
                     MountainId = p.MountainId,
-                })
+                    MountainName = p.Mountain.Name
+				})
                 .ToListAsync();
         }
     }

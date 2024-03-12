@@ -18,5 +18,6 @@ namespace PeaksAndAdventures.Core.ViewModels.Hut
         public string? Phone { get; set; }
         public string? ImageUrl { get; set; }
         public int MountainId { get; set; }
-    }
+        public string MountainName { get; set; } = string.Empty;
+	}
 }

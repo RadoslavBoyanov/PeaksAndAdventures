@@ -16,6 +16,8 @@
 
         public string Fauna { get; set; } 
 
-        public string ImageUrls { get; set; }
-    }
+        public string? ImageUrls { get; set; }
+
+        public string MountainName { get; set; } = string.Empty;
+	}
 }
