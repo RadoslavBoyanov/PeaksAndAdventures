@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Mountain;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -44,6 +45,36 @@ namespace PeaksAndAdventures.Controllers
         {
 	        var allWaterfallsInMountain = await _mountainService.GetAllWaterfallsAsync(id);
             return View(allWaterfallsInMountain);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Add()
+        {
+	        var mountain = new MountainFormViewModel();
+
+	        return View(mountain);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Add(MountainFormViewModel mountainForm)
+        {
+	        bool montainExist = await _mountainService.CheckMountainExistsAsync(mountainForm.Name);
+
+	        if (montainExist)
+	        {
+                ModelState.AddModelError(string.Empty, "Планината вече съществува.");
+                return View(mountainForm);
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        return View(mountainForm);
+	        }
+
+	        await _mountainService.AddAsync(mountainForm);
+            return View(mountainForm);
         }
     }
 }

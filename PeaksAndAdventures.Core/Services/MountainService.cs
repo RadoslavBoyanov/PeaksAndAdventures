@@ -114,5 +114,30 @@ namespace PeaksAndAdventures.Core.Services
 				 })
 		         .ToListAsync();
          }
+
+         public async Task<bool> CheckMountainExistsAsync(string mountainName)
+         {
+			return await _repository.AllReadOnly<Mountain>()
+				.AnyAsync(m => m.Name == mountainName);
+		}
+
+		public async Task AddAsync(MountainFormViewModel mountainForm)
+         {
+	         Mountain mountain = new Mountain()
+	         {
+				 Name = mountainForm.Name,
+				 Location = mountainForm.Location,
+				 Climate = mountainForm.Climate,
+				 Waters = mountainForm.Waters,
+				 Flora = mountainForm.Flora,
+				 Fauna = mountainForm.Fauna,
+				 ImageUrls = mountainForm.ImageUrls
+	         };
+
+	         await _repository.AddAsync(mountain);
+			 await _repository.SaveChangesAsync();
+         }
+
+       
     }
 }

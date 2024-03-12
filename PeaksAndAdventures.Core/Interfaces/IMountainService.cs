@@ -14,8 +14,8 @@ namespace PeaksAndAdventures.Core.Interfaces
         public Task<IEnumerable<AllLakesViewModel>> GetAllLakesAsync(int mountainId);
         public Task<IEnumerable<AllPeaksViewModel>> GetAllPeaksAsync(int mountainId);
         public Task<IEnumerable<AllHutsViewModel>> GetAllHutsAsync(int mountainId);
-
         public Task<IEnumerable<AllWaterfallsViewModel>> GetAllWaterfallsAsync(int mountainId);
-
+        public Task AddAsync (MountainFormViewModel mountainForm);
+        public Task<bool> CheckMountainExistsAsync(string mountainName);
     }
 }
