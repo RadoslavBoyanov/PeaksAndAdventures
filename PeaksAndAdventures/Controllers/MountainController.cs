@@ -49,7 +49,7 @@ namespace PeaksAndAdventures.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public Task<IActionResult> Add()
+        public IActionResult Add()
         {
 	        var mountain = new MountainFormViewModel();
 
