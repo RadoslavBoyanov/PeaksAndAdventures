@@ -17,30 +17,34 @@
             public const int NameMinLength = 2;
 
             /// <summary>
-            /// Constant for mountain location
+            /// Constants for mountain location
             /// </summary>
             public const int LocationMaxLength = 2500;
-
+            public const int LocationMinLength = 50;
 
             /// <summary>
             /// Constant for mountain climate
             /// </summary>
             public const int ClimateMaxLength = 3000;
+            public const int ClimateMinLength = 70;
 
             /// <summary>
-            /// Constant for mountain waters
+            /// Constants for mountain waters
             /// </summary>
             public const int WatersMaxLength = 10_000;
+            public const int WatersMinLength = 80;
 
             /// <summary>
             /// Constant for mountain flora
             /// </summary>
             public const int FloraMaxLength = 4000;
+            public const int FloraMinLength = 1000;
 
             /// <summary>
-            /// Constant for mountain fauna
+            /// Constants for mountain fauna
             /// </summary>
             public const int FaunaMaxLength = 3500;
+            public const int FaunaMinLength = 100;
         }
 
         /// <summary>
