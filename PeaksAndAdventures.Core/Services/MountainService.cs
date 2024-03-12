@@ -52,6 +52,7 @@ namespace PeaksAndAdventures.Core.Services
 			         Altitude = p.Altitude,
 			         ImageUrl = p.ImageUrl,
 			         MountainId = p.MountainId,
+			         MountainName = p.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -75,6 +76,7 @@ namespace PeaksAndAdventures.Core.Services
 			         Phone = h.Phone,
 			         ImageUrl = h.ImageUrl,
 			         MountainId = h.MountainId,
+			         MountainName = h.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -90,7 +92,8 @@ namespace PeaksAndAdventures.Core.Services
 			         Name = w.Name,
 			         Description = w.Description,
 			         ImageUrl = w.ImageUrl,
-			         MountainId = w.MountainId
+			         MountainId = w.MountainId,
+			         MountainName = w.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -106,7 +109,8 @@ namespace PeaksAndAdventures.Core.Services
 			         Name = l.Name,
 			         Description = l.Description,
 			         ImageUrl = l.ImageUrl,
-			         MountainId = l.MountainId
+			         MountainId = l.MountainId,
+			         MountainName = l.Mountain.Name
 				 })
 		         .ToListAsync();
          }

@@ -22,5 +22,7 @@ namespace PeaksAndAdventures.Core.ViewModels.Peak
         public string? ImageUrl { get; set; }
 
         public int MountainId { get; set; }
-    }
+
+        public string MountainName { get; set; } = string.Empty;
+	}
 }
