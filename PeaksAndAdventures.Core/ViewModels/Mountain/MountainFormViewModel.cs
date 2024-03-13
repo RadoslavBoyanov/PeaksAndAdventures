@@ -5,7 +5,7 @@ using static PeaksAndAdventures.Common.ErrorMessages;
 namespace PeaksAndAdventures.Core.ViewModels.Mountain
 {
 	/// <summary>
-	/// View model for add and edit
+	/// View model for add
 	/// </summary>
 	public class MountainFormViewModel
 	{
