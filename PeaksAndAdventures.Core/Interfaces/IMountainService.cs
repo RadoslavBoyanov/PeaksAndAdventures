@@ -8,14 +8,17 @@ using PeaksAndAdventures.Core.ViewModels.Waterfall;
 namespace PeaksAndAdventures.Core.Interfaces
 {
     public interface IMountainService
-    {
-        Task<IEnumerable<AllMountainsViewModel>> AllAsync();
+    { 
+	    Task<IEnumerable<AllMountainsViewModel>> AllAsync();
 
-        public Task<IEnumerable<AllLakesViewModel>> GetAllLakesAsync(int mountainId);
-        public Task<IEnumerable<AllPeaksViewModel>> GetAllPeaksAsync(int mountainId);
-        public Task<IEnumerable<AllHutsViewModel>> GetAllHutsAsync(int mountainId);
-        public Task<IEnumerable<AllWaterfallsViewModel>> GetAllWaterfallsAsync(int mountainId);
-        public Task AddAsync (MountainFormViewModel mountainForm);
-        public Task<bool> CheckMountainExistsAsync(string mountainName);
+        Task<IEnumerable<AllLakesViewModel>> GetAllLakesAsync(int mountainId);
+        Task<IEnumerable<AllPeaksViewModel>> GetAllPeaksAsync(int mountainId);
+        Task<IEnumerable<AllHutsViewModel>> GetAllHutsAsync(int mountainId);
+        Task<IEnumerable<AllWaterfallsViewModel>> GetAllWaterfallsAsync(int mountainId);
+        Task AddAsync (MountainFormViewModel mountainForm); 
+        Task<bool> CheckMountainExistsByNameAsync(string mountainName);
+        Task<bool> CheckMountainExistsByIdAsync(int mountainId);
+        Task<MountainEditViewModel> EditGetAsync (int mountainId);
+        Task<int> EditPostAsync(MountainEditViewModel mountainForm);
     }
 }

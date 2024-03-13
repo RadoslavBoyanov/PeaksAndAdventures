@@ -4,11 +4,10 @@ using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Core.ViewModels.Mountain
 {
-	/// <summary>
-	/// View model for add
-	/// </summary>
-	public class MountainFormViewModel
+	public class MountainEditViewModel
 	{
+		public int Id { get; set; }
+
 		[Required(ErrorMessage = RequireErrorMessage)]
 		[StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = StringLengthErrorMessage)]
 		public string Name { get; set; } = string.Empty;

@@ -38,7 +38,7 @@
             /// Constant for mountain flora
             /// </summary>
             public const int FloraMaxLength = 4000;
-            public const int FloraMinLength = 1000;
+            public const int FloraMinLength = 100;
 
             /// <summary>
             /// Constants for mountain fauna

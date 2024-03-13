@@ -1,17 +1,15 @@
-﻿@model MountainFormViewModel
+﻿@model MountainEditViewModel
 
 @{
-	ViewBag.Title = "Добавяне на планина";
+	ViewBag.Title = "Редактиране на информацията на планината";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@if (TempData["ErrorMessage"] != null)
-{
-	<div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
 
-<form asp-action="Add" method="post" class="mt-4">
+<form asp-action="Edit" method="post">
+	<input type="hidden" asp-for="Id" />
+
 	<div class="form-group">
 		<label asp-for="Name">Име:</label>
 		<input asp-for="Name" class="form-control" />
@@ -23,41 +21,35 @@
 		<input asp-for="Location" class="form-control" />
 		<span asp-validation-for="Location" class="text-danger"></span>
 	</div>
-	
+
 	<div class="form-group">
 		<label asp-for="Climate">Климат:</label>
 		<input asp-for="Climate" class="form-control" />
 		<span asp-validation-for="Climate" class="text-danger"></span>
 	</div>
-	
+
 	<div class="form-group">
 		<label asp-for="Waters">Води:</label>
 		<input asp-for="Waters" class="form-control" />
 		<span asp-validation-for="Waters" class="text-danger"></span>
 	</div>
-	
+
 	<div class="form-group">
 		<label asp-for="Flora">Флора:</label>
 		<input asp-for="Flora" class="form-control" />
 		<span asp-validation-for="Flora" class="text-danger"></span>
 	</div>
-	
-	<div class="form-group">
-		<label asp-for="Fauna">Фауна:</label>
-		<input asp-for="Fauna" class="form-control" />
-		<span asp-validation-for="Fauna" class="text-danger"></span>
-	</div>
-	
+
 	<div class="form-group">
 		<label asp-for="ImageUrls">Изображение URL-адрес:</label>
 		<input asp-for="ImageUrls" class="form-control" />
 		<span asp-validation-for="ImageUrls" class="text-danger"></span>
 	</div>
 
-	<button type="submit" class="btn btn-primary">Добави планина</button>
+	<button type="submit" class="btn btn-primary">Запази промените</button>
 </form>
 
-	
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }
+

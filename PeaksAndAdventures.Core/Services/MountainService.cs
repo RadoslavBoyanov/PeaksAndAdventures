@@ -115,13 +115,20 @@ namespace PeaksAndAdventures.Core.Services
 		         .ToListAsync();
          }
 
-         public async Task<bool> CheckMountainExistsAsync(string mountainName)
+         public async Task<bool> CheckMountainExistsByNameAsync(string mountainName)
          {
 			return await _repository.AllReadOnly<Mountain>()
 				.AnyAsync(m => m.Name == mountainName);
-		}
+		 }
 
-		public async Task AddAsync(MountainFormViewModel mountainForm)
+         public async Task<bool> CheckMountainExistsByIdAsync(int mountainId)
+         {
+	         return await _repository.AllReadOnly<Mountain>()
+		         .AnyAsync(m => m.Id == mountainId);
+         }
+
+
+         public async Task AddAsync(MountainFormViewModel mountainForm)
          {
 	         Mountain mountain = new Mountain()
 	         {
@@ -137,7 +144,43 @@ namespace PeaksAndAdventures.Core.Services
 	         await _repository.AddAsync(mountain);
 			 await _repository.SaveChangesAsync();
          }
+         public async Task<MountainEditViewModel> EditGetAsync(int mountainId)
+         {
+	         var currentMountain = await _repository.All<Mountain>()
+		         .FirstOrDefaultAsync(m => m.Id == mountainId);
 
-       
-    }
+	         var editMountain = new MountainEditViewModel()
+	         {
+				 Id = currentMountain.Id,
+				 Name = currentMountain.Name,
+				 Location = currentMountain.Location,
+				 Climate = currentMountain.Climate,
+				 Waters = currentMountain.Waters,
+				 Flora = currentMountain.Flora,
+				 Fauna = currentMountain.Fauna,
+				 ImageUrls = currentMountain.ImageUrls
+	         };
+
+	         return editMountain;
+         }
+
+         public async Task<int> EditPostAsync(MountainEditViewModel mountainForm)
+         {
+	         var mountain = await _repository.All<Mountain>()
+		         .Where(m => m.Id == mountainForm.Id)
+				 .FirstOrDefaultAsync();
+
+			 mountain.Name = mountainForm.Name;
+			 mountain.Location = mountainForm.Location;
+			 mountain.Climate = mountainForm.Climate;
+			 mountain.Waters = mountain.Waters;
+			 mountain.Flora = mountain.Flora;
+			 mountain.ImageUrls = mountain.ImageUrls;
+
+			 await _repository.SaveChangesAsync();
+
+			 return mountain.Id;
+         }
+
+	}
 }
