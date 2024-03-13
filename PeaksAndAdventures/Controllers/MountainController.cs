@@ -74,7 +74,7 @@ namespace PeaksAndAdventures.Controllers
 	        }
 
 	        await _mountainService.AddAsync(mountainForm);
-            return View(mountainForm);
+            return RedirectToAction("All", "Mountain");
         }
     }
 }
