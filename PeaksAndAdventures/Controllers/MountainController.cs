@@ -15,7 +15,6 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var allMountains = await _mountainService.AllAsync();
@@ -48,7 +47,6 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Add()
         {
 	        var mountain = new MountainFormViewModel();
@@ -57,10 +55,9 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Add(MountainFormViewModel mountainForm)
         {
-	        bool montainExist = await _mountainService.CheckMountainExistsAsync(mountainForm.Name);
+	        bool montainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
 
 	        if (montainExist)
 	        {
@@ -75,6 +72,42 @@ namespace PeaksAndAdventures.Controllers
 
 	        await _mountainService.AddAsync(mountainForm);
             return RedirectToAction("All", "Mountain");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+
+            var mountain = await _mountainService.EditGetAsync(id);
+	        return View(mountain);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MountainEditViewModel mountainEdit)
+        {
+	        if (mountainEdit is null)
+	        {
+		        return BadRequest();
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        return View(mountainEdit);
+	        }
+
+	        Response.Cookies.Append("cookieName", "cookieValue", new CookieOptions
+	        {
+		        Secure = true, // Маркиране с Secure атрибут
+		        HttpOnly = true, // Препоръчително е също да се маркира като HttpOnly
+		        SameSite = SameSiteMode.Strict // Препоръчително е и да се зададе SameSite атрибут
+	        });
+
+			await _mountainService.EditPostAsync(mountainEdit);
+	        return RedirectToAction("All", "Mountain");
         }
     }
 }
