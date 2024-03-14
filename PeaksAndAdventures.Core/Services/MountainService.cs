@@ -27,14 +27,28 @@ namespace PeaksAndAdventures.Core.Services
                  {
                      Id = m.Id,
                      Name = m.Name,
-                     Location = m.Location,
-                     Climate = m.Climate,
-                     Waters = m.Waters,
-                     Fauna = m.Fauna,
-                     Flora = m.Flora,
                      ImageUrls = m.ImageUrls
                  })
                  .ToListAsync();
+         }
+
+         public async Task<MountainDetailsViewModel> DetailsAsync(int id)
+         {
+	         var mountain = await _repository.GetByIdAsync<Mountain>(id);
+
+	         var mountainDetails = new MountainDetailsViewModel()
+	         {
+				 Id = mountain.Id,
+				 Name = mountain.Name,
+				 Location = mountain.Location,
+				 Climate = mountain.Climate,
+				 Waters = mountain.Waters,
+				 Flora = mountain.Flora,
+				 Fauna = mountain.Fauna,
+				 ImageUrls = mountain.ImageUrls
+			 };
+
+	         return mountainDetails;
          }
 
          public async Task<IEnumerable<AllPeaksViewModel>> GetAllPeaksAsync(int mountainId)
