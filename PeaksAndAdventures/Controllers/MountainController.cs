@@ -99,15 +99,22 @@ namespace PeaksAndAdventures.Controllers
 		        return View(mountainEdit);
 	        }
 
-	        Response.Cookies.Append("cookieName", "cookieValue", new CookieOptions
-	        {
-		        Secure = true, // Маркиране с Secure атрибут
-		        HttpOnly = true, // Препоръчително е също да се маркира като HttpOnly
-		        SameSite = SameSiteMode.Strict // Препоръчително е и да се зададе SameSite атрибут
-	        });
-
 			await _mountainService.EditPostAsync(mountainEdit);
 	        return RedirectToAction("All", "Mountain");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+	        var mountain =  await _mountainService.DetailsAsync(id);
+
+	        if (mountain is null)
+	        {
+		        return BadRequest();
+	        }
+
+	        return View(mountain);
+        }
+
     }
 }
