@@ -1,1 +1,53 @@
-﻿
+﻿@model IEnumerable<AllLakesViewModel>
+
+@{
+	ViewBag.Title = "Езера";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (!Model.Any())
+{
+	<p>Не са намерени езера в конкретната планина.</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Име</th>
+				<th>Описание</th>
+				<th>Планина</th>
+				<th>Изображение</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var lake in Model)
+			{
+				<tr>
+					<td>@lake.Name</td>
+					<td>@lake.Description</td>
+					<td>@lake.MountainName</td>
+					<td>
+
+						@{
+							if (!string.IsNullOrEmpty(lake.ImageUrl))
+							{
+								<img src="@lake.ImageUrl" alt="@lake.Name" class="img-fluid" />
+							}
+							else
+							{
+								<p>Липсва изображение</p>
+							}
+						}
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
