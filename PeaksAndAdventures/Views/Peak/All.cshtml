@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model IEnumerable<AllPeaksViewModel>
+
+<h2>Върхове</h2>
+
+<table class="table">
+	<thead>
+	<tr>
+		<th>Име</th>
+		<th>Описание</th>
+		<th>Планина</th>
+		<th>Дял</th>
+		<th>Местоположение</th>
+		<th>Височина</th>
+		<th>Изображение</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var peak in Model)
+	{
+		<tr>
+			<td>@peak.Name</td>
+			<td>@peak.Description</td>
+			<td>@peak.MountainName</td>
+			<td>@peak.Partition</td>
+			<td>@peak.SpecificLocation</td>
+			<td>@peak.Altitude</td>
+			<td>
+				@{
+					if (!string.IsNullOrEmpty(peak.ImageUrl))
+					{
+						<img src="@peak.ImageUrl" alt="@peak.Name" class="img-fluid"/>
+					}
+					else
+					{
+						<p>Липсва изображение</p>
+					}
+				}
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
 }
