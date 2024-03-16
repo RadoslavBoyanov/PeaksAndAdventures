@@ -35,7 +35,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(PeakFormViewModel peakForm)
+        public async Task<IActionResult> Edit(PeakEditViewModel peakForm)
         {
 	        if (peakForm is null)
 	        {
