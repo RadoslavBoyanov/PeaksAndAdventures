@@ -30,5 +30,19 @@ namespace PeaksAndAdventures.Core.Services
 				})
                 .ToListAsync();
         }
+
+        public async Task AddLakeToMountainAsync(LakeAddViewModel lakeForm)
+        {
+	        var lake = new Lake()
+	        {
+                Name = lakeForm.Name,
+                Description = lakeForm.Description,
+                ImageUrl = lakeForm.ImageUrl,
+                MountainId = lakeForm.MountainId,
+	        };
+
+			await _repository.AddAsync(lake);
+			await _repository.SaveChangesAsync();
+		}
     }
 }

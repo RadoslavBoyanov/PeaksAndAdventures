@@ -6,4 +6,6 @@ namespace PeaksAndAdventures.Core.Interfaces;
 public interface ILakeService
 {
     Task<IEnumerable<AllLakesViewModel>> AllAsync();
+
+    Task AddLakeToMountainAsync(LakeAddViewModel lakeForm);
 }

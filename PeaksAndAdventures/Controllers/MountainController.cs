@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Lake;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.Peak;
 using static PeaksAndAdventures.Common.ErrorMessages;
@@ -10,11 +11,16 @@ namespace PeaksAndAdventures.Controllers
     {
         private readonly IMountainService _mountainService;
         private readonly IPeakService _peakService;
+        private readonly ILakeService _lakeService;
 
-        public MountainController(IMountainService mountainService, IPeakService peakService)
+        public MountainController(
+	        IMountainService mountainService, 
+	        IPeakService peakService, 
+	        ILakeService lakeService)
         {
             _mountainService = mountainService;
             _peakService = peakService;
+            _lakeService = lakeService;
         }
 
         [HttpGet]
@@ -90,11 +96,6 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPeak(PeakAddViewModel peakForm)
         {
-	        if (await _mountainService.CheckMountainExistsByIdAsync(peakForm.MountainId) == false)
-	        {
-                ModelState.AddModelError(nameof(peakForm.MountainId), MountainNotExist);
-	        }
-
 	        if (!ModelState.IsValid)
 	        {
 		        peakForm.Mountains = await _mountainService.GetAllMountains();
@@ -102,7 +103,29 @@ namespace PeaksAndAdventures.Controllers
 	        }
 
 	        await _peakService.AddPeakToMountainAsync(peakForm);
-	        return RedirectToAction("AllPeaksInMountain", "Mountain", peakForm.MountainId);
+	        return RedirectToAction("All", "Peak");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddLake()
+        {
+	        var lake = new LakeAddViewModel();
+	        lake.Mountains = await _mountainService.GetAllMountains();
+
+            return View(lake);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
+        {
+	        if (!ModelState.IsValid)
+	        {
+		        lakeForm.Mountains = await _mountainService.GetAllMountains();
+                return View(lakeForm);
+	        }
+
+	        await _lakeService.AddLakeToMountainAsync(lakeForm);
+	        return RedirectToAction("All", "Lake");
         }
 
         [HttpGet]
