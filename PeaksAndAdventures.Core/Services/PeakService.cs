@@ -9,10 +9,12 @@ namespace PeaksAndAdventures.Core.Services
     public class PeakService : IPeakService
     {
         private readonly IRepository _repository;
+        private readonly IMountainService _mountainService;
 
-        public PeakService(IRepository repository)
+        public PeakService(IRepository repository, IMountainService mountainService)
         {
-            _repository = repository;
+	        _repository = repository;
+	        _mountainService = mountainService;
         }
 
         public async Task<IEnumerable<AllPeaksViewModel>> AllAsync()
@@ -34,18 +36,35 @@ namespace PeaksAndAdventures.Core.Services
                 .ToListAsync();
         }
 
+        public async Task AddPeakToMountainAsync(PeakAddViewModel peakForm)
+        {
+	        var peak = new Peak()
+	        {
+                Name = peakForm.Name,
+                Description = peakForm.Description,
+                Partition = peakForm.Partition,
+                SpecificLocation = peakForm.SpecificLocation,
+                Altitude = peakForm.Altitude,
+                ImageUrl = peakForm.ImageUrl,
+                MountainId = peakForm.MountainId
+	        };
+
+			await _repository.AddAsync(peak);
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task<bool> CheckPeakExistsByIdAsync(int peakId)
         {
 			return await _repository.AllReadOnly<Peak>()
 				.AnyAsync(m => m.Id == peakId);
 		}
 
-        public async Task<PeakFormViewModel> EditGetAsync(int peakId)
+        public async Task<PeakEditViewModel> EditGetAsync(int peakId)
         {
 	        var currentPeak = await _repository.All<Peak>()
 		        .FirstOrDefaultAsync(p => p.Id == peakId);
 
-	        var peakForm = new PeakFormViewModel()
+	        var peakForm = new PeakEditViewModel()
 	        {
                 Id = currentPeak.Id,
                 Name = currentPeak.Name,
@@ -59,7 +78,7 @@ namespace PeaksAndAdventures.Core.Services
             return peakForm;
         }
 
-        public async Task<int> EditPostAsync(PeakFormViewModel peakForm)
+        public async Task<int> EditPostAsync(PeakEditViewModel peakForm)
         {
 	        var peak = await _repository.All<Peak>()
 		        .Where(p => p.Id == peakForm.Id)

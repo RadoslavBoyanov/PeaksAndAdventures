@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
+using PeaksAndAdventures.Core.ViewModels.Peak;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
 	public class MountainController : BaseController
     {
         private readonly IMountainService _mountainService;
+        private readonly IPeakService _peakService;
 
-        public MountainController(IMountainService mountainService)
+        public MountainController(IMountainService mountainService, IPeakService peakService)
         {
             _mountainService = mountainService;
+            _peakService = peakService;
         }
 
         [HttpGet]
@@ -72,6 +75,34 @@ namespace PeaksAndAdventures.Controllers
 
 	        await _mountainService.AddAsync(mountainForm);
             return RedirectToAction("All", "Mountain");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddPeak()
+        {
+	        var peak = new PeakAddViewModel()
+	        {
+                Mountains = await _mountainService.GetAllMountains(),
+	        };
+	        return View(peak);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPeak(PeakAddViewModel peakForm)
+        {
+	        if (await _mountainService.CheckMountainExistsByIdAsync(peakForm.MountainId) == false)
+	        {
+                ModelState.AddModelError(nameof(peakForm.MountainId), MountainNotExist);
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        peakForm.Mountains = await _mountainService.GetAllMountains();
+		        return View(peakForm);
+	        }
+
+	        await _peakService.AddPeakToMountainAsync(peakForm);
+	        return RedirectToAction("AllPeaksInMountain", "Mountain", peakForm.MountainId);
         }
 
         [HttpGet]

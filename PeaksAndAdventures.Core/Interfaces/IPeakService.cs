@@ -5,8 +5,9 @@ namespace PeaksAndAdventures.Core.Interfaces;
 public interface IPeakService
 {
     Task<IEnumerable<AllPeaksViewModel>> AllAsync();
-    Task<bool> CheckPeakExistsByIdAsync (int peakId);
+    Task AddPeakToMountainAsync(PeakAddViewModel peakForm);
+	Task<bool> CheckPeakExistsByIdAsync (int peakId);
 
-	Task<PeakFormViewModel> EditGetAsync(int peakId);
-    Task<int> EditPostAsync(PeakFormViewModel peakForm);
+	Task<PeakEditViewModel> EditGetAsync(int peakId);
+    Task<int> EditPostAsync(PeakEditViewModel peakForm);
 }
