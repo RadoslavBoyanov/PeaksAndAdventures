@@ -51,6 +51,16 @@ namespace PeaksAndAdventures.Core.Services
 	         return mountainDetails;
          }
 
+         public async Task<IEnumerable<GetAllMountainsViewModel>> GetAllMountains()
+         {
+	          return await _repository.AllReadOnly<Mountain>()
+		         .Select(m => new GetAllMountainsViewModel()
+		         {
+					 Id = m.Id,
+					 Name = m.Name,
+		         }).ToListAsync();
+         }
+
          public async Task<IEnumerable<AllPeaksViewModel>> GetAllPeaksAsync(int mountainId)
          {
 	         return await _repository
