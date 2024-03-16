@@ -3,6 +3,7 @@ using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Lake;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.Peak;
+using PeaksAndAdventures.Core.ViewModels.Waterfall;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
@@ -12,15 +13,18 @@ namespace PeaksAndAdventures.Controllers
         private readonly IMountainService _mountainService;
         private readonly IPeakService _peakService;
         private readonly ILakeService _lakeService;
+        private readonly IWaterfallService _waterfallService;
 
         public MountainController(
 	        IMountainService mountainService, 
 	        IPeakService peakService, 
-	        ILakeService lakeService)
+	        ILakeService lakeService, 
+	        IWaterfallService waterfallService)
         {
             _mountainService = mountainService;
             _peakService = peakService;
             _lakeService = lakeService;
+            _waterfallService = waterfallService;
         }
 
         [HttpGet]
@@ -109,10 +113,12 @@ namespace PeaksAndAdventures.Controllers
         [HttpGet]
         public async Task<IActionResult> AddLake()
         {
-	        var lake = new LakeAddViewModel();
-	        lake.Mountains = await _mountainService.GetAllMountains();
+	        var lake = new LakeAddViewModel
+	        {
+		        Mountains = await _mountainService.GetAllMountains()
+	        };
 
-            return View(lake);
+	        return View(lake);
         }
 
         [HttpPost]
@@ -127,6 +133,32 @@ namespace PeaksAndAdventures.Controllers
 	        await _lakeService.AddLakeToMountainAsync(lakeForm);
 	        return RedirectToAction("All", "Lake");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddWaterfall()
+        
+        {
+	        var waterfall = new WaterfallAddViewModel
+	        {
+		        Mountains = await _mountainService.GetAllMountains()
+	        };
+
+	        return View(waterfall);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddWaterfall(WaterfallAddViewModel waterfallForm)
+        {
+	        if (!ModelState.IsValid)
+	        {
+		        waterfallForm.Mountains = await _mountainService.GetAllMountains();
+		        return View(waterfallForm);
+	        }
+
+	        await _waterfallService.AddWaterfallToMountain(waterfallForm);
+	        return RedirectToAction("All", "Waterfall");
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
