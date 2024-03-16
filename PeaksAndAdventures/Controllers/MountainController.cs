@@ -104,6 +104,7 @@ namespace PeaksAndAdventures.Controllers
 	        if (isPeakExist)
 	        {
                 ModelState.AddModelError(nameof(peakForm.Name), PeakIsAlreadyExist);
+                peakForm.Mountains = await _mountainService.GetAllMountains();
                 return View(peakForm);
 	        }
 
@@ -136,6 +137,7 @@ namespace PeaksAndAdventures.Controllers
 	        if (isLakeExist)
 	        {
 		        ModelState.AddModelError(nameof(lakeForm.Name), LakeIsAlreadyExist);
+		        lakeForm.Mountains = await _mountainService.GetAllMountains();
 				return View(lakeForm);
 	        }
 
@@ -169,7 +171,8 @@ namespace PeaksAndAdventures.Controllers
 	        if (isWaterfallExist)
 	        {
 		        ModelState.AddModelError(nameof(waterfallForm.Name), WaterfallIsAlreadyExist);
-		        return View(waterfallForm);
+		        waterfallForm.Mountains = await _mountainService.GetAllMountains();
+				return View(waterfallForm);
 	        }
 
 	        if (!ModelState.IsValid)
