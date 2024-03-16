@@ -59,6 +59,12 @@ namespace PeaksAndAdventures.Core.Services
 				.AnyAsync(m => m.Id == peakId);
 		}
 
+        public async Task<bool> CheckPeakExistsByNameAsync(string mountain)
+        {
+	        return await _repository.AllReadOnly<Peak>()
+		        .AnyAsync(p => p.Name == mountain);
+        }
+
         public async Task<PeakEditViewModel> EditGetAsync(int peakId)
         {
 	        var currentPeak = await _repository.All<Peak>()

@@ -45,6 +45,12 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.SaveChangesAsync();
 		}
 
+        public async Task<bool> CheckLakeExistsByNameAsync(string lakeName)
+        {
+	        return await _repository.AllReadOnly<Lake>()
+		        .AnyAsync(l => l.Name == lakeName);
+        }
+
         public async Task<LakeEditViewModel> EditGetAsync(int id)
         {
 	        var currentLake = await _repository.All<Lake>()

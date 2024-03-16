@@ -70,9 +70,9 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(MountainFormViewModel mountainForm)
         {
-	        bool montainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
+	        bool isMountainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
 
-	        if (montainExist)
+	        if (isMountainExist)
 	        {
                 ModelState.AddModelError(string.Empty, "Планината вече съществува.");
                 return View(mountainForm);
@@ -100,6 +100,13 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPeak(PeakAddViewModel peakForm)
         {
+	        var isPeakExist = await _peakService.CheckPeakExistsByNameAsync(peakForm.Name);
+	        if (isPeakExist)
+	        {
+                ModelState.AddModelError(nameof(peakForm.Name), PeakIsAlreadyExist);
+                return View(peakForm);
+	        }
+
 	        if (!ModelState.IsValid)
 	        {
 		        peakForm.Mountains = await _mountainService.GetAllMountains();
@@ -124,6 +131,14 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
         {
+	        bool isLakeExist = await _lakeService.CheckLakeExistsByNameAsync(lakeForm.Name);
+
+	        if (isLakeExist)
+	        {
+		        ModelState.AddModelError(nameof(lakeForm.Name), LakeIsAlreadyExist);
+				return View(lakeForm);
+	        }
+
 	        if (!ModelState.IsValid)
 	        {
 		        lakeForm.Mountains = await _mountainService.GetAllMountains();
@@ -149,6 +164,14 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> AddWaterfall(WaterfallAddViewModel waterfallForm)
         {
+	        bool isWaterfallExist = await _waterfallService.CheckWaterfallExistsByNameAsync(waterfallForm.Name);
+
+	        if (isWaterfallExist)
+	        {
+		        ModelState.AddModelError(nameof(waterfallForm.Name), WaterfallIsAlreadyExist);
+		        return View(waterfallForm);
+	        }
+
 	        if (!ModelState.IsValid)
 	        {
 		        waterfallForm.Mountains = await _mountainService.GetAllMountains();
@@ -201,6 +224,5 @@ namespace PeaksAndAdventures.Controllers
 
 	        return View(mountain);
         }
-
     }
 }
