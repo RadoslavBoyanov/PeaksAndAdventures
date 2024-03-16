@@ -38,13 +38,6 @@ namespace PeaksAndAdventures.Core.ViewModels.Peak
 		[Required(ErrorMessage = RequireErrorMessage)]
 		public int MountainId { get; set; }
 
-		//[Required(ErrorMessage = RequireErrorMessage)]
-		//[StringLength(EntityValidations.MountainValidation.NameMaxLength, 
-		//	MinimumLength = EntityValidations.MountainValidation.NameMinLength, 
-		//	ErrorMessage = StringLengthErrorMessage)]
-		//[Display(Name = "Планина")]
-		//public string MountainName { get; set; } = string.Empty;
-
 		[Required]
 		public IEnumerable<GetAllMountainsViewModel> Mountains { get; set; } = new List<GetAllMountainsViewModel>();
 	}
