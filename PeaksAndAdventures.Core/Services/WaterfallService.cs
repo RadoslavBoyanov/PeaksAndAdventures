@@ -30,5 +30,25 @@ namespace PeaksAndAdventures.Core.Services
 				})
                 .ToListAsync();
         }
+
+        public async Task<bool> CheckWaterfallExistsByNameAsync(string waterfallName)
+        {
+	        return await _repository.AllReadOnly<Waterfall>()
+		        .AnyAsync(w => w.Name == waterfallName);
+        }
+
+        public async Task AddWaterfallToMountain(WaterfallAddViewModel waterfallAdd)
+        {
+	        var waterfall = new Waterfall()
+	        {
+                Name = waterfallAdd.Name,
+                Description = waterfallAdd.Description,
+                ImageUrl = waterfallAdd.ImageUrl,
+                MountainId = waterfallAdd.MountainId
+	        };
+
+	        await _repository.AddAsync(waterfall);
+	        await _repository.SaveChangesAsync();
+        }
     }
 }

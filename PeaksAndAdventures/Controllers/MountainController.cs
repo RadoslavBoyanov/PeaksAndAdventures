@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Lake;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.Peak;
+using PeaksAndAdventures.Core.ViewModels.Waterfall;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
@@ -10,11 +12,19 @@ namespace PeaksAndAdventures.Controllers
     {
         private readonly IMountainService _mountainService;
         private readonly IPeakService _peakService;
+        private readonly ILakeService _lakeService;
+        private readonly IWaterfallService _waterfallService;
 
-        public MountainController(IMountainService mountainService, IPeakService peakService)
+        public MountainController(
+	        IMountainService mountainService, 
+	        IPeakService peakService, 
+	        ILakeService lakeService, 
+	        IWaterfallService waterfallService)
         {
             _mountainService = mountainService;
             _peakService = peakService;
+            _lakeService = lakeService;
+            _waterfallService = waterfallService;
         }
 
         [HttpGet]
@@ -60,9 +70,9 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(MountainFormViewModel mountainForm)
         {
-	        bool montainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
+	        bool isMountainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
 
-	        if (montainExist)
+	        if (isMountainExist)
 	        {
                 ModelState.AddModelError(string.Empty, "Планината вече съществува.");
                 return View(mountainForm);
@@ -90,9 +100,11 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPeak(PeakAddViewModel peakForm)
         {
-	        if (await _mountainService.CheckMountainExistsByIdAsync(peakForm.MountainId) == false)
+	        var isPeakExist = await _peakService.CheckPeakExistsByNameAsync(peakForm.Name);
+	        if (isPeakExist)
 	        {
-                ModelState.AddModelError(nameof(peakForm.MountainId), MountainNotExist);
+                ModelState.AddModelError(nameof(peakForm.Name), PeakIsAlreadyExist);
+                return View(peakForm);
 	        }
 
 	        if (!ModelState.IsValid)
@@ -102,8 +114,74 @@ namespace PeaksAndAdventures.Controllers
 	        }
 
 	        await _peakService.AddPeakToMountainAsync(peakForm);
-	        return RedirectToAction("AllPeaksInMountain", "Mountain", peakForm.MountainId);
+	        return RedirectToAction("All", "Peak");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddLake()
+        {
+	        var lake = new LakeAddViewModel
+	        {
+		        Mountains = await _mountainService.GetAllMountains()
+	        };
+
+	        return View(lake);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
+        {
+	        bool isLakeExist = await _lakeService.CheckLakeExistsByNameAsync(lakeForm.Name);
+
+	        if (isLakeExist)
+	        {
+		        ModelState.AddModelError(nameof(lakeForm.Name), LakeIsAlreadyExist);
+				return View(lakeForm);
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        lakeForm.Mountains = await _mountainService.GetAllMountains();
+                return View(lakeForm);
+	        }
+
+	        await _lakeService.AddLakeToMountainAsync(lakeForm);
+	        return RedirectToAction("All", "Lake");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddWaterfall()
+        
+        {
+	        var waterfall = new WaterfallAddViewModel
+	        {
+		        Mountains = await _mountainService.GetAllMountains()
+	        };
+
+	        return View(waterfall);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddWaterfall(WaterfallAddViewModel waterfallForm)
+        {
+	        bool isWaterfallExist = await _waterfallService.CheckWaterfallExistsByNameAsync(waterfallForm.Name);
+
+	        if (isWaterfallExist)
+	        {
+		        ModelState.AddModelError(nameof(waterfallForm.Name), WaterfallIsAlreadyExist);
+		        return View(waterfallForm);
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        waterfallForm.Mountains = await _mountainService.GetAllMountains();
+		        return View(waterfallForm);
+	        }
+
+	        await _waterfallService.AddWaterfallToMountain(waterfallForm);
+	        return RedirectToAction("All", "Waterfall");
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -146,6 +224,5 @@ namespace PeaksAndAdventures.Controllers
 
 	        return View(mountain);
         }
-
     }
 }
