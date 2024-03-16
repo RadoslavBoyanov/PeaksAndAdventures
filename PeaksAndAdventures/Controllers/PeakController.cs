@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Peak;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -19,6 +20,35 @@ namespace PeaksAndAdventures.Controllers
         {
 	        var allPeaks = await _peakService.AllAsync();
 	        return View(allPeaks);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+
+	        var peak = await _peakService.EditGetAsync(id);
+            return View(peak);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PeakEditViewModel peakForm)
+        {
+	        if (peakForm is null)
+	        {
+		        return BadRequest();
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        return View(peakForm);
+	        }
+
+	        await _peakService.EditPostAsync(peakForm);
+	        return RedirectToAction("All", "Peak");
         }
     }
 }

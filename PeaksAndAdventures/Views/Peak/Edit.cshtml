@@ -1,0 +1,46 @@
+﻿@model PeakEditViewModel
+
+@{
+	ViewData["Title"] = "Редактирай информацията на върха";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+	<div class="form-group">
+		<label asp-for="Name"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Description"></label>
+		<input asp-for="Description" class="form-control" />
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Altitude"></label>
+		<input asp-for="Altitude" class="form-control" />
+		<span asp-validation-for="Altitude" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Partition"></label>
+		<input asp-for="Partition" class="form-control" />
+		<span asp-validation-for="Partition" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="SpecificLocation"></label>
+		<input asp-for="SpecificLocation" class="form-control" />
+		<span asp-validation-for="SpecificLocation" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="ImageUrl"></label>
+		<input asp-for="ImageUrl" class="form-control" />
+		<span asp-validation-for="ImageUrl" class="text-danger"></span>
+	</div>
+	<button type="submit" class="btn btn-primary">Запази</button>
+</form>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
