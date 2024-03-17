@@ -31,7 +31,7 @@
 				<tr>
 					<td>@hut.Name</td>
 					<td>@hut.MountainName</td>
-					<td>@((hut.Altitude is null) ? hut.Altitude : "Няма информация за надморксата височина!")</td>
+					<td>@((hut.Altitude != null) ? hut.Altitude : "Няма информация за надморксата височина!")</td>
 					<td>@hut.Description</td>
 					<td>@hut.WorkTime</td>
 					<td>@hut.HasToilet</td>
