@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Hut;
 using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
+using static PeaksAndAdventures.Extensions.EnumExtensions;
 
 namespace PeaksAndAdventures.Core.Services
 {
-    public class HutService : IHutService
+	public class HutService : IHutService
     {
         private readonly IRepository _repository;
         public HutService(IRepository repository)
@@ -41,5 +37,38 @@ namespace PeaksAndAdventures.Core.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task AddHutToMountainAsync(AddHutViewModel hutForm)
+        {
+	        var hut = new Hut()
+	        {
+				Name = hutForm.Name,
+				Altitude = hutForm.Altitude,
+				Description = hutForm.Description,
+				WorkTime = hutForm.WorkTime,
+				HasToilet = hutForm.HasToilet,
+				HasCanteen = hutForm.HasCanteen,
+				HasBathroom = hutForm.HasBathroom,
+				Camping = hutForm.Camping,
+				Phone = hutForm.Phone,
+				ImageUrl = hutForm.ImageUrl,
+				MountainId = hutForm.MountainId,
+			};
+
+	        await _repository.AddAsync(hut);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckHutExistsByIdAsync(int hutId)
+        {
+	        return await _repository.AllReadOnly<Hut>()
+		        .AnyAsync(h => h.Id == hutId);
+        }
+
+        public async Task<bool> CheckHutExistsByNameAsync(string hutName)
+        {
+			return await _repository.AllReadOnly<Hut>()
+				.AnyAsync(h => h.Name == hutName);
+		}
     }
 }
