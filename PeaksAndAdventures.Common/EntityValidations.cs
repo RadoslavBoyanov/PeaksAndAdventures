@@ -136,6 +136,7 @@
             /// Constant for phone
             /// </summary>
             public const int PhoneNumberMaxLength = 10;
+            public const int PhoneNumberMinLength = 8;
         }
 
         /// <summary>
