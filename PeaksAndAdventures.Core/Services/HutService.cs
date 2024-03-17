@@ -70,5 +70,50 @@ namespace PeaksAndAdventures.Core.Services
 			return await _repository.AllReadOnly<Hut>()
 				.AnyAsync(h => h.Name == hutName);
 		}
+
+        public async Task<HutEditViewModel> EditGetAsync(int hutId)
+        {
+	        var currentHut = await _repository.All<Hut>()
+		        .FirstOrDefaultAsync(h => h.Id == hutId);
+
+	        var hutForm = new HutEditViewModel()
+	        {
+		        Name = currentHut.Name,
+		        Altitude = (int)currentHut.Altitude,
+		        Description = currentHut.Description,
+		        WorkTime = currentHut.WorkTime,
+		        HasToilet = currentHut.HasToilet,
+		        HasCanteen = currentHut.HasCanteen,
+		        HasBathroom = currentHut.HasBathroom,
+		        Camping = currentHut.Camping,
+		        Phone = currentHut.Phone,
+		        ImageUrl = currentHut.ImageUrl,
+			};
+
+	        return hutForm;
+        }
+
+        public async Task<int> EditPostAsync(HutEditViewModel hutForm)
+        {
+	        var hut = await _repository.All<Hut>()
+		        .Where(h => h.Id == hutForm.Id)
+		        .FirstOrDefaultAsync();
+
+            hut.Name = hutForm.Name;
+            hut.Description = hutForm.Description;
+            hut.Altitude = hutForm.Altitude;
+            hut.WorkTime = hutForm.WorkTime;
+            hut.HasToilet = hutForm.HasToilet;
+            hut.HasCanteen = hutForm.HasCanteen;
+            hut.HasBathroom = hutForm.HasBathroom;
+            hut.Places = hutForm.Places;
+            hut.Camping = hutForm.Camping;
+            hut.Phone = hutForm.Phone;
+            hut.ImageUrl = hutForm.ImageUrl;
+
+            await _repository.SaveChangesAsync();
+
+            return hutForm.Id;
+        }
     }
 }
