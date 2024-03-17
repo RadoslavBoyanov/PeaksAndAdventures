@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Hut;
 using PeaksAndAdventures.Core.ViewModels.Lake;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.Peak;
 using PeaksAndAdventures.Core.ViewModels.Waterfall;
+using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
@@ -92,11 +94,11 @@ namespace PeaksAndAdventures.Core.Services
 			         Name = h.Name,
 			         Altitude = h.Altitude,
 			         Description = h.Description,
-			         WorkTime = h.WorkTime.ToString(),
+			         WorkTime = h.WorkTime.GetDisplayName(),
 			         HasToilet = h.HasToilet ? "да" : "не",
 			         HasCanteen = h.HasCanteen ? "да" : "не",
 			         HasBathroom = h.HasBathroom ? "да" : "не",
-			         Camping = h.Camping.ToString(),
+			         Camping = h.Camping.GetDisplayName(),
 			         Phone = h.Phone,
 			         ImageUrl = h.ImageUrl,
 			         MountainId = h.MountainId,

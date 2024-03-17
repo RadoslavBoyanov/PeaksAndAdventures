@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PeaksAndAdventures.Infrastructure.Data.Enums.Hut;
-
-namespace PeaksAndAdventures.Core.ViewModels.Hut
+﻿namespace PeaksAndAdventures.Core.ViewModels.Hut
 {
-    public class AllHutsViewModel
+	public class AllHutsViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; } 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Hut;
 using PeaksAndAdventures.Core.ViewModels.Lake;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.Peak;
@@ -14,17 +15,20 @@ namespace PeaksAndAdventures.Controllers
         private readonly IPeakService _peakService;
         private readonly ILakeService _lakeService;
         private readonly IWaterfallService _waterfallService;
+		private readonly IHutService _hutService;
 
         public MountainController(
 	        IMountainService mountainService, 
 	        IPeakService peakService, 
 	        ILakeService lakeService, 
-	        IWaterfallService waterfallService)
+	        IWaterfallService waterfallService,
+	        IHutService hutService)
         {
             _mountainService = mountainService;
             _peakService = peakService;
             _lakeService = lakeService;
             _waterfallService = waterfallService;
+            _hutService = hutService;
         }
 
         [HttpGet]
@@ -185,6 +189,38 @@ namespace PeaksAndAdventures.Controllers
 	        return RedirectToAction("All", "Waterfall");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddHut()
+        {
+	        var hut = new AddHutViewModel()
+	        {
+				Mountains = await _mountainService.GetAllMountains()
+	        };
+
+			return View(hut);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddHut(AddHutViewModel hutForm)
+        {
+	        bool isHutExist = await _hutService.CheckHutExistsByNameAsync(hutForm.Name);
+	        
+	        if (isHutExist)
+	        {
+		        ModelState.AddModelError(nameof(hutForm.Name), HutIsAlreadyExist);
+		        hutForm.Mountains = await _mountainService.GetAllMountains();
+		        return View(hutForm);
+	        }
+
+	        if (!ModelState.IsValid)
+	        {
+		        hutForm.Mountains = await _mountainService.GetAllMountains();
+				return View(hutForm);
+	        }
+
+	        await _hutService.AddHutToMountainAsync(hutForm);
+	        return RedirectToAction("All", "Hut");
+        }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

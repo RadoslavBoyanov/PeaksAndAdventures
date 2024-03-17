@@ -1,0 +1,102 @@
+﻿@model HutEditViewModel
+
+@{
+	ViewBag.Title = "Редактирай информациата на хижата";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+	<div class="form-group">
+		<label asp-for="Name" class="control-label"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Description" class="control-label"></label>
+		<textarea asp-for="Description" class="form-control"></textarea>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="WorkTime" class="control-label"></label>
+		<select asp-for="WorkTime" class="form-control">
+			@foreach (WorkTime workTimeOption in Enum.GetValues(typeof(WorkTime)))
+			{
+				<option value="@workTimeOption.ToString()">
+					@(workTimeOption.GetDisplayName())
+				</option>
+			}
+		</select>
+		<span asp-validation-for="WorkTime" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Places" class="control-label"></label>
+		<input asp-for="Places" class="form-control" />
+		<span asp-validation-for="Places" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Camping" class="control-label"></label>
+		<select asp-for="Camping" class="form-control">
+			@foreach (Camping campingOption in Enum.GetValues(typeof(Camping)))
+			{
+				<option value="@campingOption.ToString()">
+					@(campingOption.GetDisplayName())
+				</option>
+			}
+		</select>
+		<span asp-validation-for="Camping" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Altitude" class="control-label"></label>
+		<input asp-for="Altitude" class="form-control"></input>
+		<span asp-validation-for="Altitude" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="HasBathroom" class="control-label"></label>
+		<div>
+			<label>
+				<input type="radio" asp-for="HasBathroom" value="true" /> Да
+			</label>
+			<label>
+				<input type="radio" asp-for="HasBathroom" value="false" /> Не
+			</label>
+		</div>
+		<span asp-validation-for="HasBathroom" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="HasToilet" class="control-label"></label>
+		<div>
+			<label>
+				<input type="radio" asp-for="HasToilet" value="true" /> Да
+			</label>
+			<label>
+				<input type="radio" asp-for="HasToilet" value="false" /> Не
+			</label>
+		</div>
+		<span asp-validation-for="HasToilet" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="HasCanteen" class="control-label"></label>
+		<div>
+			<label>
+				<input type="radio" asp-for="HasCanteen" value="true" /> Да
+			</label>
+			<label>
+				<input type="radio" asp-for="HasCanteen" value="false" /> Не
+			</label>
+		</div>
+		<span asp-validation-for="HasCanteen" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Phone" class="control-label"></label>
+		<input asp-for="Phone" class="form-control"></input>
+		<span asp-validation-for="Phone" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="ImageUrl" class="control-label"></label>
+		<input asp-for="ImageUrl" class="form-control"></input>
+		<span asp-validation-for="ImageUrl" class="text-danger"></span>
+	</div>
+	
+	<button type="submit" class="btn btn-primary">Запази</button>
+</form>

@@ -1,29 +1,46 @@
-﻿namespace PeaksAndAdventures.Infrastructure.Data.Enums.Hut
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PeaksAndAdventures.Infrastructure.Data.Enums.Hut
 {
-    /// <summary>
-    /// Enumeration for work time for Hut in seasons
-    /// </summary>
-    [Flags]
+	/// <summary>
+	/// Enumeration for work time for Hut in seasons
+	/// </summary>
+	[Flags]
     public enum WorkTime
     {
+        [Display(Name = "Не работи")]
         None = 0,
+        [Display(Name = "Пролет")]
         Spring = 1,
-        Summer = 2,
-        Autumn = 4,
-        Winter = 8,
+        [Display(Name = "Лято")]
+		Summer = 2,
+		[Display(Name = "Есен")]
+		Autumn = 4,
+		[Display(Name = "Зима")]
+		Winter = 8,
+		[Display(Name = "Пролет и лято")]
+		SpringSummer = Spring | Summer,
+		[Display(Name = "Пролет и есен")]
+		SpringAutumn = Spring | Autumn,
+		[Display(Name = "Лято и есен")]
+		SummerAutumn = Summer | Autumn,
+		[Display(Name = "Пролет и зима")]
+		SpringWinter = Spring | Winter,
+		[Display(Name = "лято и зима")]
+		SummerWinter = Summer | Winter,
+		[Display(Name = "Есен и зима")]
+		AutumnWinter = Autumn | Winter,
 
-        SpringSummer = Spring | Summer,
-        SpringAutumn = Spring | Autumn,
-        SummerAutumn = Summer | Autumn,
-        SpringWinter = Spring | Winter,
-        SummerWinter = Summer | Winter,
-        AutumnWinter = Autumn | Winter,
+		[Display(Name = "Пролет, лято и есен")]
+		SpringSummerAutumn = Spring | Summer | Autumn,
+		[Display(Name = "Пролет, лято и зима")]
+		SpringSummerWinter = Spring | Summer | Winter,
+		[Display(Name = "Пролет, есен и зима")]
+		SpringAutumnWinter = Spring | Autumn | Winter,
+		[Display(Name = "Лято, есен и зима")]
+		SummerAutumnWinter = Summer | Autumn | Winter,
 
-        SpringSummerAutumn = Spring | Summer | Autumn,
-        SpringSummerWinter = Spring | Summer | Winter,
-        SpringAutumnWinter = Spring | Autumn | Winter,
-        SummerAutumnWinter = Summer | Autumn | Winter,
-
-        All = Spring | Summer | Autumn | Winter
+		[Display(Name = "Всички сезони")]
+		All = Spring | Summer | Autumn | Winter
     }
 }
