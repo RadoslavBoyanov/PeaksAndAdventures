@@ -30,7 +30,7 @@ namespace PeaksAndAdventures.Core.ViewModels.Hut
 		public WorkTime WorkTime { get; set; }
 
 		[Display(Name = "Места")]
-		public int? Places { get; set; }
+		public int Places { get; set; }
 
 		[Required(ErrorMessage = RequireErrorMessage)]
 		[Display(Name = "Къмпинг")]
