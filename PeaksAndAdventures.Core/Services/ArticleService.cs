@@ -27,6 +27,13 @@ namespace PeaksAndAdventures.Core.Services
 				}).ToListAsync();
 		}
 
+		public async Task<bool> CheckIfArticleIsExistByNameAsync(string articleTitle)
+		{
+			return await _repository.AllReadOnly<Article>()
+				.AnyAsync(a => a.Title == articleTitle);
+		}
+
+
 		public async Task<ArticleDetailsViewModel> DetailsAsync(int articleId)
 		{
 			var article = await _repository.GetByIdAsync<Article>(articleId);
@@ -42,6 +49,21 @@ namespace PeaksAndAdventures.Core.Services
 			};
 
 			return articleDetails;
+		}
+
+		public async  Task WriteArticleAsync(ArticleAddViewModel articleAddView, string userId)
+		{
+			var article = new Article()
+			{
+				Title = articleAddView.Title,
+				Content = articleAddView.Content,
+				DatePublish = articleAddView.DatePublish,
+				ImageUrl = articleAddView.ImageUrl,
+				AuthorId = userId,
+			};
+
+			await _repository.AddAsync(article);
+			await _repository.SaveChangesAsync();
 		}
 	}
 }
