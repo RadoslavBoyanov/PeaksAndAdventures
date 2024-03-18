@@ -16,6 +16,11 @@ namespace PeaksAndAdventures.Extensions
             services.AddScoped<IHutService, HutService>();
             services.AddScoped<ILakeService, LakeService>();
             services.AddScoped<IWaterfallService, WaterfallService>();
+            services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IExpeditionService, ExpeditionService>();
+            services.AddScoped<IRouteService, RouteService>();
+            services.AddScoped<ITourAgencyService, TourAgencyService>();
+            services.AddScoped<IMountainGuideService, MountainGuideService>();
 
             return services;
         }
