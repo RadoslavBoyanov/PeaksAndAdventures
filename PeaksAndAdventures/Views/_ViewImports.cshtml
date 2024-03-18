@@ -1,11 +1,15 @@
 ﻿@using PeaksAndAdventures
 @using PeaksAndAdventures.Models
+@using PeaksAndAdventures.Core.ViewModels.Article
 @using PeaksAndAdventures.Core.ViewModels.Lake
 @using PeaksAndAdventures.Core.ViewModels.Mountain
 @using PeaksAndAdventures.Core.ViewModels.Hut
 @using PeaksAndAdventures.Core.ViewModels.Waterfall
 @using PeaksAndAdventures.Core.ViewModels.Peak
 @using PeaksAndAdventures.Infrastructure.Data.Enums.Hut
+@using static PeaksAndAdventures.Extensions.ClaimsPrincipalExtensions;
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using PeaksAndAdventures.Extensions
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
