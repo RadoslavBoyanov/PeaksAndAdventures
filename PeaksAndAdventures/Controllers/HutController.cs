@@ -8,7 +8,7 @@ namespace PeaksAndAdventures.Controllers
 	{
 		private readonly IHutService _hutService;
 
-		public HutController(IHutService hutService, IMountainService mountainService)
+		public HutController(IHutService hutService)
 		{
 			_hutService = hutService;
 		}

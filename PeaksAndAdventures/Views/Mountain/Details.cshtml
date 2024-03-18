@@ -4,22 +4,21 @@
 	ViewBag.Title = "Информация";
 }
 
-<div class="text-center">
-	<img src=@Model.ImageUrls class="img-fluid" alt="Img mountain">
-</div>
-
-<div class="card">
-	<div class="card">
-		<h5 class="card-title">@Model.Name</h5>
+<div class="card shadow-lg">
+	<div class="card-body justify-content-center align-content-center">
+		<img src=@Model.ImageUrls class="img-thumbnail" alt="Img mountain">
+		<h5 class="card-title text-center">@Model.Name</h5>
 		<p class="card-text"> <strong>Местоположениe:</strong> @Model.Location</p>
 		<p class="card-text"> <strong>Климат:</strong> @Model.Climate</p>
 		<p class="card-text"> <strong>Води:</strong> @Model.Waters</p>
 		<p class="card-text"> <strong>Флора:</strong> @Model.Flora</p>
 		<p class="card-text"> <strong>Фауна:</strong> @Model.Fauna</p>
 	</div>
+
 </div>
 
-<section class="container mt-5 align-content-between">
+
+<section class="list-group-item-light shadow-lg mt-6">
 	<div class="row row-cols-1 row-cols-md-5 row-cols-lg-5">
 		<div class="card-body flex-fill">
 			<div class="card-body h-50 text-center w-50">
@@ -30,7 +29,6 @@
 				<a asp-controller="Mountain" asp-action="AllPeaksInMountain" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
 			</div>
 		</div>
-		<!-- Повторете горния блок още два пъти, за да създадете още две карти -->
 		<div class="card-body">
 			<div class="card-body h-50 text-center w-50">
 				<img src="https://planinka.bg/wp-content/uploads/2022/02/2.Icon-Hiji.svg" class="card-img-top" alt="...">
@@ -45,7 +43,7 @@
 				<img src="https://planinka.bg/wp-content/uploads/2022/02/3.Icon-Ezera.svg" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">Езера</h5>
-					
+
 				</div>
 				<a asp-controller="Mountain" asp-action="AllLakesInMountain" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
 			</div>

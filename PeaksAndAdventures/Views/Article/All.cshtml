@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ArticleAllViewModel>
+
+@{
+	ViewBag.Title = "Статии";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<div class="row">
+	@foreach (var article in Model)
+	{
+		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+			<div class="card h-100 text-center">
+				<img class="card-img-top" src="@article.ImageUrl" alt="Изображение на статията">
+				<div class="card-body">
+					<h4 class="card-title"><strong>@article.Title</strong></h4>
+				</div>
+				<a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary btn-group-sm fw-bold">Прочети</a>
+			</div>
+		</div>
+	}
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
