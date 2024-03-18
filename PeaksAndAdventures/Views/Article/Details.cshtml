@@ -1,0 +1,28 @@
+﻿@model ArticleDetailsViewModel
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+			<div class="card mt-4">
+				<img src="@Model.ImageUrl" class="card-img-top" alt="Article Image">
+				<div class="card-body">
+					<h2 class="card-title">@Model.Title</h2>
+					<p class="card-text">@Model.Content</p>
+				</div>
+				<div class="card-footer text-muted">
+					<small class="text-muted">Публикувано на: @Model.DatePublish</small>
+					@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.AuthorId)
+					{
+						<a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<a asp-controller="Article" asp-action="All" class="btn btn-primary btn-group-sm fw-bold text-center">Назад</a>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
