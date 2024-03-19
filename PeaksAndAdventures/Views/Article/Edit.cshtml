@@ -1,0 +1,38 @@
+﻿@model ArticleEditViewModel
+
+@{
+	ViewBag.Title = "Редактиране на статия";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-controller="Article" asp-action="Edit" method="post">
+	<div class="form-group">
+		<label asp-for="Title" class="control-label"></label>
+		<input asp-for="Title" class="form-control" />
+		<span asp-validation-for="Title" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Content" class="control-label"></label>
+		<textarea asp-for="Content" class="form-control" rows="4"></textarea>
+		<span asp-validation-for="Content" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="DatePublish" class="control-label"></label>
+		<input asp-for="DatePublish" class="form-control" />
+		<span asp-validation-for="DatePublish" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="ImageUrl" class="control-label"></label>
+		<input asp-for="ImageUrl" class="form-control" />
+		<span asp-validation-for="ImageUrl" class="text-danger"></span>
+	</div>
+
+	<input type="hidden" asp-for="AuthorId" value="@ClaimsPrincipalExtensions.Id(User)" />
+
+
+	<button type="submit" class="btn btn-primary">Запази</button>
+</form>

@@ -33,6 +33,11 @@ namespace PeaksAndAdventures.Core.Services
 				.AnyAsync(a => a.Title == articleTitle);
 		}
 
+		public async Task<bool> CheckIfArticleIsExistByIdAsync(int articleId)
+		{
+			return await _repository.AllReadOnly<Article>()
+				.AnyAsync(a => a.Id == articleId);
+		}
 
 		public async Task<ArticleDetailsViewModel> DetailsAsync(int articleId)
 		{
@@ -64,6 +69,40 @@ namespace PeaksAndAdventures.Core.Services
 
 			await _repository.AddAsync(article);
 			await _repository.SaveChangesAsync();
+		}
+
+		public async Task<ArticleEditViewModel> EditGetAsync(int articleId)
+		{
+			var currentArticle = await _repository.All<Article>()
+				.FirstOrDefaultAsync(a => a.Id == articleId);
+
+			var article = new ArticleEditViewModel()
+			{
+				Id = currentArticle.Id,
+				Title = currentArticle.Title,
+				Content = currentArticle.Content,
+				ImageUrl = currentArticle.ImageUrl,
+				DatePublish = currentArticle.DatePublish,
+				AuthorId = currentArticle.AuthorId,
+			};
+
+			return article;
+		}
+
+		public async Task<int> EditPostAsync(ArticleEditViewModel articleForm)
+		{
+			var article = await _repository.All<Article>()
+				.Where(a => a.Id == articleForm.Id)
+				.FirstOrDefaultAsync();
+
+			article.Title = articleForm.Title;
+			article.Content = articleForm.Content;
+			article.ImageUrl = articleForm.ImageUrl;
+			article.DatePublish = articleForm.DatePublish;
+
+			await _repository.SaveChangesAsync();
+
+			return article.Id;
 		}
 	}
 }

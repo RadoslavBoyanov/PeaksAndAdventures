@@ -65,5 +65,45 @@ namespace PeaksAndAdventures.Controllers
 
 			return RedirectToAction(nameof(All));
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
+		{
+			if (!await _articleService.CheckIfArticleIsExistByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var currentArticle = await _articleService.EditGetAsync(id);
+
+			if (currentArticle.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			{
+				return Unauthorized();
+			}
+
+			return View(currentArticle);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(ArticleEditViewModel articleEditView)
+		{
+			if (articleEditView is null)
+			{
+				return BadRequest();
+			}
+
+			if (articleEditView.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			{
+				return Unauthorized();
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return View(articleEditView);
+			}
+
+			await _articleService.EditPostAsync(articleEditView);
+			return RedirectToAction("All", "Article");
+		}
 	}
 }
