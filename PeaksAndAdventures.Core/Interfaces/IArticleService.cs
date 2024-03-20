@@ -9,11 +9,12 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<IEnumerable<ArticleAllViewModel>> AllAsync();
 		Task<bool> CheckIfArticleIsExistByNameAsync(string articleTitle);
 		Task<bool> CheckIfArticleIsExistByIdAsync(int articleId);
-		//Task<ArticleDetailsViewModel> GetArticleId(int articleId);
 		Task<ArticleDetailsViewModel> DetailsAsync(int articleId);
 		Task WriteArticleAsync(ArticleAddViewModel articleForm, string userId);
 		Task<ArticleEditViewModel> EditGetAsync(int articleId);
 		Task<int> EditPostAsync(ArticleEditViewModel articleForm);
 		Task<IEnumerable<ArticleDetailsViewModel>> GetAllArticlesWithDetailsAsync();
+		Task<ArticleDeleteViewModel> DeleteGetAsync(int articleId);
+		Task<Article> DeletePostAsync(int articleId);
 	}
 }

@@ -1,5 +1,9 @@
 ﻿@model ArticleDetailsViewModel
 
+@{
+	ViewBag.Title = Model.Title ?? "Детайли на статията.";
+}
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 offset-md-2">
@@ -14,6 +18,7 @@
 					@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.AuthorId)
 					{
 						<a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+						<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
 					}
 				</div>
 			</div>
