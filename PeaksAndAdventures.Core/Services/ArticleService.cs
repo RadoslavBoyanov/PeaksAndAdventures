@@ -118,5 +118,31 @@ namespace PeaksAndAdventures.Core.Services
 					AuthorId = a.AuthorId
 				}).ToListAsync();
 		}
+
+		public async Task<ArticleDeleteViewModel> DeleteGetAsync(int articleId)
+		{
+			var article = await _repository.AllReadOnly<Article>()
+				.Where(a => a.Id == articleId)
+				.FirstOrDefaultAsync();
+
+			var deleteArticle = new ArticleDeleteViewModel()
+			{
+				Id = article.Id,
+				Title = article.Title,
+				ImageUrl = article.ImageUrl,
+				AuthorId = article.AuthorId
+			};
+
+			return deleteArticle;
+		}
+
+		public async Task<Article> DeletePostAsync(int articleId)
+		{
+			var article = await _repository.GetByIdAsync<Article>(articleId);
+
+			await _repository.DeleteAsync<Article>(articleId);
+			await _repository.SaveChangesAsync();
+			return article;
+		}
 	}
 }

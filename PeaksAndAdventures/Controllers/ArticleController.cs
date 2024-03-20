@@ -117,5 +117,45 @@ namespace PeaksAndAdventures.Controllers
 
 			return View(userArticles);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var deleteArticle = await _articleService.DeleteGetAsync(id);
+
+			if (deleteArticle == null)
+			{
+				return NotFound();
+			}
+
+			if (deleteArticle.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			{
+				return Forbid();
+			}
+
+			return View(deleteArticle);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var isExistArticle = await _articleService.CheckIfArticleIsExistByIdAsync(id);
+
+			if (!isExistArticle)
+			{
+				return NotFound();
+			}
+
+			var article = await _articleService.DetailsAsync(id);
+			if (article.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			{
+				return Forbid();
+			}
+
+			await _articleService.DeletePostAsync(id);
+			return RedirectToAction("All" ,"Article");
+		}
 	}
+
+	
 }
