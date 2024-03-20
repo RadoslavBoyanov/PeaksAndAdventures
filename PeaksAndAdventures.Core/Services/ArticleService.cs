@@ -104,5 +104,19 @@ namespace PeaksAndAdventures.Core.Services
 
 			return article.Id;
 		}
+
+		public async Task<IEnumerable<ArticleDetailsViewModel>> GetAllArticlesWithDetailsAsync()
+		{
+			return await _repository.AllReadOnly<Article>()
+				.Select(a => new ArticleDetailsViewModel()
+				{
+					Id = a.Id,
+					Title = a.Title,
+					Content = a.Content,
+					ImageUrl = a.ImageUrl,
+					DatePublish = a.DatePublish.ToString(DateTimeFormat),
+					AuthorId = a.AuthorId
+				}).ToListAsync();
+		}
 	}
 }

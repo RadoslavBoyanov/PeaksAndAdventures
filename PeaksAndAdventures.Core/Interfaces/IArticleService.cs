@@ -14,5 +14,6 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task WriteArticleAsync(ArticleAddViewModel articleForm, string userId);
 		Task<ArticleEditViewModel> EditGetAsync(int articleId);
 		Task<int> EditPostAsync(ArticleEditViewModel articleForm);
+		Task<IEnumerable<ArticleDetailsViewModel>> GetAllArticlesWithDetailsAsync();
 	}
 }
