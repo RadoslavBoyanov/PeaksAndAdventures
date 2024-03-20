@@ -105,5 +105,17 @@ namespace PeaksAndAdventures.Controllers
 			await _articleService.EditPostAsync(articleEditView);
 			return RedirectToAction("All", "Article");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> UserArticles()
+		{
+			var articles = await _articleService.GetAllArticlesWithDetailsAsync();
+
+			var userId = ClaimsPrincipalExtensions.Id(User);
+
+			var userArticles = articles.Where(a => a.AuthorId == userId);
+
+			return View(userArticles);
+		}
 	}
 }
