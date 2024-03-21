@@ -1,0 +1,44 @@
+﻿@model MountainGuideDetailsViewModel
+
+@{
+	ViewBag.Title = "Информация за планинския водач";
+}
+
+<div class="container">
+	<h2 class="text-center">@ViewBag.Title</h2>
+	<hr />
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Персонална информация</h2>
+			<p><strong>Име:</strong> @Model.FirstName @Model.LastName</p>
+			<p><strong>Години:</strong> @(string.IsNullOrEmpty(Model.Age) ? "Няма подадена информация" : Model.Age)</p>
+			<p><strong>Телефон:</strong> @Model.Phone</p>
+			<p><strong>Имейл:</strong> @Model.Email</p>
+			<p><strong>Опит:</strong> @Model.Experience years</p>
+			<p><strong>Оценка:</strong> @(string.IsNullOrEmpty(Model.Rating) ? "Не е оценяван все още" : Model.Rating)</p>
+		</div>
+		<div class="col-md-6">
+			<h2>Информация за агенцията</h2>
+			<p><strong>Име на агенцията:</strong> @Model.TourAgencyName</p>
+		</div>
+		@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
+		{
+			<a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+			<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
+		}
+	</div>
+	@if (!string.IsNullOrEmpty(Model.ImageUrl))
+	{
+		<div class="row mt-3">
+			<div class="col-md-12">
+				<h2>Profile Picture</h2>
+				<img src="@Model.ImageUrl" alt="Profile Picture" class="img-fluid" />
+			</div>
+		</div>
+	}
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
