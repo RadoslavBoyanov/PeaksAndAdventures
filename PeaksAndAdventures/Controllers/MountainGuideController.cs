@@ -19,5 +19,18 @@ namespace PeaksAndAdventures.Controllers
 			
 			return View(allMountainGuides);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			var mountainGuide = await _mountainGuideService.DetailsAsync(id);
+
+			if (mountainGuide is null)
+			{
+				return NotFound();
+			}
+
+			return View(mountainGuide);
+		}
 	}
 }
