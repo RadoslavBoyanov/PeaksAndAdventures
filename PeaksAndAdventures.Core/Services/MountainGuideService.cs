@@ -55,10 +55,46 @@ namespace PeaksAndAdventures.Core.Services
 			return mountainGuideInformation;
 		}
 
-		//public async Task<TourAgency> GetAgencyForGuideAsync(int mountainGuideId)
-		//{
-		//	var guide = await _repository.AllReadOnly<TourAgency>()
-		//		.Where(x=>x.MountainGuides.Contains())
-		//}
+		public async Task<MountainGuideEditViewModel> EditGetAsync(int mountainGuideId)
+		{
+			var currentMountainGuide = await _repository.All<MountainGuide>()
+				.FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
+
+			var mountainGuide = new MountainGuideEditViewModel()
+			{
+				Id = currentMountainGuide.Id,
+				FirstName = currentMountainGuide.FirstName,
+				LastName = currentMountainGuide.LastName,
+				Age = currentMountainGuide.Age,
+				Email = currentMountainGuide.Email,
+				Phone = currentMountainGuide.Phone,
+				Experience = currentMountainGuide.Experience,
+				ImageUrl = currentMountainGuide.ImageUrl,
+				OwnerId = currentMountainGuide.OwnerId,
+				TourAgencyId = currentMountainGuide.TourAgencyId
+			};
+
+			return mountainGuide;
+		}
+
+		public async Task<int> EditPostAsync(MountainGuideEditViewModel mountainGuideEdit)
+		{
+			var mountaineGuide = await _repository.All<MountainGuide>()
+				.Where(mg => mg.Id == mountainGuideEdit.Id)
+				.FirstOrDefaultAsync();
+
+			mountaineGuide.FirstName = mountainGuideEdit.FirstName;
+			mountaineGuide.LastName = mountainGuideEdit.LastName;
+			mountaineGuide.Age = mountainGuideEdit.Age;
+			mountaineGuide.Email = mountainGuideEdit.Email;
+			mountaineGuide.Phone = mountainGuideEdit.Phone;
+			mountaineGuide.Experience = mountainGuideEdit.Experience;
+			mountaineGuide.ImageUrl = mountainGuideEdit.ImageUrl;
+			mountaineGuide.TourAgencyId = mountainGuideEdit.TourAgencyId;
+
+			await _repository.SaveChangesAsync();
+
+			return mountaineGuide.Id;
+		}
 	}
 }
