@@ -1,0 +1,70 @@
+﻿@model MountainGuideAddViewModel
+
+@{
+    ViewBag.Title = "Добавяне на планински водач";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Age" class="control-label"></label>
+        <input asp-for="Age" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Experience" class="control-label"></label>
+        <input asp-for="Experience" class="form-control" />
+        <span asp-validation-for="Experience" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageUrl" class="control-label"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+	    <label asp-for="TourAgencyId" class="control-label">Туристическа агенция</label>
+	    <select asp-for="TourAgencyId" class="form-control">
+		    @foreach (var tourAgency in Model.TourAgencies)
+		    {
+			    <option value="@tourAgency.Id">@tourAgency.Name</option>
+		    }
+	    </select>
+	    <span asp-validation-for="TourAgencyId" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="OwnerId" value="@ClaimsPrincipalExtensions.Id(User)" />
+
+    <button type="submit" class="btn btn-primary">Запази</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
