@@ -29,6 +29,12 @@ namespace PeaksAndAdventures.Core.Services
 				.ToListAsync();
 		}
 
+		public async Task<bool> CheckIfExistMountainGuideByIdAsync(int mountainGuideId)
+		{
+			return await _repository.AllReadOnly<MountainGuide>()
+				.AnyAsync(mg => mg.Id == mountainGuideId);
+		}
+
 		public async Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
@@ -58,6 +64,7 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<MountainGuideEditViewModel> EditGetAsync(int mountainGuideId)
 		{
 			var currentMountainGuide = await _repository.All<MountainGuide>()
+                .Include(mg => mg.TourAgency)
 				.FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
 
 			var mountainGuide = new MountainGuideEditViewModel()
@@ -71,7 +78,8 @@ namespace PeaksAndAdventures.Core.Services
 				Experience = currentMountainGuide.Experience,
 				ImageUrl = currentMountainGuide.ImageUrl,
 				OwnerId = currentMountainGuide.OwnerId,
-				TourAgencyId = currentMountainGuide.TourAgencyId
+				TourAgencyId = currentMountainGuide.TourAgencyId,
+				TourAgencyName = currentMountainGuide.TourAgency.Name
 			};
 
 			return mountainGuide;
@@ -80,6 +88,7 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<int> EditPostAsync(MountainGuideEditViewModel mountainGuideEdit)
 		{
 			var mountaineGuide = await _repository.All<MountainGuide>()
+                .Include(mg => mg.TourAgency)
 				.Where(mg => mg.Id == mountainGuideEdit.Id)
 				.FirstOrDefaultAsync();
 
