@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.MountainGuide;
 using PeaksAndAdventures.Infrastructure.Data.Common;
@@ -7,7 +6,7 @@ using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class MountainGuideService : IMountainGuideService
+    public class MountainGuideService : IMountainGuideService
 	{
 		private readonly IRepository _repository;
 
@@ -16,7 +15,26 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
-		public async Task<IEnumerable<MountainGuideAllViewModel>> AllAsync()
+        public async Task AddAsync(MountainGuideAddViewModel mountainGuideForm)
+        {
+            var mountainGuide = new MountainGuide()
+            {
+				FirstName = mountainGuideForm.FirstName,
+				LastName = mountainGuideForm.LastName,
+				Age = mountainGuideForm.Age,
+				Email = mountainGuideForm.Email,
+				Phone = mountainGuideForm.Phone,
+				Experience = mountainGuideForm.Experience,
+				ImageUrl = mountainGuideForm.ImageUrl,
+				TourAgencyId = mountainGuideForm.TourAgencyId,
+				OwnerId = mountainGuideForm.OwnerId
+            };
+
+            await _repository.AddAsync(mountainGuide);
+			await _repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<MountainGuideAllViewModel>> AllAsync()
 		{
 			return await _repository.AllReadOnly<MountainGuide>()
 				.Select(mg => new MountainGuideAllViewModel()
