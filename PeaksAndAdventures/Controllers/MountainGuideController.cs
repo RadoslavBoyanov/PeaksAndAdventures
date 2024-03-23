@@ -89,5 +89,28 @@ namespace PeaksAndAdventures.Controllers
 			await _mountainGuideService.EditPostAsync(mountainGuide);
 			return RedirectToAction("Details", "MountainGuide", new { id = mountainGuide.Id });
 		}
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var mountainGuide = new MountainGuideAddViewModel()
+            {
+                TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync()
+            };
+
+            return View(mountainGuide);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(MountainGuideAddViewModel mountainGuideForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(mountainGuideForm);
+            }
+
+            await _mountainGuideService.AddAsync(mountainGuideForm);
+            return RedirectToAction("All", "MountainGuide");
+        }
 	}
 }

@@ -5,6 +5,7 @@ namespace PeaksAndAdventures.Core.Interfaces
 {
 	public interface IMountainGuideService
 	{
+		Task AddAsync(MountainGuideAddViewModel mountainGuideForm);
 		Task<IEnumerable<MountainGuideAllViewModel>> AllAsync();
 		Task<bool> CheckIfExistMountainGuideByIdAsync(int mountainGuideId); 
 		Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId);
