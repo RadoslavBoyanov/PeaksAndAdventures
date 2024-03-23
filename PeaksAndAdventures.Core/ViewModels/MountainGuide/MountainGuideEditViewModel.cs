@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using PeaksAndAdventures.Common;
 using static PeaksAndAdventures.Common.EntityValidations.MountainGuideValidation;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Core.ViewModels.MountainGuide
 {
-	public class MountainGuideEditViewModel
+	/// <summary>
+	/// view model for edit 
+	/// </summary>
+    public class MountainGuideEditViewModel
 	{
-		[Key]
 		public int Id { get; set; }
 
 		[Required (ErrorMessage = RequireErrorMessage)]
@@ -51,9 +54,17 @@ namespace PeaksAndAdventures.Core.ViewModels.MountainGuide
 		public string? ImageUrl { get; set; }
 
 		public int? TourAgencyId { get; set; }
-		
+
+
+		[StringLength(
+            EntityValidations.TourAgencyValidation.NameMaxLength,
+            MinimumLength = EntityValidations.TourAgencyValidation.NameMinLength,
+            ErrorMessage = StringLengthErrorMessage)]
+		[Display(Name = "Туристическа агенция")]
+		public string TourAgencyName { get; set; } = string.Empty;
 
 		[Required]
 		public string OwnerId { get; set; } = string.Empty;
+
 	}
 }
