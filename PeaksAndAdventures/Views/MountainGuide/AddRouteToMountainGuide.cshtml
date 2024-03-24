@@ -1,7 +1,7 @@
 ﻿@model MountainGuideAddRouteViewModel
 
 @{
-	ViewBag.Title = "Добавяне на маршрут към планинския водач";
+	ViewBag.Title = "Добавяне на планина към планинския водач";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -22,3 +22,8 @@
 
 	<button type="submit" class="btn btn-primary">Добави</button>
 </form>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
