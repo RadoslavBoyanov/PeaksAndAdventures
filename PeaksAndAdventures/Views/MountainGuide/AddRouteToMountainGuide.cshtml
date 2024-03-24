@@ -1,0 +1,24 @@
+﻿@model MountainGuideAddRouteViewModel
+
+@{
+	ViewBag.Title = "Добавяне на маршрут към планинския водач";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="AddRouteToMountainGuide" method="post">
+	<input type="hidden" asp-for="Id" />
+	<input type="hidden" asp-for="OwnerId" />
+
+	<div class="form-group">
+		<label for="routeId">Избери маршрут:</label>
+		<select class="form-control" id="routeId" name="routeId">
+			@foreach (var route in Model.Routes)
+			{
+				<option value="@route.Id">@route.Name</option>
+			}
+		</select>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Добави</button>
+</form>
