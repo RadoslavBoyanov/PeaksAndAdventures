@@ -9,7 +9,7 @@ namespace PeaksAndAdventures.Core.ViewModels.MountainGuide
 	{
 		public int Id { get; set; }
 
-		public string OwnerId { get; set; }
+		public string OwnerId { get; set; } = null!;
 
 		public IEnumerable<GetAllRoutesViewModel> Routes { get; set; } = new List<GetAllRoutesViewModel>();
 	}
