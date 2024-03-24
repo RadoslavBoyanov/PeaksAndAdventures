@@ -1,0 +1,33 @@
+﻿@model MountainGuideDeleteViewModel
+
+@{
+	ViewBag.Title = "Изтриване на профил на водача";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+
+<div class="row justify-content-center">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title text-center">@Model.FirstName @Model.LastName</h3>
+				<p class="text-center text-decoration-underline text-primary">@Model.Email</p>
+				<img src="@Model.ImageUrl" class="card-img-top" alt="Article Image">
+				<p class="text-danger mt-3">Сигурен ли си, че искаш да си изтриеш профила?</p>
+			</div>
+			<div class="card-footer">
+				<form asp-action="DeleteConfirmed" method="post">
+					<input type="hidden" asp-for="Id" />
+					<button type="submit" class="btn btn-danger">Изтрий</button>
+					<a asp-action="All" class="btn btn-secondary">Отмени</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
