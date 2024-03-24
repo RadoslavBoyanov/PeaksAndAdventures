@@ -157,10 +157,15 @@ namespace PeaksAndAdventures.Controllers
         [HttpGet]
         public async Task<IActionResult> AddRouteToMountainGuide(int id)
         {
-	        var viewModel = await _mountainGuideService.GetMountainGuideAddRouteViewModelAsync(id);
+	        var viewModel = await _mountainGuideService.GetMountainGuideAddRouteAsync(id);
 	        if (viewModel == null)
 	        {
-		        return Unauthorized(); 
+		        return BadRequest(); 
+	        }
+
+	        if (viewModel.OwnerId != ClaimsPrincipalExtensions.Id(User))
+	        {
+		        return Unauthorized();
 	        }
 
 	        return View(viewModel);
@@ -177,6 +182,7 @@ namespace PeaksAndAdventures.Controllers
 		        return Unauthorized();
 	        }
 
+
 	        if (success)
 	        {
 		        return RedirectToAction("Details", "MountainGuide", new{id = id});
@@ -186,6 +192,57 @@ namespace PeaksAndAdventures.Controllers
 		        return BadRequest(FailAddRouteToMountainGuide);
 	        }
         }
+
+		[HttpGet]
+		public async Task<IActionResult> AddMountainToMountainGuide(int id)
+		{
+			var mountainGuide = await _mountainGuideService.GetMountainGuideAddMountainAsync(id);
+			if (mountainGuide is null)
+			{
+				return BadRequest();
+			}
+
+			if (mountainGuide.OwnerId != ClaimsPrincipalExtensions.Id(User))
+			{
+				return Unauthorized();
+			}
+
+			return View(mountainGuide);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AddMountainToMountainGuide(int id, int mountainId, string ownerId)
+		{
+			bool success = await _mountainGuideService.AddMountainToMountainGuideAsync(id, mountainId, ownerId);
+
+			if (ClaimsPrincipalExtensions.Id(User) != ownerId)
+			{
+				return Unauthorized();
+			}
+
+			if (success)
+			{
+				return RedirectToAction("Details", "MountainGuide", new { id = id });
+			}
+			else
+			{
+				return BadRequest();
+			}
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetAllRoutes(int id)
+		{
+			var allRoutes = await _mountainGuideService.GetAllRoutesAsync(id);
+			return View(allRoutes);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetAllMountains(int id)
+		{
+			var allMountains = await _mountainGuideService.GetAllMountainsAsync(id);
+			return View(allMountains);
+		}
 
 	}
 }
