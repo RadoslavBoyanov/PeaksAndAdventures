@@ -1,0 +1,23 @@
+﻿@model IEnumerable<GetAllRoutesViewModel>
+
+@{
+	ViewBag.Title = "Всички маршрути на планинския водач";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr/>
+
+@if (Model != null && Model.Any())
+{
+	<ul class ="gap-lg-2">
+		@foreach (var route in Model)
+		{
+			<li >
+				@route.Name
+				<a href="@Url.Action("Details", "Route", new { id = route.Id })" class="btn btn-primary">Детайли</a>
+			</li>
+		}
+	</ul>
+}
+	
+

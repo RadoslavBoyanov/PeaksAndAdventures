@@ -1,7 +1,5 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.MountainGuide;
@@ -61,14 +59,14 @@ namespace PeaksAndAdventures.Core.Services
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
 			var route = await _repository.GetByIdAsync<Route>(routeId);
-			var mountaineGuideRoute = await _repository.GetByIdsAsync<MountaineerRoute>(new object[] { mountainGuideId, routeId });
+			var mountainGuideRoute = await _repository.GetByIdsAsync<MountaineerRoute>(new object[] { mountainGuideId, routeId });
 
 			if (mountainGuide is null || route is null || mountainGuide.OwnerId != ownerId)
 			{
 				return false;
 			}
 
-			if (mountaineGuideRoute != null)
+			if (mountainGuideRoute != null)
 			{
 				return false;
 			}
@@ -86,6 +84,36 @@ namespace PeaksAndAdventures.Core.Services
 
 			await _repository.SaveChangesAsync();
 
+			return true;
+		}
+
+		public async Task<bool> AddMountainToMountainGuideAsync(int id, int mountainId, string ownerId)
+		{
+			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(id);
+			var mountain = await _repository.GetByIdAsync<Mountain>(mountainId);
+			var mountainGuideMountain = await _repository.GetByIdsAsync<MountaineerMountain>(new object[] { id, mountainId });
+
+			if (mountainGuide is null || mountain is null || mountainGuide.OwnerId != ownerId)
+			{
+				return false;
+			}
+
+			if (mountainGuideMountain != null)
+			{
+				return false;
+			}
+
+			var mountaineerMountain = new MountaineerMountain()
+			{
+				MountainId = mountainId,
+				Mountain = mountain,
+				MountainGuideId = id,
+				MountainGuide = mountainGuide
+			};
+
+			mountainGuide.MountaineersMountains.Add(mountaineerMountain);
+
+			await _repository.SaveChangesAsync();
 			return true;
 		}
 
@@ -248,7 +276,7 @@ namespace PeaksAndAdventures.Core.Services
 			return mountaineGuide.Id;
 		}
 
-		public async Task<MountainGuideAddRouteViewModel> GetMountainGuideAddRouteViewModelAsync(int mountainGuideId)
+		public async Task<MountainGuideAddRouteViewModel> GetMountainGuideAddRouteAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
 			var ownerId = mountainGuide.OwnerId;
@@ -270,5 +298,52 @@ namespace PeaksAndAdventures.Core.Services
 			return viewModel;
 		}
 
+		public async Task<MountainGuideAddMountainViewModel> GetMountainGuideAddMountainAsync(int mountainGuideId)
+		{
+			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
+			var ownerId = mountainGuide.OwnerId;
+
+			if (mountainGuide == null || ownerId == null)
+			{
+				return null; // Ако планинският водач или ownerId не съществуват, върнете null
+			}
+
+			var routes = await _repository.AllReadOnly<Mountain>().ToListAsync();
+
+			var viewModel = new MountainGuideAddMountainViewModel()
+			{
+				Id = mountainGuide.Id,
+				OwnerId = ownerId,
+				Mountains = routes.Select(mountain => new GetAllMountainsViewModel() { Id = mountain.Id, Name = mountain.Name })
+			};
+
+			return viewModel;
+		}
+
+		public async Task<IEnumerable<GetAllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId)
+		{
+			return await _repository
+				.AllReadOnly<Mountain>()
+				.Where(m => m.MountaineersMountains.Any(mm => mm.MountainGuideId == mountainGuideId))
+				.Select(mm => new GetAllMountainsViewModel()
+				{
+					Id = mm.Id,
+					Name = mm.Name
+				})
+				.ToListAsync();
+		}
+
+		public async Task<IEnumerable<GetAllRoutesViewModel>> GetAllRoutesAsync(int mountainGuideId)
+		{
+			return await _repository
+				.AllReadOnly<Route>()
+				.Where(r => r.MountaineersRoutes.Any(mr => mr.MountainGuideId == mountainGuideId))
+				.Select(mr => new GetAllRoutesViewModel()
+				{
+					Id = mr.Id,
+					Name = mr.Name
+				})
+				.ToListAsync();
+		}
 	}
 }
