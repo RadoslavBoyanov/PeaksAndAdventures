@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.MountainGuide;
+using PeaksAndAdventures.Core.ViewModels.Route;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
@@ -83,6 +85,8 @@ namespace PeaksAndAdventures.Core.Services
 		{
 			var mountainGuide = await _repository.AllReadOnly<MountainGuide>()
 				.Where(mg => mg.Id == mountainGuideId)
+				.Include(mg => mg.MountaineersRoutes)
+				.Include(mg => mg.MountaineersMountains)
 				.FirstOrDefaultAsync();
 
 			var deleteForm = new MountainGuideDeleteViewModel()
@@ -92,6 +96,16 @@ namespace PeaksAndAdventures.Core.Services
 				Email = mountainGuide.Email,
 				ImageUrl = mountainGuide.ImageUrl,
 				OwnerId = mountainGuide.OwnerId,
+				Routes = mountainGuide.MountaineersRoutes.Select(r => new GetAllRoutesViewModel()
+				{
+					Id = r.RouteId,
+					Name = r.Route.Name
+				}).ToList(),
+				Mountains = mountainGuide.MountaineersMountains.Select(m => new GetAllMountainsViewModel()
+				{
+					Id = m.MountainId,
+					Name = m.Mountain.Name,
+				}).ToList()
 			};
 
 			return deleteForm;
@@ -100,6 +114,9 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<int> DeleteConfirmedAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
+
+			 _repository.DeleteRange(mountainGuide.MountaineersRoutes);
+			 _repository.DeleteRange(mountainGuide.MountaineersMountains);
 
 			await _repository.DeleteAsync<MountainGuide>(mountainGuideId);
 			await _repository.SaveChangesAsync();
