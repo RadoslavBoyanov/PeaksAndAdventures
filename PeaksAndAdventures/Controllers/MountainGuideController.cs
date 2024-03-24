@@ -3,6 +3,7 @@ using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.MountainGuide;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
+using static PeaksAndAdventures.Common.SuccessMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -106,7 +107,8 @@ namespace PeaksAndAdventures.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(mountainGuideForm);
+	            mountainGuideForm.TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync();
+				return View(mountainGuideForm);
             }
 
             await _mountainGuideService.AddAsync(mountainGuideForm);
@@ -151,5 +153,39 @@ namespace PeaksAndAdventures.Controllers
 	        return RedirectToAction("All", "MountainGuide");
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddRouteToMountainGuide(int id)
+        {
+	        var viewModel = await _mountainGuideService.GetMountainGuideAddRouteViewModelAsync(id);
+	        if (viewModel == null)
+	        {
+		        return Unauthorized(); 
+	        }
+
+	        return View(viewModel);
+        }
+
+
+		[HttpPost]
+        public async Task<IActionResult> AddRouteToMountainGuide(int id, int routeId, string ownerId)
+        {
+	        bool success = await _mountainGuideService.AddRouteToMountainGuideAsync(id, routeId, ownerId);
+
+	        if (ClaimsPrincipalExtensions.Id(User) != ownerId)
+	        {
+		        return Unauthorized();
+	        }
+
+	        if (success)
+	        {
+		        return RedirectToAction("Details", "MountainGuide", new{id = id});
+	        }
+	        else
+	        {
+		        return BadRequest(FailAddRouteToMountainGuide);
+	        }
+        }
+
 	}
 }

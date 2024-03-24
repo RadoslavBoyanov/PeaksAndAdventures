@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Mountain;
 using PeaksAndAdventures.Core.ViewModels.MountainGuide;
@@ -8,7 +11,7 @@ using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Services
 {
-    public class MountainGuideService : IMountainGuideService
+	public class MountainGuideService : IMountainGuideService
 	{
 		private readonly IRepository _repository;
 
@@ -17,10 +20,13 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
-        public async Task AddAsync(MountainGuideAddViewModel mountainGuideForm)
-        {
-            var mountainGuide = new MountainGuide()
-            {
+		public async Task AddAsync(MountainGuideAddViewModel mountainGuideForm)
+		{
+			var tourAgency = await _repository.GetByIdAsync<TourAgency>(mountainGuideForm.TourAgencyId);
+			var owner = await  _repository.GetByIdAsync<IdentityUser>(mountainGuideForm.OwnerId);
+
+			var mountainGuide = new MountainGuide()
+			{
 				FirstName = mountainGuideForm.FirstName,
 				LastName = mountainGuideForm.LastName,
 				Age = mountainGuideForm.Age,
@@ -29,14 +35,16 @@ namespace PeaksAndAdventures.Core.Services
 				Experience = mountainGuideForm.Experience,
 				ImageUrl = mountainGuideForm.ImageUrl,
 				TourAgencyId = mountainGuideForm.TourAgencyId,
-				OwnerId = mountainGuideForm.OwnerId
-            };
+				TourAgency = tourAgency,
+				OwnerId = mountainGuideForm.OwnerId,
+				Owner = owner
+			};
 
-            await _repository.AddAsync(mountainGuide);
+			await _repository.AddAsync(mountainGuide);
 			await _repository.SaveChangesAsync();
-        }
+		}
 
-        public async Task<IEnumerable<MountainGuideAllViewModel>> AllAsync()
+		public async Task<IEnumerable<MountainGuideAllViewModel>> AllAsync()
 		{
 			return await _repository.AllReadOnly<MountainGuide>()
 				.Select(mg => new MountainGuideAllViewModel()
@@ -47,6 +55,38 @@ namespace PeaksAndAdventures.Core.Services
 					ImageUrl = mg.ImageUrl,
 				})
 				.ToListAsync();
+		}
+
+		public async Task<bool> AddRouteToMountainGuideAsync(int mountainGuideId, int routeId, string ownerId)
+		{
+			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
+			var route = await _repository.GetByIdAsync<Route>(routeId);
+			var mountaineGuideRoute = await _repository.GetByIdsAsync<MountaineerRoute>(new object[] { mountainGuideId, routeId });
+
+			if (mountainGuide is null || route is null || mountainGuide.OwnerId != ownerId)
+			{
+				return false;
+			}
+
+			if (mountaineGuideRoute != null)
+			{
+				return false;
+			}
+
+			var mountaineerRoute = new MountaineerRoute
+			{
+				MountainGuideId = mountainGuideId,
+				MountainGuide = mountainGuide,
+				Route = route,
+				RouteId = routeId,
+			};
+
+
+			mountainGuide.MountaineersRoutes.Add(mountaineerRoute);
+
+			await _repository.SaveChangesAsync();
+
+			return true;
 		}
 
 		public async Task<bool> CheckIfExistMountainGuideByIdAsync(int mountainGuideId)
@@ -84,10 +124,17 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<MountainGuideDeleteViewModel> DeleteGetAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.AllReadOnly<MountainGuide>()
-				.Where(mg => mg.Id == mountainGuideId)
 				.Include(mg => mg.MountaineersRoutes)
+				.ThenInclude(r => r.Route)
 				.Include(mg => mg.MountaineersMountains)
-				.FirstOrDefaultAsync();
+				.ThenInclude(m => m.Mountain)
+				.FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
+
+			if (mountainGuide == null)
+			{
+				// Обработка на сценария, при който планинският водач не е намерен
+				return null;
+			}
 
 			var deleteForm = new MountainGuideDeleteViewModel()
 			{
@@ -96,38 +143,65 @@ namespace PeaksAndAdventures.Core.Services
 				Email = mountainGuide.Email,
 				ImageUrl = mountainGuide.ImageUrl,
 				OwnerId = mountainGuide.OwnerId,
-				Routes = mountainGuide.MountaineersRoutes.Select(r => new GetAllRoutesViewModel()
-				{
-					Id = r.RouteId,
-					Name = r.Route.Name
-				}).ToList(),
-				Mountains = mountainGuide.MountaineersMountains.Select(m => new GetAllMountainsViewModel()
-				{
-					Id = m.MountainId,
-					Name = m.Mountain.Name,
-				}).ToList()
+				Routes = mountainGuide.MountaineersRoutes
+					.Where(r => r.Route != null) // Филтриране на null обекти
+					.Select(r => new GetAllRoutesViewModel()
+					{
+						Id = r.RouteId,
+						Name = r.Route.Name
+					}).ToList(),
+				Mountains = mountainGuide.MountaineersMountains
+					.Where(m => m.Mountain != null) // Филтриране на null обекти
+					.Select(m => new GetAllMountainsViewModel()
+					{
+						Id = m.MountainId,
+						Name = m.Mountain.Name,
+					}).ToList()
 			};
 
 			return deleteForm;
 		}
 
+
 		public async Task<int> DeleteConfirmedAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
 
-			 _repository.DeleteRange(mountainGuide.MountaineersRoutes);
-			 _repository.DeleteRange(mountainGuide.MountaineersMountains);
+			// Зареждане на планинските водачи с пълните данни за маршрути и планини
+			mountainGuide = await _repository.All<MountainGuide>()
+				.Include(mg => mg.MountaineersRoutes)
+				.Include(mg => mg.MountaineersMountains)
+				.FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
 
+			// Изтриване на всички връзки между планинския водач и маршрутите
+			foreach (var route in mountainGuide.MountaineersRoutes.ToList())
+			{
+				_repository.Delete(route);
+			}
+
+			// Изтриване на всички връзки между планинския водач и планините
+			foreach (var mountain in mountainGuide.MountaineersMountains.ToList())
+			{
+				_repository.Delete(mountain);
+			}
+
+			// Изтриване на самия планински водач
 			await _repository.DeleteAsync<MountainGuide>(mountainGuideId);
 			await _repository.SaveChangesAsync();
+
 			return mountainGuide.Id;
 		}
+
+
 
 		public async Task<MountainGuideEditViewModel> EditGetAsync(int mountainGuideId)
 		{
 			var currentMountainGuide = await _repository.All<MountainGuide>()
-                .Include(mg => mg.TourAgency)
+				.Include(mg => mg.TourAgency)
 				.FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
+
+			var tourAgency = await _repository.GetByIdAsync<TourAgency>(currentMountainGuide.TourAgencyId);
+			var owner = await _repository.GetByIdAsync<IdentityUser>(currentMountainGuide.OwnerId);
 
 			var mountainGuide = new MountainGuideEditViewModel()
 			{
@@ -150,9 +224,12 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<int> EditPostAsync(MountainGuideEditViewModel mountainGuideEdit)
 		{
 			var mountaineGuide = await _repository.All<MountainGuide>()
-                .Include(mg => mg.TourAgency)
+				.Include(mg => mg.TourAgency)
 				.Where(mg => mg.Id == mountainGuideEdit.Id)
 				.FirstOrDefaultAsync();
+
+			var tourAgency = await _repository.GetByIdAsync<TourAgency>(mountaineGuide.TourAgencyId);
+			var owner = await _repository.GetByIdAsync<IdentityUser>(mountaineGuide.OwnerId);
 
 			mountaineGuide.FirstName = mountainGuideEdit.FirstName;
 			mountaineGuide.LastName = mountainGuideEdit.LastName;
@@ -162,10 +239,36 @@ namespace PeaksAndAdventures.Core.Services
 			mountaineGuide.Experience = mountainGuideEdit.Experience;
 			mountaineGuide.ImageUrl = mountainGuideEdit.ImageUrl;
 			mountaineGuide.TourAgencyId = mountainGuideEdit.TourAgencyId;
+			mountaineGuide.Owner = owner;
+			mountaineGuide.TourAgency = tourAgency;
+
 
 			await _repository.SaveChangesAsync();
 
 			return mountaineGuide.Id;
 		}
+
+		public async Task<MountainGuideAddRouteViewModel> GetMountainGuideAddRouteViewModelAsync(int mountainGuideId)
+		{
+			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
+			var ownerId = mountainGuide.OwnerId;
+
+			if (mountainGuide == null || ownerId == null)
+			{
+				return null; // Ако планинският водач или ownerId не съществуват, върнете null
+			}
+
+			var routes = await _repository.AllReadOnly<Route>().ToListAsync();
+
+			var viewModel = new MountainGuideAddRouteViewModel
+			{
+				Id = mountainGuide.Id,
+				OwnerId = ownerId,
+				Routes = routes.Select(r => new GetAllRoutesViewModel { Id = r.Id, Name = r.Name })
+			};
+
+			return viewModel;
+		}
+
 	}
 }
