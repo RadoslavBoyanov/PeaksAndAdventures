@@ -34,6 +34,7 @@
 		{
 			<div class="d-grid gap-2 col-4 mx-auto">
 				<a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+				<a asp-controller="MountainGuide" asp-action="AddRouteToMountainGuide" asp-route-id="@Model.Id" class="btn btn-primary">Добави маршрут</a>
 				<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
 			</div>
 		}
