@@ -5,6 +5,9 @@ using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Core.ViewModels.MountainGuide
 {
+    /// <summary>
+    /// View model for add a mountain guide
+    /// </summary>
     public class MountainGuideAddViewModel
     {
 

@@ -5,6 +5,15 @@
 }
 
 <div class="container">
+	@if (!string.IsNullOrEmpty(Model.ImageUrl))
+	{
+		<div class="row mt-3">
+			<div class="col-md-12">
+				<h2 class="text-center">Профилна снимка</h2>
+				<img src="@Model.ImageUrl" alt="Profile Picture" class="rounded mx-auto d-block" />
+			</div>
+		</div>
+	}
 	<h2 class="text-center">@ViewBag.Title</h2>
 	<hr />
 	<div class="row">
@@ -23,19 +32,13 @@
 		</div>
 		@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
 		{
-			<a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-			<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
+			<div class="d-grid gap-2 col-4 mx-auto">
+				<a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+				<a asp-controller="MountainGuide" asp-action="AddRouteToMountainGuide" asp-route-id="@Model.Id" class="btn btn-primary">Добави маршрут</a>
+				<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
+			</div>
 		}
 	</div>
-	@if (!string.IsNullOrEmpty(Model.ImageUrl))
-	{
-		<div class="row mt-3">
-			<div class="col-md-12">
-				<h2>Profile Picture</h2>
-				<img src="@Model.ImageUrl" alt="Profile Picture" class="img-fluid" />
-			</div>
-		</div>
-	}
 </div>
 
 
