@@ -9,6 +9,8 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<IEnumerable<MountainGuideAllViewModel>> AllAsync();
 		Task<bool> CheckIfExistMountainGuideByIdAsync(int mountainGuideId); 
 		Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId);
+		Task<MountainGuideDeleteViewModel> DeleteGetAsync(int mountainGuideId);
+		Task<int> DeleteConfirmedAsync(int mountainGuideId);
 		Task<MountainGuideEditViewModel> EditGetAsync(int mountainGuideId);
 		Task<int> EditPostAsync(MountainGuideEditViewModel mountainGuideEdit);
 	}

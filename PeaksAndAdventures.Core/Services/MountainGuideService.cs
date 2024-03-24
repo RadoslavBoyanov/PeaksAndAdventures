@@ -79,6 +79,33 @@ namespace PeaksAndAdventures.Core.Services
 			return mountainGuideInformation;
 		}
 
+		public async Task<MountainGuideDeleteViewModel> DeleteGetAsync(int mountainGuideId)
+		{
+			var mountainGuide = await _repository.AllReadOnly<MountainGuide>()
+				.Where(mg => mg.Id == mountainGuideId)
+				.FirstOrDefaultAsync();
+
+			var deleteForm = new MountainGuideDeleteViewModel()
+			{
+				FirstName = mountainGuide.FirstName,
+				LastName = mountainGuide.LastName,
+				Email = mountainGuide.Email,
+				ImageUrl = mountainGuide.ImageUrl,
+				OwnerId = mountainGuide.OwnerId,
+			};
+
+			return deleteForm;
+		}
+
+		public async Task<int> DeleteConfirmedAsync(int mountainGuideId)
+		{
+			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
+
+			await _repository.DeleteAsync<MountainGuide>(mountainGuideId);
+			await _repository.SaveChangesAsync();
+			return mountainGuide.Id;
+		}
+
 		public async Task<MountainGuideEditViewModel> EditGetAsync(int mountainGuideId)
 		{
 			var currentMountainGuide = await _repository.All<MountainGuide>()

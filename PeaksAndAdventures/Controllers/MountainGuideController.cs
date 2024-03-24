@@ -112,5 +112,44 @@ namespace PeaksAndAdventures.Controllers
             await _mountainGuideService.AddAsync(mountainGuideForm);
             return RedirectToAction("All", "MountainGuide");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+	        var deleteMountainGuide = await _mountainGuideService.DeleteGetAsync(id);
+
+	        if (deleteMountainGuide is null)
+	        {
+		        return NotFound();
+	        }
+
+	        if (deleteMountainGuide.OwnerId != ClaimsPrincipalExtensions.Id(User))
+	        {
+		        return Unauthorized();
+	        }
+
+	        return View(deleteMountainGuide);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+	        var isExistMountainGuide = await _mountainGuideService.CheckIfExistMountainGuideByIdAsync(id);
+
+	        if (!isExistMountainGuide)
+	        {
+		        return NotFound();
+	        }
+
+	        var mountainGuide = await _mountainGuideService.DetailsAsync(id);
+	        if (mountainGuide.OwnerId !=ClaimsPrincipalExtensions.Id(User))
+	        {
+		        return Unauthorized();
+	        }
+
+	        await _mountainGuideService.DeleteConfirmedAsync(id);
+	        return RedirectToAction("All", "MountainGuide");
+
+        }
 	}
 }
