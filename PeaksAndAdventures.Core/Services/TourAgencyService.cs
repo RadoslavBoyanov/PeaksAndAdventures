@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.MountainGuide;
 using PeaksAndAdventures.Core.ViewModels.TourAgency;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
@@ -32,6 +33,20 @@ namespace PeaksAndAdventures.Core.Services
 
 			await _repository.AddAsync(tourAgency);
 			await _repository.SaveChangesAsync();
+		}
+
+		public async Task<IEnumerable<MountainGuideAllViewModel>> AllMountainGuideInAgencyAsync(int tourAgencyId)
+		{
+			return await _repository.AllReadOnly<MountainGuide>()
+				.Where(mg => mg.TourAgencyId == tourAgencyId)
+				.Select(mg => new MountainGuideAllViewModel()
+				{
+					Id = mg.Id,
+					FirstName = mg.FirstName,
+					LastName = mg.LastName,
+					ImageUrl = mg.ImageUrl
+				})
+				.ToListAsync();
 		}
 
 		public async  Task<TourAgencyDetailsViewModel> DetailsAsync(int tourAgencyId)
