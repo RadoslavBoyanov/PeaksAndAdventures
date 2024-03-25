@@ -10,6 +10,7 @@
 		public const string LakeIsAlreadyExist = "Езерото вече съществува!";
 		public const string WaterfallIsAlreadyExist = "Водопада вече съществува!";
 		public const string HutIsAlreadyExist = "Хижата вече съществува!";
+		public const string AgencyWithThisNameIsExist = "Туристическа агенция с това име вече съществува!";
 		public const string ArticleWithTheSameName = "Плагиатството не се толерира!";
         public const string TourAgencyNotExist = "Туристическата агенция не съществува!";
         public const string FailAddRouteToMountainGuide =
