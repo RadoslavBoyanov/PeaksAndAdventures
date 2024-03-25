@@ -40,7 +40,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             };
             users.Add(tourAgencyUser);
 
-            tourAgencyUser.PasswordHash = hasher.HashPassword(tourAgencyUser, "touragency1");
+            tourAgencyUser.PasswordHash = hasher.HashPassword(tourAgencyUser, "tourAgency1");
 
             var tourist = new IdentityUser()
             {
