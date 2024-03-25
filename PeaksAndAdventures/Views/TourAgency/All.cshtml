@@ -1,0 +1,30 @@
+﻿@model IEnumerable<TourAgencyGetViewModel>
+
+@{
+	ViewBag.Title = "Туристически агенции";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any() && Model != null)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Име</th>
+				<th>Оценка</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var agency in Model)
+			{
+				<tr>
+					<td><a asp-controller="TourAgency" asp-action="Details" asp-route-id="@agency.Id">@agency.Name</a> </td>
+					<td>@agency.Rating</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
