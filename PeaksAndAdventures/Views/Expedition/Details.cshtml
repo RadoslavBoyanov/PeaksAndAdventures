@@ -1,0 +1,29 @@
+﻿@model ExpeditionDetailsViewModel
+
+@{
+	ViewBag.Title = "Информация за експедицията";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr/>
+
+<div class="card">
+	<div class="card-body">
+		<h5 class="card-title">@Model.Name</h5>
+		<p class="card-text"><strong>Начална дата: </strong> @Model.StartDate</p>
+		<p class="card-text"><strong>Крайна дата: </strong>@Model.EndDate</p>
+		<p class="card-text"><strong>Продължителност: </strong>@Model.Days дни</p>
+		<p class="card-text"><strong>Туроператор: </strong>@Model.TourAgencyName</p>
+		<p class="card-text"><strong>Маршрут: </strong>@Model.RouteName</p>
+		<p class="card-text"><strong>Свободни места за записване: </strong>@Model.Enrolment</p>
+		<p class="card-text"><strong>Програма: </strong>@Model.Program</p>
+		<p class="card-text"><strong>Включва: </strong>@Model.Includes</p>
+		<p class="card-text"><strong>Изключва: </strong>@Model.Excludes</p>
+		@if (!string.IsNullOrEmpty(Model.Extras))
+		{
+			<p class="card-text"><strong>Допълнителни услуги: </strong>@Model.Extras</p>
+		}
+		<p class="card-text"><strong>Цена: </strong>@Model.Price$</p>
+	</div>
+</div>
+
