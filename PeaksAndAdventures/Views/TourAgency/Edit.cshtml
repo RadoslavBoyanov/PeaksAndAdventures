@@ -1,0 +1,39 @@
+﻿@model TourAgencyEditViewModel
+
+@{
+	ViewBag.Title = "Редактиране на туристическа агенция";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+
+<div class="row">
+	<div class="col-md-6">
+		<form asp-action="Edit" method="post">
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group">
+				<label asp-for="Name"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Description"></label>
+				<textarea asp-for="Description" class="form-control" rows="4"></textarea>
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Email"></label>
+				<input asp-for="Email" class="form-control" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Phone"></label>
+				<input asp-for="Phone" class="form-control" />
+				<span asp-validation-for="Phone" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Запази промените" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
