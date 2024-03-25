@@ -24,6 +24,32 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Add()
+		{
+			var tourAgency = new TourAgencyAddViewModel();
+
+			return View(tourAgency);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Add(TourAgencyAddViewModel tourAgencyForm)
+		{
+			if (await _tourAgencyService.CheckIfExistTourAgencyByName(tourAgencyForm.Name))
+			{
+				ModelState.AddModelError(nameof(tourAgencyForm.Name), AgencyWithThisNameIsExist);
+				return View(tourAgencyForm);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return View(tourAgencyForm);
+			}
+
+			await _tourAgencyService.AddTourAgencyAsync(tourAgencyForm);
+			return RedirectToAction("All", "TourAgency");
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
 			var tourAgency = await _tourAgencyService.DetailsAsync(id);
@@ -52,11 +78,6 @@ namespace PeaksAndAdventures.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(TourAgencyEditViewModel tourAgencyForm)
 		{
-			if (await _tourAgencyService.CheckIfExistTourAgencyByName(tourAgencyForm.Name))
-			{
-				ModelState.AddModelError(nameof(tourAgencyForm.Name), AgencyWithThisNameIsExist);
-				return View(tourAgencyForm);
-			}
 			if (tourAgencyForm is null)
 			{
 				return BadRequest();

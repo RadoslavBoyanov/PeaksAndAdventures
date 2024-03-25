@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.TourAgency;
 using PeaksAndAdventures.Infrastructure.Data.Common;
@@ -15,6 +16,24 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
+		public async Task AddTourAgencyAsync(TourAgencyAddViewModel tourAgencyForm)
+		{
+			var owner = await _repository.GetByIdAsync<IdentityUser>(tourAgencyForm.OwnerId);
+
+			var tourAgency = new TourAgency()
+			{
+				Name = tourAgencyForm.Name,
+				Description = tourAgencyForm.Description,
+				Email = tourAgencyForm.Email,
+				Phone = tourAgencyForm.Phone,
+				OwnerId = tourAgencyForm.OwnerId,
+				Owner = owner
+			};
+
+			await _repository.AddAsync(tourAgency);
+			await _repository.SaveChangesAsync();
+		}
+
 		public async  Task<TourAgencyDetailsViewModel> DetailsAsync(int tourAgencyId)
 		{
 			var tourAgency = await _repository.GetByIdAsync<TourAgency>(tourAgencyId);
@@ -26,6 +45,7 @@ namespace PeaksAndAdventures.Core.Services
 				Description = tourAgency.Description,
 				Email = tourAgency.Email,
 				Phone = tourAgency.Phone,
+				OwnerId = tourAgency.OwnerId,
 			};
 
 			return tourAgencyDetails;
@@ -41,7 +61,7 @@ namespace PeaksAndAdventures.Core.Services
                 Id = currentTourAgency.Id,
                 Name = currentTourAgency.Name,
                 Description = currentTourAgency.Description,
-                Email = currentTourAgency.Description,
+                Email = currentTourAgency.Email,
                 OwnerId = currentTourAgency.OwnerId,
                 Phone = currentTourAgency.Phone,
 			};

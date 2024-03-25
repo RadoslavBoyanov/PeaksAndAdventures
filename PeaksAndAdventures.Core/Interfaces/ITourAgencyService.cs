@@ -3,7 +3,8 @@
 namespace PeaksAndAdventures.Core.Interfaces
 {
 	public interface ITourAgencyService
-    {
+	{
+		Task AddTourAgencyAsync(TourAgencyAddViewModel tourAgencyForm);
 	    Task<TourAgencyDetailsViewModel> DetailsAsync(int tourAgencyId);
 		Task<TourAgencyEditViewModel> EditGetAsync(int tourAgencyId);
         Task<int> EditPostAsync(TourAgencyEditViewModel tourAgencyForm);
