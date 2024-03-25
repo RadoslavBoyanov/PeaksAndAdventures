@@ -13,6 +13,7 @@
 		<p class="card-text"><strong>Описание:</strong> @Model.Description</p>
 		<p class="card-text"><strong>Имейл:</strong> @Model.Email</p>
 		<p class="card-text"><strong>Телефон:</strong> @Model.Phone</p>
+		<p class="card-text"><a asp-controller="TourAgency" asp-action="AllMountainGuidesInAgency" asp-route-id="@Model.Id">Планински водачи</a></p>
 	</div>
 
 	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
