@@ -1,0 +1,25 @@
+﻿@model TourAgencyDetailsViewModel
+
+@{
+	ViewBag.Title = "Детайли за туристическа агенция";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+
+<div class="card">
+	<div class="card-body">
+		<h5 class="card-title text-center">@Model.Name</h5>
+		<p class="card-text"><strong>Описание:</strong> @Model.Description</p>
+		<p class="card-text"><strong>Имейл:</strong> @Model.Email</p>
+		<p class="card-text"><strong>Телефон:</strong> @Model.Phone</p>
+	</div>
+	
+	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
+	{
+		<div class="flex-row">
+			<a asp-controller="TourAgency" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+			<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+		</div>
+	}
+</div>
