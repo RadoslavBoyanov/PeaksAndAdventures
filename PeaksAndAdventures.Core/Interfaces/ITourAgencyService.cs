@@ -1,5 +1,4 @@
 ﻿using PeaksAndAdventures.Core.ViewModels.TourAgency;
-using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {

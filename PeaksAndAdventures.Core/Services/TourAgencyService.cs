@@ -22,6 +22,7 @@ namespace PeaksAndAdventures.Core.Services
                 {
                     Id = ta.Id,
                     Name = ta.Name,
+                    Rating = ta.Rating.ToString()
                 })
                 .ToListAsync();
         }
