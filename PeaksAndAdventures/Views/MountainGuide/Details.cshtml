@@ -29,14 +29,17 @@
 		<div class="col-md-6">
 			<h2>Информация за агенцията</h2>
 			<p><strong>Име на агенцията:</strong> @Model.TourAgencyName</p>
+			<h3>Маршрути и планини</h3>
+			<p><a asp-controller="MountainGuide" asp-action="GetAllMountains" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Планини</a></p>
+			<p><a asp-controller="MountainGuide" asp-action="GetAllRoutes" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Маршрути</a></p>
 		</div>
 		@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
 		{
-			<div class="d-grid gap-2 col-4 mx-auto">
+			<div class="flex-row">
 				<a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-				<a asp-controller="MountainGuide" asp-action="AddRouteToMountainGuide" asp-route-id="@Model.Id" class="btn btn-primary">Добави маршрут</a>
-				<a asp-controller="MountainGuide" asp-action="AddMountainToMountainGuide" asp-route-id="@Model.Id" class="btn btn-primary">Добави планина</a>
-				<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
+				<a asp-controller="MountainGuide" asp-action="AddRouteToMountainGuide" asp-route-id="@Model.Id" class="btn btn-secondary">Добави маршрут</a>
+				<a asp-controller="MountainGuide" asp-action="AddMountainToMountainGuide" asp-route-id="@Model.Id" class="btn btn-secondary">Добави планина</a>
+				<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 			</div>
 		}
 	</div>

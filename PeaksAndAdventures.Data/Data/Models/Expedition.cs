@@ -14,6 +14,15 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [StringLength(NameMaxLength)]
+        [Comment("Name of expedition")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [Comment("People signed for expedition")]
+        public int Enrolment { get; set; }
+
+        [Required]
         [Column("Start date")]
         [Comment("Expedition start date")]
         public DateTime StartDate { get; set; }

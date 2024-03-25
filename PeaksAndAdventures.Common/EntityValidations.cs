@@ -258,6 +258,12 @@
             public const string DateTimeFormat = "dd/MM/yyyy HH:mm";
 
             /// <summary>
+            /// Constants for name of expedition
+            /// </summary>
+            public const int NameMaxLength = 100;
+            public const int NameMinLength = 5;
+
+            /// <summary>
             /// Constants for expedition days
             /// </summary>
             public const int DaysMax = 120;

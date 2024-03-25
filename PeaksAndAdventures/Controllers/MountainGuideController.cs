@@ -7,7 +7,7 @@ using static PeaksAndAdventures.Common.SuccessMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class MountainGuideController : Controller
+	public class MountainGuideController : BaseController
 	{
 		private readonly IMountainGuideService _mountainGuideService;
 		private readonly ITourAgencyService _tourAgencyService;

@@ -13,8 +13,7 @@
 		@foreach (var mountain in Model)
 		{
 			<li>
-				@mountain.Name
-				<a href="@Url.Action("Details", "Mountain", new { id = mountain.Id })" class="btn btn-primary">Детайли</a>
+				<a href="@Url.Action("Details", "Mountain", new { id = mountain.Id })">@mountain.Name</a>
 			</li>
 		}
 	</ul>
