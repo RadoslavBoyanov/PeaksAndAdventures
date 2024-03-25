@@ -14,10 +14,10 @@
 		<p class="card-text"><strong>Имейл:</strong> @Model.Email</p>
 		<p class="card-text"><strong>Телефон:</strong> @Model.Phone</p>
 	</div>
-	
+
 	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
 	{
-		<div class="flex-row">
+		<div class="card-footer d-flex justify-content-between">
 			<a asp-controller="TourAgency" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
 			<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 		</div>
