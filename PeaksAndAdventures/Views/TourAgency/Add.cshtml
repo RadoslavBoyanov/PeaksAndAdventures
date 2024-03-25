@@ -1,0 +1,42 @@
+﻿@model TourAgencyAddViewModel
+
+@{
+	ViewBag.Title = "Добавяне на туристическа агенция";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<form asp-controller="TourAgency" asp-action="Add" method="post">
+	<div class="form-group">
+		<label asp-for="Name"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Description"></label>
+		<textarea asp-for="Description" class="form-control"></textarea>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Email"></label>
+		<input asp-for="Email" class="form-control" />
+		<span asp-validation-for="Email" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Phone"></label>
+		<input asp-for="Phone" class="form-control" />
+		<span asp-validation-for="Phone" class="text-danger"></span>
+	</div>
+
+	<input type="hidden" asp-for="OwnerId" value="@ClaimsPrincipalExtensions.Id(User)" />
+
+	<button type="submit" class="btn btn-primary">Добави</button>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
