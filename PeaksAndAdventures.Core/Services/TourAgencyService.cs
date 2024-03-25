@@ -15,7 +15,56 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
-        public async Task<IEnumerable<TourAgencyGetViewModel>> GetAllTourAgenciesAsync()
+		public async  Task<TourAgencyDetailsViewModel> DetailsAsync(int tourAgencyId)
+		{
+			var tourAgency = await _repository.GetByIdAsync<TourAgency>(tourAgencyId);
+
+			var tourAgencyDetails = new TourAgencyDetailsViewModel()
+			{
+				Id = tourAgency.Id,
+				Name = tourAgency.Name,
+				Description = tourAgency.Description,
+				Email = tourAgency.Email,
+				Phone = tourAgency.Phone,
+			};
+
+			return tourAgencyDetails;
+		}
+
+		public async Task<TourAgencyEditViewModel> EditGetAsync(int tourAgencyId)
+		{
+			var currentTourAgency = await _repository.All<TourAgency>()
+				.FirstOrDefaultAsync(ta => ta.Id == tourAgencyId);
+
+			var tourAgency = new TourAgencyEditViewModel()
+			{
+                Id = currentTourAgency.Id,
+                Name = currentTourAgency.Name,
+                Description = currentTourAgency.Description,
+                Email = currentTourAgency.Description,
+                OwnerId = currentTourAgency.OwnerId,
+                Phone = currentTourAgency.Phone,
+			};
+
+			return tourAgency;
+		}
+
+		public async Task<int> EditPostAsync(TourAgencyEditViewModel tourAgencyForm)
+		{
+			var tourAgency = await _repository.All<TourAgency>()
+				.Where(ta => ta.Id == tourAgencyForm.Id)
+				.FirstOrDefaultAsync();
+
+            tourAgency.Name = tourAgencyForm.Name;
+            tourAgency.Description = tourAgencyForm.Description;
+            tourAgency.Email = tourAgencyForm.Email;
+            tourAgency.Phone = tourAgencyForm.Phone;
+
+            await _repository.SaveChangesAsync();
+            return tourAgency.Id;
+		}
+
+		public async Task<IEnumerable<TourAgencyGetViewModel>> GetAllTourAgenciesAsync()
         {
             return await _repository.AllReadOnly<TourAgency>()
                 .Select(ta => new TourAgencyGetViewModel()
