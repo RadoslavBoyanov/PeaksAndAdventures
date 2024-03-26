@@ -270,10 +270,16 @@
             public const int DaysMin = 1;
 
             /// <summary>
+            /// Constants for enrolments for expeditions
+            /// </summary>
+            public const int EnrolmentsMaxCount = 100;
+            public const int EnrollmentsMinCount = 1;
+
+            /// <summary>
             /// Constants for expedition days
             /// </summary>
-            public const string PriceMax = "100000";
-            public const string PriceMin = "100";
+            public const double PriceMax = 1_000_000.00;
+            public const double PriceMin = 50.00;
 
 
             /// <summary>
