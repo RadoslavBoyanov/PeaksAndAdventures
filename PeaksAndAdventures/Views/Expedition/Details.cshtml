@@ -23,7 +23,14 @@
 		{
 			<p class="card-text"><strong>Допълнителни услуги: </strong>@Model.Extras</p>
 		}
-		<p class="card-text"><strong>Цена: </strong>@Model.Price$</p>
+		<p class="card-text"><strong>Цена: </strong>@Model.Price</p>
 	</div>
+	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OrganiserId)
+	{
+		<div class="flex-row">
+			<a asp-controller="Expedition" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+			<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+		</div>
+	}
 </div>
 
