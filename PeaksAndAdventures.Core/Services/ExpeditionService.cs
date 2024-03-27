@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Expedition;
 using PeaksAndAdventures.Core.ViewModels.Route;
@@ -17,7 +18,36 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
-		public async Task<IEnumerable<ExpeditionAllViewModel>> AllExpeditionGetAsync()
+        public async Task AddAsync(ExpeditionAddViewModel expeditionForm)
+        {
+            var organiser = await _repository.GetByIdAsync<IdentityUser>(expeditionForm.OrganiserId);
+            var tourAgency = await _repository.GetByIdAsync<TourAgency>(expeditionForm.TourAgencyId);
+            var route = await _repository.GetByIdAsync<Route>(expeditionForm.RouteId);
+
+            var expedition = new Expedition()
+            {
+                Name = expeditionForm.Name,
+                StartDate = expeditionForm.StartDate,
+                EndDate = expeditionForm.EndDate,
+                Days = expeditionForm.Days,
+                Enrolment = expeditionForm.Enrolment,
+                Includes = expeditionForm.Includes,
+                Excludes = expeditionForm.Excludes,
+                Program = expeditionForm.Program,
+                Extras = expeditionForm.Extras,
+				Price = expeditionForm.Price,
+                OrganiserId = expeditionForm.OrganiserId,
+				Organiser = organiser,
+                RouteId = expeditionForm.RouteId,
+				Route = route,
+				TourAgencyId = expeditionForm.TourAgencyId,
+				TourAgency = tourAgency,
+            };
+            await _repository.AddAsync(expedition);
+			await _repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ExpeditionAllViewModel>> AllExpeditionGetAsync()
 		{
 			return await _repository.AllReadOnly<Expedition>()
 				.Select(e => new ExpeditionAllViewModel()
@@ -59,7 +89,7 @@ namespace PeaksAndAdventures.Core.Services
 				Name = expedition.Name,
 				StartDate = expedition.StartDate.ToString(DateTimeFormat),
 				EndDate = expedition.EndDate.ToString(DateTimeFormat),
-				Price = expedition.Price.ToString(),
+				Price = expedition.Price,
 				Days = expedition.Days,
 				Enrolment = expedition.Enrolment,
 				Program = expedition.Program,
@@ -79,7 +109,6 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<ExpeditionEditViewModel> EditGetAsync(int expeditionId)
 		{
 			var currentExpedition = await _repository.All<Expedition>()
-				.Include(e => e.RouteId)
 				.FirstOrDefaultAsync(e => e.Id == expeditionId);
 
 			var routes = await _repository.All<Route>()
@@ -99,7 +128,8 @@ namespace PeaksAndAdventures.Core.Services
 				Days = currentExpedition.Days,
 				Enrolment = currentExpedition.Enrolment,
 				Includes = currentExpedition.Includes,
-				Excludes = currentExpedition.Excludes,
+				Excludes = currentExpedition.Excludes, 
+				Price = currentExpedition.Price,
 				Program = currentExpedition.Program,
 				Extras = currentExpedition.Extras,
 				OrganiserId = currentExpedition.OrganiserId,
@@ -113,7 +143,6 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<int> EditPostAsync(ExpeditionEditViewModel expeditionForm)
 		{
 			var expedition = await _repository.All<Expedition>()
-				.Include(e => e.RouteId)
 				.Where(e => e.Id == expeditionForm.Id)
 				.FirstOrDefaultAsync();
 
@@ -126,6 +155,7 @@ namespace PeaksAndAdventures.Core.Services
 			expedition.Includes = expeditionForm.Includes;
 			expedition.Excludes = expeditionForm.Excludes;
 			expedition.Program = expeditionForm.Program;
+			expedition.Price = expeditionForm.Price;
 			expedition.Extras = expeditionForm.Extras;
 			expedition.OrganiserId = expeditionForm.OrganiserId;
 			expedition.RouteId = expeditionForm.RouteId;

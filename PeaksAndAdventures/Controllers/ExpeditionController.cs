@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Expedition;
 using PeaksAndAdventures.Extensions;
@@ -9,14 +10,42 @@ namespace PeaksAndAdventures.Controllers
 	{
 		private readonly IExpeditionService _expeditionService;
 		private readonly IRouteService _routeService;
+		private readonly ITourAgencyService _tourAgencyService;
 
 		public ExpeditionController(
 			IExpeditionService expeditionService,
-			IRouteService routeService)
+			IRouteService routeService,
+            ITourAgencyService tourAgencyService)
 		{
 			_expeditionService = expeditionService;
 			_routeService = routeService;
-		}
+            _tourAgencyService = tourAgencyService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var expedition = new ExpeditionAddViewModel()
+            {
+                TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync(),
+                Routes = await _routeService.GetAllRoutesAsync()
+            };
+            return View(expedition);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ExpeditionAddViewModel expeditionForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                expeditionForm.TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync();
+				expeditionForm.Routes = await _routeService.GetAllRoutesAsync();
+                return View(expeditionForm);
+            }
+
+            await _expeditionService.AddAsync(expeditionForm);
+            return RedirectToAction("All", "Expedition");
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> All()
@@ -64,12 +93,12 @@ namespace PeaksAndAdventures.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(ExpeditionEditViewModel expeditionForm)
 		{
-			if (await _expeditionService.CheckIfExistExpeditionByNameAsync(expeditionForm.Name))
-			{
-				ModelState.AddModelError(nameof(expeditionForm.Name), "");
-				expeditionForm.Routes = await _routeService.GetAllRoutesAsync();
-				return View(expeditionForm);
-			}
+			//if (await _expeditionService.CheckIfExistExpeditionByNameAsync(expeditionForm.Name))
+			//{
+			//	ModelState.AddModelError(nameof(expeditionForm.Name), "");
+			//	expeditionForm.Routes = await _routeService.GetAllRoutesAsync();
+			//	return View(expeditionForm);
+			//}
 
 			if (expeditionForm.OrganiserId != ClaimsPrincipalExtensions.Id(User))
 			{
