@@ -1,13 +1,13 @@
-﻿@model ExpeditionEditViewModel
+﻿@model ExpeditionAddViewModel
 
 @{
-	ViewBag.Title = "Редактиране на информацията за експедицията";
+	ViewBag.Title = "Добавяне на екседиция";
 }
 
 <h2>@ViewBag.Title</h2>
-<hr />
+<hr/>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Add" method="post">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -69,17 +69,24 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="RouteId"></label>
-        <select asp-for="RouteId" asp-items="@(new SelectList(Model.Routes, "Id", "Name"))" class="form-control">
-            <option value="">Select Route</option>
-        </select>
-        <span asp-validation-for="RouteId" class="text-danger"></span>
+	    <label asp-for="RouteId"></label>
+	    <select asp-for="RouteId" asp-items="@(new SelectList(Model.Routes, "Id", "Name"))" class="form-control">
+		    <option value="">Избери маршрут</option>
+	    </select>
+	    <span asp-validation-for="RouteId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+	    <label asp-for="TourAgencyId"></label>
+        <select asp-for="TourAgencyId" asp-items="@(new SelectList(Model.TourAgencies, "Id", "Name"))" class="form-control">
+		    <option value="">Избери агенция</option>
+	    </select>
+        <span asp-validation-for="TourAgencyId" class="text-danger"></span>
     </div>
     <input type="hidden" asp-for="OrganiserId" value="@ClaimsPrincipalExtensions.Id(User)" />
 
-    <button type="submit" class="btn btn-primary">Запамети</button>
+    <button type="submit" class="btn btn-primary">Добави</button>
 </form>
 
 @section Scripts {
-	<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
