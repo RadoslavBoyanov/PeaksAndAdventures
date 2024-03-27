@@ -18,8 +18,7 @@ namespace PeaksAndAdventures.Core.ViewModels.Expedition
 
 		public string Program { get; set; } = string.Empty;
 
-		[DisplayFormat(DataFormatString = "{0:C}$")]
-		public string Price { get; set; } = string.Empty;
+		public decimal Price { get; set; }
 
 		public string Includes { get; set; } = string.Empty;
 

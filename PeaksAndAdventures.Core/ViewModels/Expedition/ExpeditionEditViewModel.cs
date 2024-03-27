@@ -21,14 +21,14 @@ namespace PeaksAndAdventures.Core.ViewModels.Expedition
 		public int Enrolment { get; set; }
 
 		[Required(ErrorMessage = RequireErrorMessage)]
-		[DataType(DataType.DateTime)]
+		//[DataType(DataType.DateTime)]
 		[DisplayFormat(DataFormatString = DateTimeFormat,
 			ApplyFormatInEditMode = true)]
 		[Display(Name = "Начало на експедицията")]
 		public DateTime StartDate { get; set; }
 
 		[Required(ErrorMessage = RequireErrorMessage)]
-		[DataType(DataType.DateTime)]
+		//[DataType(DataType.DateTime)]
 		[DisplayFormat(DataFormatString = DateTimeFormat, 
 			ApplyFormatInEditMode = true)]
 		[Display(Name = "Край на експедицията")]
