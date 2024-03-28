@@ -26,8 +26,8 @@ namespace PeaksAndAdventures.Core.ViewModels.Article
 		public string Content { get; set; } = string.Empty;
 
 		[Required(ErrorMessage = RequireErrorMessage)]
-		[DataType(DataType.DateTime)]
-		[DisplayFormat(DataFormatString = DateTimeFormat, ApplyFormatInEditMode = true)]
+		//[DataType(DataType.DateTime)]
+		//[DisplayFormat(DataFormatString = DateTimeFormat, ApplyFormatInEditMode = true)]
 		[Display(Name = "Дата на публикуване")]
 		public DateTime DatePublish { get; set; }
 

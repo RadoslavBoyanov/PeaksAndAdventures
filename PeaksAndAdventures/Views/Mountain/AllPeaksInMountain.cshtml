@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<AllPeaksViewModel>
 
-<h2>Върхове</h2>
+@{
+	ViewBag.Title = "Върхове в планината";
+}
+
+<h2>@ViewBag.Title</h2>
 
 @if (!Model.Any())
 {
