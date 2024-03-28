@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Expedition;
 using PeaksAndAdventures.Extensions;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -36,6 +37,14 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ExpeditionAddViewModel expeditionForm)
         {
+	        if (await _expeditionService.CheckIfExistExpeditionByNameAsync(expeditionForm.Name))
+	        {
+				expeditionForm.TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync();
+				expeditionForm.Routes = await _routeService.GetAllRoutesAsync();
+				ModelState.AddModelError(nameof(expeditionForm.Name), AgencyWithThisNameIsExist);
+				return View(expeditionForm);
+	        }
+
             if (!ModelState.IsValid)
             {
                 expeditionForm.TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync();
