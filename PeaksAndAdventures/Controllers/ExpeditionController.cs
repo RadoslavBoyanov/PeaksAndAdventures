@@ -139,7 +139,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> MyExpeditions(string userId)
+		public async Task<IActionResult> MyExpeditions()
 		{
 			var myExpeditions = await _expeditionService.UserExpeditionsAsync(ClaimsPrincipalExtensions.Id(User));
 			return View(myExpeditions);
