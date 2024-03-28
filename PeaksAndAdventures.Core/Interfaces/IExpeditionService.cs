@@ -12,5 +12,8 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<ExpeditionDetailsViewModel> DetailsAsync(int expeditionId);
 		Task<ExpeditionEditViewModel> EditGetAsync(int expeditionId);
 		Task<int> EditPostAsync(ExpeditionEditViewModel expeditionForm);
-	}
+		Task<ExpeditionRegisterViewModel> RegisterForExpeditionAsync(string userId, int expeditionId);
+		Task<ExpeditionRegisterViewModel> UnregisterFromExpeditionAsync(string userId, int expeditionId);
+		Task<IEnumerable<ExpeditionAllViewModel>> UserExpeditionsAsync(string userId);
+    }
 }

@@ -163,5 +163,94 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.SaveChangesAsync();
 			return expedition.Id;
 		}
+
+		public async Task<ExpeditionRegisterViewModel> RegisterForExpeditionAsync(string userId, int expeditionId)
+		{
+			var user = await _repository.GetByIdAsync<IdentityUser>(userId);
+
+			var expedition = await _repository.GetByIdAsync<Expedition>(expeditionId);
+
+			bool isParticipantInExpedition = await _repository.AllReadOnly<ExpeditionParticipant>()
+				.AnyAsync(ep => ep.ParticipantId == userId && ep.ExpeditionId == expeditionId);/*expedition.ExpeditionsParticipants.Any(ep => ep.ParticipantId == user.Id);*/
+			if (isParticipantInExpedition)
+			{
+				return new ExpeditionRegisterViewModel()
+				{
+					Success = false,
+					Message = "Вече сте записани за тази експедиция.",
+				};
+			}
+
+			if (expedition.Enrolment < 1)
+			{
+				return new ExpeditionRegisterViewModel()
+				{
+					Success = false,
+					Message = "Няма свободни места за експедицията.",
+				};
+			}
+
+			var expeditionParticipant = new ExpeditionParticipant()
+			{
+				ExpeditionId = expeditionId,
+				Expedition = expedition,
+				ParticipantId = userId,
+				Participant = user
+			};
+
+			expedition.Enrolment--;
+			await _repository.AddAsync(expeditionParticipant);
+			await _repository.SaveChangesAsync();
+
+			return new ExpeditionRegisterViewModel()
+			{
+				Success = true,
+				Message = "Успешно сте записани за експедицията!",
+			};
+		}
+
+		public async Task<ExpeditionRegisterViewModel> UnregisterFromExpeditionAsync(string userId, int expeditionId)
+		{
+			var expeditionParticipant = await _repository.All<ExpeditionParticipant>()
+				.FirstOrDefaultAsync(ep => ep.ParticipantId == userId && ep.ExpeditionId == expeditionId);
+
+			if (expeditionParticipant == null)
+			{
+				return new ExpeditionRegisterViewModel()
+				{
+					Success = false,
+					Message = "Вие не сте записани за тази експедиция.",
+				};
+			}
+
+			var expedition = await _repository.GetByIdAsync<Expedition>(expeditionId);
+
+			expedition.Enrolment++;
+			_repository.Delete(expeditionParticipant);
+			await _repository.SaveChangesAsync();
+
+
+			return new ExpeditionRegisterViewModel()
+			{
+				Success = true,
+				Message = "Успешно се отписахте от експедицията.",
+			};
+		}
+
+		public async Task<IEnumerable<ExpeditionAllViewModel>> UserExpeditionsAsync(string userId)
+		{
+			return await _repository.AllReadOnly<ExpeditionParticipant>()
+				.Include(ep => ep.Expedition)
+				.Where(ep => ep.ParticipantId == userId)
+				.Select(ep => new ExpeditionAllViewModel()
+				{
+					Id = ep.Expedition.Id,
+					Name = ep.Expedition.Name,
+					StartDate = ep.Expedition.StartDate.ToString(DateTimeFormat),
+					EndDate = ep.Expedition.EndDate.ToString(DateTimeFormat),
+					Price = ep.Expedition.Price.ToString(),
+				})
+				.ToListAsync();
+		}
 	}
 }

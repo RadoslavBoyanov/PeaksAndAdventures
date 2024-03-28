@@ -105,20 +105,6 @@ namespace PeaksAndAdventures.Core.Services
 			return article.Id;
 		}
 
-		public async Task<IEnumerable<ArticleDetailsViewModel>> GetAllArticlesWithDetailsAsync()
-		{
-			return await _repository.AllReadOnly<Article>()
-				.Select(a => new ArticleDetailsViewModel()
-				{
-					Id = a.Id,
-					Title = a.Title,
-					Content = a.Content,
-					ImageUrl = a.ImageUrl,
-					DatePublish = a.DatePublish.ToString(DateTimeFormat),
-					AuthorId = a.AuthorId
-				}).ToListAsync();
-		}
-
 		public async Task<ArticleDeleteViewModel> DeleteGetAsync(int articleId)
 		{
 			var article = await _repository.AllReadOnly<Article>()
@@ -143,6 +129,19 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.DeleteAsync<Article>(articleId);
 			await _repository.SaveChangesAsync();
 			return article;
+		}
+
+		public async Task<IEnumerable<ArticleAllViewModel>> UserArticlesAsync(string userId)
+		{
+			return await _repository.AllReadOnly<Article>()
+				.Where(a => a.AuthorId == userId)
+				.Select(a => new ArticleAllViewModel()
+				{
+					Id = a.Id,
+					Title = a.Title,
+					ImageUrl = a.ImageUrl
+				})
+				.ToListAsync();
 		}
 	}
 }

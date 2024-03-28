@@ -25,6 +25,19 @@
 		}
 		<p class="card-text"><strong>Цена: </strong>@Model.Price</p>
 	</div>
+	<div class="d-xxl-inline-flex justify-content-around ">
+		<form asp-controller="Expedition" asp-action="JoinExpedition" method="post">
+			<input type="hidden" name="expeditionId" value="@Model.Id" />
+			<input type="hidden" name="userId" value="@ClaimsPrincipalExtensions.Id(User)" />
+			<button class="btn btn-primary" type="submit">Запиши се за експедицията</button>
+		</form>
+		<form asp-controller="Expedition" asp-action="LeaveExpedition" method="post">
+			<input type="hidden" name="expeditionId" value="@Model.Id" />
+			<input type="hidden" name="userId" value="@ClaimsPrincipalExtensions.Id(User)" />
+			<button class="btn btn-danger" type="submit">Отпиши се от експедицията</button>
+		</form>
+	</div>
+	
 	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OrganiserId)
 	{
 		<div class="flex-row">

@@ -109,13 +109,8 @@ namespace PeaksAndAdventures.Controllers
 		[HttpGet]
 		public async Task<IActionResult> UserArticles()
 		{
-			var articles = await _articleService.GetAllArticlesWithDetailsAsync();
-
-			var userId = ClaimsPrincipalExtensions.Id(User);
-
-			var userArticles = articles.Where(a => a.AuthorId == userId);
-
-			return View(userArticles);
+			var myArticles = await _articleService.UserArticlesAsync(ClaimsPrincipalExtensions.Id(User));
+			return View(myArticles);
 		}
 
 		[HttpGet]

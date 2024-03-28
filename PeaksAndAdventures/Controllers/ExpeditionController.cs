@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Expedition;
 using PeaksAndAdventures.Extensions;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -36,6 +37,14 @@ namespace PeaksAndAdventures.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ExpeditionAddViewModel expeditionForm)
         {
+	        if (await _expeditionService.CheckIfExistExpeditionByNameAsync(expeditionForm.Name))
+	        {
+				expeditionForm.TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync();
+				expeditionForm.Routes = await _routeService.GetAllRoutesAsync();
+				ModelState.AddModelError(nameof(expeditionForm.Name), AgencyWithThisNameIsExist);
+				return View(expeditionForm);
+	        }
+
             if (!ModelState.IsValid)
             {
                 expeditionForm.TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync();
@@ -93,13 +102,6 @@ namespace PeaksAndAdventures.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(ExpeditionEditViewModel expeditionForm)
 		{
-			//if (await _expeditionService.CheckIfExistExpeditionByNameAsync(expeditionForm.Name))
-			//{
-			//	ModelState.AddModelError(nameof(expeditionForm.Name), "");
-			//	expeditionForm.Routes = await _routeService.GetAllRoutesAsync();
-			//	return View(expeditionForm);
-			//}
-
 			if (expeditionForm.OrganiserId != ClaimsPrincipalExtensions.Id(User))
 			{
 				return Unauthorized();
@@ -114,5 +116,43 @@ namespace PeaksAndAdventures.Controllers
 			await _expeditionService.EditPostAsync(expeditionForm);
 			return RedirectToAction("Details", "Expedition", new { id = expeditionForm.Id });
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> JoinExpedition(int expeditionId, string userId)
+		{
+			var result = await _expeditionService.RegisterForExpeditionAsync(userId, expeditionId);
+
+			if (result.Success)
+			{
+				return Ok(result.Message);
+			}
+			else
+			{
+				return BadRequest(result.Message);
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> LeaveExpedition(int expeditionId, string userId)
+		{
+			var result = await _expeditionService.UnregisterFromExpeditionAsync(userId, expeditionId);
+
+			if (result.Success)
+			{
+				return Ok(result.Message);
+			}
+			else
+			{
+				return BadRequest(result.Message);
+			}
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> MyExpeditions()
+		{
+			var myExpeditions = await _expeditionService.UserExpeditionsAsync(ClaimsPrincipalExtensions.Id(User));
+			return View(myExpeditions);
+		}
+
 	}
 }

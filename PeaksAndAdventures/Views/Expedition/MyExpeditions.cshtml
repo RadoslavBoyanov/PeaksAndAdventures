@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ExpeditionAllViewModel>
+
+@{
+	ViewBag.Title = "Участия в експедиции";
+}
+
+@if (!Model.Any())
+{
+	<div class="alert alert-info" role="alert">
+		<h3>Вие не сте заявили участие в експедиции</h3>
+		<hr>
+		<p class="mb-0">
+			<a asp-controller="Expedition" asp-action="All" class="btn btn-secondary">Върни се към експедициите</a>
+		</p>
+	</div>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Име</th>
+				<th>Начална дата</th>
+				<th>Крайна дата</th>
+				<th>Цена</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var expedition in Model)
+			{
+				<tr>
+					<td>@expedition.Name</td>
+					<td>@expedition.StartDate</td>
+					<td>@expedition.EndDate</td>
+					<td>@Html.DisplayFor(modelItem => expedition.Price)</td>
+					<td>
+						<a href="@Url.Action("Details", "Expedition", new { id = expedition.Id })" class="btn btn-primary">Детайли</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
