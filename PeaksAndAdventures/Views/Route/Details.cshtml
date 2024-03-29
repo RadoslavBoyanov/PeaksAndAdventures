@@ -1,0 +1,41 @@
+﻿@model RouteDetailsViewModel
+
+@{
+	ViewBag.Title = "Информация за маршрута";
+}
+
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<div class="card">
+	<img src="@Model.ImageUrl" class="card-img-top" alt="Route Image">
+	<div class="card-body">
+		<h4 class="card-title">
+			<strong>Име:</strong> @Model.Name
+		</h4>
+		<p class="card-text">
+			<strong>Начална точка:</strong> @Model.StartingPoint
+		</p>
+		<p class="card-text">
+			<strong>Положителна денивелация:</strong> @Model.DisplacementPositive
+		</p>
+		<p class="card-text">
+			<strong>Отрицателна денивелация:</strong> @Model.DisplacementNegative
+		</p>
+		<p class="card-text">
+			<strong>Трудност:</strong> @Model.Difficulty
+		</p>
+		<p class="card-text">
+			<strong>Времетраене:</strong> @Model.Duration
+		</p>
+		<p class="card-text">
+			<strong>Оценка:</strong> @Model.Rating
+		</p>
+		<p class="card-text">
+			<strong>Планина:</strong> @Model.MountainName
+		</p>
+		<p class="card-text">
+			<strong>Описание:</strong> @Model.Description
+		</p>
+	</div>
+</div>
