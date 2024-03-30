@@ -1,0 +1,124 @@
+﻿@model RouteAddViewModel
+
+@{
+	ViewBag.Title = "Добави маршрут";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
+
+<div class="form-group">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="StartingPoint"></label>
+    <input asp-for="StartingPoint" class="form-control" />
+    <span asp-validation-for="StartingPoint" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="DisplacementPositive"></label>
+    <input asp-for="DisplacementPositive" class="form-control" />
+    <span asp-validation-for="DisplacementPositive" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="DisplacementNegative"></label>
+    <input asp-for="DisplacementNegative" class="form-control" />
+    <span asp-validation-for="DisplacementNegative" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Difficulty"></label>
+    <select asp-for="Difficulty" class="form-control">
+        <option value="Easy">Лесен</option>
+        <option value="Medium">Среден</option>
+        <option value="Hard">Труден</option>
+    </select>
+    <span asp-validation-for="Difficulty" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Duration"></label>
+    <input asp-for="Duration" class="form-control" />
+    <span asp-validation-for="Duration" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="ImageUrl"></label>
+    <input asp-for="ImageUrl" class="form-control" />
+    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Description"></label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="MountainId"></label>
+    <select asp-for="MountainId" class="form-control" asp-items="@(new SelectList(Model.Mountains, "Id", "Name"))">
+        <option value="">-- Изберете планина --</option>
+    </select>
+    <span asp-validation-for="MountainId" class="text-danger"></span>
+</div>
+
+
+<div class="form-group">
+	<label>Изберете хижи</label>
+	@foreach (var hut in Model.Huts)
+	{
+		<div class="form-check">
+			<input type="checkbox" name="Huts" value="@hut.Id" class="form-check-input" />
+			<label class="form-check-label">@hut.Name</label>
+		</div>
+	}
+	<span asp-validation-for="Huts" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label>Изберете върхове</label>
+    @foreach (var peak in Model.Peaks)
+    {
+        <div class="form-check">
+            <input type="checkbox" name="Peaks" value="@peak.Id" class="form-check-input" />
+            <label class="form-check-label">@peak.Name</label>
+        </div>
+    }
+    <span asp-validation-for="Peaks" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+	<label>Изберете езера</label>
+	@foreach (var lake in Model.Lakes)
+	{
+		<div class="form-check">
+            <input type="checkbox" name="Lakes" value="@lake.Id" class="form-check-input" />
+			<label class="form-check-label">@lake.Name</label>
+		</div>
+	}
+	<span asp-validation-for="Lakes" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label>Изберете водопади</label>
+    @foreach (var waterfall in Model.Waterfalls)
+    {
+        <div class="form-check">
+            <input type="checkbox" name="Waterfalls" value="@waterfall.Id" class="form-check-input" />
+            <label class="form-check-label">@waterfall.Name</label>
+        </div>
+    }
+    <span asp-validation-for="Waterfalls" class="text-danger"></span>
+</div>
+
+<button type="submit" class="btn btn-primary">Добави маршрут</button>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
