@@ -11,9 +11,12 @@
 		public const string WaterfallIsAlreadyExist = "Водопада вече съществува!";
 		public const string HutIsAlreadyExist = "Хижата вече съществува!";
 		public const string AgencyWithThisNameIsExist = "Туристическа агенция с това име вече съществува!";
+		public const string RouteIsAlreadyExist = "Маршрутът вече съществува!";
 		public const string ArticleWithTheSameName = "Плагиатството не се толерира!";
         public const string TourAgencyNotExist = "Туристическата агенция не съществува!";
         public const string FailAddRouteToMountainGuide =
 	        "Неуспешно добавяне на маршрут към планинския водач. Моля, уверете се, че планинският водач и маршрутът съществуват.";
+
+        public const string DurationFormatIsWrong = "Невалиден формат. Форматът трябва да бъде 'дни.часове:минути'.";
 	}
 }
