@@ -148,6 +148,7 @@
             /// Constant for name of route - destination points
             /// </summary>
             public const int NameMaxLength = 100;
+            public const int NameMinLength = 5;
 
 
             /// <summary>
@@ -160,16 +161,18 @@
             /// Constants for route displacement positive
             /// </summary>
             public const int DisplacementPositiveMin = 0;
+            public const int DisplacementPositiveMax = 7000;
 
             /// <summary>
             /// Constants for route displacement negative
             /// </summary>
             public const int DisplacementNegativeMin = 0;
+            public const int DisplacementNegativeMax = 7000;
 
-            /// <summary>
-            /// Constants for route description
-            /// </summary>
-            public const int DescriptionMaxLength = 7000;
+			/// <summary>
+			/// Constants for route description
+			/// </summary>
+			public const int DescriptionMaxLength = 7000;
             public const int DescriptionMinLength = 100;
 
 
