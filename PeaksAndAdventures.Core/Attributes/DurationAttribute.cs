@@ -18,7 +18,7 @@ namespace PeaksAndAdventures.Core.Attributes
 				// Checking with regular expression for format duration "40.00:00" where is "days.hours:minutes"
 				Regex regex = new Regex(@"^\d+\.\d{2}:\d{2}$");
 
-				if (regex.IsMatch(stringValue))
+				if (!regex.IsMatch(stringValue))
 				{
 					return new ValidationResult(DurationFormatIsWrong);
 				}
