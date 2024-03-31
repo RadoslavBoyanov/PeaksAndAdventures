@@ -46,6 +46,7 @@ namespace PeaksAndAdventures.Controllers
 			return View(route);
 		}
 
+		[HttpPost]
 		public async Task<IActionResult> Add(RouteAddViewModel routeForm)
 		{
 			if (await _routeService.CheckIfExistRouteByName(routeForm.Name))
@@ -71,7 +72,11 @@ namespace PeaksAndAdventures.Controllers
 				return View(routeForm);
 			}
 
-			await _routeService.AddAsync(routeForm);
+			await _routeService.AddAsync(routeForm,
+				routeForm.SelectedPeaksIds, 
+				routeForm.SelectedHutsIds, 
+				routeForm.SelectedLakesIds, 
+				routeForm.SelectedWaterfallsIds);
 			return RedirectToAction("All", "Route");
 		}
 
