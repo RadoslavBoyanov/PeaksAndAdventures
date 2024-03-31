@@ -54,16 +54,22 @@ namespace PeaksAndAdventures.Core.ViewModels.Route
 		[Display(Name = "Описание")]
 		public string Description { get; set; } = string.Empty;
 
-		[Required]
+		[Required(ErrorMessage = RequireErrorMessage)]
+		[Display(Name = "Планина")]
 		public int MountainId { get; set; }
 		[Required]
 		public IEnumerable<GetAllMountainsViewModel> Mountains { get; set; } = new List<GetAllMountainsViewModel>();
 
+		public List<int>? SelectedLakesIds { get; set; } = new List<int>();
 		public IEnumerable<AllLakesViewModel> Lakes { get; set; } = new List<AllLakesViewModel>();
 
+		public List<int>? SelectedHutsIds { get; set; } = new List<int>();
 		public IEnumerable<AllHutsViewModel> Huts { get; set; } = new List<AllHutsViewModel>();
-		public IEnumerable<AllPeaksViewModel> Peaks { get; set; } = new List<AllPeaksViewModel>();
 
+		public List<int>? SelectedPeaksIds { get; set; } = new List<int>();
+		public IEnumerable<AllPeaksViewModel> Peaks { get; set; } = new List<AllPeaksViewModel>();
+		
+		public List<int>? SelectedWaterfallsIds { get; set; } = new List<int>();
 		public IEnumerable<AllWaterfallsViewModel> Waterfalls { get; set; } = new List<AllWaterfallsViewModel>();
 	}
 }

@@ -15,7 +15,11 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
-		public async Task AddAsync(RouteAddViewModel routeForm)
+		public async Task AddAsync(RouteAddViewModel routeForm,
+			List<int> selectedPeaksIds, 
+			List<int> selectedHutsIds,
+			List<int> selectedLakesIds,
+			List<int> selectedWaterfallsIds)
 		{
 			var mountain = await _repository.GetByIdAsync<Mountain>(routeForm.MountainId);
 
@@ -35,7 +39,7 @@ namespace PeaksAndAdventures.Core.Services
 
 			await _repository.AddAsync(route);
 
-			foreach (var hut in routeForm.Huts)
+			foreach (var hut in selectedHutsIds)
 			{
 				var hutByIdAsync = await _repository.GetByIdAsync<Hut>(hut);
 
@@ -52,7 +56,7 @@ namespace PeaksAndAdventures.Core.Services
 				}
 			}
 
-			foreach (var lake in routeForm.Lakes)
+			foreach (var lake in selectedLakesIds)
 			{
 				var lakeByIdAsync = await _repository.GetByIdAsync<Lake>(lake);
 
@@ -69,7 +73,7 @@ namespace PeaksAndAdventures.Core.Services
 				}
 			}
 
-			foreach (var peak in routeForm.Peaks)
+			foreach (var peak in selectedPeaksIds)
 			{
 				var peakByIdAsync = await _repository.GetByIdAsync<Peak>(peak);
 
@@ -86,7 +90,7 @@ namespace PeaksAndAdventures.Core.Services
 				}
 			}
 
-			foreach (var waterfall in routeForm.Waterfalls)
+			foreach (var waterfall in selectedWaterfallsIds)
 			{
 				var waterfallByIdAsync = await _repository.GetByIdAsync<Waterfall>(waterfall);
 
