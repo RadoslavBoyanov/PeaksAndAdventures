@@ -400,5 +400,95 @@ namespace PeaksAndAdventures.Core.Services
 
 			return routeDetails;
 		}
+
+		public async Task<RouteDeleteViewModel> DeleteAsync(int routeId)
+		{
+			var route = await _repository.AllReadOnly<Route>()
+				.Include(r => r.RoutesHuts)
+				.ThenInclude(h => h.Hut)
+				.Include(r => r.RoutesLakes)
+				.ThenInclude(l => l.Lake)
+				.Include(r => r.RoutesPeaks)
+				.ThenInclude(p => p.Peak)
+				.Include(r => r.RoutesWaterfalls)
+				.ThenInclude(w => w.Waterfall)
+				.Include(r => r.MountaineersRoutes)
+				.ThenInclude(mr => mr.MountainGuide)
+				.FirstOrDefaultAsync(r => r.Id == routeId);
+
+			var mountain = await _repository.GetByIdAsync<Mountain>(route.MountainId);
+
+			var routeDelete = new RouteDeleteViewModel()
+			{
+				Name = route.Name,
+				StartingPoint = route.StartingPoint,
+				Description = route.Description,
+				MountainName = mountain.Name,
+				ImageUrl = route.ImageUrl,
+			};
+
+			return routeDelete;
+		}
+
+		public async Task<int> DeleteConfirmedAsync(int routeId)
+		{
+			var route = await _repository.AllReadOnly<Route>()
+				.Include(r => r.RoutesHuts)
+				.ThenInclude(h => h.Hut)
+				.Include(r => r.RoutesLakes)
+				.ThenInclude(l => l.Lake)
+				.Include(r => r.RoutesPeaks)
+				.ThenInclude(p => p.Peak)
+				.Include(r => r.RoutesWaterfalls)
+				.ThenInclude(w => w.Waterfall)
+				.Include(r => r.MountaineersRoutes)
+				.ThenInclude(mr => mr.MountainGuide)
+				.FirstOrDefaultAsync(r => r.Id == routeId);
+
+			if (route.RoutesHuts.Any())
+			{
+				foreach (var routeHut in route.RoutesHuts.ToList())
+				{
+					_repository.Delete(routeHut);
+				}
+			}
+
+			if (route.RoutesLakes.Any())
+			{
+				foreach (var routeLake in route.RoutesLakes.ToList())
+				{
+					_repository.Delete(routeLake);
+				}
+			}
+
+			if (route.RoutesPeaks.Any())
+			{
+				foreach (var routePeak in route.RoutesPeaks.ToList())
+				{
+					_repository.Delete(routePeak);
+				}
+			}
+
+			if (route.RoutesWaterfalls.Any())
+			{
+				foreach (var routeWaterfall in route.RoutesWaterfalls.ToList())
+				{
+					_repository.Delete(routeWaterfall);
+				}
+			}
+
+			if (route.MountaineersRoutes.Any())
+			{
+				foreach (var mountaineerRoute in route.MountaineersRoutes.ToList())
+				{
+					_repository.Delete(mountaineerRoute);
+				}
+			}
+
+			await _repository.DeleteAsync<Route>(routeId);
+			await _repository.SaveChangesAsync();
+
+			return routeId;
+		}
 	}
 }

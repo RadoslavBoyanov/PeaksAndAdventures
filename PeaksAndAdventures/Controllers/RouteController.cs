@@ -128,5 +128,32 @@ namespace PeaksAndAdventures.Controllers
 
 			return RedirectToAction("Details", "Route", new{id = routeForm.Id});
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var route = await _routeService.DeleteAsync(id);
+
+			if (route is null)
+			{
+				return NotFound();
+			}
+
+			return View(route);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var isExist = await _routeService.CheckIfExistRouteById(id);
+
+			if (!isExist)
+			{
+				return NotFound();
+			}
+
+			await _routeService.DeleteConfirmedAsync(id);
+			return RedirectToAction("All", "Route");
+		}
 	}
 }
