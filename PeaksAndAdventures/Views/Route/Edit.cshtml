@@ -1,0 +1,113 @@
+﻿@model RouteEditViewModel
+
+@{
+	ViewBag.Title = "Промени маршрута";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
+
+<form asp-action="Edit" method="post">
+	<div class="form-group">
+		<label asp-for="Name"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="StartingPoint"></label>
+		<input asp-for="StartingPoint" class="form-control" />
+		<span asp-validation-for="StartingPoint" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="DisplacementPositive"></label>
+		<input asp-for="DisplacementPositive" class="form-control" />
+		<span asp-validation-for="DisplacementPositive" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="DisplacementNegative"></label>
+		<input asp-for="DisplacementNegative" class="form-control" />
+		<span asp-validation-for="DisplacementNegative" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Difficulty"></label>
+		<select asp-for="Difficulty" class="form-control">
+			<option value="Easy">Лесен</option>
+			<option value="Moderate">Среден</option>
+			<option value="Difficult">Труден</option>
+		</select>
+		<span asp-validation-for="Difficulty" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Duration"></label>
+		<input asp-for="Duration" class="form-control" />
+		<span asp-validation-for="Duration" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="ImageUrl"></label>
+		<input asp-for="ImageUrl" class="form-control" />
+		<span asp-validation-for="ImageUrl" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Description"></label>
+		<textarea asp-for="Description" class="form-control"></textarea>
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+
+
+	<div class="form-group">
+		<label>Изберете хижи</label>
+		<select asp-for="SelectedHutsIds" multiple class="form-control">
+			@foreach (var hut in Model.Huts)
+			{
+				<option value="@hut.Id">@hut.Name</option>
+			}
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label>Изберете върхове</label>
+		<select asp-for="SelectedPeaksIds" multiple class="form-control">
+			@foreach (var peak in Model.Peaks)
+			{
+				<option value="@peak.Id">@peak.Name</option>
+			}
+		</select>
+	</div>
+
+
+	<div class="form-group">
+		<label>Изберете езера</label>
+		<select asp-for="SelectedLakesIds" multiple class="form-control">
+			@foreach (var lake in Model.Lakes)
+			{
+				<option value="@lake.Id">@lake.Name</option>
+			}
+		</select>
+		<span asp-validation-for="SelectedLakesIds" class="text-danger"></span>
+	</div>
+
+
+	<div class="form-group">
+		<label>Изберете водопади</label>
+		<select asp-for="SelectedWaterfallsIds" multiple class="form-control">
+			@foreach (var waterfall in Model.Waterfalls)
+			{
+				<option value="@waterfall.Id">@waterfall.Name</option>
+			}
+		</select>
+		<span asp-validation-for="SelectedWaterfallsIds" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Запази промените</button>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

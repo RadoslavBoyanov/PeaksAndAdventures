@@ -39,3 +39,8 @@
 		</p>
 	</div>
 </div>
+
+<div class="flex-row justify-content-center mt-3">
+	<a asp-controller="Route" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+	<a asp-controller="Route" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+</div>

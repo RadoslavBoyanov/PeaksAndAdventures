@@ -98,5 +98,62 @@ namespace PeaksAndAdventures.Controllers
 
 			return View(route);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
+		{
+			var route = await _routeService.EditGetAsync(id);
+
+			if (route is null)
+			{
+				return NotFound();
+			}
+
+			return View(route);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(RouteEditViewModel routeForm)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(routeForm);
+			}
+
+			await _routeService.EditPostAsync(routeForm,
+								routeForm.SelectedPeaksIds,
+								routeForm.SelectedHutsIds,
+								routeForm.SelectedLakesIds,
+								routeForm.SelectedWaterfallsIds);
+
+			return RedirectToAction("Details", "Route", new{id = routeForm.Id});
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var route = await _routeService.DeleteAsync(id);
+
+			if (route is null)
+			{
+				return NotFound();
+			}
+
+			return View(route);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var isExist = await _routeService.CheckIfExistRouteById(id);
+
+			if (!isExist)
+			{
+				return NotFound();
+			}
+
+			await _routeService.DeleteConfirmedAsync(id);
+			return RedirectToAction("All", "Route");
+		}
 	}
 }
