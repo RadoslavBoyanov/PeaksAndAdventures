@@ -34,6 +34,8 @@ namespace PeaksAndAdventures.Infrastructure.Data
 
         public DbSet<Peak> Peaks { get; set; } = null!;
 
+        public DbSet<Rating> Ratings { get; set; } = null!;
+
         public DbSet<Route> Routes { get; set; } = null!;
 
         public DbSet<RouteHut> RoutesHuts { get; set; } = null!;

@@ -14,12 +14,6 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 .HasForeignKey(mg => mg.TourAgencyId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //builder
-            //    .HasOne(ta => ta.Owner)
-            //    .WithMany()
-            //    .HasForeignKey(ta => ta.OwnerId)
-            //    .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasData(GenerateMountainGuide());
         }
 

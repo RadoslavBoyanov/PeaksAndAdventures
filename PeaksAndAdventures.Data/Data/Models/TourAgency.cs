@@ -34,9 +34,9 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public string Phone { get; set; } = string.Empty;
 
         [Comment("Tour agency rating")]
-        public double? Rating { get; set; }
+		public List<Rating>? Ratings { get; set; } = new List<Rating>();
 
-        [Required]
+		[Required]
         [Comment("Tour agency owner")]
         public string OwnerId { get; set; } = string.Empty;
         [ForeignKey(nameof(OwnerId))]

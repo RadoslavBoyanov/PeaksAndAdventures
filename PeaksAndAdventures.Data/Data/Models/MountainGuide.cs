@@ -43,9 +43,9 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         public int Experience { get; set; }
 
         [Comment("Mountain guide rating")]
-        public double? Rating { get; set; }
+		public List<Rating>? Ratings { get; set; } = new List<Rating>();
 
-        [Comment("Mountain guide profile picture")]
+		[Comment("Mountain guide profile picture")]
         public string? ImageUrl { get; set; }
 
         [Comment("Mountain guide tour agency")]
