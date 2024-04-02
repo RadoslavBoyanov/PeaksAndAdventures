@@ -13,6 +13,7 @@ namespace PeaksAndAdventures.Controllers
 		private readonly ILakeService _lakeService;
 		private readonly IPeakService _peakService;
 		private readonly IWaterfallService _waterfallService;
+		private readonly IRatingService _ratingService;
 
 
 		public RouteController(
@@ -21,7 +22,8 @@ namespace PeaksAndAdventures.Controllers
 			IHutService hutService,
 			ILakeService lakeService,
 			IPeakService peakService,
-			IWaterfallService waterfallService)
+			IWaterfallService waterfallService,
+			IRatingService ratingService)
 		{
 			_routeService = routeService;
 			_mountainService = mountainService;
@@ -29,6 +31,7 @@ namespace PeaksAndAdventures.Controllers
 			_lakeService = lakeService;
 			_peakService = peakService;
 			_waterfallService = waterfallService;
+			_ratingService = ratingService;
 		}
 
 		[HttpGet]
@@ -95,6 +98,8 @@ namespace PeaksAndAdventures.Controllers
 			{
 				return NotFound();
 			}
+
+			route.Rating = await _ratingService.GetAverageRatingAsync(id);
 
 			return View(route);
 		}
