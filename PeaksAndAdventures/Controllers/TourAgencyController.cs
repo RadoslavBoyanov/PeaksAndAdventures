@@ -9,10 +9,13 @@ namespace PeaksAndAdventures.Controllers
 	public class TourAgencyController : BaseController
 	{
 		private readonly ITourAgencyService _tourAgencyService;
+		private readonly IRatingService _ratingService;
 
-		public TourAgencyController(ITourAgencyService tourAgencyService)
+		public TourAgencyController(ITourAgencyService tourAgencyService, 
+			IRatingService ratingService)
 		{
 			_tourAgencyService = tourAgencyService;
+			_ratingService = ratingService;
 		}
 
 		[HttpGet]
@@ -65,6 +68,8 @@ namespace PeaksAndAdventures.Controllers
 			{
 				return NotFound();
 			}
+
+			tourAgency.Rating = await _ratingService.GetAverageRatingAsync(id);
 
 			return View(tourAgency);
 		}

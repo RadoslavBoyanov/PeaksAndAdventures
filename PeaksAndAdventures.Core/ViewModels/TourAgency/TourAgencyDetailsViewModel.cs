@@ -18,6 +18,7 @@
 
 		public string Phone { get; set; } = string.Empty;
 
+		public double? Rating { get; set; }
 
 		public string OwnerId { get; set; } = string.Empty;
 	}
