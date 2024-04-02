@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.ViewModels.Hut;
 using PeaksAndAdventures.Core.ViewModels.Lake;
@@ -489,6 +487,11 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.SaveChangesAsync();
 
 			return routeId;
+		}
+
+		public Task RateAsync(int routeId, double rating)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

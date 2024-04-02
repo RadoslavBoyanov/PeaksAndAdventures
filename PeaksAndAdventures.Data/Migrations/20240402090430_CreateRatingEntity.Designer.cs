@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeaksAndAdventures.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PeaksAndAdventures.Infrastructure.Data;
 namespace PeaksAndAdventures.Data.Migrations
 {
     [DbContext(typeof(PeaksAndAdventuresDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240402090430_CreateRatingEntity")]
+    partial class CreateRatingEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,15 +145,15 @@ namespace PeaksAndAdventures.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "545914fe-b690-47ec-8b59-bc2085ff9420",
+                            ConcurrencyStamp = "25c0bf0b-bcc4-4b43-81aa-7ff5cf105b9e",
                             Email = "mountaineer@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "mountaineer@mail.com",
                             NormalizedUserName = "mountaineer@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEESIJ/zMTVqCdKrfm0PsMllb3f+HfOAgES8cE5BixCPlPvdegnvQvYz/TcmZFne4eg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGOTF+qIwHaAZvPCX2OGQSdUd4EKUWeGydc/lp6Xpo+vgCzwimIK6KbdSHsTdXN0vA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c4a88f5d-c142-43fb-9cbe-30d9a66d8621",
+                            SecurityStamp = "423b4c5d-b009-4b66-942f-7739f36ca05c",
                             TwoFactorEnabled = false,
                             UserName = "mountaineer@mail.com"
                         },
@@ -159,15 +161,15 @@ namespace PeaksAndAdventures.Data.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c3a60a4-6262-4cbd-98f3-1ee34c8e02b9",
+                            ConcurrencyStamp = "a07aef2f-a0d6-4f15-aada-496cceee7c53",
                             Email = "climbаndhike@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "climbаndhike@mail.com",
                             NormalizedUserName = "climbаndhike@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENBMpYw66f8nwzv16HDZvHjTXpli/kIT5d6DtiWFSN/yo8+DAsCNJf7nFE64vCH/4g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGsmUuOQ7/LQoSKZYwALdGZp9ZUUiDLpI8c5D3bxmd7VNjfs4y2TNnJjcOfQUUmeeg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "694c3eb3-0ef5-45e2-98db-06340717ba4c",
+                            SecurityStamp = "3d4891e5-3707-4207-a5ad-2294b11c1a6f",
                             TwoFactorEnabled = false,
                             UserName = "climbаndhike@mail.com"
                         },
@@ -175,15 +177,15 @@ namespace PeaksAndAdventures.Data.Migrations
                         {
                             Id = "2r2410ce-d421-0fc0-03d7-m6n3hk1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5e375981-b99b-4cf6-8213-31a500e44bd5",
+                            ConcurrencyStamp = "82b51011-80ee-4969-9629-b8630d3bad75",
                             Email = "tourist@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "tourist@mail.com",
                             NormalizedUserName = "tourist@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJXgbzujuhWovoU/GjGIW8BquECKyLchfVKv4FTHCJjR7tJfeyqnJ5ICpsyrDvdSxw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAeEp07WyGf6rFq6/Vk04fh0BcQIlkfigODdZrthU65hwu+ZvDR923+EuT/LSEmv7A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1b83429a-26e1-4c0b-9e8f-c58ac1299518",
+                            SecurityStamp = "5e26d653-1c84-475d-9f17-9e751a066b32",
                             TwoFactorEnabled = false,
                             UserName = "tourist@mail.com"
                         });
@@ -314,7 +316,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
 
                     b.HasComment("Article entity model");
 
@@ -324,7 +326,7 @@ namespace PeaksAndAdventures.Data.Migrations
                             Id = 1,
                             AuthorId = "dea12856-c198-4129-b3f3-b893d8395082",
                             Content = "Може би много от вас са посещавали хижите в България. Условията в една хижа много зависят от нейната локация, поддръжка през годините и разбира се от хижарите. Има хижи, които се доближават до хотели – с много богато меню, самостоятелни стаи с тоалетни, бани с топла вода. Има и такива, които се спи в стая по 10 човека, само външна тоалетна и избор от две ястия. Нито едно от двете не изключва хижата да е много уютна с дружелюбни хижари и да си изкарате много хубаво.Все пак е важно преди да тръгнете на преход да сте наясно с условията на хижата, на която отивате, за да не бъдете изненадани или разочаровани. В следващите редове ще ви споделим някои от основните неща, които трябва да знаете за хижите в България. Важно е да уточним, че тези редове не се отнасят за всяка хижа.\r\nХрана: в много от случаите храната, която се предлага по-хижите се състои от супа като боб или леща, скара и салата.Закуската е често пържени филии, мекици или макарони.Понякога не се предлага обяд, случва се и храната да е свършила или да се сервира само в определени часове.За пиене се предлага вода, бира, кафе, чай и някаква газирана напитка.Има хижи и с много богато и разнообразно меню. Съвет: Носете се винаги храна с вас, за всеки случай.\r\nЛегловата база: в повечето хижи стаите са за 6,8,12 души.Стаите са общи (без значение от пола). Има хижи и с индивидуални стаи за по 2-ма, но се среща много рядко.В много от хижите леглата за двуетажни.Понякога стаята е с нарове (сковани дъски на разстояние от пода). Спи се един до друг.На прозорците няма комарници.В по-хладните вечери не винаги има отопление в стаите.Одеяла може да не са ви достатъчни, носете си дебели дрехи.Неписано правило е преди да напуснете стаята да съберете чаршафите от леглото – така помагате на хижарите.Съвет: Ако прецените може да си носите компактен чаршаф, както и спален чувал, ако искате да се чувствате по-комфортно. Прането и съхненето на чаршафите в повечето случаи е трудоемко за хижарите. Използвайки ваши чаршафи или спален чувал улеснявате тяхната работа.\r\nТоалетна: повечето тоалетни в хижите са общи.В никои хижи и заслони тоалетните са външни.Съвет: Носете си тоалетна хартия/кърпички. Моля, не ползвайте и не изхвърляйте мокри кърпи в природата!\r\nБаня:бъдете подготвени, че може и да не си вземете топъл душ след дълъг преход.Често на високопланинските хижи баня няма.Често се случва да чакате за ред.Топла вода може да няма или да е свършила.Почти винаги банята е обща (мъже и жени).В някои хижи има такса за използване на банята (2-3 лв.) Съвет: Не забравяйте да сложите в багажа компактна кърпа, сапун и джапанки.\r\nТок и обхват: в някои хижи се спира тока след 22:00 часа. До тогава е добре да сте се подготвили за следващия ден и вече да сте в леглата.Много често, особено във високопланинските хижи няма покритие на мобилните оператори. Понякога има определено място като камък, възвишение където се хваща обхват на определен оператор. Съветваме ви да попитате хижарите, те ще ви кажат.Съвет: Носете си външни батерии за телефона. Ако вие нямате обхват, проверете дали някой ваш приятел на друг мобилен оператор има.\r\nРезервиране на нощувка: хижата е място, в което винаги да можеш да намериш подслон и въпреки това в днешно време е почти задължително да се обадите, за да си запазите места в дадена хижа.Понякога е трудно да се свържем с хижарите заради липсата на обхват. Пробвайте няколко пъти да се обадите или пишете на Viber или SMS.Ако плановете ви се променят е важно да се обадите предварително и да кажете, че нощувката отпада, защото хижарите ще ви очакват и така пазят места, които могат да дадат на други хора.Съвет: В по-популярните хижи и особено през уикендите в летния сезон ви съветваме да направите резервация поне 2,3 седмици по-рано.\r\nЦени: цените по хижите често са по-високи отколкото може би очаквате. Споделяме ориентировъчни цени, за да знаете колко пари да си вземете и да не останете изненадани.\r\n\r\nНастаняване – 20 лв. – 40 лв.Супа – 2 лв. – 5 лв.Салата – 4 лв. – 8 лв.Скара – 2,50 лв. – 3,50 лв. / бр.Безалкохолно/ Бира – 3 лв. -5 лв.Чай/Кафе – 2 лв. – 3 лв.\r\nТакса за баня – 2 лв. – 3 лв.\r\nОще:в някои хижи трябва да се ходи без обувки, затова е добре да си носите чехли, ако ходенето боси ви притеснява.В повечето случаи след определен час не трябва да се вдига шум.Има хижи, в които вие трябва да си измиете посудата, която използвате.Старайте се да не оставяте боклуци в хижата, каквото можете вземете с вас.Възможно е в хижата да попаднете на някоя буболечка или животинка. На нас много рядко ни се е случвало до попадаме, но все пак имайте предвид, че не е е изключено, все пак се намирате сред природата.Ако сте на хижа, която е достъпна с кола, не се учудвайте ако попадне на парти със силна музика, особено през уикенда.Не забравяйте, че въпреки че си плащате за нощувка и храна, вие сте гости на хижата и трябва да се отнасяте с уважение към мястото и стопанина.",
-                            DatePublish = new DateTime(2024, 3, 28, 15, 17, 25, 502, DateTimeKind.Local).AddTicks(4246),
+                            DatePublish = new DateTime(2024, 3, 28, 12, 4, 28, 29, DateTimeKind.Local).AddTicks(596),
                             ImageUrl = "https://planinka.bg/wp-content/uploads/2023/09/DSCF1341-copy-683x1024.webp",
                             Title = "Хижите в България – условия, съвети и неписани правила"
                         },
@@ -333,7 +335,7 @@ namespace PeaksAndAdventures.Data.Migrations
                             Id = 2,
                             AuthorId = "dea12856-c198-4129-b3f3-b893d8395082",
                             Content = "1. Проучете маршрута преди да тръгнете\r\nМного важно е да сте запознати с маршрута преди да тръгнете. Проучете дължината, денивелацията и приблизителното времетраене. Преценете дали маршрутът е подходящ за вас и групата ви. Информирайте се дали има трудни и опасни участъци, има ли водоизточници по пътя и къде са най-близките хижи и заслони. Задължително проверете и следете метеорологичните условия.\r\n\r\n\r\n2. Не тръгвайте сами в планината\r\nНе тръгвате в планината сами дори за кратки, еднодневни преходи по познати маршрути. Инцидентите в планината не са за подценяване и винаги е добре да имате надежден спътник, който да повика помощ в случай на нужда.\r\n\r\n\r\n3. Уведомете близките си за прехода\r\nДобре е близките ви да са уведомени за планувания преход, предполагаемото пристигане и връщане. Регистрирането в хижите по маршрута ще помогне да бъдете локализирани при инцидент или загубване в планината.\r\n\r\n4. Тръгвайте винаги рано сутрин\r\nМного е важно да тръгнете рано сутрин. По време на прехода може да възникнат непредвидени ситуации, които да ви забавят, затова е важно да имате достатъчно време да пристигнете в светлата част на деня. Най-добре е по-голямата част от предвидения преход да се измине до обяд. През зимата планирайте достигането на целта си не по-късно от 15:00 часа.\r\n\r\n\r\n5. Движете се с умерено темпо\r\nТемпото на движение е много важно. За да не се задъхвате, наложете си постоянно, равномерно темпо. Забързаният ход с чести почивки ще ви умори повече. За да се настрои организмът ви към натоварването тръгнете бавно и постепенно усилвайте темпото, не спирайте рязко, а плавно намалете ритъма преди почивка. Старайте се да дишате равномерно и дълбоко.\r\n\r\n\r\n6. Съобразявайте скоростта на придвижване\r\nТемпото на движение е много важно. За да не се задъхвате, наложете си постоянно, равномерно Скоростта на придвижване зависи от денивелацията, сложността на терена и метеорологичните условия, но най-определяща е вашата собствена физическа форма. За да не се разкъсва групата, поддържайте темпо, съобразено с най-слабо подготвените участници.\r\n\r\n7. Не съкращавайте пътя за сметка на сигурността\r\nВодещо условие за избиране на маршрута е безопасността. Вземете под внимание структурата на терена (сипеи, ронливи скали, улеи, хлъзгави склонове), метеорологичните условия и дали хората във вашата група са в състояние да преминат маршрута.\r\n\r\n\r\n8. Пийте често, но по малко вода\r\nГолямото физическо натоварване ви кара да пиете повече вода заради усещането на сухота в гърлото. Не прекалявайте с водата при преход, защото това води до затрудняване на работата на бъбреците и сърцето, до обилно потене, при което организмът губи ценни соли. Най-добре е да пиете по няколко глътки на всяко спиране.",
-                            DatePublish = new DateTime(2024, 3, 1, 15, 17, 25, 502, DateTimeKind.Local).AddTicks(4302),
+                            DatePublish = new DateTime(2024, 3, 1, 12, 4, 28, 29, DateTimeKind.Local).AddTicks(698),
                             ImageUrl = "https://planinka.bg/wp-content/uploads/2023/05/MANE3457-1024x819.webp",
                             Title = "Как да се придвижвате в планината"
                         },
@@ -342,7 +344,7 @@ namespace PeaksAndAdventures.Data.Migrations
                             Id = 3,
                             AuthorId = "dea12856-c198-4129-b3f3-b893d8395082",
                             Content = "В горещите дни бягаме в планината, за да намерим прохлада.\r\nИ все пак да не забравяме, че в планината слънцето е силно, затова слънцезащитата и хидратацията са изключително важни.\r\nЕто част от любимите ни продукти, които носим винаги с нас по време на преход:\r\nСлънчеви очила Clark на Тrevibulgaria. Освен, че са със 100% UV защита, лещите са минерални, което ги прави изключително устойчиви на надраскване.\r\nБъфовете на Bandittoheadware. Може да ги използвате като бъф или като кърпа, която да предпазава главата. Като три от основните им предимства са UV защитата, бързосъхнещи са и са изработени от рециклирани пластмасови бутилки.\r\nСлънцезащитния крем на Woodenspoon, който е със 100% натурални съставки. Серията Dry Oils е специално разработена със сухи натурални масла, за да не запушва порите.\r\nНикога не тръгваме на преход без вода. Дори и за кратка разходка е важно да бъдем хидратирани. Затова винаги носим с нас любимите бутилки за многократна употреба на Дизайница. Освен, че са леки и красиви, с тях спестяваме на планетата огромно количество пластмаса.",
-                            DatePublish = new DateTime(2024, 2, 2, 15, 17, 25, 502, DateTimeKind.Local).AddTicks(4305),
+                            DatePublish = new DateTime(2024, 2, 2, 12, 4, 28, 29, DateTimeKind.Local).AddTicks(704),
                             ImageUrl = "https://planinka.bg/wp-content/uploads/2022/07/DSCF0368-819x1024.webp",
                             Title = "Слънцезащита в планината"
                         });
@@ -429,7 +431,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("TourAgencyId");
 
-                    b.ToTable("Expeditions", (string)null);
+                    b.ToTable("Expeditions");
 
                     b.HasComment("Expedition entity model");
 
@@ -467,7 +469,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("ExpeditionsParticipants", (string)null);
+                    b.ToTable("ExpeditionsParticipants");
 
                     b.HasComment("Many-to-many relationship class between expedition and participant");
 
@@ -545,7 +547,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Huts", (string)null);
+                    b.ToTable("Huts");
 
                     b.HasComment("Hut entity model");
 
@@ -648,7 +650,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Lakes", (string)null);
+                    b.ToTable("Lakes");
 
                     b.HasComment("Lake entity model");
 
@@ -731,7 +733,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mountains", (string)null);
+                    b.ToTable("Mountains");
 
                     b.HasComment("Mountain model");
 
@@ -873,7 +875,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("MountaineersMountains", (string)null);
+                    b.ToTable("MountaineersMountains");
 
                     b.HasComment("Many-to-many relationship table between mountain guide and mountain");
 
@@ -909,7 +911,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainGuideId");
 
-                    b.ToTable("MountaineersRoutes", (string)null);
+                    b.ToTable("MountaineersRoutes");
 
                     b.HasComment("Many-to-many relationship class between mountain guide and route");
 
@@ -994,7 +996,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("TourAgencyId");
 
-                    b.ToTable("MountainGuides", (string)null);
+                    b.ToTable("MountainGuides");
 
                     b.HasComment("Mountain guide entity model");
 
@@ -1058,7 +1060,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Peaks", (string)null);
+                    b.ToTable("Peaks");
 
                     b.HasComment("Peak model");
 
@@ -2437,12 +2439,6 @@ namespace PeaksAndAdventures.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Navigation property for tour agency");
 
-                    b.Property<string>("ValuesSerialized")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Values")
-                        .HasComment("List of values");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MountainGuideId");
@@ -2451,7 +2447,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("TourAgencyId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
 
                     b.HasComment("Entity for ratings");
                 });
@@ -2515,7 +2511,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Routes", (string)null);
+                    b.ToTable("Routes");
 
                     b.HasComment("Route entity model");
 
@@ -2640,7 +2636,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("HutId");
 
-                    b.ToTable("RoutesHuts", (string)null);
+                    b.ToTable("RoutesHuts");
 
                     b.HasComment("Many-to-many relationship class between route and hut");
 
@@ -2676,7 +2672,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("LakeId");
 
-                    b.ToTable("RoutesLakes", (string)null);
+                    b.ToTable("RoutesLakes");
 
                     b.HasComment("Many-to-many relationship class between route and lake");
 
@@ -2702,7 +2698,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("PeakId");
 
-                    b.ToTable("RoutesPeaks", (string)null);
+                    b.ToTable("RoutesPeaks");
 
                     b.HasComment("Many-to-many relationship class between route and peak");
 
@@ -2748,7 +2744,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("WaterfallId");
 
-                    b.ToTable("RoutesWaterfalls", (string)null);
+                    b.ToTable("RoutesWaterfalls");
 
                     b.HasComment("Many-to-many relationship class between route and waterfall");
 
@@ -2802,7 +2798,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("TourAgencies", (string)null);
+                    b.ToTable("TourAgencies");
 
                     b.HasComment("Tour agency entity model");
 
@@ -2850,7 +2846,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Waterfalls", (string)null);
+                    b.ToTable("Waterfalls");
 
                     b.HasComment("Waterfall entity model");
 

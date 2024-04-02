@@ -24,7 +24,27 @@
 			<p><strong>Телефон:</strong> @Model.Phone</p>
 			<p><strong>Имейл:</strong> @Model.Email</p>
 			<p><strong>Опит:</strong> @Model.Experience years</p>
-			<p><strong>Оценка:</strong> @(string.IsNullOrEmpty(Model.Rating) ? "Не е оценяван все още" : Model.Rating)</p>
+			<p><strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)</p>
+			@if(User.Id() != Model.OwnerId)
+			{
+				<form asp-controller="Rating" asp-action="AddRating" method="post">
+					<input type="hidden" name="id" value="@Model.Id" />
+					<input type="hidden" name="entityType" value="MountainGuide" />
+					<div class="rating">
+						<input type="radio" id="star1" name="value" value="1" />
+						<label for="star1" title="Лош">&#9733;</label>
+						<input type="radio" id="star2" name="value" value="2" />
+						<label for="star2" title="Добър">&#9733;</label>
+						<input type="radio" id="star3" name="value" value="3" />
+						<label for="star3" title="Отличен">&#9733;</label>
+						<input type="radio" id="star4" name="value" value="4" />
+						<label for="star4" title="Превъзходен">&#9733;</label>
+						<input type="radio" id="star5" name="value" value="5" />
+						<label for="star5" title="Изключителен">&#9733;</label>
+						<button type="submit" class="btn btn-outline-success">Оцени</button>
+					</div>
+				</form>
+			}
 		</div>
 		<div class="col-md-6">
 			<h2>Информация за агенцията</h2>
@@ -33,7 +53,7 @@
 			<p><a asp-controller="MountainGuide" asp-action="GetAllMountains" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Планини</a></p>
 			<p><a asp-controller="MountainGuide" asp-action="GetAllRoutes" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Маршрути</a></p>
 		</div>
-		@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
+		@if (User.Identity.IsAuthenticated && User.Id() == Model.OwnerId)
 		{
 			<div class="flex-row">
 				<a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>

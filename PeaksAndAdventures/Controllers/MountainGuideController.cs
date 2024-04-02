@@ -11,13 +11,16 @@ namespace PeaksAndAdventures.Controllers
 	{
 		private readonly IMountainGuideService _mountainGuideService;
 		private readonly ITourAgencyService _tourAgencyService;
+		private readonly IRatingService _ratingService;
 
 		public MountainGuideController(
             IMountainGuideService mountainGuideService, 
-            ITourAgencyService tourAgencyService)
+            ITourAgencyService tourAgencyService, 
+            IRatingService ratingService)
         {
             _mountainGuideService = mountainGuideService;
             _tourAgencyService = tourAgencyService;
+            _ratingService = ratingService;
         }
 
 		[HttpGet]
@@ -38,6 +41,8 @@ namespace PeaksAndAdventures.Controllers
 				return NotFound();
 			}
 
+			mountainGuide.Rating =  await _ratingService.GetAverageRatingAsync(id);
+
 			return View(mountainGuide);
 		}
 
@@ -51,7 +56,7 @@ namespace PeaksAndAdventures.Controllers
 
 			var currentMountainGuide = await _mountainGuideService.EditGetAsync(id);
 
-			if (currentMountainGuide.OwnerId != ClaimsPrincipalExtensions.Id(User))
+			if (currentMountainGuide.OwnerId != User.Id())
 			{
 				return Unauthorized();
 			}

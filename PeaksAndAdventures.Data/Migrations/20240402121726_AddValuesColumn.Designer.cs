@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeaksAndAdventures.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PeaksAndAdventures.Infrastructure.Data;
 namespace PeaksAndAdventures.Data.Migrations
 {
     [DbContext(typeof(PeaksAndAdventuresDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240402121726_AddValuesColumn")]
+    partial class AddValuesColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,7 +316,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
 
                     b.HasComment("Article entity model");
 
@@ -429,7 +431,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("TourAgencyId");
 
-                    b.ToTable("Expeditions", (string)null);
+                    b.ToTable("Expeditions");
 
                     b.HasComment("Expedition entity model");
 
@@ -467,7 +469,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("ExpeditionsParticipants", (string)null);
+                    b.ToTable("ExpeditionsParticipants");
 
                     b.HasComment("Many-to-many relationship class between expedition and participant");
 
@@ -545,7 +547,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Huts", (string)null);
+                    b.ToTable("Huts");
 
                     b.HasComment("Hut entity model");
 
@@ -648,7 +650,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Lakes", (string)null);
+                    b.ToTable("Lakes");
 
                     b.HasComment("Lake entity model");
 
@@ -731,7 +733,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mountains", (string)null);
+                    b.ToTable("Mountains");
 
                     b.HasComment("Mountain model");
 
@@ -873,7 +875,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("MountaineersMountains", (string)null);
+                    b.ToTable("MountaineersMountains");
 
                     b.HasComment("Many-to-many relationship table between mountain guide and mountain");
 
@@ -909,7 +911,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainGuideId");
 
-                    b.ToTable("MountaineersRoutes", (string)null);
+                    b.ToTable("MountaineersRoutes");
 
                     b.HasComment("Many-to-many relationship class between mountain guide and route");
 
@@ -994,7 +996,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("TourAgencyId");
 
-                    b.ToTable("MountainGuides", (string)null);
+                    b.ToTable("MountainGuides");
 
                     b.HasComment("Mountain guide entity model");
 
@@ -1058,7 +1060,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Peaks", (string)null);
+                    b.ToTable("Peaks");
 
                     b.HasComment("Peak model");
 
@@ -2451,7 +2453,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("TourAgencyId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
 
                     b.HasComment("Entity for ratings");
                 });
@@ -2515,7 +2517,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Routes", (string)null);
+                    b.ToTable("Routes");
 
                     b.HasComment("Route entity model");
 
@@ -2640,7 +2642,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("HutId");
 
-                    b.ToTable("RoutesHuts", (string)null);
+                    b.ToTable("RoutesHuts");
 
                     b.HasComment("Many-to-many relationship class between route and hut");
 
@@ -2676,7 +2678,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("LakeId");
 
-                    b.ToTable("RoutesLakes", (string)null);
+                    b.ToTable("RoutesLakes");
 
                     b.HasComment("Many-to-many relationship class between route and lake");
 
@@ -2702,7 +2704,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("PeakId");
 
-                    b.ToTable("RoutesPeaks", (string)null);
+                    b.ToTable("RoutesPeaks");
 
                     b.HasComment("Many-to-many relationship class between route and peak");
 
@@ -2748,7 +2750,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("WaterfallId");
 
-                    b.ToTable("RoutesWaterfalls", (string)null);
+                    b.ToTable("RoutesWaterfalls");
 
                     b.HasComment("Many-to-many relationship class between route and waterfall");
 
@@ -2802,7 +2804,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("TourAgencies", (string)null);
+                    b.ToTable("TourAgencies");
 
                     b.HasComment("Tour agency entity model");
 
@@ -2850,7 +2852,7 @@ namespace PeaksAndAdventures.Data.Migrations
 
                     b.HasIndex("MountainId");
 
-                    b.ToTable("Waterfalls", (string)null);
+                    b.ToTable("Waterfalls");
 
                     b.HasComment("Waterfall entity model");
 

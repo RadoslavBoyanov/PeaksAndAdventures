@@ -29,8 +29,26 @@
 			<strong>Времетраене:</strong> @Model.Duration
 		</p>
 		<p class="card-text">
-			<strong>Оценка:</strong> @Model.Rating
+			<strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)
 		</p>
+		<form asp-controller="Rating" asp-action="AddRating" method="post">
+			<input type="hidden" name="id" value="@Model.Id" />
+			<input type="hidden" name="entityType" value="Route" />
+			<div class="rating">
+				<input type="radio" id="star1" name="value" value="1" />
+				<label for="star1" title="Лош">&#9733;</label>
+				<input type="radio" id="star2" name="value" value="2" />
+				<label for="star2" title="Добър">&#9733;</label>
+				<input type="radio" id="star3" name="value" value="3" />
+				<label for="star3" title="Отличен">&#9733;</label>
+				<input type="radio" id="star4" name="value" value="4" />
+				<label for="star4" title="Превъзходен">&#9733;</label>
+				<input type="radio" id="star5" name="value" value="5" />
+				<label for="star5" title="Изключителен">&#9733;</label>
+				<button type="submit" class="btn btn-outline-success">Оцени</button>
+			</div>
+		</form>
+
 		<p class="card-text">
 			<strong>Планина:</strong> @Model.MountainName
 		</p>

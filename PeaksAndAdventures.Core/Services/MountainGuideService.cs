@@ -139,7 +139,6 @@ namespace PeaksAndAdventures.Core.Services
 				Email = mountainGuide.Email,
 				Phone = mountainGuide.Phone,
 				Experience = mountainGuide.Experience,
-				Rating = mountainGuide.Rating.ToString(),
 				ImageUrl = mountainGuide.ImageUrl,
 				OwnerId = mountainGuide.OwnerId,
 				TourAgencyId = mountainGuide.TourAgencyId,
