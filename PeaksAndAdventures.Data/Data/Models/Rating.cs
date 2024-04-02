@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace PeaksAndAdventures.Infrastructure.Data.Models
 {
@@ -32,5 +33,37 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
 
 		[NotMapped]
 		public List<int> Values { get; set; } = new List<int>();
+
+		[Column("Values")]
+		[Comment("List of values")]
+		public string ValuesSerialized
+		{
+			get => JsonConvert.SerializeObject(Values);
+			set
+			{
+				if (value.StartsWith("[") && value.EndsWith("]"))
+				{
+					value = value.Substring(1, value.Length - 2); // премахваме първата и последната скоба
+				}
+
+				var valuesArray = value.Split(',')
+					.Select(s =>
+					{
+						if (int.TryParse(s, out int intValue))
+						{
+							return intValue;
+						}
+						else
+						{
+							// Генериране на грешка или връщане на null за неправилните стойности
+							throw new ArgumentException("Invalid value found in the input string.");
+							// Или може да върнете null, ако списъка позволява нулеви стойности
+							// return null;
+						}
+					})
+					.ToList();
+				Values = valuesArray;
+			}
+		}
 	}
 }
