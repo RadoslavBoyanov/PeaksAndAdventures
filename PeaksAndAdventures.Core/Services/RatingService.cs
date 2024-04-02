@@ -20,7 +20,10 @@ namespace PeaksAndAdventures.Core.Services
 			if (entityType == "Route")
 			{
 				var route = await _repository.GetByIdAsync<Route>(id);
-				var ratingRoute = await _repository.GetByIdAsync<Rating>(route.Id);
+				var ratingRoute = await _repository.All<Rating>()
+					.Where(r => r.RouteId == id)
+					.FirstOrDefaultAsync();
+
 
 				if (ratingRoute != null)
 				{
@@ -43,7 +46,9 @@ namespace PeaksAndAdventures.Core.Services
 			if (entityType == "TourAgency")
 			{
 				var tourAgency = await _repository.GetByIdAsync<TourAgency>(id);
-				var ratingTourAgency = await _repository.GetByIdAsync<Rating>(tourAgency.Id);
+				var ratingTourAgency = await _repository.All<Rating>()
+					.Where(r => r.TourAgencyId == id)
+					.FirstOrDefaultAsync();
 
 				if (ratingTourAgency != null)
 				{
@@ -97,14 +102,14 @@ namespace PeaksAndAdventures.Core.Services
 		{
 			var ratings = _repository.All<Rating>()
 				.Where(x => x.RouteId == id || x.TourAgencyId == id || x.MountainGuideId == id)
-				.ToList(); // Извличане на всички рейтинги от базата данни
+				.ToList(); 
 
 			if (!ratings.Any())
 			{
 				return null;
 			}
 
-			// Общ брой рейтинги
+			
 			var totalRatingCount = ratings.Sum(r => r.Values?.Count ?? 0);
 
 			if (totalRatingCount == 0)
@@ -112,10 +117,10 @@ namespace PeaksAndAdventures.Core.Services
 				return null;
 			}
 
-			// Обща сума на всички рейтинги
+			
 			var totalRatingSum = ratings.Sum(r => r.Values?.Sum() ?? 0);
 
-			// Среден рейтинг
+			
 			double averageRating = (double)totalRatingSum / totalRatingCount;
 			string formattedRating = averageRating.ToString("F2");
 			return double.Parse(formattedRating);

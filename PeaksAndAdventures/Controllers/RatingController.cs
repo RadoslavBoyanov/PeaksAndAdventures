@@ -16,7 +16,7 @@ namespace PeaksAndAdventures.Controllers
 		public async Task<IActionResult> AddRatingAsync(int id, string entityType , int value)
 		{
 			await _ratingService.AddRatingAsync(id, entityType, (int)value);
-			return RedirectToAction("Details", "MountainGuide", new { id = id });
+			return RedirectToAction("Details", entityType, new { id = id });
 		}
 
 		[HttpGet]
