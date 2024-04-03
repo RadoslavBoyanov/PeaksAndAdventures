@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.ViewModels.Expedition;
 using PeaksAndAdventures.Core.ViewModels.MountainGuide;
 using PeaksAndAdventures.Core.ViewModels.TourAgency;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
+using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
 
 namespace PeaksAndAdventures.Core.Services
 {
@@ -122,6 +124,20 @@ namespace PeaksAndAdventures.Core.Services
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<ExpeditionAllViewModel>> GetExpeditionsInAgencyAsync(int tourAgencyId)
+        {
+	        return await _repository.AllReadOnly<Expedition>()
+		        .Where(e => e.TourAgencyId == tourAgencyId)
+		        .Select(e => new ExpeditionAllViewModel()
+		        {
+			        Id = e.Id,
+			        Name = e.Name,
+			        StartDate = e.StartDate.ToString(DateTimeFormat),
+			        EndDate = e.EndDate.ToString(DateTimeFormat),
+			        Price = e.Price.ToString()
+		        })
+		        .ToListAsync();
+        }
 
 
         public async Task<bool> CheckIfExistTourAgencyByName(string tourAgencyName)

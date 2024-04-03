@@ -34,6 +34,13 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> AllExpeditionsInAgency(int id)
+		{
+			var allExpeditions = await _tourAgencyService.GetExpeditionsInAgencyAsync(id);
+			return View(allExpeditions);
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Add()
 		{
 			var tourAgency = new TourAgencyAddViewModel();

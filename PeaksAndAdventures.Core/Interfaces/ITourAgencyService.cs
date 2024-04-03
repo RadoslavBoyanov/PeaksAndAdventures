@@ -1,4 +1,5 @@
-﻿using PeaksAndAdventures.Core.ViewModels.MountainGuide;
+﻿using PeaksAndAdventures.Core.ViewModels.Expedition;
+using PeaksAndAdventures.Core.ViewModels.MountainGuide;
 using PeaksAndAdventures.Core.ViewModels.TourAgency;
 
 namespace PeaksAndAdventures.Core.Interfaces
@@ -12,6 +13,7 @@ namespace PeaksAndAdventures.Core.Interfaces
         Task<int> EditPostAsync(TourAgencyEditViewModel tourAgencyForm);
         Task<IEnumerable<TourAgencyGetViewModel>> GetAllTourAgenciesAsync();
         Task<TourAgencyGetViewModel?> GetTourAgencyByNameAsync(string tourAgencyName);
+		Task<IEnumerable<ExpeditionAllViewModel>> GetExpeditionsInAgencyAsync(int tourAgencyId);
         Task<bool> CheckIfExistTourAgencyByName(string tourAgencyName);
     }
 }
