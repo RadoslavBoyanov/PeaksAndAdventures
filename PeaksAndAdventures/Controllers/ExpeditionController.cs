@@ -77,6 +77,50 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (!await _expeditionService.CheckIfExistExpeditionByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var expedition = await _expeditionService.DeleteGetAsync(id);
+
+			if (expedition is null)
+			{
+				return BadRequest();
+			}
+
+			if (expedition.OrganiserId != User.Id())
+			{
+				return Forbid();
+			}
+
+			return View(expedition);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+
+			var isExistExpedition = await _expeditionService.CheckIfExistExpeditionByIdAsync(id);
+			if (!isExistExpedition)
+			{
+				return BadRequest();
+			}
+
+			var expedition = await _expeditionService.DetailsAsync(id);
+			if (expedition.OrganiserId != User.Id())
+			{
+				return Forbid();
+			}
+
+			await _expeditionService.DeleteConfirmedAsync(id);
+			return RedirectToAction("All", "Expedition");
+		}
+
+
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _expeditionService.CheckIfExistExpeditionByIdAsync(id))
@@ -91,7 +135,7 @@ namespace PeaksAndAdventures.Controllers
 				return BadRequest();
 			}
 
-			if (currentExpedition.OrganiserId != ClaimsPrincipalExtensions.Id(User))
+			if (currentExpedition.OrganiserId != User.Id())
 			{
 				return Unauthorized();
 			}

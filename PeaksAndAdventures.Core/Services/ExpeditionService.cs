@@ -18,36 +18,36 @@ namespace PeaksAndAdventures.Core.Services
 			_repository = repository;
 		}
 
-        public async Task AddAsync(ExpeditionAddViewModel expeditionForm)
-        {
-            var organiser = await _repository.GetByIdAsync<IdentityUser>(expeditionForm.OrganiserId);
-            var tourAgency = await _repository.GetByIdAsync<TourAgency>(expeditionForm.TourAgencyId);
-            var route = await _repository.GetByIdAsync<Route>(expeditionForm.RouteId);
+		public async Task AddAsync(ExpeditionAddViewModel expeditionForm)
+		{
+			var organiser = await _repository.GetByIdAsync<IdentityUser>(expeditionForm.OrganiserId);
+			var tourAgency = await _repository.GetByIdAsync<TourAgency>(expeditionForm.TourAgencyId);
+			var route = await _repository.GetByIdAsync<Route>(expeditionForm.RouteId);
 
-            var expedition = new Expedition()
-            {
-                Name = expeditionForm.Name,
-                StartDate = expeditionForm.StartDate,
-                EndDate = expeditionForm.EndDate,
-                Days = expeditionForm.Days,
-                Enrolment = expeditionForm.Enrolment,
-                Includes = expeditionForm.Includes,
-                Excludes = expeditionForm.Excludes,
-                Program = expeditionForm.Program,
-                Extras = expeditionForm.Extras,
+			var expedition = new Expedition()
+			{
+				Name = expeditionForm.Name,
+				StartDate = expeditionForm.StartDate,
+				EndDate = expeditionForm.EndDate,
+				Days = expeditionForm.Days,
+				Enrolment = expeditionForm.Enrolment,
+				Includes = expeditionForm.Includes,
+				Excludes = expeditionForm.Excludes,
+				Program = expeditionForm.Program,
+				Extras = expeditionForm.Extras,
 				Price = expeditionForm.Price,
-                OrganiserId = expeditionForm.OrganiserId,
+				OrganiserId = expeditionForm.OrganiserId,
 				Organiser = organiser,
-                RouteId = expeditionForm.RouteId,
+				RouteId = expeditionForm.RouteId,
 				Route = route,
 				TourAgencyId = expeditionForm.TourAgencyId,
 				TourAgency = tourAgency,
-            };
-            await _repository.AddAsync(expedition);
+			};
+			await _repository.AddAsync(expedition);
 			await _repository.SaveChangesAsync();
-        }
+		}
 
-        public async Task<IEnumerable<ExpeditionAllViewModel>> AllExpeditionGetAsync()
+		public async Task<IEnumerable<ExpeditionAllViewModel>> AllExpeditionGetAsync()
 		{
 			return await _repository.AllReadOnly<Expedition>()
 				.Select(e => new ExpeditionAllViewModel()
@@ -75,7 +75,7 @@ namespace PeaksAndAdventures.Core.Services
 
 		public async Task<ExpeditionDetailsViewModel> DetailsAsync(int expeditionId)
 		{
-			var expedition = await _repository.GetByIdAsync<Expedition>(expeditionId);
+			var expedition = await _repository.AllReadOnly<Expedition>().FirstOrDefaultAsync(e => e.Id == expeditionId);
 
 			var route = await _repository.GetByIdAsync<Route>(expedition.RouteId);
 			string routeName = route != null ? route.Name : "Няма информация";
@@ -106,6 +106,51 @@ namespace PeaksAndAdventures.Core.Services
 			return expeditionDetails;
 		}
 
+		public async Task<ExpeditionDeleteViewModel> DeleteGetAsync(int expeditionId)
+		{
+			var expedition = await _repository.AllReadOnly<Expedition>()
+				.Include(e => e.ExpeditionsParticipants)
+				.ThenInclude(ep => ep.Participant)
+				.FirstOrDefaultAsync(e => e.Id == expeditionId);
+
+			var tourAgency = await _repository.GetByIdAsync<TourAgency>(expedition.TourAgencyId);
+
+			var expeditionDelete = new ExpeditionDeleteViewModel()
+			{
+				Id = expedition.Id,
+				Name = expedition.Name,
+				StartDate = expedition.StartDate.ToString(DateTimeFormat),
+				EndDate = expedition.EndDate.ToString(DateTimeFormat),
+				Price = expedition.Price.ToString(),
+				TourAgencyName = tourAgency.Name,
+				OrganiserId = expedition.OrganiserId
+			};
+
+			return expeditionDelete;
+		}
+
+		public async Task<int> DeleteConfirmedAsync(int expeditionId)
+		{
+			var expedition = await _repository.AllReadOnly<Expedition>()
+				.Include(e => e.ExpeditionsParticipants)
+				.ThenInclude(ep => ep.Participant)
+				.AsNoTracking()
+				.FirstOrDefaultAsync(e => e.Id == expeditionId);
+
+			if (expedition.ExpeditionsParticipants.Any())
+			{
+				foreach (var expeditionParticipant in expedition.ExpeditionsParticipants.ToList())
+				{
+					_repository.Delete(expeditionParticipant);
+				}
+			}
+
+			_repository.Delete(expedition);
+			await _repository.SaveChangesAsync();
+
+			return expedition.Id;
+		}
+
 		public async Task<ExpeditionEditViewModel> EditGetAsync(int expeditionId)
 		{
 			var currentExpedition = await _repository.All<Expedition>()
@@ -128,7 +173,7 @@ namespace PeaksAndAdventures.Core.Services
 				Days = currentExpedition.Days,
 				Enrolment = currentExpedition.Enrolment,
 				Includes = currentExpedition.Includes,
-				Excludes = currentExpedition.Excludes, 
+				Excludes = currentExpedition.Excludes,
 				Price = currentExpedition.Price,
 				Program = currentExpedition.Program,
 				Extras = currentExpedition.Extras,
@@ -136,7 +181,7 @@ namespace PeaksAndAdventures.Core.Services
 				RouteId = currentExpedition.RouteId,
 				Routes = routes
 			};
-			
+
 			return expedition;
 		}
 

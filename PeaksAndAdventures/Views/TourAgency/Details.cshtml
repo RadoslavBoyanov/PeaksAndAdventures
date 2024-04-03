@@ -4,7 +4,7 @@
 	ViewBag.Title = "Детайли за туристическа агенция";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="card">
@@ -35,6 +35,7 @@
 			</form>
 		}
 		<p class="card-text text-decoration-none"><a asp-controller="TourAgency" asp-action="AllMountainGuidesInAgency" asp-route-id="@Model.Id">Планински водачи</a></p>
+		<p class="card-text text-decoration-none"><a asp-controller="TourAgency" asp-action="AllExpeditionsInAgency" asp-route-id="@Model.Id">Експедиции прелагани от агенцията</a></p>
 	</div>
 
 	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
