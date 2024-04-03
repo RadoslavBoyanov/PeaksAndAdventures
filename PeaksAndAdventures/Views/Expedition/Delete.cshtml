@@ -1,0 +1,34 @@
+﻿@model ExpeditionDeleteViewModel
+
+@{
+	ViewBag.Title = "Итриване на експедиция";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
+
+<div class="row justify-content-center">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title text-center">@Model.Name</h3>
+				<p class="card-text"><strong>Организирана от:</strong> @Model.TourAgencyName</p>
+				<p class="card-text"><strong>Начало на екседицията:</strong> @Model.StartDate</p>
+				<p class="card-text"><strong>Край на експедицията:</strong> @Model.EndDate</p>
+				<p class="card-text"><strong>Цена:</strong> @Model.Price $</p>
+				<p class="text-danger mt-3">Сигурен ли си, че искаш да си изтриеш експедицията?</p>
+			</div>
+			<div class="card-footer">
+				<form asp-action="DeleteConfirmed" method="post">
+					<input type="hidden" asp-for="Id" />
+					<button type="submit" class="btn btn-danger">Изтрий</button>
+					<a asp-action="All" class="btn btn-secondary">Отмени</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
