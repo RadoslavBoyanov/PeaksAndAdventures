@@ -10,6 +10,8 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<bool> CheckIfExistExpeditionByIdAsync(int expeditionId);
 		Task<bool> CheckIfExistExpeditionByNameAsync(string expeditionName);
 		Task<ExpeditionDetailsViewModel> DetailsAsync(int expeditionId);
+		Task<ExpeditionDeleteViewModel> DeleteGetAsync(int expeditionId);
+		Task<int> DeleteConfirmedAsync(int expeditionId);
 		Task<ExpeditionEditViewModel> EditGetAsync(int expeditionId);
 		Task<int> EditPostAsync(ExpeditionEditViewModel expeditionForm);
 		Task<ExpeditionRegisterViewModel> RegisterForExpeditionAsync(string userId, int expeditionId);
