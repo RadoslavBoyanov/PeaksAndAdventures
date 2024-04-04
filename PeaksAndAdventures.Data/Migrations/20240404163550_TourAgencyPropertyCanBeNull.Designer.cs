@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeaksAndAdventures.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PeaksAndAdventures.Infrastructure.Data;
 namespace PeaksAndAdventures.Data.Migrations
 {
     [DbContext(typeof(PeaksAndAdventuresDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240404163550_TourAgencyPropertyCanBeNull")]
+    partial class TourAgencyPropertyCanBeNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

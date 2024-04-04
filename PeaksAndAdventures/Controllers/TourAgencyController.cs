@@ -82,6 +82,53 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var tourAgency = await _tourAgencyService.DeleteGetAsync(id);
+
+			if (tourAgency is null)
+			{
+				return NotFound();
+			}
+
+			if (tourAgency.OwnerId != User.Id())
+			{
+				return Unauthorized();
+			}
+
+			return View(tourAgency);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var isExistTourAgency = await _tourAgencyService.CheckIfExistTourAgencyById(id);
+
+			if (!isExistTourAgency)
+			{
+				return BadRequest();
+			}
+
+			var agency = await _tourAgencyService.DetailsAsync(id);
+			if (agency.OwnerId != User.Id())
+			{
+				return Unauthorized();
+			}
+
+			var message = await _tourAgencyService.DeleteConfirmedAsync(id);
+
+			if (message == CantDeleteTourAgencyBecauseOfExpeditionParticipant)
+			{
+				TempData["DeleteAgencyError"] = message;
+				return View("DeleteConfirmed");
+			}
+
+			TempData["DeleteAgencySuccess"] = message;
+			
+			return View("DeleteConfirmed");
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			var currentTourAgency = await _tourAgencyService.EditGetAsync(id);

@@ -1,0 +1,15 @@
+﻿@model TourAgencyDeleteViewModel
+
+@if (TempData["DeleteAgencyError"] != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@TempData["DeleteAgencyError"]
+	</div>
+}
+
+@if (TempData["DeleteAgencySuccess"] != null)
+{
+	<div class="alert alert-success" role="alert">
+		@TempData["DeleteAgencySuccess"]
+	</div>
+}

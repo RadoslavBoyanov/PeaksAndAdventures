@@ -7,6 +7,8 @@ using PeaksAndAdventures.Core.ViewModels.TourAgency;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
+using static PeaksAndAdventures.Common.ErrorMessages;
+using static PeaksAndAdventures.Common.SuccessMessages;
 
 namespace PeaksAndAdventures.Core.Services
 {
@@ -66,6 +68,64 @@ namespace PeaksAndAdventures.Core.Services
 			};
 
 			return tourAgencyDetails;
+		}
+
+		public async Task<TourAgencyDeleteViewModel> DeleteGetAsync(int tourAgencyId)
+		{
+			var agency = await _repository.AllReadOnly<TourAgency>()
+				.Where(ta => ta.Id == tourAgencyId)
+				.Select(ta => new TourAgencyDeleteViewModel()
+				{
+					Id = ta.Id,
+					Name = ta.Name,
+					Email = ta.Email,
+					Phone = ta.Phone,
+					OwnerId = ta.OwnerId
+				})
+				.FirstOrDefaultAsync();
+
+			return agency;
+		}
+
+		public async Task<string> DeleteConfirmedAsync(int tourAgencyId)
+		{
+			var tourAgency = await _repository.All<TourAgency>()
+				.Include(ta => ta.MountainGuides)
+				.Include(ta => ta.Expeditions)
+				.FirstOrDefaultAsync(ta => ta.Id == tourAgencyId);
+
+			if (tourAgency.MountainGuides.Any())
+			{
+				foreach (var guide in tourAgency.MountainGuides)
+				{
+					guide.TourAgencyId = null;
+					guide.TourAgency = null;
+				}
+			}
+
+			if (tourAgency.Expeditions.Any())
+			{
+				foreach (var expedition in tourAgency.Expeditions)
+				{
+					expedition.ExpeditionsParticipants = await  _repository.AllReadOnly<ExpeditionParticipant>()
+						.Where(ep => ep.ExpeditionId == expedition.Id)
+						.ToListAsync();
+
+					if (expedition.ExpeditionsParticipants.Any())
+					{
+						return CantDeleteTourAgencyBecauseOfExpeditionParticipant;
+					}
+					else
+					{
+						_repository.Delete(expedition);
+					}
+				}
+			}
+
+			await _repository.DeleteAsync<TourAgency>(tourAgencyId);
+			await _repository.SaveChangesAsync();
+
+			return SuccesscfullyDeletedTourAgency;
 		}
 
 		public async Task<TourAgencyEditViewModel> EditGetAsync(int tourAgencyId)
@@ -145,5 +205,11 @@ namespace PeaksAndAdventures.Core.Services
             return await _repository.AllReadOnly<TourAgency>()
                 .AnyAsync(ta => ta.Name == tourAgencyName);
         }
-    }
+
+        public Task<bool> CheckIfExistTourAgencyById(int tourAgencyId)
+        {
+	        return _repository.AllReadOnly<TourAgency>()
+		        .AnyAsync(ta => ta.Id == tourAgencyId);
+        }
+	}
 }

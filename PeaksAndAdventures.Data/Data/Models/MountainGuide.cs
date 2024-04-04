@@ -51,7 +51,7 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Mountain guide tour agency")]
         public int? TourAgencyId { get; set; }
         [ForeignKey(nameof(TourAgencyId))]
-        public TourAgency TourAgency { get; set; } = null!;
+        public TourAgency? TourAgency { get; set; } = null!;
 
         [Required]
         [Comment("Navigation property for owner on the model")]
