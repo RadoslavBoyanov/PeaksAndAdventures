@@ -20,9 +20,9 @@ namespace PeaksAndAdventures.Core.ViewModels.Waterfall
 
 		[StringLength(DescriptionMaxLength, ErrorMessage = StringMaximumLength)]
 		[Display(Name = "Описание")]
-		public string? Description { get; set; }
+		public string Description { get; set; } = string.Empty;
 
 		[Display(Name = "Изображение - URL адрес")]
-		public string? ImageUrl { get; set; }
+		public string ImageUrl { get; set; } = string.Empty;
 	}
 }
