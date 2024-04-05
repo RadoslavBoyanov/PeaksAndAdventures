@@ -25,9 +25,6 @@ namespace PeaksAndAdventures.Core.Services
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Description = p.Description,
-                    Partition = p.Partition,
-                    SpecificLocation = p.SpecificLocation,
                     Altitude = p.Altitude,
                     ImageUrl = p.ImageUrl,
                     MountainId = p.MountainId,
@@ -63,6 +60,62 @@ namespace PeaksAndAdventures.Core.Services
         {
 	        return await _repository.AllReadOnly<Peak>()
 		        .AnyAsync(p => p.Name == mountain);
+        }
+
+        public async Task<PeakDetailsViewModel> DetailsAsync(int peakId)
+        {
+	        var peak = await _repository.AllReadOnly<Peak>()
+		        .Where(p => p.Id == peakId)
+		        .Include(p => p.Mountain)
+		        .Select(p => new PeakDetailsViewModel()
+		        {
+					Id = p.Id,
+					Name = p.Name,
+					Description = p.Description,
+					Altitude = p.Altitude,
+					Partition = p.Partition,
+					SpecificLocation = p.SpecificLocation,
+					ImageUrl = p.ImageUrl,
+					MountainId = p.MountainId,
+					MountainName = p.Mountain.Name
+		        })
+		        .FirstOrDefaultAsync();
+
+			return peak;
+        }
+
+        public async Task<PeakDeleteViewModel> DeleteGetAsync(int peakId)
+        {
+	        var peak = await _repository.All<Peak>()
+		        .Where(p => p.Id == peakId)
+		        .Select(p => new PeakDeleteViewModel()
+		        {
+			        Id = p.Id,
+                    Name = p.Name,
+                    MountainName = p.Mountain.Name
+		        }).FirstOrDefaultAsync();
+            
+			return peak;
+        }
+
+        public async Task<int> DeleteConfirmedAsync(int peakId)
+        {
+	        var peak = await _repository.All<Peak>()
+                .Include(p => p.RoutesPeaks)
+		        .FirstOrDefaultAsync(p => p.Id == peakId);
+
+	        if (peak.RoutesPeaks.Any())
+	        {
+		        foreach (var routePeak in peak.RoutesPeaks)
+		        {
+			        _repository.Delete(routePeak);
+		        }
+	        }
+
+			await _repository.DeleteAsync<Peak>(peakId);
+			await _repository.SaveChangesAsync();
+
+			return peakId;
         }
 
         public async Task<PeakEditViewModel> EditGetAsync(int peakId)

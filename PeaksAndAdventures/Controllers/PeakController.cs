@@ -34,6 +34,43 @@ namespace PeaksAndAdventures.Controllers
             return View(peak);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var peak = await _peakService.DetailsAsync(id);
+
+            if (peak is null)
+            {
+				return BadRequest();
+			}
+
+            return View(peak);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+
+	        var peak = await _peakService.DeleteGetAsync(id);
+	        return View(peak);
+		}
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+
+	        await _peakService.DeleteConfirmedAsync(id);
+	        return RedirectToAction("All", "Peak");
+		}
+
         [HttpPost]
         public async Task<IActionResult> Edit(PeakEditViewModel peakForm)
         {

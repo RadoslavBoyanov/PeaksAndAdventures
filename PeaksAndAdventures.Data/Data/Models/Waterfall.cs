@@ -19,10 +19,10 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
 
         [StringLength(DescriptionMaxLength)]
         [Comment("Waterfall description")]
-        public string? Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Comment("Pictures of the waterfall")]
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 
         [Required]
         [Comment("Navigation property for mountain")]

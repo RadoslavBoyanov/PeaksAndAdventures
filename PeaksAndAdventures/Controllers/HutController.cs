@@ -20,6 +20,42 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			if (!await _hutService.CheckHutExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var hut = await _hutService.DetailsAsync(id);
+			return View(hut);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (!await _hutService.CheckHutExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var hut = await _hutService.DeleteGetAsync(id);
+			return View(hut);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			if (!await _hutService.CheckHutExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			await _hutService.DeleteConfirmedAsync(id);
+			return RedirectToAction("All", "Hut");
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))

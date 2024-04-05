@@ -13,11 +13,13 @@ namespace PeaksAndAdventures.Core.ViewModels.Lake
 		[Display(Name = "Име")]
 		public string Name { get; set; } = string.Empty;
 
+		[Required(ErrorMessage = RequireErrorMessage)]
 		[StringLength(DescriptionMaxLength, ErrorMessage = StringMaximumLength)]
 		[Display(Name = "Описание")]
-		public string? Description { get; set; }
+		public string Description { get; set; } = string.Empty;
 
-		[Display(Name = "Изображение")]
-		public string? ImageUrl { get; set; }
+		[Required(ErrorMessage = RequireErrorMessage)]
+		[Display(Name = "Изображение")] 
+		public string ImageUrl { get; set; } = null!;
 	}
 }

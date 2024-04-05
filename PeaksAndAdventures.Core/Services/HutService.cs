@@ -23,17 +23,7 @@ namespace PeaksAndAdventures.Core.Services
                 {
                     Id = h.Id,
                     Name = h.Name,
-                    Altitude = h.Altitude,
-                    Description = h.Description,
-                    WorkTime = h.WorkTime.GetDisplayName(),
-                    HasToilet = h.HasToilet ? "да" : "не",
-                    HasCanteen = h.HasCanteen ? "да" : "не",
-                    HasBathroom = h.HasBathroom ? "да" : "не",
-                    Camping = h.Camping.GetDisplayName(),
-                    Phone = h.Phone,
                     ImageUrl = h.ImageUrl,
-                    MountainId = h.MountainId,
-                    MountainName = h.Mountain.Name
                 })
                 .ToListAsync();
         }
@@ -70,6 +60,70 @@ namespace PeaksAndAdventures.Core.Services
 			return await _repository.AllReadOnly<Hut>()
 				.AnyAsync(h => h.Name == hutName);
 		}
+
+        public async Task<HutDetailsViewModel> DetailsAsync(int hutId)
+        {
+	        var hut = await _repository.AllReadOnly<Hut>()
+		        .Include(h=> h.Mountain)
+		        .FirstOrDefaultAsync(h => h.Id == hutId);
+
+	        var hutDetails = new HutDetailsViewModel()
+	        {
+		        Id = hut.Id,
+		        Name = hut.Name,
+		        Altitude = hut.Altitude,
+		        Description = hut.Description,
+		        WorkTime = hut.WorkTime.GetDisplayName(),
+		        HasToilet = hut.HasToilet ? "да" : "не",
+		        HasCanteen = hut.HasCanteen ? "да" : "не",
+		        HasBathroom = hut.HasBathroom ? "да" : "не",
+		        Camping = hut.Camping.GetDisplayName(),
+		        Phone = hut.Phone,
+		        ImageUrl = hut.ImageUrl,
+		        MountainId = hut.MountainId,
+		        MountainName = hut.Mountain.Name
+	        };
+
+			return hutDetails;
+        }
+
+        public async Task<HutDeleteViewModel> DeleteGetAsync(int hutId)
+        {
+	        var hut = await _repository.AllReadOnly<Hut>()
+		        .Include(h=> h.Mountain)
+		        .Where(h => h.Id == hutId)
+		        .Select(h => new HutDeleteViewModel()
+		        {
+			        Id = h.Id,
+			        Name = h.Name,
+			        MountainName = h.Mountain.Name,
+			        Phone = h.Phone,
+			        ImageUrl = h.ImageUrl,
+		        })
+		        .FirstOrDefaultAsync();
+
+	        return hut;
+        }
+
+        public async Task<int> DeleteConfirmedAsync(int hutId)
+        {
+	        var hut = await _repository.All<Hut>()
+		        .Include(h => h.RoutesHuts)
+		        .FirstOrDefaultAsync(h => h.Id == hutId);
+
+	        if (hut.RoutesHuts.Any())
+	        {
+		        foreach (var routeHut in hut.RoutesHuts)
+		        { 
+			        _repository.Delete(routeHut);
+		        }
+	        }
+
+	        await _repository.DeleteAsync<Hut>(hutId);
+			await _repository.SaveChangesAsync();
+
+			return hutId;
+        }
 
         public async Task<HutEditViewModel> EditGetAsync(int hutId)
         {

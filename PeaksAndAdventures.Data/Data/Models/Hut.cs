@@ -62,8 +62,9 @@ namespace PeaksAndAdventures.Infrastructure.Data.Models
         [Comment("Hut phone number")]
         public string? Phone { get; set; }
 
+        [Required]
         [Comment("Pictures of the hut")]
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty; 
 
         [Required]
         [Comment("Navigation property for mountain")]

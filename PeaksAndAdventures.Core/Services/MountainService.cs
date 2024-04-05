@@ -72,9 +72,6 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = p.Id,
 			         Name = p.Name,
-			         Description = p.Description,
-			         Partition = p.Partition,
-			         SpecificLocation = p.SpecificLocation,
 			         Altitude = p.Altitude,
 			         ImageUrl = p.ImageUrl,
 			         MountainId = p.MountainId,
@@ -92,17 +89,7 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = h.Id,
 			         Name = h.Name,
-			         Altitude = h.Altitude,
-			         Description = h.Description,
-			         WorkTime = h.WorkTime.GetDisplayName(),
-			         HasToilet = h.HasToilet ? "да" : "не",
-			         HasCanteen = h.HasCanteen ? "да" : "не",
-			         HasBathroom = h.HasBathroom ? "да" : "не",
-			         Camping = h.Camping.GetDisplayName(),
-			         Phone = h.Phone,
 			         ImageUrl = h.ImageUrl,
-			         MountainId = h.MountainId,
-			         MountainName = h.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -116,10 +103,7 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = w.Id,
 			         Name = w.Name,
-			         Description = w.Description,
 			         ImageUrl = w.ImageUrl,
-			         MountainId = w.MountainId,
-			         MountainName = w.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -133,10 +117,7 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = l.Id,
 			         Name = l.Name,
-			         Description = l.Description,
 			         ImageUrl = l.ImageUrl,
-			         MountainId = l.MountainId,
-			         MountainName = l.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -152,7 +133,6 @@ namespace PeaksAndAdventures.Core.Services
 	         return await _repository.AllReadOnly<Mountain>()
 		         .AnyAsync(m => m.Id == mountainId);
          }
-
 
          public async Task AddAsync(MountainFormViewModel mountainForm)
          {

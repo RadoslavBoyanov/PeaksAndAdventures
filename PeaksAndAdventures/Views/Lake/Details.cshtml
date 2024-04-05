@@ -1,0 +1,27 @@
+﻿@model LakeDetailsViewModel
+
+@{
+	ViewBag.Title = "Информация за езерото";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="card">
+	<div class="card-body">
+		<h2 class="card-title text-center">@Model.Name</h2>
+		@if (!string.IsNullOrEmpty(Model.Description))
+		{
+			<p class="card-text">@Model.Description</p>
+		}
+		<img src="@Model.ImageUrl" alt="Lake Image" class="card-img-top" />
+		<p class="card-text"> <strong>Планина:</strong> @Model.MountainName</p>
+	</div>
+	<div class="card-footer">
+		<a asp-action="All" class="btn btn-secondary">Назад</a>
+		<a asp-controller="Lake" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+		<a asp-controller="Lake" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+	</div>
+</div>
+
