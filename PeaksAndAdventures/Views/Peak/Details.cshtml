@@ -1,0 +1,111 @@
+﻿@model PeakDetailsViewModel
+
+@{
+	ViewBag.Title = "Информация за върха";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="info">
+	<h1>@Model.Name</h1>
+	<div class="property">
+		<label>Описание:</label>
+		@if (Model.Description == null)
+		{
+			<p>Няма въведено описание</p>
+		}
+		else
+		{
+			<div class="property-value">@Model.Description</div>
+		}
+
+	</div>
+	<div class="property">
+		<label>Височина:</label>
+		<div class="property-value">@Model.Altitude</div>
+	</div>
+	<div class="property">
+		<label>Дял:</label>
+		@if (Model.Partition == null)
+		{
+			<p>Няма въведен дял</p>
+		}
+		else
+		{
+			<div class="property-value">@Model.Partition</div>
+		}
+	</div>
+	<div class="property">
+		<label>Точно местоположение:</label>
+		@if (Model.SpecificLocation == null)
+		{
+			<p>Няма въведено точно местоположение</p>
+		}
+		else
+		{
+			<div class="property-value">@Model.SpecificLocation</div>
+		}
+	</div>
+	<div class="image-container">
+		@if (Model.ImageUrl == null)
+		{
+			<p>Няма качена снимка</p>
+		}
+		else
+		{
+			<img src="@Model.ImageUrl" alt="Peak Image" />
+		}
+	</div>
+	<div class="property">
+		<label>Планина:</label>
+		<div class="property-value">@Model.MountainName</div>
+	</div>
+	<a asp-controller="Peak" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+	<a asp-controller="Peak" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+</div>
+
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		background-color: #f2f2f2;
+		margin: 0;
+		padding: 20px;
+	}
+
+	.info {
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		margin: 20px auto;
+		max-width: 600px;
+	}
+
+	h1 {
+		color: #333;
+		margin-bottom: 20px;
+	}
+
+	.property {
+		margin-bottom: 10px;
+	}
+
+		.property label {
+			font-weight: bold;
+		}
+
+	.property-value {
+		color: #666;
+	}
+
+	.image-container {
+		text-align: center;
+	}
+
+		.image-container img {
+			max-width: 100%;
+			height: auto;
+		}
+</style>
+
