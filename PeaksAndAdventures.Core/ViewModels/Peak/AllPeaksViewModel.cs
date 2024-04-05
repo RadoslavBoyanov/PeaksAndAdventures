@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace PeaksAndAdventures.Core.ViewModels.Peak
 {
+    /// <summary>
+    /// view model for all peaks
+    /// </summary>
     public class AllPeaksViewModel
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
-        public string? Description { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public int Altitude { get; set; }
-
-        public string? Partition { get; set; }
-
-        public string? SpecificLocation { get; set; }
 
         public string? ImageUrl { get; set; }
 

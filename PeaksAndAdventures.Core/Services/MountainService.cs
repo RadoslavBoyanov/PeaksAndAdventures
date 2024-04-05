@@ -72,9 +72,6 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = p.Id,
 			         Name = p.Name,
-			         Description = p.Description,
-			         Partition = p.Partition,
-			         SpecificLocation = p.SpecificLocation,
 			         Altitude = p.Altitude,
 			         ImageUrl = p.ImageUrl,
 			         MountainId = p.MountainId,

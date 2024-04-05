@@ -4,7 +4,7 @@
 	ViewBag.Title = "Върхове в планината";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
 @if (!Model.Any())
 {
@@ -15,34 +15,19 @@ else
 	<table class="table">
 		<thead>
 		<tr>
-			<th>Име</th>
-			<th>Описание</th>
-			<th>Дял</th>
-			<th>Местоположение</th>
-			<th>Височина</th>
-			<th>Изображение</th>
+			<th class="text-center">Име</th>
+			<th class="text-center">Височина</th>
+			<th class="text-center">Детайли</th>
 		</tr>
 		</thead>
 		<tbody>
 		@foreach (var peak in Model)
 		{
-			<tr>
-				<td>@peak.Name</td>
-				<td>@peak.Description</td>
-				<td>@peak.Partition</td>
-				<td>@peak.SpecificLocation</td>
-				<td>@peak.Altitude</td>
-				<td>
-					@{
-						if (!string.IsNullOrEmpty(peak.ImageUrl))
-						{
-							<img src="@peak.ImageUrl" alt="@peak.Name" class="img-fluid"/>
-						}
-						else
-						{
-							<p>Липсва изображение</p>
-						}
-					}
+			<tr class="@(peak.Id % 2 == 0 ? "even-row" : "odd-row")">
+				<td class="text-center">@peak.Name</td>
+				<td class="text-center">@peak.Altitude</td>
+				<td class="text-center">
+					<a asp-action="Details" asp-route-id="@peak.Id" class="btn btn-outline-primary">Детайли</a>
 				</td>
 			</tr>
 		}
@@ -50,13 +35,20 @@ else
 	</table>
 }
 
+<a asp-controller="Mountain" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>
 
-<p>
-	@Html.ActionLink("Върни се към всички планини", "All", "Mountain")
-</p>
+<style>
+	.even-row {
+		background-color: #f2f2f2;
+	}
 
+	.odd-row {
+		background-color: #ffffff;
+	}
 
-
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}
+	.table th,
+	.table td {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+</style>
