@@ -58,6 +58,7 @@ namespace PeaksAndAdventures.Core.ViewModels.Hut
 		[Display(Name = "Телефон")]
 		public string? Phone { get; set; }
 
+		[Required(ErrorMessage = RequireErrorMessage)]
 		[Display(Name = "Изображение - URL адрес")]
 		public string ImageUrl { get; set; } = string.Empty;
 

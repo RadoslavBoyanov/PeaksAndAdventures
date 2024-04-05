@@ -18,10 +18,12 @@ namespace PeaksAndAdventures.Core.ViewModels.Waterfall
 		[Display(Name = "Име")]
 		public string Name { get; set; } = string.Empty;
 
+		[Required(ErrorMessage = RequireErrorMessage)]
 		[StringLength(DescriptionMaxLength, ErrorMessage = StringMaximumLength)]
 		[Display(Name = "Описание")]
 		public string Description { get; set; } = string.Empty;
 
+		[Required(ErrorMessage = RequireErrorMessage)]
 		[Display(Name = "Изображение - URL адрес")]
 		public string ImageUrl { get; set; } = string.Empty;
 	}
