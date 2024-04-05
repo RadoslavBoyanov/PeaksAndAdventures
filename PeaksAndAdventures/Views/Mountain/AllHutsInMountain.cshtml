@@ -5,59 +5,7 @@
 }
 
 
-<h2>@ViewBag.Title</h2>
-
-@if (Model != null && Model.Any())
-{
-	<table class="table">
-		<thead>
-		<tr>
-			<th>Име</th>
-			<th>Надморска височина</th>
-			<th>Описание</th>
-			<th>Работно време</th>
-			<th>WC</th>
-			<th>Столова</th>
-			<th>Баня</th>
-			<th>Къмпинг</th>
-			<th>Телефон</th>
-			<th>Изображение</th>
-		</tr>
-		</thead>
-		<tbody>
-		@foreach (var hut in Model)
-		{
-			<tr>
-				<td>@hut.Name</td>
-				<td>@((hut.Altitude is null) ? hut.Altitude : "Няма информация за надморксата височина!")</td>
-				<td>@hut.Description</td>
-				<td>@hut.WorkTime</td>
-				<td>@hut.HasToilet</td>
-				<td>@hut.HasCanteen</td>
-				<td>@hut.HasBathroom</td>
-				<td>@hut.Camping</td>
-				<td>@(!string.IsNullOrEmpty(hut.Phone) ? hut.Phone : "Няма записан номер.")</td>
-				<td>
-					@{
-						if (!string.IsNullOrEmpty(hut.ImageUrl))
-						{
-							<img src="@hut.ImageUrl" alt="@hut.Name" class="img-fluid" />
-						}
-						else
-						{
-							<p>Липсва изображение</p>
-						}
-					}
-				</td>
-			</tr>
-		}
-		</tbody>
-	</table>
-}
-else
-{
-	<p>Няма налични хижи в тази планина.</p>
-}
+@Html.Partial("_AllHutsPartial", Model)
 
 <p>
 	@Html.ActionLink("Върни се към всички планини", "All", "Mountain")
