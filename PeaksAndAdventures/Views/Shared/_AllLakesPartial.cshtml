@@ -1,22 +1,24 @@
 ﻿@model IEnumerable<AllLakesViewModel>
 
-
-<div class="row">
-	@foreach (var lake in Model)
-	{
-		<div class="col-md-4 mb-4">
-			<div class="card">
-				@if (!string.IsNullOrEmpty(lake.ImageUrl))
-				{
-					<img src="@lake.ImageUrl" class="card-img-top" alt="Lake Image">
-				}
-				<div class="card-body">
-					<h5 class="card-title text-center">@lake.Name</h5>
-					<p class="text-center"><a asp-controller="Lake" asp-action="Details" class="btn btn-primary align-content-center">Виж повече</a></p>
+@if (Model != null && Model.Count() > 0)
+{
+	<div class="row">
+		@foreach (var lake in Model)
+		{
+			<div class="col-md-4 mb-4">
+				<div class="card">
+					@if (!string.IsNullOrEmpty(lake.ImageUrl))
+					{
+						<img src="@lake.ImageUrl" class="card-img-top" alt="Lake Image">
+					}
+					<div class="card-body">
+						<h5 class="card-title text-center">@lake.Name</h5>
+						<p class="text-center"><a asp-controller="Lake" asp-action="Details" asp-route-id="@lake.Id" class="btn btn-primary align-content-center">Виж повече</a></p>
+					</div>
 				</div>
 			</div>
-		</div>
-	}
-</div>
-<hr/>
-<a asp-controller="Mountain" asp-action="AddLake" class="btn btn-primary btn-group-sm fw-bold">Добави езеро</a>
+		}
+	</div>
+	<hr />
+	<a asp-controller="Mountain" asp-action="AddLake" class="btn btn-primary btn-group-sm fw-bold">Добави езеро</a>
+}
