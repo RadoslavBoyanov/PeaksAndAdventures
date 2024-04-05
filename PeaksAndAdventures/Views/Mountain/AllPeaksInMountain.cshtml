@@ -27,7 +27,7 @@ else
 				<td class="text-center">@peak.Name</td>
 				<td class="text-center">@peak.Altitude</td>
 				<td class="text-center">
-					<a asp-action="Details" asp-route-id="@peak.Id" class="btn btn-outline-primary">Детайли</a>
+					<a asp-action="Details" asp-controller="Peak" asp-route-id="@peak.Id" class="btn btn-outline-primary">Детайли</a>
 				</td>
 			</tr>
 		}
