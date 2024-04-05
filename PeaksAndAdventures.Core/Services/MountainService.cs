@@ -92,17 +92,7 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = h.Id,
 			         Name = h.Name,
-			         Altitude = h.Altitude,
-			         Description = h.Description,
-			         WorkTime = h.WorkTime.GetDisplayName(),
-			         HasToilet = h.HasToilet ? "да" : "не",
-			         HasCanteen = h.HasCanteen ? "да" : "не",
-			         HasBathroom = h.HasBathroom ? "да" : "не",
-			         Camping = h.Camping.GetDisplayName(),
-			         Phone = h.Phone,
 			         ImageUrl = h.ImageUrl,
-			         MountainId = h.MountainId,
-			         MountainName = h.Mountain.Name
 				 })
 		         .ToListAsync();
          }
