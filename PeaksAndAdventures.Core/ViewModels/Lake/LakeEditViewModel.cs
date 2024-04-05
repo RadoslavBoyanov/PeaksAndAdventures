@@ -15,9 +15,9 @@ namespace PeaksAndAdventures.Core.ViewModels.Lake
 
 		[StringLength(DescriptionMaxLength, ErrorMessage = StringMaximumLength)]
 		[Display(Name = "Описание")]
-		public string? Description { get; set; }
+		public string Description { get; set; } = string.Empty;
 
-		[Display(Name = "Изображение")]
-		public string? ImageUrl { get; set; }
+		[Display(Name = "Изображение")] 
+		public string ImageUrl { get; set; } = null!;
 	}
 }

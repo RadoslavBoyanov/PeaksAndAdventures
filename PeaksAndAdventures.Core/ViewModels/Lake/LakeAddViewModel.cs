@@ -14,10 +14,10 @@ namespace PeaksAndAdventures.Core.ViewModels.Lake
 
 		[StringLength(DescriptionMaxLength, ErrorMessage = StringMaximumLength)]
 		[Display(Name = "Описание")]
-		public string? Description { get; set; }
+		public string Description { get; set; } = string.Empty;
 
 		[Display(Name = "Изображение")]
-		public string? ImageUrl { get; set; }
+		public string ImageUrl { get; set; } = string.Empty;
 
 		[Required(ErrorMessage = RequireErrorMessage)]
 		public int MountainId { get; set; }
