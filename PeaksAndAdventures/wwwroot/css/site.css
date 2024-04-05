@@ -16,3 +16,76 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Стилове за header */
+header {
+    background-color: #f8f9fa; /* Цвят на header-a */
+    padding: 10px 0; /* Отстъп отгоре и отдолу */
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Големина на шрифта на заглавието */
+    font-weight: bold; /* Подчертан шрифт */
+    color: #343a40; /* Цвят на текста */
+}
+
+/* Стилове за footer */
+footer {
+    background-color: #343a40; /* Цвят на footer-a */
+    color: #f8f9fa; /* Цвят на текста */
+    padding: 20px 0; /* Отстъп отгоре и отдолу */
+    text-align: center; /* Центриран текст */
+}
+
+/* Стилове за бутоните в navbar-a */
+.nav.nav-tabs .nav-link,
+.btn-light.dropdown-toggle {
+    background-color: transparent; /* Прозрачен фон */
+    border: none; /* Без граници */
+    color: #343a40; /* Цвят на текста */
+}
+
+    .nav.nav-tabs .nav-link:hover,
+    .btn-light.dropdown-toggle:hover {
+        background-color: #e9ecef; /* Цвят на фона при ховър */
+        color: #343a40; /* Цвят на текста при ховър */
+    }
+
+/* Стилове за списъка с опции в dropdown-ите */
+.dropdown-menu {
+    background-color: #f8f9fa; /* Цвят на фона */
+}
+
+.dropdown-item {
+    color: #343a40; /* Цвят на текста */
+}
+
+    .dropdown-item:hover {
+        background-color: #e9ecef; /* Цвят на фона при ховър */
+        color: #343a40; /* Цвят на текста при ховър */
+    }
+
+/* Стилове за контейнера */
+.container {
+    padding: 20px 0; /* Отстъп отгоре и отдолу */
+}
+
+/* Стилове за основния контент */
+main {
+    min-height: 500px; /* Минимална височина на основния контент */
+}
+
+/* Стилове за footer-a в долната част на страницата */
+/* Стилове за footer */
+footer {
+    background-color: #343a40; /* Цвят на footer-a */
+    color: #f8f9fa; /* Цвят на текста */
+    padding: 10px 0; /* Отстъп отгоре и отдолу */
+    text-align: center; /* Центриран текст */
+    position: fixed; /* Фиксиран footer */
+    left: 0; /* Лява позиция */
+    bottom: 0; /* Долна позиция */
+    width: 100%; /* Ширина 100% */
+    z-index: 999; /* Подредба на елемента над другите */
+}
+
