@@ -23,10 +23,7 @@ namespace PeaksAndAdventures.Core.Services
                 {
                     Id = l.Id,
                     Name = l.Name,
-                    Description = l.Description,
                     ImageUrl = l.ImageUrl,
-                    MountainId = l.MountainId,
-                    MountainName = l.Mountain.Name
 				})
                 .ToListAsync();
         }

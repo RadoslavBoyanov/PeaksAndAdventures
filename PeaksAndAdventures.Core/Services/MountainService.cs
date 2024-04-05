@@ -123,10 +123,7 @@ namespace PeaksAndAdventures.Core.Services
 		         {
 			         Id = l.Id,
 			         Name = l.Name,
-			         Description = l.Description,
 			         ImageUrl = l.ImageUrl,
-			         MountainId = l.MountainId,
-			         MountainName = l.Mountain.Name
 				 })
 		         .ToListAsync();
          }
@@ -142,7 +139,6 @@ namespace PeaksAndAdventures.Core.Services
 	         return await _repository.AllReadOnly<Mountain>()
 		         .AnyAsync(m => m.Id == mountainId);
          }
-
 
          public async Task AddAsync(MountainFormViewModel mountainForm)
          {
