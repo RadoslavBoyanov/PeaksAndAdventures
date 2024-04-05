@@ -20,6 +20,42 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var waterfall = await _waterfallService.DetailsAsync(id);
+			return View(waterfall);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var waterfall = await _waterfallService.DeleteGetAsync(id);
+			return View(waterfall);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			await _waterfallService.DeleteConfirmedAsync(id);
+			return RedirectToAction("All", "Waterfall");
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
