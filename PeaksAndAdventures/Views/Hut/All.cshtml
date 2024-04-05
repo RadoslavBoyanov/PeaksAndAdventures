@@ -4,7 +4,8 @@
 	ViewBag.Title = "Хижи";
 }
 
-@Html.Partial("_AllHutsPartial", Model)
+
+@await Html.PartialAsync("_AllHutsPartial", Model)
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

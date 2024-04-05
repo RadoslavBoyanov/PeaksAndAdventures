@@ -11,20 +11,52 @@
 	<div class="row">
 		@foreach (var mountain in Model)
 		{
-			<div class="col-lg-2 col-md-2 col-sm-4 mb-6"> <!-- Задайте нужните класове за Bootstrap колоните -->
-				<div class="card h-100 w-100 text-center">
-					<img class="card-img-top w-100 h-100" src="@mountain.ImageUrls" alt="Mountain Image">
+			<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+				<div class="card h-100 text-center">
+					<img class="card-img-top" src="@mountain.ImageUrls" alt="Mountain Image">
 					<div class="card-body">
 						<h4 class="card-title"><strong>@mountain.Name</strong></h4>
-						</div>
-					<a asp-controller="Mountain" asp-action="Details" asp-route-id="@mountain.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
 					</div>
+					<a asp-controller="Mountain" asp-action="Details" asp-route-id="@mountain.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
 				</div>
+			</div>
 		}
 	</div>
 }
 
-			
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}
+<style>
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card img {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+</style>

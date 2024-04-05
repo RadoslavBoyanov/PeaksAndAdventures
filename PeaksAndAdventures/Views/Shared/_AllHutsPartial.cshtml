@@ -8,18 +8,56 @@
 	<div class="row gap-2">
 		@foreach (var hut in Model)
 		{
-			<div class="col-lg-2 col-md-2 col-sm-4 mb-6">
-				<div class="card h-100 w-100 text-center">
-					<img class="card-img-top w-100 h-100" src="@hut.ImageUrl" alt="Mountain Image">
+			<div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+				<div class="card h-100">
+					<img class="card-img-top" src="@hut.ImageUrl" alt="Mountain Image">
 					<div class="card-body">
-						<h4 class="card-title"><strong>@hut.Name</strong></h4>
+						<h5 class="card-title text-center">@hut.Name</h5>
 					</div>
-					<a asp-controller="Hut" asp-action="Details" asp-route-id="@hut.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
+					<div class="card-footer">
+						<p class="text-center"><a asp-controller="Hut" asp-action="Details" asp-route-id="@hut.Id" class="btn btn-primary btn-block">Виж повече</a></p>
+					</div>
 				</div>
 			</div>
 		}
 	</div>
 	<hr />
-	<a asp-controller="Mountain" asp-action="AddHut" class="btn btn-primary btn-group-sm fw-bold">Добави хижа</a>
+	<a asp-controller="Mountain" asp-action="AddHut" class="btn btn-primary btn-block fw-bold">Добави хижа</a>
 }
+
+
+<style>
+	.card {
+		border: 1px solid #dee2e6;
+		border-radius: 0.25rem;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		transition: box-shadow 0.3s ease-in-out;
+	}
+
+		.card:hover {
+			box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+		}
+
+	.card-img-top {
+		border-top-left-radius: 0.25rem;
+		border-top-right-radius: 0.25rem;
+	}
+
+	.card-title {
+		margin-bottom: 0.5rem;
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+
+	.card-text {
+		color: #6c757d;
+	}
+
+	.card-footer {
+		background-color: #f8f9fa;
+		border-top: 1px solid #dee2e6;
+		border-bottom-left-radius: 0.25rem;
+		border-bottom-right-radius: 0.25rem;
+	}
+</style>
 
