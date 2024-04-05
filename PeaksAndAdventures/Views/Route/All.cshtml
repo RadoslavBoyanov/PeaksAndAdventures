@@ -28,14 +28,15 @@
         border: 1px solid #ddd;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease; /* Плавно променяйте box-shadow при хофвър */
     }
 
-    .card img {
-        width: 100%;
-        height: auto;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
+        .card img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
 
     .card-body {
         padding: 10px;
@@ -53,8 +54,12 @@
         margin-bottom: 10px;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Променете box-shadow при хофвър */
     }
 </style>

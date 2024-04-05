@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AllWaterfallsViewModel>
+
+<div class="row">
+	@foreach (var waterfall in Model)
+	{
+		<div class="col-md-4 mb-4">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title text-center">@waterfall.Name</h5>
+					<div class="card-img-container">
+						<img src="@waterfall.ImageUrl" alt="@waterfall.Name" class="card-img-top" />
+					</div>
+				</div>
+				<div class="card-footer">
+					<p class="text-center"><a asp-controller="Waterfall" asp-action="Details" asp-route-id="@waterfall.Id" class="btn btn-primary btn-block">Виж повече</a></p>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+
+<style>
+	/* Стилизация на картите */
+	.card {
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		transition: transform 0.3s ease, background-color 0.3s ease; /* добавяме преход за background-color */
+	}
+
+		.card:hover {
+			transform: translateY(-5px);
+			background-color: #f8f9fa; /* цвят при hover */
+		}
+	/* Стилизация на заглавието на картите */
+	.card-title {
+		font-size: 1.2rem;
+		margin-bottom: 10px;
+	}
+
+	/* Стилизация на контейнера за изображението */
+	.card-img-container {
+		height: 200px; /* Задайте желана височина */
+		overflow: hidden;
+	}
+
+	/* Стилизация на изображенията */
+	.card-img-top {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+</style>

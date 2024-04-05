@@ -4,48 +4,8 @@
 	ViewBag.Title = "Водопади";
 }
 
-<h2>@ViewBag.Title</h2>
-
-@if (!Model.Any())
-{
-	<p>Не са намерени водопади в конкретната планина.</p>
-}
-else
-{
-	<table class="table">
-		<thead>
-		<tr>
-			<th>Име</th>
-			<th>Описание</th>
-			<th>Изображение</th>
-		</tr>
-		</thead>
-		<tbody>
-		@foreach (var waterfall in Model)
-		{
-			<tr>
-				<td>@waterfall.Name</td>
-				<td>@(!string.IsNullOrEmpty(waterfall.Description) ? waterfall.Description : "Липсва описание")</td>
-				<td>
-						@{
-							if (!string.IsNullOrEmpty(waterfall.ImageUrl))
-							{
-								<img src="@waterfall.ImageUrl" alt="@waterfall.Name" class="img-fluid" />
-							}
-							else
-							{
-								<p>Липсва изображение</p>
-							}
-						}
-					</td>
-			</tr>
-		}
-		</tbody>
-	</table>
-}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr/>
 
 
-
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}
+@await Html.PartialAsync("_AllWaterfallsPartial", Model)
