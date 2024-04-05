@@ -61,6 +61,6 @@ namespace PeaksAndAdventures.Core.ViewModels.Hut
 		public string? Phone { get; set; }
 
 		[Display(Name = "Изображение - URL адрес")]
-		public string? ImageUrl { get; set; }
+		public string ImageUrl { get; set; } = string.Empty;
 	}
 }

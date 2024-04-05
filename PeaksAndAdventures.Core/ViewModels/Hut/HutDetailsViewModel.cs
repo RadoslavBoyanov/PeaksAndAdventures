@@ -16,7 +16,7 @@
         public string HasToilet { get; set; } = null!;
         public string HasCanteen { get; set; } = null!;
         public string? Phone { get; set; }
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
         public int MountainId { get; set; }
         public string MountainName { get; set; } = string.Empty;
 	}
