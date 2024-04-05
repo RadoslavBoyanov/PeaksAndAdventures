@@ -8,6 +8,9 @@ public interface IPeakService
     Task AddPeakToMountainAsync(PeakAddViewModel peakForm);
 	Task<bool> CheckPeakExistsByIdAsync (int peakId);
 	Task<bool> CheckPeakExistsByNameAsync(string peakName);
+	Task<PeakDetailsViewModel> DetailsAsync(int peakId);
+	Task<PeakDeleteViewModel> DeleteGetAsync(int peakId);
+	Task<int> DeleteConfirmedAsync(int peakId);
 	Task<PeakEditViewModel> EditGetAsync(int peakId);
     Task<int> EditPostAsync(PeakEditViewModel peakForm);
 }
