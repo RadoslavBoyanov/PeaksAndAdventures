@@ -48,6 +48,61 @@ namespace PeaksAndAdventures.Core.Services
 		        .AnyAsync(l => l.Name == lakeName);
         }
 
+        public async Task<LakeDetailsViewModel> DetailsAsync(int lakeId)
+        {
+	        var lake = await _repository.AllReadOnly<Lake>()
+		        .Include(l=> l.Mountain)
+		        .FirstOrDefaultAsync(l=>l.Id == lakeId);
+
+	        var lakeDetails = new LakeDetailsViewModel()
+	        {
+		        Id = lake.Id,
+		        Name = lake.Name,
+		        Description = lake.Description,
+		        ImageUrl = lake.ImageUrl,
+		        MountainName = lake.Mountain.Name,
+	        };
+
+            return lakeDetails;
+        }
+
+        public async Task<LakeDeleteViewModel> DeleteGetAsync(int lakeId)
+        {
+	        var lake = await _repository.AllReadOnly<Lake>()
+		        .Include(l => l.Mountain)
+		        .Where(l => l.Id == lakeId)
+		        .Select(l => new LakeDeleteViewModel()
+		        {
+                    Id = l.Id,
+                    Name = l.Name,
+                    ImageUrl = l.ImageUrl,
+                    MountainName = l.Mountain.Name,
+		        })
+		        .FirstOrDefaultAsync();
+
+            return lake;
+        }
+
+        public async Task<int> DeleteConfirmedAsync(int lakeId)
+        {
+	        var lake = await _repository.All<Lake>()
+		        .Include(l => l.RoutesLakes)
+		        .FirstOrDefaultAsync(l => l.Id == lakeId);
+
+	        if (lake.RoutesLakes.Any())
+	        {
+		        foreach (var lakeRoute in lake.RoutesLakes)
+		        {
+			        _repository.Delete(lakeRoute);
+		        }
+	        }
+
+	        await _repository.DeleteAsync<Lake>(lakeId);
+            await _repository.SaveChangesAsync();
+
+            return lakeId;
+        }
+
         public async Task<LakeEditViewModel> EditGetAsync(int id)
         {
 	        var currentLake = await _repository.All<Lake>()

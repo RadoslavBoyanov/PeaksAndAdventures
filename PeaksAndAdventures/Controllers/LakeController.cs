@@ -23,6 +23,42 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var lake = await _lakeService.DetailsAsync(id);
+			return View(lake);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var lake = await _lakeService.DeleteGetAsync(id);
+			return View(lake);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			await _lakeService.DeleteConfirmedAsync(id);
+			return RedirectToAction("All", "Lake");
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
