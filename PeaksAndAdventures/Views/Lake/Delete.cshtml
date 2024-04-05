@@ -1,0 +1,29 @@
+﻿@model LakeDeleteViewModel
+
+@{
+	ViewBag.Title = "Изтриване на езеро";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<hr />
+
+<div class="row justify-content-center">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-body">
+				<h3 class="card-title text-center">@Model.Name</h3>
+				<p><strong>Планина:</strong> @Model.MountainName</p>
+				<img src="@Model.ImageUrl" class="card-img-top" alt="Hut Image">
+				<p class="text-danger mt-3">Сигурен ли си, че искаш да изтриеш езерото?</p>
+			</div>
+			<div class="card-footer">
+				<form asp-action="DeleteConfirmed" method="post">
+					<input type="hidden" asp-for="Id" />
+					<button type="submit" class="btn btn-danger">Изтрий</button>
+					<a asp-action="All" class="btn btn-secondary">Отмени</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
