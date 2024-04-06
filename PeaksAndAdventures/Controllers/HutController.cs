@@ -16,6 +16,10 @@ namespace PeaksAndAdventures.Controllers
 		public async Task<IActionResult> All()
 		{
 			var allHuts = await _hutService.AllAsync();
+			if (allHuts is null)
+			{
+				return NotFound();
+			}
 			return View(allHuts);
 		}
 

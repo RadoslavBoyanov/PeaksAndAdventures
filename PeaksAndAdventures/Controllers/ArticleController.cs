@@ -18,6 +18,10 @@ namespace PeaksAndAdventures.Controllers
 		public async Task<IActionResult> All()
 		{
 			var allArticles = await _articleService.AllAsync();
+			if (allArticles is null)
+			{
+				return NotFound();
+			}
 			return View(allArticles);
 		}
 

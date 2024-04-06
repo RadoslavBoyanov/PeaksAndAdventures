@@ -92,13 +92,11 @@ namespace PeaksAndAdventures.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
-			var route = await _routeService.DetailsAsync(id);
-
-			if (route is null)
+			if (! await _routeService.CheckIfExistRouteById(id))
 			{
 				return NotFound();
 			}
-
+			var route = await _routeService.DetailsAsync(id);
 			route.Rating = await _ratingService.GetAverageRatingAsync(id);
 
 			return View(route);

@@ -35,6 +35,10 @@ namespace PeaksAndAdventures.Controllers
         public async Task<IActionResult> All()
         {
             var allMountains = await _mountainService.AllAsync();
+            if (allMountains is null)
+            {
+	            return NotFound();
+            }
             return View(allMountains);
         }
 
@@ -78,7 +82,7 @@ namespace PeaksAndAdventures.Controllers
 
 	        if (isMountainExist)
 	        {
-                ModelState.AddModelError(string.Empty, "Планината вече съществува.");
+                ModelState.AddModelError(string.Empty, MountainIsAlreadyExist);
                 return View(mountainForm);
 	        }
 

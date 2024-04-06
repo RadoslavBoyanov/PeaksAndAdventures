@@ -133,7 +133,7 @@ namespace PeaksAndAdventures.Controllers
 		{
 			if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
 			{
-				return RedirectToAction("Error", "Home");
+				return NotFound();
 			}
 
 			var currentTourAgency = await _tourAgencyService.EditGetAsync(id);

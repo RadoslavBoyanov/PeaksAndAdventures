@@ -15,10 +15,13 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
-		[AllowAnonymous]
 		public async Task<IActionResult> All()
 		{
 			var allLakes = await _lakeService.AllAsync();
+			if (allLakes is null)
+			{
+				return NotFound();
+			}
 			return View(allLakes);
 		}
 
