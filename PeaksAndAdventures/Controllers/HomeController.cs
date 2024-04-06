@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -13,6 +14,7 @@ namespace PeaksAndAdventures.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
