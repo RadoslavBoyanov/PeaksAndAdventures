@@ -7,7 +7,9 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
 
-<table class="table">
+<link rel="stylesheet" href="~/css/Peak/allStyle.css" />
+
+<table class="table table-striped table-hover">
 	<thead>
 	<tr>
 		<th class="text-center">Име</th>
@@ -24,7 +26,7 @@
 			<td class="text-center">@peak.Altitude</td>
 			<td class="text-center">@peak.MountainName</td>
 			<td class="text-center">
-				<a asp-action="Details" asp-route-id="@peak.Id" class="btn btn-outline-primary">Детайли</a>
+					<a asp-action="Details" asp-route-id="@peak.Id" class="btn btn-info btn-details">Детайли</a>
 			</td>
 		</tr>
 	}
@@ -32,19 +34,3 @@
 </table>
 
 <a asp-controller="Mountain" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>
-
-<style>
-	.even-row {
-		background-color: #f2f2f2;
-	}
-
-	.odd-row {
-		background-color: #ffffff;
-	}
-
-	.table th,
-	.table td {
-		border: 1px solid #ddd;
-		padding: 8px;
-	}
-</style>

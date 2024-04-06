@@ -4,58 +4,24 @@
 	ViewBag.Title = "Планински водачи";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
 <hr />
 
-@if (Model != null && Model.Count() > 0)
-{
-	<div class="row">
+<link rel="stylesheet" href="~/css/MountainGuide/allStyle.css" />
+
+<div class="row">
+	@if (Model != null && Model.Count() > 0)
+	{
 		@foreach (var mountainGuide in Model)
 		{
-			<div class="card" style="width: 18rem;">
-				<img src="@mountainGuide.ImageUrl" class="card-img-top rounded-circle" alt="...">
+			<div class="card">
+				<img src="@mountainGuide.ImageUrl" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">@mountainGuide.FirstName @mountainGuide.LastName</h5>
 					<a asp-controller="MountainGuide" asp-action="Details" asp-route-id="@mountainGuide.Id" class="btn btn-primary btn-group-sm fw-bold">Информация</a>
 				</div>
 			</div>
 		}
-	</div>
-}
-
-<style>
-    .card {
-        margin: 10px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .card img {
-        width: 100%;
-        height: auto;
-        border-radius: 50%;
-    }
-
-    .card-body {
-        text-align: center;
-    }
-
-    .card-title {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: #fff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-</style>
+	}
+</div>

@@ -1,0 +1,29 @@
+﻿.even-row {
+    background-color: #f2f2f2;
+}
+
+.odd-row {
+    background-color: silver;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+  
+    padding: 8px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-details {
+    color: bisque;
+    text-decoration: none;
+    transition: color 0.4s ease-in-out;
+}
+
+    .btn-details:hover {
+        color: black;
+        text-decoration: blink;
+    }

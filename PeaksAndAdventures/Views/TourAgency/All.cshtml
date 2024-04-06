@@ -7,32 +7,21 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+<link rel="stylesheet" href="~/css/TourAgency/allStyle.css" />
+
 @if (Model.Any() && Model != null)
 {
-	<ul class="list-group">
+	<div class="row">
 		@foreach (var agency in Model)
 		{
-			<li class="list-group-item d-flex justify-content-between align-items-center">
-				<span>@agency.Name</span>
-				<a asp-controller="TourAgency" asp-action="Details" asp-route-id="@agency.Id" class="btn btn-primary">Детайли</a>
-			</li>
+			<div class="col-md-4 mb-3">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">@agency.Name</h5>
+						<a href="@Url.Action("Details", "TourAgency", new { id = agency.Id })" class="btn btn-primary">Детайли</a>
+					</div>
+				</div>
+			</div>
 		}
-	</ul>
+	</div>
 }
-
-<style>
-    .list-group-item {
-        margin-bottom: 10px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: #fff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-</style>
