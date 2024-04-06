@@ -107,13 +107,12 @@ namespace PeaksAndAdventures.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
-			var route = await _routeService.EditGetAsync(id);
-
-			if (route is null)
+			if (!await _routeService.CheckIfExistRouteById(id))
 			{
 				return NotFound();
 			}
 
+			var route = await _routeService.EditGetAsync(id);
 			return View(route);
 		}
 

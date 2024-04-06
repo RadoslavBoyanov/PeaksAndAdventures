@@ -130,7 +130,7 @@ namespace PeaksAndAdventures.Core.Services
 
 		public async Task<TourAgencyEditViewModel> EditGetAsync(int tourAgencyId)
 		{
-			var currentTourAgency = await _repository.All<TourAgency>()
+			var currentTourAgency = await _repository.AllReadOnly<TourAgency>()
 				.FirstOrDefaultAsync(ta => ta.Id == tourAgencyId);
 
 			var tourAgency = new TourAgencyEditViewModel()
