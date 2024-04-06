@@ -3,6 +3,8 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+<link rel="stylesheet" href="~/css/Hut/allStyle.css" />
+
 @if (Model != null && Model.Count() > 0)
 {
 	<div class="row gap-2">
@@ -24,40 +26,4 @@
 	<hr />
 	<a asp-controller="Mountain" asp-action="AddHut" class="btn btn-primary btn-block fw-bold">Добави хижа</a>
 }
-
-
-<style>
-	.card {
-		border: 1px solid #dee2e6;
-		border-radius: 0.25rem;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		transition: box-shadow 0.3s ease-in-out;
-	}
-
-		.card:hover {
-			box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-		}
-
-	.card-img-top {
-		border-top-left-radius: 0.25rem;
-		border-top-right-radius: 0.25rem;
-	}
-
-	.card-title {
-		margin-bottom: 0.5rem;
-		font-size: 1.25rem;
-		font-weight: bold;
-	}
-
-	.card-text {
-		color: #6c757d;
-	}
-
-	.card-footer {
-		background-color: #f8f9fa;
-		border-top: 1px solid #dee2e6;
-		border-bottom-left-radius: 0.25rem;
-		border-bottom-right-radius: 0.25rem;
-	}
-</style>
 

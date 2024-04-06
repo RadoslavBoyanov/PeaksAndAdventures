@@ -1,0 +1,19 @@
+﻿.even-row {
+    background-color: floralwhite;
+}
+
+.odd-row {
+    background-color: silver;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 8px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f0f0f0;
+}
+

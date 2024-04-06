@@ -1,91 +1,91 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
-/* Стилове за header */
 header {
-    background-color: #f8f9fa; /* Цвят на header-a */
-    padding: 10px 0; /* Отстъп отгоре и отдолу */
+    background-color: #f8f9fa;
+    padding: 10px 0;
 }
 
 .navbar-brand {
-    font-size: 1.5rem; /* Големина на шрифта на заглавието */
-    font-weight: bold; /* Подчертан шрифт */
-    color: #343a40; /* Цвят на текста */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #343a40;
 }
 
-/* Стилове за footer */
+    .navbar-brand img {
+        max-height: 40px;
+        width: auto;
+    }
+
 footer {
-    background-color: #343a40; /* Цвят на footer-a */
-    color: #f8f9fa; /* Цвят на текста */
-    padding: 20px 0; /* Отстъп отгоре и отдолу */
-    text-align: center; /* Центриран текст */
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
 }
 
-/* Стилове за бутоните в navbar-a */
+
 .nav.nav-tabs .nav-link,
 .btn-light.dropdown-toggle {
-    background-color: transparent; /* Прозрачен фон */
-    border: none; /* Без граници */
-    color: #343a40; /* Цвят на текста */
+    background-color: transparent;
+    border: none;
+    color: #343a40;
 }
 
     .nav.nav-tabs .nav-link:hover,
     .btn-light.dropdown-toggle:hover {
-        background-color: #e9ecef; /* Цвят на фона при ховър */
-        color: #343a40; /* Цвят на текста при ховър */
+        background-color: #e9ecef;
+        color: #343a40;
     }
 
-/* Стилове за списъка с опции в dropdown-ите */
+
 .dropdown-menu {
-    background-color: #f8f9fa; /* Цвят на фона */
+    background-color: #f8f9fa;
 }
 
 .dropdown-item {
-    color: #343a40; /* Цвят на текста */
+    color: #343a40;
 }
 
     .dropdown-item:hover {
-        background-color: #e9ecef; /* Цвят на фона при ховър */
-        color: #343a40; /* Цвят на текста при ховър */
+        background-color: #e9ecef;
+        color: #343a40;
     }
 
-/* Стилове за контейнера */
 .container {
-    padding: 20px 0; /* Отстъп отгоре и отдолу */
+    padding: 20px 0;
 }
 
-/* Стилове за основния контент */
+
 main {
-    min-height: 500px; /* Минимална височина на основния контент */
+    min-height: 500px;
+    margin-bottom: 60px; 
 }
 
-/* Стилове за footer-a в долната част на страницата */
-/* Стилове за footer */
 footer {
-    background-color: #343a40; /* Цвят на footer-a */
-    color: #f8f9fa; /* Цвят на текста */
-    padding: 10px 0; /* Отстъп отгоре и отдолу */
-    text-align: center; /* Центриран текст */
-    position: fixed; /* Фиксиран footer */
-    left: 0; /* Лява позиция */
-    bottom: 0; /* Долна позиция */
-    width: 100%; /* Ширина 100% */
-    z-index: 999; /* Подредба на елемента над другите */
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
 }
-

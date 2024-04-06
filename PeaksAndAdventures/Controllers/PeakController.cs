@@ -19,6 +19,10 @@ namespace PeaksAndAdventures.Controllers
         public async Task<IActionResult> All()
         {
 	        var allPeaks = await _peakService.AllAsync();
+	        if (allPeaks is null)
+	        {
+		        return NotFound();
+	        }
 	        return View(allPeaks);
         }
 
@@ -37,13 +41,12 @@ namespace PeaksAndAdventures.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
+	        {
+		        return NotFound();
+	        }
+
             var peak = await _peakService.DetailsAsync(id);
-
-            if (peak is null)
-            {
-				return BadRequest();
-			}
-
             return View(peak);
         }
 
@@ -52,7 +55,7 @@ namespace PeaksAndAdventures.Controllers
         {
 	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
 	        {
-		        return BadRequest();
+		        return NotFound();
 	        }
 
 	        var peak = await _peakService.DeleteGetAsync(id);
@@ -64,7 +67,7 @@ namespace PeaksAndAdventures.Controllers
         {
 	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
 	        {
-		        return BadRequest();
+		        return NotFound();
 	        }
 
 	        await _peakService.DeleteConfirmedAsync(id);

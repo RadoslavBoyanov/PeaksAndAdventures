@@ -1,0 +1,34 @@
+﻿.exception-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.img-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.exception-content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .exception-content p {
+        color: red;
+        text-align: center; 
+        margin-top: 20px;
+        font-size: 48px;
+        text-shadow: 1px 1px 1px #000; 
+    }
+
+    .exception-content a {
+        color: blue;
+        text-decoration: none;
+    }
+
+        .exception-content a:hover {
+            text-decoration: none;
+        }

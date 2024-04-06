@@ -1,0 +1,14 @@
+﻿.header-container {
+    background-image: url('/Img/Home/home.madeMySelf.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 600px;
+    padding: 20px;
+}
+
+.text-white {
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    text-decoration: blink;
+}

@@ -4,22 +4,28 @@
 	ViewBag.Title = Model.Title ?? "Детайли на статията.";
 }
 
-<div class="container">
+<link rel="stylesheet" href="~/css/Article/detailsStyle.css" />
+
+<div class="container mt-4">
 	<div class="row">
 		<div class="col-md-8 offset-md-2">
-			<div class="card mt-4">
+			<div class="card">
 				<img src="@Model.ImageUrl" class="card-img-top" alt="Article Image">
 				<div class="card-body">
 					<h2 class="card-title">@Model.Title</h2>
 					<p class="card-text">@Model.Content</p>
 				</div>
-				<div class="card-footer text-muted">
-					<small class="text-muted">Публикувано на: @Model.DatePublish</small>
-					@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.AuthorId)
-					{
-						<a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-						<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Изтрий</a>
-					}
+				<div class="card-footer">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="text-muted">Публикувано на: @Model.DatePublish</div>
+						@if (User.Identity.IsAuthenticated && User.Id() == Model.AuthorId)
+						{
+							<div>
+								<a asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Редактирай</a>
+								<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Изтрий</a>
+							</div>
+						}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -27,7 +33,3 @@
 </div>
 
 <a asp-controller="Article" asp-action="All" class="btn btn-primary btn-group-sm fw-bold text-center">Назад</a>
-
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}

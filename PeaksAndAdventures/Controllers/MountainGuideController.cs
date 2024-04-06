@@ -27,19 +27,22 @@ namespace PeaksAndAdventures.Controllers
 		public async Task<IActionResult> All()
 		{
 			var allMountainGuides = await _mountainGuideService.AllAsync();
-			
+			if (allMountainGuides is null)
+			{
+				return NotFound();
+			}
 			return View(allMountainGuides);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
-			var mountainGuide = await _mountainGuideService.DetailsAsync(id);
-
-			if (mountainGuide is null)
+			if (!await _mountainGuideService.CheckIfExistMountainGuideByIdAsync(id))
 			{
 				return NotFound();
 			}
+			
+			var mountainGuide = await _mountainGuideService.DetailsAsync(id);
 
 			mountainGuide.Rating =  await _ratingService.GetAverageRatingAsync(id);
 
@@ -82,7 +85,7 @@ namespace PeaksAndAdventures.Controllers
 				return BadRequest();
 			}
 
-			if (mountainGuide.OwnerId != ClaimsPrincipalExtensions.Id(User))
+			if (mountainGuide.OwnerId != User.Id())
 			{
 				return Unauthorized();
 			}
@@ -149,7 +152,7 @@ namespace PeaksAndAdventures.Controllers
 	        }
 
 	        var mountainGuide = await _mountainGuideService.DetailsAsync(id);
-	        if (mountainGuide.OwnerId !=ClaimsPrincipalExtensions.Id(User))
+	        if (mountainGuide.OwnerId != User.Id())
 	        {
 		        return Unauthorized();
 	        }

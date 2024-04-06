@@ -130,11 +130,6 @@ namespace PeaksAndAdventures.Controllers
 
 			var currentExpedition = await _expeditionService.EditGetAsync(id);
 
-			if (currentExpedition is null)
-			{
-				return BadRequest();
-			}
-
 			if (currentExpedition.OrganiserId != User.Id())
 			{
 				return Unauthorized();

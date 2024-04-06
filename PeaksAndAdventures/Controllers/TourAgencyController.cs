@@ -131,6 +131,11 @@ namespace PeaksAndAdventures.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
+			if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+			{
+				return NotFound();
+			}
+
 			var currentTourAgency = await _tourAgencyService.EditGetAsync(id);
 
 			if (currentTourAgency.OwnerId != ClaimsPrincipalExtensions.Id(User))
