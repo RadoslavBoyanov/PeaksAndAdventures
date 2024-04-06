@@ -75,8 +75,8 @@ footer {
 
 main {
     min-height: 500px;
+    margin-bottom: 60px; 
 }
-
 
 footer {
     background-color: #343a40;
