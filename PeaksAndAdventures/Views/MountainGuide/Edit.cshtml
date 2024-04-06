@@ -6,6 +6,8 @@
 
 <h2>@ViewBag.Title</h2>
 
+<link rel="stylesheet" href="~/css/CommonForAll/editStyle.css" />
+
 <form asp-action="Edit" method="post">
     <div class="form-group">
         <label asp-for="FirstName" class="control-label"></label>
@@ -56,8 +58,10 @@
     </div>
     
     <input type="hidden" asp-for="OwnerId" value="@ClaimsPrincipalExtensions.Id(User)" />
-
-    <button type="submit" class="btn btn-primary">Запази</button>
+    <div class="text-center">
+	    <button type="submit" class="btn btn-primary">Запази</button>
+    </div>
+    
 </form>
 
 @section Scripts {
