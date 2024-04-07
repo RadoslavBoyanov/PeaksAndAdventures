@@ -4,60 +4,54 @@
 	ViewBag.Title = "Информация";
 }
 
-<div class="card shadow-lg">
-	<div class="card-body justify-content-center align-content-center">
-		<img src=@Model.ImageUrls class="img-thumbnail" alt="Img mountain">
-		<h5 class="card-title text-center">@Model.Name</h5>
-		<p class="card-text"> <strong>Местоположениe:</strong> @Model.Location</p>
-		<p class="card-text"> <strong>Климат:</strong> @Model.Climate</p>
-		<p class="card-text"> <strong>Води:</strong> @Model.Waters</p>
-		<p class="card-text"> <strong>Флора:</strong> @Model.Flora</p>
-		<p class="card-text"> <strong>Фауна:</strong> @Model.Fauna</p>
+<link rel="stylesheet" href="~/css/Mountain/detailsStyle.css" />
+
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-md-10">
+			<div class="card shadow-lg">
+				<div class="card-body">
+					<img src="@Model.ImageUrls" class="img-thumbnail" alt="Img mountain">
+					<h3 class="card-title text-center">@Model.Name</h3>
+					<p class="card-text"><strong>Местоположениe:</strong> @Model.Location</p>
+					<p class="card-text"><strong>Климат:</strong> @Model.Climate</p>
+					<p class="card-text"><strong>Води:</strong> @Model.Waters</p>
+					<p class="card-text"><strong>Флора:</strong> @Model.Flora</p>
+					<p class="card-text"><strong>Фауна:</strong> @Model.Fauna</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<section class="list-group-item-light shadow-lg mt-6">
+				<div class="card-body">
+					<h4 class="card-title">Обекти в планината</h4>
+				</div>
+				<div class="card-body d-flex justify-content-center">
+					<div class="icons-container">
+						<div class="icon-item">
+							<img src="https://planinka.bg/wp-content/uploads/2022/02/4.Icon-Varhove.svg" class="icon" alt="...">
+							<p><a asp-controller="Mountain" asp-action="AllPeaksInMountain" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Върхове</a></p>
+						</div>
+						<div class="icon-item">
+							<img src="https://planinka.bg/wp-content/uploads/2022/02/2.Icon-Hiji.svg" class="icon" alt="...">
+							<p><a asp-controller="Mountain" asp-action="AllHutsInMountain" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Хижи</a></p>
+						</div>
+						<div class="icon-item">
+							<img src="https://planinka.bg/wp-content/uploads/2022/02/3.Icon-Ezera.svg" class="icon" alt="...">
+							<p><a asp-controller="Mountain" asp-action="AllLakesInMountain" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Езера</a></p>
+						</div>
+						<div class="icon-item">
+							<img src="https://planinka.bg/wp-content/uploads/2022/02/6.Icon-Vodopadi.svg" class="icon" alt="...">
+							<p><a asp-controller="Mountain" asp-action="AllWaterfallsInMountain" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Водопади</a></p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
 	</div>
 
+	<div class="col-md-12 text-center mt-4">
+		<a asp-controller="Mountain" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm fw-bold">Редактирай</a>
+		<a asp-controller="Mountain" asp-action="All" class="btn btn-primary btn-sm fw-bold">Върни се</a>
+	</div>
 </div>
-
-
-<section class="list-group-item-light shadow-lg mt-6">
-	<div class="row row-cols-1 row-cols-md-5 row-cols-lg-5">
-		<div class="card-body flex-fill">
-			<div class="card-body h-50 text-center w-50">
-				<img src="https://planinka.bg/wp-content/uploads/2022/02/4.Icon-Varhove.svg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Върхове</h5>
-				</div>
-				<a asp-controller="Mountain" asp-action="AllPeaksInMountain" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
-			</div>
-		</div>
-		<div class="card-body">
-			<div class="card-body h-50 text-center w-50">
-				<img src="https://planinka.bg/wp-content/uploads/2022/02/2.Icon-Hiji.svg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Хижи</h5>
-				</div>
-				<a asp-controller="Mountain" asp-action="AllHutsInMountain" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
-			</div>
-		</div>
-		<div class="card-body">
-			<div class="card-body h-50 text-center w-50">
-				<img src="https://planinka.bg/wp-content/uploads/2022/02/3.Icon-Ezera.svg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Езера</h5>
-
-				</div>
-				<a asp-controller="Mountain" asp-action="AllLakesInMountain" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
-			</div>
-		</div>
-		<div class="card-body">
-			<div class="card-body h-50 text-center w-50">
-				<img src="https://planinka.bg/wp-content/uploads/2022/02/6.Icon-Vodopadi.svg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Водопади</h5>
-				</div>
-				<a asp-controller="Mountain" asp-action="AllWaterfallsInMountain" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Виж повече</a>
-			</div>
-		</div>
-	</div>
-</section>
-<a asp-controller="Mountain" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-group-sm fw-bold">Редактирай</a>
-<a asp-controller="Mountain" asp-action="All" class="btn btn-primary btn-group-sm fw-bold">Върни се</a>
