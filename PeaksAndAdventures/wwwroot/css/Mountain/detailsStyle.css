@@ -1,0 +1,70 @@
+﻿/* Стилове за картинката на планината */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+.img-thumbnail {
+    max-width: 100%;
+    border-image-width: 0;
+}
+
+/* Стилове за картона */
+.card {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    margin-bottom: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: lightgray;
+    text-shadow : 2px 2px 2px #000;
+}
+
+.card-text {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+/* Стилове за обектите в планината */
+.icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.icon-item {
+    width: 100px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+/* Стилове за бутоните */
+.btn {
+    margin-right: 10px;
+}
+
+/* Стилове за верхния и долния контейнери */
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.text-center {
+    text-align: center;
+}

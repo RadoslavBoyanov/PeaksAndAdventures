@@ -25,6 +25,8 @@
 		public int? TourAgencyId { get; set; }
 
 		public string OwnerId { get; set; } = string.Empty;
-		public string TourAgencyName { get; set; } = string.Empty;
+		public string? TourAgencyName { get; set; } = string.Empty;
+		public string? TourAgencyPhone { get; set; } = string.Empty;
+		public string? TourAgencyEmail { get; set; } = string.Empty;
 	}
 }
