@@ -1,0 +1,58 @@
+﻿.profile-info {
+    margin-bottom: 20px;
+    background-color: silver;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.routes-mountains{
+    color: greenyellow;
+}
+
+.agency-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.agency-info > p {
+    font-style: italic;
+}
+
+.rating {
+    display: inline-block;
+    font-size: 24px;
+}
+
+    .rating input[type="radio"] {
+        display: none;
+    }
+
+    .rating label {
+        color: #ddd;
+        float: right;
+    }
+
+    .rating input[type="radio"]:checked ~ label {
+        color: #ffcc00;
+    }
+
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-outline-success:hover {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+.text-primary {
+    color: #007bff;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}

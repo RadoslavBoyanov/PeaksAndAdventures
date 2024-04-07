@@ -125,10 +125,9 @@ namespace PeaksAndAdventures.Core.Services
 
 		public async Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId)
 		{
-			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
-
-			var tourAgency = await _repository.GetByIdAsync<TourAgency>(mountainGuide.TourAgencyId);
-			string tourAgencyName = tourAgency?.Name ?? string.Empty;
+			var mountainGuide = await _repository.AllReadOnly<MountainGuide>()
+                .Include(mg => mg.TourAgency)
+                .FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
 
 			var mountainGuideInformation = new MountainGuideDetailsViewModel()
 			{
@@ -141,11 +140,17 @@ namespace PeaksAndAdventures.Core.Services
 				Experience = mountainGuide.Experience,
 				ImageUrl = mountainGuide.ImageUrl,
 				OwnerId = mountainGuide.OwnerId,
-				TourAgencyId = mountainGuide.TourAgencyId,
-				TourAgencyName = tourAgencyName,
-			};
+            };
 
-			return mountainGuideInformation;
+            if (mountainGuide.TourAgency != null)
+            {
+                mountainGuideInformation.TourAgencyId = mountainGuide.TourAgencyId;
+                mountainGuideInformation.TourAgencyName = mountainGuide.TourAgency.Name;
+                mountainGuideInformation.TourAgencyPhone = mountainGuide.TourAgency.Phone;
+                mountainGuideInformation.TourAgencyEmail = mountainGuide.TourAgency.Email;
+            }
+
+            return mountainGuideInformation;
 		}
 
 		public async Task<MountainGuideDeleteViewModel> DeleteGetAsync(int mountainGuideId)
