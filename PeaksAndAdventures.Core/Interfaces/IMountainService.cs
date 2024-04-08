@@ -9,7 +9,7 @@ namespace PeaksAndAdventures.Core.Interfaces
 {
     public interface IMountainService
     { 
-	    Task<IEnumerable<AllMountainsViewModel>> AllAsync();
+	    Task<(IEnumerable<AllMountainsViewModel> Mountains, int TotalPages)> AllMountainsPaginationAsync(int page = 1, int pageSize = 6);
 		Task<MountainDetailsViewModel> DetailsAsync(int mountainId);
 		Task<IEnumerable<GetAllMountainsViewModel>> GetAllMountains();
 		Task<IEnumerable<AllLakesViewModel>> GetAllLakesAsync(int mountainId);

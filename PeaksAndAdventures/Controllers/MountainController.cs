@@ -32,14 +32,20 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 1, int pageSize = 6)
         {
-            var allMountains = await _mountainService.AllAsync();
-            if (allMountains is null)
+            var (mountainsPerPage, totalPages ) = await _mountainService.AllMountainsPaginationAsync(page, pageSize);
+            if (mountainsPerPage is null)
             {
 	            return NotFound();
             }
-            return View(allMountains);
+
+			ViewBag.TotalPages = totalPages;
+			ViewBag.Page = page;
+			ViewBag.PageSize = pageSize;
+
+
+            return View(mountainsPerPage);
         }
 
         [HttpGet]

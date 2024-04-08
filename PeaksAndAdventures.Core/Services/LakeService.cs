@@ -28,6 +28,28 @@ namespace PeaksAndAdventures.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<(IEnumerable<AllLakesViewModel> Lakes, int TotalPages)> AllPaginationAsync(int page = 1, int pageSize = 3)
+        {
+			var allLakes = await _repository
+				.AllReadOnly<Lake>()
+				.Select(l => new AllLakesViewModel()
+				{
+					Id = l.Id,
+					Name = l.Name,
+					ImageUrl = l.ImageUrl,
+				})
+				.ToListAsync();
+
+			var peaksCount = allLakes.Count();
+			var totalPages = (int)Math.Ceiling((decimal)peaksCount / pageSize);
+			var peaksPerPage = allLakes
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.ToList();
+
+			return (peaksPerPage, totalPages);
+		}
+
         public async Task AddLakeToMountainAsync(LakeAddViewModel lakeForm)
         {
 	        var lake = new Lake()

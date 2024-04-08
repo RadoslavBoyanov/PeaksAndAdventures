@@ -15,14 +15,19 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All(int page = 1, int pageSize = 3)
 		{
-			var allLakes = await _lakeService.AllAsync();
-			if (allLakes is null)
+			var (lakesPerPage, totalPages) = await _lakeService.AllPaginationAsync(page, pageSize);
+			if (lakesPerPage is null)
 			{
 				return NotFound();
 			}
-			return View(allLakes);
+
+			ViewBag.TotalPages = totalPages;
+			ViewBag.Page = page;
+			ViewBag.PageSize = pageSize;
+
+			return View(lakesPerPage);
 		}
 
 		[HttpGet]

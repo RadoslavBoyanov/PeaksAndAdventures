@@ -28,7 +28,29 @@ namespace PeaksAndAdventures.Core.Services
 				.ToListAsync();
 		}
 
-		public async Task<bool> CheckWaterfallExistsByNameAsync(string waterfallName)
+        public async Task<(IEnumerable<AllWaterfallsViewModel> Peaks, int TotalPages)> AllWaterfallsPaginationAsync(int page = 1, int pageSize = 3)
+        {
+            var allWaterfalls = await _repository
+                .AllReadOnly<Waterfall>()
+                .Select(w => new AllWaterfallsViewModel()
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    ImageUrl = w.ImageUrl,
+                })
+                .ToListAsync();
+
+			var waterfallsCount = allWaterfalls.Count();
+			var totalPages = (int)Math.Ceiling((decimal)waterfallsCount / pageSize);
+			var waterfallsPerPage = allWaterfalls
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.ToList();
+
+			return (waterfallsPerPage, totalPages);
+        }
+
+        public async Task<bool> CheckWaterfallExistsByNameAsync(string waterfallName)
 		{
 			return await _repository.AllReadOnly<Waterfall>()
 				.AnyAsync(w => w.Name == waterfallName);

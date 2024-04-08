@@ -13,10 +13,21 @@ namespace PeaksAndAdventures.Controllers
 			_waterfallService = waterfallService;
 		}
 
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All(int page = 1, int pageSize = 3)
 		{
-			var allWaterfalls = await _waterfallService.AllAsync();
-			return View(allWaterfalls);
+			var (waterfallsPerPage, totalPages) = await _waterfallService.AllWaterfallsPaginationAsync(page, pageSize);
+
+            if (waterfallsPerPage is null)
+            {
+                return NotFound();
+            }
+
+			ViewBag.TotalPages = totalPages;
+			ViewBag.Page = page;
+			ViewBag.PageSize = pageSize;
+
+
+			return View(waterfallsPerPage);
 		}
 
 		[HttpGet]

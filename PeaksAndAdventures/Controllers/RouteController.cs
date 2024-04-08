@@ -83,10 +83,21 @@ namespace PeaksAndAdventures.Controllers
 			return RedirectToAction("All", "Route");
 		}
 
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All(int page = 1, int pageSize = 4)
 		{
-			var allRoutes = await _routeService.GetAllRoutesAsync();
-			return View(allRoutes);
+			var (routesPerPage, totalPages) = await _routeService.AllRoutesPaginationAsync(page, pageSize);
+
+			if (routesPerPage is null)
+			{
+				return NotFound();
+			}
+
+			ViewBag.TotalPages = totalPages;
+			ViewBag.Page = page;
+			ViewBag.PageSize = pageSize;
+
+
+			return View(routesPerPage);
 		}
 
 		[HttpGet]

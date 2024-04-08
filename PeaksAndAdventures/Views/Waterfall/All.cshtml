@@ -9,6 +9,8 @@
 
 @await Html.PartialAsync("_AllWaterfallsPartial", Model)
 
+@await Html.PartialAsync("_PaginationPartial")
+
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
 }

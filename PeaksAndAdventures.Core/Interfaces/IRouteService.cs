@@ -16,6 +16,7 @@ namespace PeaksAndAdventures.Core.Interfaces
 						List<int> selectedLakesIds,
 						List<int> selectedWaterfallsIds);
 		Task<IEnumerable<GetAllRoutesViewModel>> GetAllRoutesAsync();
+		Task<(IEnumerable<GetAllRoutesViewModel> Routes, int TotalPages)> AllRoutesPaginationAsync(int page = 1, int pageSize = 4);
 		Task<bool> CheckIfExistRouteById(int routeId );
 		Task<bool> CheckIfExistRouteByName(string routeName);
 		Task<RouteDetailsViewModel> DetailsAsync(int routeId);
