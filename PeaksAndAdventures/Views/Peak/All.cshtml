@@ -2,10 +2,14 @@
 
 @{
 	ViewBag.Title = "Върхове";
+
+	int totalPages = ViewBag.TotalPages;
+	int page = ViewBag.Page;
+	int pageSize = ViewBag.PageSize;
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr/>
+<hr />
 
 <link rel="stylesheet" href="~/css/Peak/allStyle.css" />
 
@@ -26,11 +30,13 @@
 			<td class="text-center">@peak.Altitude</td>
 			<td class="text-center">@peak.MountainName</td>
 			<td class="text-center">
-					<a asp-action="Details" asp-route-id="@peak.Id" class="btn btn-info btn-details">Детайли</a>
+				<a asp-action="Details" asp-route-id="@peak.Id" class="btn btn-info btn-details">Детайли</a>
 			</td>
 		</tr>
 	}
 	</tbody>
 </table>
+
+@await Html.PartialAsync("_PaginationPartial")
 
 <a asp-controller="Mountain" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>

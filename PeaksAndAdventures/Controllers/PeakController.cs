@@ -15,18 +15,23 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> All()
-        {
-	        var allPeaks = await _peakService.AllAsync();
-	        if (allPeaks is null)
-	        {
-		        return NotFound();
-	        }
-	        return View(allPeaks);
-        }
+		public async Task<IActionResult> All(int page = 1, int pageSize = 10)
+		{
+			var (peaksPerPage, totalPages) = await _peakService.AllPaginationAsync(page, pageSize);
 
-        [HttpGet]
+			if (peaksPerPage is null)
+			{
+				return NotFound();
+			}
+
+			ViewBag.TotalPages = totalPages;
+			ViewBag.Page = page;
+			ViewBag.PageSize = pageSize;
+
+			return View(peaksPerPage);
+		}
+
+		[HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
 	        if (!await _peakService.CheckPeakExistsByIdAsync(id))

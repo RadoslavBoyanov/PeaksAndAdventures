@@ -17,23 +17,51 @@ namespace PeaksAndAdventures.Core.Services
 	        _mountainService = mountainService;
         }
 
-        public async Task<IEnumerable<AllPeaksViewModel>> AllAsync()
-        {
-            return await _repository
-                .AllReadOnly<Peak>()
-                .Select(p => new AllPeaksViewModel()
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Altitude = p.Altitude,
-                    ImageUrl = p.ImageUrl,
-                    MountainId = p.MountainId,
-                    MountainName = p.Mountain.Name
-				})
-                .ToListAsync();
-        }
 
-        public async Task AddPeakToMountainAsync(PeakAddViewModel peakForm)
+		public async Task<(IEnumerable<AllPeaksViewModel> Peaks, int TotalPages)> AllPaginationAsync(int page = 1, int pageSize = 10)
+		{
+			var allPeaks = await _repository
+				.AllReadOnly<Peak>()
+				.Select(p => new AllPeaksViewModel()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Altitude = p.Altitude,
+					ImageUrl = p.ImageUrl,
+					MountainId = p.MountainId,
+					MountainName = p.Mountain.Name
+				})
+				.ToListAsync();
+
+			var peaksCount = allPeaks.Count();
+			var totalPages = (int)Math.Ceiling((decimal)peaksCount / pageSize);
+			var peaksPerPage = allPeaks
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.ToList();
+
+			return (peaksPerPage, totalPages);
+		}
+
+		public async Task<IEnumerable<AllPeaksViewModel>> AllAsync()
+		{
+			var allPeaks = await _repository
+				.AllReadOnly<Peak>()
+				.Select(p => new AllPeaksViewModel()
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Altitude = p.Altitude,
+					ImageUrl = p.ImageUrl,
+					MountainId = p.MountainId,
+					MountainName = p.Mountain.Name
+				})
+				.ToListAsync();
+
+			return allPeaks;
+		}
+
+		public async Task AddPeakToMountainAsync(PeakAddViewModel peakForm)
         {
 	        var peak = new Peak()
 	        {

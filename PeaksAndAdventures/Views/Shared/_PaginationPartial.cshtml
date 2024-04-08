@@ -1,0 +1,11 @@
+﻿
+<nav aria-label="Page navigation">
+	<ul class="pagination justify-content-center">
+		@for (int i = 1; i <= ViewBag.TotalPages; i++)
+		{
+			<li class="page-item @(i == ViewBag.Page ? "active" : "")">
+				<a class="page-link" href="@Url.Action("All", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+			</li>
+		}
+	</ul>
+</nav>
