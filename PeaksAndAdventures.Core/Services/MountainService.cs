@@ -21,18 +21,28 @@ namespace PeaksAndAdventures.Core.Services
         {
             _repository = repository;
         }
-         public async Task<IEnumerable<AllMountainsViewModel>> AllAsync()
+
+         public async Task<(IEnumerable<AllMountainsViewModel> Mountains, int TotalPages)> AllMountainsPaginationAsync(int page = 1, int pageSize = 6)
          {
-             return await _repository
-                 .AllReadOnly<Mountain>()
-                 .Select(m => new AllMountainsViewModel()
-                 {
-                     Id = m.Id,
-                     Name = m.Name,
-                     ImageUrls = m.ImageUrls
-                 })
-                 .ToListAsync();
-         }
+	         var allMountains = await _repository
+		         .AllReadOnly<Mountain>()
+		         .Select(m => new AllMountainsViewModel()
+		         {
+			         Id = m.Id,
+			         Name = m.Name,
+			         ImageUrls = m.ImageUrls
+		         })
+		         .ToListAsync();
+
+			 var mountainsCount = allMountains.Count();
+			 var totalPages = (int)Math.Ceiling((decimal)mountainsCount / pageSize);
+			 var mountainsPerPage = allMountains
+				 .Skip((page - 1) * pageSize)
+				 .Take(pageSize)
+				 .ToList();
+
+			 return (mountainsPerPage, totalPages);
+		}
 
          public async Task<MountainDetailsViewModel> DetailsAsync(int id)
          {
