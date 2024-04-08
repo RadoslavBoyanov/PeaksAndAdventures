@@ -363,6 +363,27 @@ namespace PeaksAndAdventures.Core.Services
 				.ToListAsync();
 		}
 
+		public async Task<(IEnumerable<GetAllRoutesViewModel> Routes, int TotalPages)> AllRoutesPaginationAsync(int page = 1, int pageSize = 4)
+		{
+			var allRoutes = await _repository.AllReadOnly<Route>()
+				.Select(r => new GetAllRoutesViewModel()
+				{
+					Id = r.Id,
+					Name = r.Name,
+					ImageUrl = r.ImageUrl,
+				})
+				.ToListAsync();
+
+			var routesCount = allRoutes.Count();
+			var totalPages = (int)Math.Ceiling((decimal)routesCount / pageSize);
+			var routesPerPage = allRoutes
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.ToList();
+
+			return (routesPerPage, totalPages);
+		}
+
 		public async Task<bool> CheckIfExistRouteById(int routeId)
 		{
 			return await _repository.AllReadOnly<Route>()
