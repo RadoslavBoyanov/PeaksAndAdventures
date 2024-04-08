@@ -1,10 +1,12 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Waterfall;
+﻿using PeaksAndAdventures.Core.ViewModels.Peak;
+using PeaksAndAdventures.Core.ViewModels.Waterfall;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
 public interface IWaterfallService
 {
     Task<IEnumerable<AllWaterfallsViewModel>> AllAsync();
+    Task<(IEnumerable<AllWaterfallsViewModel> Peaks, int TotalPages)> AllWaterfallsPaginationAsync(int page = 1, int pageSize = 3);
     Task<bool> CheckWaterfallExistsByNameAsync(string waterfallName);
     Task<bool> CheckWaterfallExistsByIdAsync(int waterfallId);
 	Task AddWaterfallToMountain(WaterfallAddViewModel waterfallAdd);
