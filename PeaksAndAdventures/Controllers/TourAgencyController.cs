@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.TourAgency;
+using PeaksAndAdventures.Core.Models.ViewModels.TourAgency;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class TourAgencyController : BaseController
+    public class TourAgencyController : BaseController
 	{
 		private readonly ITourAgencyService _tourAgencyService;
 		private readonly IRatingService _ratingService;

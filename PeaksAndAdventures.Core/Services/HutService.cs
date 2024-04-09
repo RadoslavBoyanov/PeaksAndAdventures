@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
+using PeaksAndAdventures.Infrastructure.Data.Enums.Hut;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 using static PeaksAndAdventures.Extensions.EnumExtensions;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class HutService : IHutService
+    public class HutService : IHutService
     {
         private readonly IRepository _repository;
         public HutService(IRepository repository)
@@ -26,6 +27,64 @@ namespace PeaksAndAdventures.Core.Services
                     ImageUrl = h.ImageUrl,
                 })
                 .ToListAsync();
+        }
+
+   //     public async Task<IEnumerable<AllHutsViewModel>> AllAsync(string? workTime = null, string? camping = null, string? searchTerm = null, string? mountainName = null, int places,
+   //         int currentPage = 1, int hutPerPage = 3)
+   //     {
+   //         WorkTime parsedWorkTime;
+			//Camping parsedCamping;
+
+   //         IEnumerable<Hut> hutsQuery = await _repository.AllReadOnly<Hut>()
+   //             .Include(h => h.Mountain)
+   //             .AsQueryable()
+   //             .ToListAsync();
+
+   //         if (!string.IsNullOrEmpty(workTime))
+   //         {
+   //             if (Enum.TryParse(workTime, out parsedWorkTime))
+   //             {
+   //                 hutsQuery = hutsQuery.Where(h => h.WorkTime == parsedWorkTime);
+   //             }
+   //         }
+
+   //         if (!string.IsNullOrEmpty(camping))
+   //         {
+   //             if (Enum.TryParse(camping, out parsedCamping))
+   //             {
+   //                 hutsQuery = hutsQuery.Where(h => h.Camping == parsedCamping);
+   //             }
+   //         }
+
+   //         if (!string.IsNullOrEmpty(searchTerm))
+   //         {
+   //             hutsQuery = hutsQuery.Where(h => h.Name.ToLower().Contains(searchTerm.ToLower()));
+   //         }
+
+   //         if (!string.IsNullOrEmpty(mountainName))
+   //         {
+   //             hutsQuery = hutsQuery.Where(h => h.Mountain.Name.ToLower().Contains(mountainName.ToLower()));
+   //         }
+
+
+
+
+   //         return hutsQuery
+   //             .Skip((currentPage - 1) * hutPerPage)
+   //             .Take(hutPerPage)
+   //             .Select(h => new AllHutsViewModel()
+   //             {
+   //                 Id = h.Id,
+   //                 Name = h.Name,
+   //                 ImageUrl = h.ImageUrl,
+   //             })
+   //             .ToList();
+   //     }
+
+        public Task<IEnumerable<AllHutsViewModel>> AllAsync(string? workTime = null, string? camping = null, string searchTerm = null, string mountainSort = null,
+            int currentPage = 1, int hutPerPage = 3)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task AddHutToMountainAsync(AddHutViewModel hutForm)

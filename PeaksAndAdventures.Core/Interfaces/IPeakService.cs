@@ -1,4 +1,4 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Peak;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Peak;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 

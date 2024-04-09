@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using PeaksAndAdventures.Core.ViewModels.Hut;
-using PeaksAndAdventures.Core.ViewModels.Lake;
-using PeaksAndAdventures.Core.ViewModels.Mountain;
-using PeaksAndAdventures.Core.ViewModels.Peak;
-using PeaksAndAdventures.Core.ViewModels.Waterfall;
+using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Lake;
+using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
+using PeaksAndAdventures.Core.Models.ViewModels.Peak;
+using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {

@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Hut;
-using PeaksAndAdventures.Core.ViewModels.Lake;
-using PeaksAndAdventures.Core.ViewModels.Peak;
-using PeaksAndAdventures.Core.ViewModels.Route;
-using PeaksAndAdventures.Core.ViewModels.Waterfall;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
+using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Lake;
+using PeaksAndAdventures.Core.Models.ViewModels.Peak;
+using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class RouteService : IRouteService
+    public class RouteService : IRouteService
 	{
 		private readonly IRepository _repository;
 

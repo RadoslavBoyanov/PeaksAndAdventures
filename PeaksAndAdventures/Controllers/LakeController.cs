@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Lake;
+using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class LakeController : BaseController
+    public class LakeController : BaseController
 	{
 		private readonly ILakeService _lakeService;
 

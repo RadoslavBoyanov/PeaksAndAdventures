@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class HutController : BaseController
+    public class HutController : BaseController
 	{
 		private readonly IHutService _hutService;
 

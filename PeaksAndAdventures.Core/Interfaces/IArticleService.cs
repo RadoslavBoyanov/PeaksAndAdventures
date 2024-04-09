@@ -1,10 +1,9 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Article;
-using PeaksAndAdventures.Core.ViewModels.Hut;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Article;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {
-	public interface IArticleService
+    public interface IArticleService
 	{
 		Task<IEnumerable<ArticleAllViewModel>> AllAsync();
 		Task<bool> CheckIfArticleIsExistByNameAsync(string articleTitle);

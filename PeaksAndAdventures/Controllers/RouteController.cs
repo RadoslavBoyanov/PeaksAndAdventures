@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Route;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class RouteController : Controller
+    public class RouteController : Controller
 	{
 		private readonly IRouteService _routeService;
 		private readonly IMountainService _mountainService;

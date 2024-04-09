@@ -1,8 +1,8 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Route;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Route;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {
-	public interface IRouteService
+    public interface IRouteService
 	{
 		Task AddAsync(RouteAddViewModel routeForm, 
 			List<int> selectedPeaksIds,
