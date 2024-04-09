@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Expedition;
-using PeaksAndAdventures.Core.ViewModels.Route;
+using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class ExpeditionService : IExpeditionService
+    public class ExpeditionService : IExpeditionService
 	{
 		private readonly IRepository _repository;
 

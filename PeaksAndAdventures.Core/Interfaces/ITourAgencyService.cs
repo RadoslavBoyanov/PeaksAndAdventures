@@ -1,10 +1,10 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Expedition;
-using PeaksAndAdventures.Core.ViewModels.MountainGuide;
-using PeaksAndAdventures.Core.ViewModels.TourAgency;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
+using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
+using PeaksAndAdventures.Core.Models.ViewModels.TourAgency;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {
-	public interface ITourAgencyService
+    public interface ITourAgencyService
 	{
 		Task AddTourAgencyAsync(TourAgencyAddViewModel tourAgencyForm);
 		Task<IEnumerable<MountainGuideAllViewModel>> AllMountainGuideInAgencyAsync(int tourAgencyId);

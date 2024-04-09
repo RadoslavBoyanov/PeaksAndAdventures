@@ -1,11 +1,11 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Mountain;
-using PeaksAndAdventures.Core.ViewModels.MountainGuide;
-using PeaksAndAdventures.Core.ViewModels.Route;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
+using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {
-	public interface IMountainGuideService
+    public interface IMountainGuideService
 	{
 		Task AddAsync(MountainGuideAddViewModel mountainGuideForm);
 		Task<IEnumerable<MountainGuideAllViewModel>> AllAsync();

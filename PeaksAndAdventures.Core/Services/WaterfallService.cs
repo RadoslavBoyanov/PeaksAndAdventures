@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Waterfall;
+using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class WaterfallService : IWaterfallService
+    public class WaterfallService : IWaterfallService
 	{
 		private readonly IRepository _repository;
 

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Article;
+using PeaksAndAdventures.Core.Models.ViewModels.Article;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 using static PeaksAndAdventures.Common.EntityValidations.ArticleValidation;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class ArticleService : IArticleService
+    public class ArticleService : IArticleService
 	{
 		private readonly IRepository _repository;
 

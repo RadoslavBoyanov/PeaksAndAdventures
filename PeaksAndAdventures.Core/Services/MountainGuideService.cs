@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Mountain;
-using PeaksAndAdventures.Core.ViewModels.MountainGuide;
-using PeaksAndAdventures.Core.ViewModels.Route;
+using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
+using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class MountainGuideService : IMountainGuideService
+    public class MountainGuideService : IMountainGuideService
 	{
 		private readonly IRepository _repository;
 

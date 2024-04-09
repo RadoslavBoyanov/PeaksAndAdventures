@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Article;
+using PeaksAndAdventures.Core.Models.ViewModels.Article;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class ArticleController : BaseController
+    public class ArticleController : BaseController
 	{
 		private readonly IArticleService _articleService;
 

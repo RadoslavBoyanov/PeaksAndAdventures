@@ -1,10 +1,14 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Hut;
+﻿using PeaksAndAdventures.Core.Models.QueryModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
 public interface IHutService
 {
     Task<IEnumerable<AllHutsViewModel>> AllAsync();
+    HutQueryServiceModel All(string? workTime = null, string? camping = null,
+        string? searchTerm = null, string? mountainSort = null, int places = 0,
+        int currentPage = 1, int hutPerPage = 3);
     Task AddHutToMountainAsync(AddHutViewModel hutForm);
     Task<bool> CheckHutExistsByIdAsync(int hutId);
     Task<bool> CheckHutExistsByNameAsync(string hutName);

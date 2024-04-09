@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Waterfall;
+using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class WaterfallController : BaseController
+    public class WaterfallController : BaseController
 	{
 		private readonly IWaterfallService _waterfallService;
 

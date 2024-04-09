@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Expedition;
-using PeaksAndAdventures.Core.ViewModels.MountainGuide;
-using PeaksAndAdventures.Core.ViewModels.TourAgency;
+using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
+using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
+using PeaksAndAdventures.Core.Models.ViewModels.TourAgency;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 using static PeaksAndAdventures.Common.EntityValidations.ExpeditionValidation;
@@ -12,7 +12,7 @@ using static PeaksAndAdventures.Common.SuccessMessages;
 
 namespace PeaksAndAdventures.Core.Services
 {
-	public class TourAgencyService : ITourAgencyService
+    public class TourAgencyService : ITourAgencyService
 	{
 		private readonly IRepository _repository;
 

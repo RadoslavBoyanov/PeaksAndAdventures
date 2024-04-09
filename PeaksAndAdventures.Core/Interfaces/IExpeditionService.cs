@@ -1,9 +1,8 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Article;
-using PeaksAndAdventures.Core.ViewModels.Expedition;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {
-	public interface IExpeditionService
+    public interface IExpeditionService
     {
         Task AddAsync(ExpeditionAddViewModel expeditionForm);
 		Task<IEnumerable<ExpeditionAllViewModel>> AllExpeditionGetAsync();

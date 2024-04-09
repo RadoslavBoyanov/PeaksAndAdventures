@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.MountainGuide;
+using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
 using static PeaksAndAdventures.Common.SuccessMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class MountainGuideController : BaseController
+    public class MountainGuideController : BaseController
 	{
 		private readonly IMountainGuideService _mountainGuideService;
 		private readonly ITourAgencyService _tourAgencyService;

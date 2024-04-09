@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.QueryModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Extensions;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class HutController : BaseController
+    public class HutController : BaseController
 	{
 		private readonly IHutService _hutService;
 
@@ -13,14 +15,22 @@ namespace PeaksAndAdventures.Controllers
 			_hutService = hutService;
 		}
 
-		public async Task<IActionResult> All()
-		{
-			var allHuts = await _hutService.AllAsync();
-			if (allHuts is null)
-			{
-				return NotFound();
-			}
-			return View(allHuts);
+		public async Task<IActionResult> All([FromQuery] AllHutsQueryModel query)
+        {
+            var queryResult = _hutService.All(
+                query.WorkTime.GetDisplayName(),
+                query.Camping.GetDisplayName(),
+                query.SearchTerm,
+                query.MountainName,
+                query.Places,
+                query.CurrentPage,
+                AllHutsQueryModel.HutsPerPage);
+
+			query.TotalHutsCount = queryResult.TotalHuts;
+			query.Huts = queryResult.Huts;
+
+
+			return View(query);
 		}
 
 		[HttpGet]

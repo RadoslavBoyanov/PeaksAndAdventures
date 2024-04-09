@@ -1,5 +1,4 @@
-﻿using PeaksAndAdventures.Core.ViewModels.Lake;
-using PeaksAndAdventures.Core.ViewModels.Peak;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
