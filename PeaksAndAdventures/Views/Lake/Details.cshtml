@@ -17,6 +17,11 @@
 		}
 		<img src="@Model.ImageUrl" alt="Lake Image" class="card-img-top" />
 		<p class="card-text"> <strong>Планина:</strong> @Model.MountainName</p>
+		<p class="card-text">
+			<i class="fa-solid fa-route" style="color: #74C0FC;"></i>
+			<strong>Маршрути:</strong>
+			<a asp-controller="Lake" asp-action="GetRoutesToLake" asp-route-id="@Model.Id" class="btn-details">Виж</a>
+		</p>
 	</div>
 	<div class="card-footer">
 		<a asp-action="All" class="btn btn-secondary">Назад</a>
