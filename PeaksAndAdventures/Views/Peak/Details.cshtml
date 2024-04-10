@@ -61,6 +61,10 @@
 		<label>Планина:</label>
 		<div class="property-value">@Model.MountainName</div>
 	</div>
+	<div class="property">
+		<label>Маршрути</label>
+        <a asp-controller="Peak" asp-action="GetRoutesToPeak" asp-route-id="@Model.Id" class="btn btn-primary">Виж</a>
+	</div>
 	<a asp-controller="Peak" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
 	<a asp-controller="Peak" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 </div>

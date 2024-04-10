@@ -1,0 +1,22 @@
+﻿@model IEnumerable<GetAllRoutesViewModel>
+
+@{
+	ViewBag.Title = "Маршрути в планината";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+@{
+	if (Model.Any())
+	{
+		@await Html.PartialAsync("_AllRoutesPartial")
+	}
+	else
+	{
+		<p class="text-center text-warning">Няма добавени маршрути в планината.</p>
+		<p class="text-center">Добави маршрут към тази планина, ако знаеш.</p>
+		<a asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави</a>
+	}
+}
+
+

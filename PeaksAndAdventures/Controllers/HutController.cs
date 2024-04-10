@@ -22,7 +22,6 @@ namespace PeaksAndAdventures.Controllers
                 query.Camping.GetDisplayName(),
                 query.SearchTerm,
                 query.MountainName,
-                query.Places,
                 query.CurrentPage,
                 AllHutsQueryModel.HutsPerPage);
 
@@ -97,5 +96,17 @@ namespace PeaksAndAdventures.Controllers
 			await _hutService.EditPostAsync(hutForm);
 			return RedirectToAction("All", "Hut");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetRoutesToHut(int id)
+		{
+			if (!await _hutService.CheckHutExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var routes = await _hutService.GetRoutesAsync(id);
+			return View(routes);
+		} 
 	}
 }

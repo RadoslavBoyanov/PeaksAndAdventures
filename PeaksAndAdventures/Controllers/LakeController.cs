@@ -93,5 +93,17 @@ namespace PeaksAndAdventures.Controllers
 			await _lakeService.EditPostAsync(lakeForm);
 			return RedirectToAction("All", "Lake");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetRoutesToLake(int id)
+		{
+			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var routes = await _lakeService.GetRoutesToLakeAsync(id);
+			return View(routes);
+		}
 	}
 }

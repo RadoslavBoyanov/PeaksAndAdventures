@@ -94,5 +94,17 @@ namespace PeaksAndAdventures.Controllers
 			await _waterfallService.EditPostAsync(waterfallForm);
 			return RedirectToAction("All", "Waterfall");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetRoutesToWaterfall(int id)
+		{
+			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
+			{
+				return BadRequest();
+			}
+
+			var routes = await _waterfallService.GetRoutesForWaterfallAsync(id);
+			return View(routes);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
@@ -158,6 +159,19 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.SaveChangesAsync();
 
 			return waterfall.Id;
+		}
+
+		public async Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesForWaterfallAsync(int waterfallId)
+		{
+			return await _repository.AllReadOnly<RouteWaterfall>()
+				.Where(rw => rw.WaterfallId == waterfallId)
+				.Select(rw => new GetAllRoutesViewModel()
+				{
+					Id = rw.RouteId,
+					Name = rw.Route.Name,
+					ImageUrl = rw.Route.ImageUrl,
+				})
+				.ToListAsync();
 		}
 	}
 }

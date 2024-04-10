@@ -94,5 +94,17 @@ namespace PeaksAndAdventures.Controllers
 	        await _peakService.EditPostAsync(peakForm);
 	        return RedirectToAction("All", "Peak");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoutesToPeak(int id)
+        {
+	        if (!await _peakService.CheckPeakExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+
+			var routes = await _peakService.GetRoutesToPeakAsync(id);
+			return View(routes);
+        }
     }
 }

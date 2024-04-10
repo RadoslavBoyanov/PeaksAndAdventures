@@ -16,10 +16,10 @@ namespace PeaksAndAdventures.Core.Models.QueryModels.Hut
         public Camping Camping { get; init; }
 
         [Display(Name = "Търсене по име на хижа")]
-        public string SearchTerm { get; set; } = null!;
+        public string? SearchTerm { get; set; } = null!;
 
         [Display(Name = "Търсене по планина")]
-        public string MountainName { get; set; } = null!;
+        public string? MountainName { get; set; } = null!;
 
         public int Places { get; set; }
 

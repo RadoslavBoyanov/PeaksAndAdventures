@@ -2,6 +2,7 @@
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.QueryModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Enums.Hut;
@@ -31,27 +32,40 @@ namespace PeaksAndAdventures.Core.Services
         }
 
         public HutQueryServiceModel All(string? workTime = null, string? camping = null,
-            string? searchTerm = null, string? mountainSort = null, int places = 0,
+            string? searchTerm = null, string? mountainSort = null,
             int currentPage = 1, int hutPerPage = 3)
         {
-            WorkTime parsedWorkTime;
-            Camping parsedCamping;
-
             var hutsQuery = _repository.AllReadOnly<Hut>()
                 .Include(h => h.Mountain)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(workTime) && Enum.TryParse(workTime, out parsedWorkTime))
-            {
-                hutsQuery = hutsQuery.Where(h => h.WorkTime == parsedWorkTime);
-            }
+			if (!string.IsNullOrEmpty(workTime))
+			{
+				var workTimeValues = Enum.GetValues(typeof(WorkTime));
+				var selectedWorkTime = workTimeValues
+					.Cast<WorkTime>()
+					.FirstOrDefault(w => EnumExtensions.GetDisplayName(w) == workTime);
 
-            if (!string.IsNullOrEmpty(camping) && Enum.TryParse(camping, out parsedCamping))
-            {
-                hutsQuery = hutsQuery.Where(h => h.Camping == parsedCamping);
-            }
+				if (selectedWorkTime != null)
+				{
+					hutsQuery = hutsQuery.Where(h => h.WorkTime == selectedWorkTime);
+				}
+			}
 
-            if (!string.IsNullOrEmpty(searchTerm))
+			if (!string.IsNullOrEmpty(camping))
+			{
+				var campingValues = Enum.GetValues(typeof(Camping));
+				var selectedCamping = campingValues
+					.Cast<Camping>()
+					.FirstOrDefault(c => EnumExtensions.GetDisplayName(c) == camping);
+
+				if (selectedCamping != null)
+				{
+					hutsQuery = hutsQuery.Where(h => h.Camping == selectedCamping);
+				}
+			}
+
+			if (!string.IsNullOrEmpty(searchTerm))
             {
                 hutsQuery = hutsQuery.Where(h => h.Name.ToLower().Contains(searchTerm.ToLower()));
             }
@@ -61,10 +75,6 @@ namespace PeaksAndAdventures.Core.Services
                 hutsQuery = hutsQuery.Where(h => h.Mountain.Name.ToLower().Contains(mountainSort.ToLower()));
             }
 
-            if (places > 0)
-            {
-                hutsQuery = hutsQuery.OrderBy(h => h.Places);
-            }
 
             var huts =  hutsQuery.Skip((currentPage - 1) * hutPerPage)
                 .Take(hutPerPage)
@@ -225,6 +235,20 @@ namespace PeaksAndAdventures.Core.Services
             await _repository.SaveChangesAsync();
 
             return hutForm.Id;
+        }
+
+        public async Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesAsync(int hutId)
+        {
+	        return await _repository.AllReadOnly<RouteHut>()
+		        .Include(rh => rh.Route)
+		        .Where(rh => rh.HutId == hutId)
+		        .Select(rh => new GetAllRoutesViewModel()
+		        {
+			        Id = rh.Route.Id,
+			        Name = rh.Route.Name,
+			        ImageUrl = rh.Route.ImageUrl,
+		        })
+		        .ToListAsync();
         }
     }
 }

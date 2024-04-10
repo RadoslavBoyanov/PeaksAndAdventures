@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Lake;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
@@ -160,6 +161,19 @@ namespace PeaksAndAdventures.Core.Services
         {
 	        return await _repository.AllReadOnly<Lake>()
 		        .AnyAsync(l => l.Id == lakeId);
+        }
+
+        public async Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesToLakeAsync(int lakeId)
+        {
+	        return await _repository.AllReadOnly<RouteLake>()
+		        .Where(rl => rl.LakeId == lakeId)
+		        .Select(rl => new GetAllRoutesViewModel()
+		        {
+					Id = rl.RouteId,
+					Name = rl.Route.Name,
+					ImageUrl = rl.Route.ImageUrl,
+		        })
+		        .ToListAsync();
         }
     }
 }

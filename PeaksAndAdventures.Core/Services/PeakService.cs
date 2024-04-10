@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Peak;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
@@ -181,6 +182,19 @@ namespace PeaksAndAdventures.Core.Services
             await _repository.SaveChangesAsync();
 
             return peak.Id;
+        }
+
+        public async Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesToPeakAsync(int peakId)
+        {
+	        return await _repository.AllReadOnly<RoutePeak>()
+		        .Where(rp => rp.PeakId == peakId)
+		        .Select(rp => new GetAllRoutesViewModel()
+		        {
+			        Id = rp.RouteId,
+			        Name = rp.Route.Name,
+			        ImageUrl = rp.Route.ImageUrl
+		        })
+		        .ToListAsync();
         }
     }
 }

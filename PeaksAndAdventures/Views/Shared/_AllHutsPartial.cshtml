@@ -7,12 +7,12 @@
 
 @if (Model != null && Model.Count() > 0)
 {
-	<div class="row gap-2">
+	<div class="row">
 		@foreach (var hut in Model)
 		{
-			<div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+			<div class="col-md-4 mb-4">
 				<div class="card h-100">
-					<img class="card-img-top" src="@hut.ImageUrl" alt="Mountain Image">
+					<img class="card-img-top" src="@hut.ImageUrl" alt="Hut Image">
 					<div class="card-body">
 						<h5 class="card-title text-center">@hut.Name</h5>
 					</div>

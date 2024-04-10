@@ -1,4 +1,5 @@
 ﻿using PeaksAndAdventures.Core.Models.ViewModels.Lake;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
@@ -14,4 +15,5 @@ public interface ILakeService
 	Task<LakeEditViewModel> EditGetAsync(int lakeId);
 	Task<int> EditPostAsync(LakeEditViewModel lakeForm);
 	Task<bool> CheckLakeExistsByIdAsync(int lakeId);
+	Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesToLakeAsync(int lakeId);
 }
