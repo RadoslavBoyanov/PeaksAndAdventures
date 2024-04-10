@@ -5,6 +5,7 @@ using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
 using PeaksAndAdventures.Core.Models.ViewModels.Peak;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
@@ -115,6 +116,20 @@ namespace PeaksAndAdventures.Core.Services
 			         Name = w.Name,
 			         ImageUrl = w.ImageUrl,
 				 })
+		         .ToListAsync();
+         }
+
+         public async Task<IEnumerable<GetAllRoutesViewModel>> GetAllRoutesAsync(int mountainId)
+         {
+	         return await _repository
+		         .AllReadOnly<Route>()
+		         .Where(r => r.MountainId == mountainId)
+		         .Select(r => new GetAllRoutesViewModel()
+		         {
+			         Id = r.Id,
+			         Name = r.Name,
+			         ImageUrl = r.ImageUrl,
+		         })
 		         .ToListAsync();
          }
 

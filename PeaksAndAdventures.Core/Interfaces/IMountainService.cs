@@ -3,6 +3,7 @@ using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
 using PeaksAndAdventures.Core.Models.ViewModels.Peak;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 
 namespace PeaksAndAdventures.Core.Interfaces
@@ -16,6 +17,7 @@ namespace PeaksAndAdventures.Core.Interfaces
         Task<IEnumerable<AllPeaksViewModel>> GetAllPeaksAsync(int mountainId);
         Task<IEnumerable<AllHutsViewModel>> GetAllHutsAsync(int mountainId);
         Task<IEnumerable<AllWaterfallsViewModel>> GetAllWaterfallsAsync(int mountainId);
+        Task<IEnumerable<GetAllRoutesViewModel>> GetAllRoutesAsync(int mountainId);
         Task AddAsync (MountainFormViewModel mountainForm); 
         Task<bool> CheckMountainExistsByNameAsync(string mountainName);
         Task<bool> CheckMountainExistsByIdAsync(int mountainId);

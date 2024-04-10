@@ -1,0 +1,11 @@
+﻿@model IEnumerable<GetAllRoutesViewModel>
+
+@{
+	ViewBag.Title = "Маршрути в планината";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@await Html.PartialAsync("_AllRoutesPartial")
+

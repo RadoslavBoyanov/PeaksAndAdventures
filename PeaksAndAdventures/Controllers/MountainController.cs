@@ -51,27 +51,54 @@ namespace PeaksAndAdventures.Controllers
         [HttpGet]
         public async Task<IActionResult> AllPeaksInMountain(int id)
         {
-	        var allpeaksInMountain = await _mountainService.GetAllPeaksAsync(id);
+	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+			var allpeaksInMountain = await _mountainService.GetAllPeaksAsync(id);
             return View(allpeaksInMountain);
         }
 
         public async Task<IActionResult> AllHutsInMountain(int id)
         {
-	        var allHutsInMountain = await _mountainService.GetAllHutsAsync(id);
+	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+			var allHutsInMountain = await _mountainService.GetAllHutsAsync(id);
             return View(allHutsInMountain);
         }
 
         public async Task<IActionResult> AllLakesInMountain(int id)
         {
-	        var allLakesInMountain = await _mountainService.GetAllLakesAsync(id);
+	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+			var allLakesInMountain = await _mountainService.GetAllLakesAsync(id);
             return View(allLakesInMountain);
         }
 
         public async Task<IActionResult> AllWaterfallsInMountain(int id)
         {
+	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
 	        var allWaterfallsInMountain = await _mountainService.GetAllWaterfallsAsync(id);
             return View(allWaterfallsInMountain);
         }
+
+		[HttpGet]
+        public async Task<IActionResult> AllRoutesInMountain(int id)
+        {
+	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
+	        {
+		        return BadRequest();
+	        }
+			var allRoutesInMountain = await _mountainService.GetAllRoutesAsync(id);
+			return View(allRoutesInMountain);
+		}
 
         [HttpGet]
         public IActionResult Add()
