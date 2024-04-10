@@ -1,4 +1,5 @@
 ﻿using PeaksAndAdventures.Core.Models.ViewModels.Peak;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
@@ -14,4 +15,5 @@ public interface IPeakService
 	Task<int> DeleteConfirmedAsync(int peakId);
 	Task<PeakEditViewModel> EditGetAsync(int peakId);
     Task<int> EditPostAsync(PeakEditViewModel peakForm);
+	Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesToPeakAsync(int peakId);
 }
