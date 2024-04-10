@@ -1,4 +1,5 @@
-﻿using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
+﻿using PeaksAndAdventures.Core.Models.ViewModels.Route;
+using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
@@ -14,4 +15,5 @@ public interface IWaterfallService
 	Task<int> DeleteConfirmedAsync(int waterfallId);
 	Task<WaterfallEditViewModel> EditGetAsync(int waterfallId);
 	Task<int> EditPostAsync(WaterfallEditViewModel waterfallForm);
+	Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesForWaterfallAsync(int waterfallId);
 }
