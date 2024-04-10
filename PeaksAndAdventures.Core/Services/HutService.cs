@@ -2,6 +2,7 @@
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.QueryModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Enums.Hut;
@@ -234,6 +235,20 @@ namespace PeaksAndAdventures.Core.Services
             await _repository.SaveChangesAsync();
 
             return hutForm.Id;
+        }
+
+        public async Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesAsync(int hutId)
+        {
+	        return await _repository.AllReadOnly<RouteHut>()
+		        .Include(rh => rh.Route)
+		        .Where(rh => rh.HutId == hutId)
+		        .Select(rh => new GetAllRoutesViewModel()
+		        {
+			        Id = rh.Route.Id,
+			        Name = rh.Route.Name,
+			        ImageUrl = rh.Route.ImageUrl,
+		        })
+		        .ToListAsync();
         }
     }
 }

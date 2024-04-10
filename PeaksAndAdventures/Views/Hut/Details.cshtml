@@ -47,6 +47,11 @@
 		<p class="card-text">
 			<strong>Mountain:</strong> @Model.MountainName
 		</p>
+		<p class="card-text">
+			<i class="fa-solid fa-route" style="color: #74C0FC;"></i> 
+			<strong>Маршрути:</strong>
+			<a asp-controller="Hut" asp-action="GetRoutesToHut" asp-route-id="@Model.Id" class="btn-details">Виж</a>
+		</p>
 	</div>
 	<div class="card-footer">
 		<a asp-action="All" class="btn btn-secondary">Назад</a>

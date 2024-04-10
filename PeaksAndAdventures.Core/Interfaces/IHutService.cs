@@ -1,5 +1,6 @@
 ﻿using PeaksAndAdventures.Core.Models.QueryModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Route;
 
 namespace PeaksAndAdventures.Core.Interfaces;
 
@@ -17,4 +18,5 @@ public interface IHutService
     Task<int> DeleteConfirmedAsync(int hutId);
     Task<HutEditViewModel> EditGetAsync(int hutId);
     Task<int> EditPostAsync(HutEditViewModel hutForm);
+    Task<IEnumerable<GetAllRoutesViewModel>> GetRoutesAsync(int hutId);
 }
