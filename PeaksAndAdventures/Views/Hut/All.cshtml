@@ -7,63 +7,69 @@
 
 
 <h2 class="text-center">Хижи</h2>
-<form method="get">
-    <div class="row">
-	    <div class="form-group col-md-3">
-		    <label asp-for="WorkTime"></label>
-		    <select asp-for="WorkTime" class="form-control">
-			    <option value="">-- Изберете --</option> <!-- Първоначална опция -->
-			    @foreach (WorkTime workTime in Enum.GetValues(typeof(WorkTime)))
-			    {
-				    if (workTime == WorkTime.None) continue; // Пропускаме първата стойност
+<form method="get" id="searchForm">
+	<div class="row">
+		<div class="form-group col-md-3">
+			<label asp-for="WorkTime"></label>
+			<select asp-for="WorkTime" class="form-control">
+				<option value="">-- Изберете --</option>
+				@foreach (WorkTime workTime in Enum.GetValues(typeof(WorkTime)))
+				{
+					var displayAttribute = typeof(WorkTime)
+						.GetMember(workTime.ToString())
+						.First()
+						.GetCustomAttributes(typeof(DisplayAttribute), false)
+						.OfType<DisplayAttribute>()
+						.FirstOrDefault();
 
-				    var displayAttribute = typeof(WorkTime)
-					    .GetMember(workTime.ToString())
-					    .First()
-					    .GetCustomAttributes(typeof(DisplayAttribute), false)
-					    .OfType<DisplayAttribute>()
-					    .FirstOrDefault();
+					string displayName = displayAttribute != null ? displayAttribute.Name : workTime.ToString();
+					string value = ((int)workTime).ToString();
 
-				    string displayName = displayAttribute != null ? displayAttribute.Name : workTime.ToString();
+					if (workTime == default(WorkTime))
+					{
+						<option value="@value" selected>@displayName</option>
+					}
+					else
+					{
+						<option value="@value">@displayName</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group col-md-3">
+			<label asp-for="Camping"></label>
+			<select asp-for="Camping" class="form-select">
+				<option selected="selected">-- Изберете --</option> <!-- Първоначална опция -->
+				@foreach (Camping camping in Enum.GetValues(typeof(Camping)))
+				{
+					var displayAttribute = typeof(Camping)
+						.GetMember(camping.ToString())
+						.First()
+						.GetCustomAttributes(typeof(DisplayAttribute), false)
+						.OfType<DisplayAttribute>()
+						.FirstOrDefault();
 
-				    <option value="@((int)workTime)" @(Model.WorkTime == workTime ? "selected" : "")>@displayName</option>
-			    }
-		    </select>
-	    </div>
-	    <div class="form-group col-md-3">
-		    <label asp-for="Camping"></label>
-		    <select asp-for="Camping" class="form-control">
-			    <option value="">-- Изберете --</option> <!-- Първоначална опция -->
-			    @foreach (Camping camping in Enum.GetValues(typeof(Camping)))
-			    {
-				    var displayAttribute = typeof(Camping)
-					    .GetMember(camping.ToString())
-					    .First()
-					    .GetCustomAttributes(typeof(DisplayAttribute), false)
-					    .OfType<DisplayAttribute>()
-					    .FirstOrDefault();
+					string? displayName = displayAttribute != null ? displayAttribute.Name : camping.ToString();
 
-				    string displayName = displayAttribute != null ? displayAttribute.Name : camping.ToString();
+					<option value="@((int)camping)">@displayName</option>
+				}
+			</select>
+		</div>
 
-				    <option value="@((int)camping)">@displayName</option>
-			    }
-		    </select>
-	    </div>
-
-        <div class="form-group col-md-3">
-            <label asp-for="SearchTerm"></label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="...">
-        </div>
-        <div class="form-group col-md-3">
-            <label asp-for="MountainName"></label>
-            <input asp-for="MountainName" class="form-control" placeholder="...">
-        </div>
-        <div class="col-md-3">
-            <div class="form-group mt-4 p-2">
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
+		<div class="form-group col-md-3">
+			<label asp-for="SearchTerm"></label>
+			<input asp-for="SearchTerm" class="form-control" placeholder="...">
+		</div>
+		<div class="form-group col-md-3">
+			<label asp-for="MountainName"></label>
+			<input asp-for="MountainName" class="form-control" placeholder="...">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group mt-4 p-2">
+			<button type="button" id="searchButton" class="btn btn-primary">Търси</button>
+		</div>
+	</div>
 </form>
 
 @if (!Model.Huts.Any())
@@ -73,12 +79,12 @@
 
 @if (Model != null && Model.TotalHutsCount > 0)
 {
-    <div class="row gap-2">
+    <div class="row">
         @foreach (var hut in Model.Huts)
         {
-            <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+			<div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img class="card-img-top" src="@hut.ImageUrl" alt="Mountain Image">
+                    <img class="card-img-top" src="@hut.ImageUrl" alt="Hut Image">
                     <div class="card-body">
                         <h5 class="card-title text-center">@hut.Name</h5>
                     </div>
@@ -95,37 +101,51 @@
 
 
 <div class="row mb-5">
-    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
-        @{
-            var previousPage = Model.CurrentPage - 1;
-            if (previousPage < 1)
-            {
-                previousPage = 1;
-            }
-        }
-        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-           asp-controller="Hut"
-           asp-action="All"
-           asp-route-currentPage="@previousPage"
-           asp-route-workTime="@Model.WorkTime"
-           asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-mountainName="@Model.MountainName"><<</a>
-    </div>
-    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
-        @{
-            var nextPage = Model.CurrentPage + 1;
-            var maxPage = Math.Ceiling((double)Model.TotalHutsCount / AllHutsQueryModel.HutsPerPage);
-        }
-        <a class="btn btn-primary @(nextPage > maxPage || !Model.Huts.Any() ? "disabled" : string.Empty)"
-           asp-controller="Hut"
-           asp-action="All"
-           asp-route-currentPage="@nextPage"
-           asp-route-workTime="@Model.WorkTime"
-           asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-mountainName="@Model.MountainName">>></a>
-    </div>
+	<div class="col-md-5 d-grid gap-2 d-md-flex justify-content-md-start">
+		@{
+			var previousPage = Model.CurrentPage - 1;
+			if (previousPage < 1)
+			{
+				previousPage = 1;
+			}
+		}
+		<a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+		   asp-controller="Hut"
+		   asp-action="All"
+		   asp-route-currentPage="@previousPage"
+		   asp-route-workTime="@Model.WorkTime"
+		   asp-route-searchTerm="@Model.SearchTerm"
+		   asp-route-mountainName="@Model.MountainName"><<</a>
+	</div>
+    
+	<div class="col-md-2 d-grid gap-2 d-md-flex justify-content-md-center">
+		@{
+			var maxPage = Math.Ceiling((double)Model.TotalHutsCount / AllHutsQueryModel.HutsPerPage);
+		}
+		<span>Страница @Model.CurrentPage от @maxPage</span>
+	</div>
+
+	<div class="col-md-5 d-grid gap-2 d-md-flex justify-content-md-end">
+		@{
+			var nextPage = Model.CurrentPage + 1;
+		}
+		<a class="btn btn-primary @(nextPage > maxPage || !Model.Huts.Any() ? "disabled" : string.Empty)"
+		   asp-controller="Hut"
+		   asp-action="All"
+		   asp-route-currentPage="@nextPage"
+		   asp-route-workTime="@Model.WorkTime"
+		   asp-route-searchTerm="@Model.SearchTerm"
+		   asp-route-mountainName="@Model.MountainName">>></a>
+	</div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+	<script>
+		document.getElementById('searchButton').addEventListener('click', function () {
+			var form = document.getElementById('searchForm');
+			form.submit();
+		});
+	</script>
+
+	<partial name="_ValidationScriptsPartial" />
 }

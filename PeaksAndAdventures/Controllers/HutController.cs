@@ -22,7 +22,6 @@ namespace PeaksAndAdventures.Controllers
                 query.Camping.GetDisplayName(),
                 query.SearchTerm,
                 query.MountainName,
-                query.Places,
                 query.CurrentPage,
                 AllHutsQueryModel.HutsPerPage);
 
