@@ -1,14 +1,23 @@
 ﻿.profile-info {
     margin-bottom: 20px;
-    background-color: silver;
+    background-color: snow;
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 2px 22px rgba(0, 0, 0, 0.1);
 }
 
 .routes-mountains{
+    display: flex;
+    flex-direction: column;
     color: greenyellow;
+    font-size: 22px;
+    color: aqua
 }
+
+body > div > main > div > div.row > div.col-md-8 > div > div.row > div.col-md-8 > h3 {
+    padding: 10px
+}
+
 
 .agency-info {
     background-color: #f8f9fa;
@@ -37,6 +46,12 @@
 
     .rating input[type="radio"]:checked ~ label {
         color: #ffcc00;
+    }
+
+    .rating label:hover,
+    .rating label:hover ~ label,
+    .rating input[type="radio"]:checked ~ label {
+        color: #ffc107; 
     }
 
 .btn-outline-success {

@@ -7,66 +7,69 @@
 <link rel="stylesheet" href="~/css/MountainGuide/detailsStyle.css" />
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="profile-info">
-                <div class="row">
-                    <div class="col-md-4">
-                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                        {
-                            <div class="profile-picture">
-                                <img src="@Model.ImageUrl" alt="Profile Picture" class="img-fluid" />
-                            </div>
-                        }
-                    </div>
-                    <div class="col-md-8">
-                        <h2>Персонална информация</h2>
-                        <p><strong>Име:</strong> @Model.FirstName @Model.LastName</p>
-                        <p><strong>Години:</strong> @(string.IsNullOrEmpty(Model.Age) ? "Няма подадена информация" : Model.Age)</p>
-                        <p><strong>Телефон:</strong> @Model.Phone</p>
-                        <p><strong>Имейл:</strong> @Model.Email</p>
-                        <p><strong>Опит:</strong> @Model.Experience years</p>
-                        <p><strong>Средна оценка:</strong> @Model.Rating</p>
-                        <div class="rating">
-                            <input type="radio" id="star1" name="value" value="1" />
-                            <label for="star1" title="Лош">&#9733;</label>
-                            <input type="radio" id="star2" name="value" value="2" />
-                            <label for="star2" title="Добър">&#9733;</label>
-                            <input type="radio" id="star3" name="value" value="3" />
-                            <label for="star3" title="Отличен">&#9733;</label>
-                            <input type="radio" id="star4" name="value" value="4" />
-                            <label for="star4" title="Превъзходен">&#9733;</label>
-                            <input type="radio" id="star5" name="value" value="5" />
-                            <label for="star5" title="Изключителен">&#9733;</label>
-                            <button type="submit" class="btn btn-outline-success">Оцени</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="routes-mountains mt-4 text-center">
-                    <h4>Маршрути и планини</h4>
-                    <p><a asp-controller="MountainGuide" asp-action="GetAllMountains" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Планини</a></p>
-                    <p><a asp-controller="MountainGuide" asp-action="GetAllRoutes" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Маршрути</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="agency-info">
-                <h4>Информация за агенцията</h4>
-                <p><strong>Име на агенцията:</strong> @Model.TourAgencyName</p>
-                <p><strong>Телефон на агенцията:</strong> @Model.TourAgencyPhone</p>
-                <p><strong>Имейл на агенцията:</strong> @Model.TourAgencyEmail</p>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="profile-info">
+				<div class="row">
+					<div class="col-md-4">
+						@if (!string.IsNullOrEmpty(Model.ImageUrl))
+						{
+							<div class="profile-picture">
+								<img src="@Model.ImageUrl" alt="Profile Picture" class="img-fluid" />
+							</div>
+						}
+					</div>
+					<div class="col-md-8">
+						<h3 class="text-center">Персонална информация</h3>
+						<p><strong>Име:</strong> @Model.FirstName @Model.LastName</p>
+						<p><strong>Години:</strong> @(string.IsNullOrEmpty(Model.Age) ? "Няма подадена информация" : Model.Age)</p>
+						<p><strong>Телефон:</strong> @Model.Phone</p>
+						<p><strong>Имейл:</strong> @Model.Email</p>
+						<p><strong>Опит:</strong> @Model.Experience years</p>
+						<p><strong>Средна оценка:</strong> @Model.Rating <a asp-controller="MountainGuide" asp-action="MountainGuideRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a></p>
+						<form asp-controller="Rating" asp-action="AddRating" asp-route-id="@Model.Id" method="post">
+							<input type="hidden" name="id" value="@Model.Id" />
+							<input type="hidden" name="entityType" value="MountainGuide" />
+							<div class="rating">
+								<input type="radio" id="star5" name="value" value="5" />
+								<label for="star5" title="Изключителен">&#9733;</label>
+								<input type="radio" id="star4" name="value" value="4" />
+								<label for="star4" title="Превъзходен">&#9733;</label>
+								<input type="radio" id="star3" name="value" value="3" />
+								<label for="star3" title="Отличен">&#9733;</label>
+								<input type="radio" id="star2" name="value" value="2" />
+								<label for="star2" title="Добър">&#9733;</label>
+								<input type="radio" id="star1" name="value" value="1" />
+								<label for="star1" title="Лош">&#9733;</label>
+								<button type="submit" class="btn btn-outline-success">Оцени</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="routes-mountains mt-4 text-center">
+					<h4>Маршрути и планини</h4>
+					<p><a asp-controller="MountainGuide" asp-action="GetAllMountains" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Планини</a></p>
+					<p><a asp-controller="MountainGuide" asp-action="GetAllRoutes" asp-route-id="@Model.Id" class="text-primary text-decoration-none">Маршрути</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="agency-info">
+				<h4>Информация за агенцията</h4>
+				<p><strong>Име на агенцията:</strong> @Model.TourAgencyName</p>
+				<p><strong>Телефон на агенцията:</strong> @Model.TourAgencyPhone</p>
+				<p><strong>Имейл на агенцията:</strong> @Model.TourAgencyEmail</p>
+			</div>
+		</div>
+	</div>
 
-    @if (User.Identity.IsAuthenticated && User.Id() == Model.OwnerId)
-    {
-        <div class="col-md-12 text-center mt-4">
-            <a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mr-2">Редактирай</a>
-            <a asp-controller="MountainGuide" asp-action="AddRouteToMountainGuide" asp-route-id="@Model.Id" class="btn btn-secondary mr-2">Добави маршрут</a>
-            <a asp-controller="MountainGuide" asp-action="AddMountainToMountainGuide" asp-route-id="@Model.Id" class="btn btn-secondary mr-2">Добави планина</a>
-            <a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
-        </div>
-    }
+	@if (User.Identity.IsAuthenticated && User.Id() == Model.OwnerId)
+	{
+		<div class="col-md-12 text-center mt-4">
+			<a asp-controller="MountainGuide" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mr-2">Редактирай</a>
+			<a asp-controller="MountainGuide" asp-action="AddRouteToMountainGuide" asp-route-id="@Model.Id" class="btn btn-secondary mr-2">Добави маршрут</a>
+			<a asp-controller="MountainGuide" asp-action="AddMountainToMountainGuide" asp-route-id="@Model.Id" class="btn btn-secondary mr-2">Добави планина</a>
+			<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+		</div>
+	}
 </div>
-

@@ -7,40 +7,42 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+<link rel="stylesheet" href="~/css/TourAgency/detailsStyle.css"/>
+
 <div class="card">
 	<div class="card-body">
-		<h5 class="card-title text-center">@Model.Name</h5>
+		<h4 class="card-title text-center">@Model.Name</h4>
 		<p class="card-text"><strong>Описание:</strong> @Model.Description</p>
 		<p class="card-text"><strong>Имейл:</strong> @Model.Email</p>
 		<p class="card-text"><strong>Телефон:</strong> @Model.Phone</p>
-		<p><strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)</p>
+		<p class="card-text"><strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)</p>
 		@if (User.Id() != Model.OwnerId)
-		{
-			<form asp-controller="Rating" asp-action="AddRating" method="post">
-				<input type="hidden" name="id" value="@Model.Id" />
-				<input type="hidden" name="entityType" value="TourAgency" />
-				<div class="rating">
-					<input type="radio" id="star1" name="value" value="1" />
-					<label for="star1" title="Лош">&#9733;</label>
-					<input type="radio" id="star2" name="value" value="2" />
-					<label for="star2" title="Добър">&#9733;</label>
-					<input type="radio" id="star3" name="value" value="3" />
-					<label for="star3" title="Отличен">&#9733;</label>
-					<input type="radio" id="star4" name="value" value="4" />
-					<label for="star4" title="Превъзходен">&#9733;</label>
-					<input type="radio" id="star5" name="value" value="5" />
-					<label for="star5" title="Изключителен">&#9733;</label>
-					<button type="submit" class="btn btn-outline-success">Оцени</button>
-				</div>
-			</form>
-		}
-		<p class="card-text text-decoration-none"><a asp-controller="TourAgency" asp-action="AllMountainGuidesInAgency" asp-route-id="@Model.Id">Планински водачи</a></p>
-		<p class="card-text text-decoration-none"><a asp-controller="TourAgency" asp-action="AllExpeditionsInAgency" asp-route-id="@Model.Id">Експедиции прелагани от агенцията</a></p>
+			{
+				<form asp-controller="Rating" asp-action="AddRating" method="post">
+					<input type="hidden" name="id" value="@Model.Id" />
+					<input type="hidden" name="entityType" value="TourAgency" />
+					<div class="rating">
+						<input type="radio" id="star5" name="value" value="5" />
+						<label for="star5" title="Изключителен">&#9733;</label>
+						<input type="radio" id="star4" name="value" value="4" />
+						<label for="star4" title="Превъзходен">&#9733;</label>
+						<input type="radio" id="star3" name="value" value="3" />
+						<label for="star3" title="Отличен">&#9733;</label>
+						<input type="radio" id="star2" name="value" value="2" />
+						<label for="star2" title="Добър">&#9733;</label>
+						<input type="radio" id="star1" name="value" value="1" />
+						<label for="star1" title="Лош">&#9733;</label>
+						<button type="submit" class="btn btn-outline-success">Оцени</button>
+					</div>
+				</form>
+			}
+		<p class="navigation"><a asp-controller="TourAgency" asp-action="AllMountainGuidesInAgency" asp-route-id="@Model.Id">Планински водачи</a></p>
+		<p class="navigation"><a asp-controller="TourAgency" asp-action="AllExpeditionsInAgency" asp-route-id="@Model.Id">Експедиции прелагани от агенцията</a></p>
 	</div>
 
 	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
 	{
-		<div class="card-footer d-flex justify-content-between">
+		<div class="card-footer d-flex justify-content-center">
 			<a asp-controller="TourAgency" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
 			<a asp-controller="TourAgency" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 		</div>

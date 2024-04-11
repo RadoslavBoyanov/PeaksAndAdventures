@@ -4,47 +4,49 @@
 	ViewBag.Title = "Информация за маршрута";
 }
 
-<h3>@ViewBag.Title</h3>
+<h3 class="text-center">@ViewBag.Title</h3>
 <hr />
+
+<link rel="stylesheet" href="~/css/Route/detailsStyle.css" />
 
 <div class="card">
 	<img src="@Model.ImageUrl" class="card-img-top" alt="Route Image">
 	<div class="card-body">
 		<h4 class="card-title">
-			<strong>Име:</strong> @Model.Name
+			 @Model.Name
 		</h4>
 		<p class="card-text">
 			<strong>Начална точка:</strong> @Model.StartingPoint
 		</p>
 		<p class="card-text">
-			<strong>Положителна денивелация:</strong> @Model.DisplacementPositive
+			<strong>Положителна денивелация:</strong> @Model.DisplacementPositive метра
 		</p>
 		<p class="card-text">
-			<strong>Отрицателна денивелация:</strong> @Model.DisplacementNegative
+			<strong>Отрицателна денивелация:</strong> @Model.DisplacementNegative метра
 		</p>
 		<p class="card-text">
 			<strong>Трудност:</strong> @Model.Difficulty
 		</p>
 		<p class="card-text">
-			<strong>Времетраене:</strong> @Model.Duration
+			<strong>Времетраене:</strong> @Model.Duration <span>(дни.часове:минути) / в двете посоки</span>
 		</p>
 		<p class="card-text">
 			<strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)
 		</p>
 		<form asp-controller="Rating" asp-action="AddRating" method="post">
-			<input type="hidden" name="id" value="@Model.Id" />
-			<input type="hidden" name="entityType" value="Route" />
+			<input type="hidden" name="id" value="@Model.Id"/>
+			<input type="hidden" name="entityType" value="Route"/>
 			<div class="rating">
-				<input type="radio" id="star1" name="value" value="1" />
-				<label for="star1" title="Лош">&#9733;</label>
-				<input type="radio" id="star2" name="value" value="2" />
-				<label for="star2" title="Добър">&#9733;</label>
-				<input type="radio" id="star3" name="value" value="3" />
-				<label for="star3" title="Отличен">&#9733;</label>
-				<input type="radio" id="star4" name="value" value="4" />
-				<label for="star4" title="Превъзходен">&#9733;</label>
 				<input type="radio" id="star5" name="value" value="5" />
 				<label for="star5" title="Изключителен">&#9733;</label>
+				<input type="radio" id="star4" name="value" value="4" />
+				<label for="star4" title="Превъзходен">&#9733;</label>
+				<input type="radio" id="star3" name="value" value="3" />
+				<label for="star3" title="Отличен">&#9733;</label>
+				<input type="radio" id="star2" name="value" value="2" />
+				<label for="star2" title="Добър">&#9733;</label>
+				<input type="radio" id="star1" name="value" value="1" />
+				<label for="star1" title="Лош">&#9733;</label>
 				<button type="submit" class="btn btn-outline-success">Оцени</button>
 			</div>
 		</form>
@@ -58,7 +60,7 @@
 	</div>
 </div>
 
-<div class="flex-row justify-content-center mt-3">
+<div class="buttons-manipulation">
 	<a asp-controller="Route" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
 	<a asp-controller="Route" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 </div>
