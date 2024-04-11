@@ -1,0 +1,47 @@
+﻿@model List<RatingDistributionViewModel>
+
+@* using Chart.js, we create an interactive and visually appealing view of the rating distribution *@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="ratingChart"></canvas>
+
+<script>
+    var ratings = @Html.Raw(Json.Serialize(Model.Select(r => r.Rating)));
+    var counts = @Html.Raw(Json.Serialize(Model.Select(r => r.Count)));
+
+    var ctx = document.getElementById('ratingChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ratings,
+            datasets: [{
+                label: 'Rating Count',
+                data: counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<style>
+    body {
+        padding-bottom: 40px;
+    }
+
+    .ratingChart{
+        width: 80%;
+        height: 80%;
+    }
+</style>

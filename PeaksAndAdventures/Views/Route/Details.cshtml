@@ -32,6 +32,7 @@
 		</p>
 		<p class="card-text">
 			<strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)
+			<a asp-controller="Route" asp-action="RouteRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
 		</p>
 		<form asp-controller="Rating" asp-action="AddRating" method="post">
 			<input type="hidden" name="id" value="@Model.Id"/>

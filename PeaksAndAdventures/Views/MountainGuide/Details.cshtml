@@ -26,7 +26,10 @@
 						<p><strong>Телефон:</strong> @Model.Phone</p>
 						<p><strong>Имейл:</strong> @Model.Email</p>
 						<p><strong>Опит:</strong> @Model.Experience years</p>
-						<p><strong>Средна оценка:</strong> @Model.Rating <a asp-controller="MountainGuide" asp-action="MountainGuideRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a></p>
+						<p>
+							<strong>Средна оценка:</strong> @Model.Rating
+							<a asp-controller="MountainGuide" asp-action="MountainGuideRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
+						</p>
 						<form asp-controller="Rating" asp-action="AddRating" asp-route-id="@Model.Id" method="post">
 							<input type="hidden" name="id" value="@Model.Id" />
 							<input type="hidden" name="entityType" value="MountainGuide" />

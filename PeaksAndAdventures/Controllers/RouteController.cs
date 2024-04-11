@@ -5,7 +5,7 @@ using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class RouteController : Controller
+	public class RouteController : Controller
 	{
 		private readonly IRouteService _routeService;
 		private readonly IMountainService _mountainService;
@@ -17,8 +17,8 @@ namespace PeaksAndAdventures.Controllers
 
 
 		public RouteController(
-			IRouteService routeService, 
-			IMountainService mountainService, 
+			IRouteService routeService,
+			IMountainService mountainService,
 			IHutService hutService,
 			ILakeService lakeService,
 			IPeakService peakService,
@@ -76,9 +76,9 @@ namespace PeaksAndAdventures.Controllers
 			}
 
 			await _routeService.AddAsync(routeForm,
-				routeForm.SelectedPeaksIds, 
-				routeForm.SelectedHutsIds, 
-				routeForm.SelectedLakesIds, 
+				routeForm.SelectedPeaksIds,
+				routeForm.SelectedHutsIds,
+				routeForm.SelectedLakesIds,
 				routeForm.SelectedWaterfallsIds);
 			return RedirectToAction("All", "Route");
 		}
@@ -103,7 +103,7 @@ namespace PeaksAndAdventures.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
-			if (! await _routeService.CheckIfExistRouteById(id))
+			if (!await _routeService.CheckIfExistRouteById(id))
 			{
 				return NotFound();
 			}
@@ -139,7 +139,7 @@ namespace PeaksAndAdventures.Controllers
 								routeForm.SelectedLakesIds,
 								routeForm.SelectedWaterfallsIds);
 
-			return RedirectToAction("Details", "Route", new{id = routeForm.Id});
+			return RedirectToAction("Details", "Route", new { id = routeForm.Id });
 		}
 
 		[HttpGet]
@@ -168,5 +168,18 @@ namespace PeaksAndAdventures.Controllers
 			await _routeService.DeleteConfirmedAsync(id);
 			return RedirectToAction("All", "Route");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> RouteRatings(int id)
+		{
+			if (!await _routeService.CheckIfExistRouteById(id))
+			{
+				BadRequest();
+			}
+
+			var rating = await _ratingService.GetRatingDistributionByRouteAsync(id);
+			return View(rating);
+		}
 	}
 }
+

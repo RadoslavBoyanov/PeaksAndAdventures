@@ -167,5 +167,17 @@ namespace PeaksAndAdventures.Controllers
 			await _tourAgencyService.EditPostAsync(tourAgencyForm);
 			return RedirectToAction("Details", "TourAgency", new { id = tourAgencyForm.Id });
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> AgencyRatings(int id)
+		{
+			if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+			{
+				return BadRequest();
+			}
+
+			var ratings = await _ratingService.GetRatingDistributionByAgencyAsync(id);
+			return View(ratings);
+		}
 	}
 }
