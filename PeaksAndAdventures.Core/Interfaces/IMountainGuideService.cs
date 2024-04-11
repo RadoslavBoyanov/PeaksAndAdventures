@@ -18,7 +18,7 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<int> EditPostAsync(MountainGuideEditViewModel mountainGuideEdit);
 		Task<MountainGuideAddRouteViewModel> GetMountainGuideAddRouteAsync(int mountainGuideId);
 		Task<MountainGuideAddMountainViewModel> GetMountainGuideAddMountainAsync(int mountainGuideId);
-		Task<IEnumerable<GetAllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId);
+		Task<IEnumerable<AllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId);
 		Task<IEnumerable<GetAllRoutesViewModel>> GetAllRoutesAsync(int mountainGuideId);
 	}
 }

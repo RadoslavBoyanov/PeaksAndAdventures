@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="~/css/MountainGuide/allStyle.css" />
 
-@if (Model != null && Model.Count() > 0)
+@if (Model.Any())
 {
 	<div class="row">
 		@foreach (var mountainGuide in Model)

@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="~/css/Lake/all.css" />
 
-@if (Model != null && Model.Count() > 0)
+@if (Model.Any())
 {
 	<div class="row">
 		@foreach (var lake in Model)
