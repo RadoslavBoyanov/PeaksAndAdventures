@@ -346,7 +346,8 @@ namespace PeaksAndAdventures.Core.Services
 				.Select(mr => new GetAllRoutesViewModel()
 				{
 					Id = mr.Id,
-					Name = mr.Name
+					Name = mr.Name,
+					ImageUrl = mr.ImageUrl
 				})
 				.ToListAsync();
 		}
