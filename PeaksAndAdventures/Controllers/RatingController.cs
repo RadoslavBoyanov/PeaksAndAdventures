@@ -26,11 +26,5 @@ namespace PeaksAndAdventures.Controllers
 			return Ok(averageRating);
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> GetRatingDistributionAsync(int id)
-		{
-			var ratingDistribution = await _ratingService.GetRatingDistributionAsync(id);
-			return Ok(ratingDistribution);
-		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Core.Models.ViewModels.Rating;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
@@ -126,30 +127,54 @@ namespace PeaksAndAdventures.Core.Services
 			return double.Parse(formattedRating);
 		}
 
-		public async Task<Dictionary<int, int>> GetRatingDistributionAsync(int id)
-		{
-			var ratings = _repository.All<Rating>().Where(x => x.RouteId == id || x.TourAgencyId == id || x.MountainGuideId == id).ToList();
-			var ratingDistribution = new Dictionary<int, int>
-			{
-				{ 1, 0 },
-				{ 2, 0 },
-				{ 3, 0 },
-				{ 4, 0 },
-				{ 5, 0 }
-			};
+        public async Task<List<RatingDistributionViewModel>> GetRatingDistributionByGuideAsync(int guideId)
+        {
+            var ratings = await _repository.All<Rating>().Where(x => x.MountainGuideId == guideId).ToListAsync();
+            return CalculateRatingDistribution(ratings);
+        }
 
-			foreach (var rating in ratings)
-			{
-				foreach (var value in rating.Values)
-				{
-					if (ratingDistribution.ContainsKey(value))
-					{
-						ratingDistribution[value]++;
-					}
-				}
-			}
+        public async Task<List<RatingDistributionViewModel>> GetRatingDistributionByAgencyAsync(int agencyId)
+        {
+            var ratings = await _repository.All<Rating>().Where(x => x.TourAgencyId == agencyId).ToListAsync();
+            return CalculateRatingDistribution(ratings);
+        }
 
-			return await Task.FromResult(ratingDistribution);
-		}
-	}
+        public async Task<List<RatingDistributionViewModel>> GetRatingDistributionByRouteAsync(int routeId)
+        {
+            var ratings = await _repository.All<Rating>().Where(x => x.RouteId == routeId).ToListAsync();
+            return CalculateRatingDistribution(ratings);
+        }
+
+        private List<RatingDistributionViewModel> CalculateRatingDistribution(List<Rating> ratings)
+        {
+            var ratingDistribution = InitializeRatingDistribution();
+
+            foreach (var rating in ratings)
+            {
+                foreach (var value in rating.Values)
+                {
+                    var ratingViewModel = ratingDistribution.FirstOrDefault(r => r.Rating == value);
+                    if (ratingViewModel != null)
+                    {
+                        ratingViewModel.Count++;
+                    }
+                }
+            }
+
+            return ratingDistribution;
+        }
+
+        private List<RatingDistributionViewModel> InitializeRatingDistribution()
+        {
+            var ratingDistribution = new List<RatingDistributionViewModel>();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                ratingDistribution.Add(new RatingDistributionViewModel { Rating = i, Count = 0 });
+            }
+
+            return ratingDistribution;
+        }
+
+    }
 }
