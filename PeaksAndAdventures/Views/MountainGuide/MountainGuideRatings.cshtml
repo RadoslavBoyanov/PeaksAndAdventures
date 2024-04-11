@@ -1,0 +1,27 @@
+﻿@model List<RatingDistributionViewModel>
+
+@{
+	ViewData["Title"] = "Rating Distribution";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="rating-distribution">
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Rating</th>
+			<th>Count</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var rating in Model)
+		{
+			<tr>
+				<td>@rating.Rating</td>
+				<td>@rating.Count</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+</div>
