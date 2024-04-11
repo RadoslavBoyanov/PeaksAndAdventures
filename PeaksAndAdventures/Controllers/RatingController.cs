@@ -19,12 +19,6 @@ namespace PeaksAndAdventures.Controllers
 			return RedirectToAction("Details", entityType, new { id = id });
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> GetAverageRatingAsync(int id)
-		{
-			var averageRating = await _ratingService.GetAverageRatingAsync(id);
-			return Ok(averageRating);
-		}
 
 	}
 }

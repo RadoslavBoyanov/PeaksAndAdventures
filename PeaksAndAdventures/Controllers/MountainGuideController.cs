@@ -44,7 +44,7 @@ namespace PeaksAndAdventures.Controllers
 			
 			var mountainGuide = await _mountainGuideService.DetailsAsync(id);
 
-			mountainGuide.Rating =  await _ratingService.GetAverageRatingAsync(id);
+			mountainGuide.Rating =  await _ratingService.GetAverageRatingByGuideAsync(id);
 
 			return View(mountainGuide);
 		}

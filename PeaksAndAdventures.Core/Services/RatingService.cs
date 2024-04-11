@@ -99,33 +99,43 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.SaveChangesAsync();
 		}
 
-		public async Task<double?> GetAverageRatingAsync(int id)
-		{
-			var ratings = _repository.All<Rating>()
-				.Where(x => x.RouteId == id || x.TourAgencyId == id || x.MountainGuideId == id)
-				.ToList(); 
+        public async Task<double?> GetAverageRatingByGuideAsync(int guideId)
+        {
+            var ratings = await _repository.All<Rating>().Where(x => x.MountainGuideId == guideId).ToListAsync();
+            return CalculateAverageRating(ratings);
+        }
 
-			if (!ratings.Any())
-			{
-				return null;
-			}
+        public async Task<double?> GetAverageRatingByAgencyAsync(int agencyId)
+        {
+            var ratings = await _repository.All<Rating>().Where(x => x.TourAgencyId == agencyId).ToListAsync();
+            return CalculateAverageRating(ratings);
+        }
 
-			
-			var totalRatingCount = ratings.Sum(r => r.Values?.Count ?? 0);
+        public async Task<double?> GetAverageRatingByRouteAsync(int routeId)
+        {
+            var ratings = await _repository.All<Rating>().Where(x => x.RouteId == routeId).ToListAsync();
+            return CalculateAverageRating(ratings);
+        }
 
-			if (totalRatingCount == 0)
-			{
-				return null;
-			}
+        private double? CalculateAverageRating(List<Rating> ratings)
+        {
+            if (!ratings.Any())
+            {
+                return null;
+            }
 
-			
-			var totalRatingSum = ratings.Sum(r => r.Values?.Sum() ?? 0);
+            var totalRatingCount = ratings.Sum(r => r.Values?.Count ?? 0);
 
-			
-			double averageRating = (double)totalRatingSum / totalRatingCount;
-			string formattedRating = averageRating.ToString("F2");
-			return double.Parse(formattedRating);
-		}
+            if (totalRatingCount == 0)
+            {
+                return null;
+            }
+
+            var totalRatingSum = ratings.Sum(r => r.Values?.Sum() ?? 0);
+            double averageRating = (double)totalRatingSum / totalRatingCount;
+            return Math.Round(averageRating, 2);
+        }
+
 
         public async Task<List<RatingDistributionViewModel>> GetRatingDistributionByGuideAsync(int guideId)
         {

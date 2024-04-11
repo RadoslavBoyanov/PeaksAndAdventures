@@ -76,7 +76,7 @@ namespace PeaksAndAdventures.Controllers
 				return NotFound();
 			}
 
-			tourAgency.Rating = await _ratingService.GetAverageRatingAsync(id);
+			tourAgency.Rating = await _ratingService.GetAverageRatingByAgencyAsync(id);
 
 			return View(tourAgency);
 		}

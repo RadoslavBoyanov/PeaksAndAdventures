@@ -108,7 +108,7 @@ namespace PeaksAndAdventures.Controllers
 				return NotFound();
 			}
 			var route = await _routeService.DetailsAsync(id);
-			route.Rating = await _ratingService.GetAverageRatingAsync(id);
+			route.Rating = await _ratingService.GetAverageRatingByRouteAsync(id);
 
 			return View(route);
 		}
