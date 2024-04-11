@@ -18,5 +18,6 @@
 	        "Неуспешно добавяне на маршрут към планинския водач. Моля, уверете се, че планинският водач и маршрутът съществуват.";
         public const string DurationFormatIsWrong = "Невалиден формат. Форматът трябва да бъде 'дни.часове:минути'.";
         public const string CantDeleteTourAgencyBecauseOfExpeditionParticipant = "Изтриването на експедицията е неуспешно, тъй като има участници в нея. Моля, уведомете или отпишете участниците преди да продължите.";
+        public const string YouCanVoteOnlyOnce = "Вече сте гласували!";
 	}
 }
