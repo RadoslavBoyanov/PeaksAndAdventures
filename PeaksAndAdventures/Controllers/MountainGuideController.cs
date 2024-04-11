@@ -44,7 +44,7 @@ namespace PeaksAndAdventures.Controllers
 			
 			var mountainGuide = await _mountainGuideService.DetailsAsync(id);
 
-			mountainGuide.Rating =  await _ratingService.GetAverageRatingAsync(id);
+			mountainGuide.Rating =  await _ratingService.GetAverageRatingByGuideAsync(id);
 
 			return View(mountainGuide);
 		}
@@ -133,7 +133,7 @@ namespace PeaksAndAdventures.Controllers
 		        return NotFound();
 	        }
 
-	        if (deleteMountainGuide.OwnerId != ClaimsPrincipalExtensions.Id(User))
+	        if (deleteMountainGuide.OwnerId != User.Id())
 	        {
 		        return Unauthorized();
 	        }
@@ -251,6 +251,17 @@ namespace PeaksAndAdventures.Controllers
 			var allMountains = await _mountainGuideService.GetAllMountainsAsync(id);
 			return View(allMountains);
 		}
+
+        [HttpGet]
+        public async Task<IActionResult> MountainGuideRatings(int id)
+        {
+            if (!await _mountainGuideService.CheckIfExistMountainGuideByIdAsync(id))
+            {
+                return BadRequest();
+            }
+            var rating = await _ratingService.GetRatingDistributionByGuideAsync(id);
+            return View(rating);
+        }
 
 	}
 }

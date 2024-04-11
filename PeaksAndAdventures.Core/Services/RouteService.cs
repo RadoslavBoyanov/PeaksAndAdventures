@@ -5,6 +5,7 @@ using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 using PeaksAndAdventures.Core.Models.ViewModels.Peak;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
+using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data.Common;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
@@ -408,7 +409,7 @@ namespace PeaksAndAdventures.Core.Services
 				Name = route.Name,
 				StartingPoint = route.StartingPoint,
 				Description = route.Description,
-				Difficulty = route.Difficulty.ToString(),
+				Difficulty = route.Difficulty.GetDisplayName(),
 				DisplacementPositive = route.DisplacementPositive,
 				DisplacementNegative = route.DisplacementNegative,
 				Duration = route.Duration,

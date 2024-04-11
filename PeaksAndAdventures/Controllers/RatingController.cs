@@ -1,36 +1,78 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
+using PeaksAndAdventures.Extensions;
+using static PeaksAndAdventures.Common.Constants;
+using static PeaksAndAdventures.Common.ErrorMessages;
+using static PeaksAndAdventures.Extensions.CookieHelper;
 
 namespace PeaksAndAdventures.Controllers
 {
 	public class RatingController : Controller
 	{
 		private readonly IRatingService _ratingService;
+		private readonly IRouteService _routeService;
+		private readonly ITourAgencyService _tourAgencyService;
+		private readonly IMountainGuideService _mountainGuideService;
 
-		public RatingController(IRatingService ratingService)
+		public RatingController(
+			IRatingService ratingService,
+			IRouteService routeService,
+			ITourAgencyService tourAgencyService,
+			IMountainGuideService mountainGuideService)
 		{
 			_ratingService = ratingService;
+			_routeService = routeService;
+			_tourAgencyService = tourAgencyService;
+			_mountainGuideService = mountainGuideService;
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddRatingAsync(int id, string entityType , int value)
+		public async Task<IActionResult> AddRatingAsync(int id, string entityType, int value)
 		{
+			if (entityType == TourAgencyConst)
+			{
+				if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+				{
+					return NotFound();
+				}
+			}
+
+			if (entityType == RouteConst)
+			{
+				if (!await _routeService.CheckIfExistRouteById(id))
+				{
+					return NotFound();
+				}
+			}
+
+			if (entityType == MountainGuideConst)
+			{
+				if (!await _mountainGuideService.CheckIfExistMountainGuideByIdAsync(id))
+				{
+					return NotFound();
+				}
+			}
+
+			string userId = User.Id();
+			string cookieNameHash = CalculateHash($"{userId}_{entityType}_{id}");
+
+			if (HttpContext.Request.Cookies[cookieNameHash] != null)
+			{
+				return BadRequest(YouCanVoteOnlyOnce);
+			}
+
+			HttpContext.Response.Cookies.Append(cookieNameHash, "true", new CookieOptions
+			{
+				Expires = DateTime.UtcNow.AddDays(7),
+				HttpOnly = true,
+				SameSite = SameSiteMode.Strict,
+				Secure = true
+			});
+
 			await _ratingService.AddRatingAsync(id, entityType, (int)value);
 			return RedirectToAction("Details", entityType, new { id = id });
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> GetAverageRatingAsync(int id)
-		{
-			var averageRating = await _ratingService.GetAverageRatingAsync(id);
-			return Ok(averageRating);
-		}
 
-		[HttpGet]
-		public async Task<IActionResult> GetRatingDistributionAsync(int id)
-		{
-			var ratingDistribution = await _ratingService.GetRatingDistributionAsync(id);
-			return Ok(ratingDistribution);
-		}
 	}
 }

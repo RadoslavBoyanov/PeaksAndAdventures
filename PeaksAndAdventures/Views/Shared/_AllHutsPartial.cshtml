@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="~/css/Hut/allStyle.css" />
 
-@if (Model != null && Model.Count() > 0)
+@if (Model.Any())
 {
 	<div class="row">
 		@foreach (var hut in Model)

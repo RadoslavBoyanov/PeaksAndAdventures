@@ -1,7 +1,6 @@
 ﻿using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
 using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
 using PeaksAndAdventures.Core.Models.ViewModels.Route;
-using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Core.Interfaces
 {
@@ -19,7 +18,7 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<int> EditPostAsync(MountainGuideEditViewModel mountainGuideEdit);
 		Task<MountainGuideAddRouteViewModel> GetMountainGuideAddRouteAsync(int mountainGuideId);
 		Task<MountainGuideAddMountainViewModel> GetMountainGuideAddMountainAsync(int mountainGuideId);
-		Task<IEnumerable<GetAllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId);
+		Task<IEnumerable<AllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId);
 		Task<IEnumerable<GetAllRoutesViewModel>> GetAllRoutesAsync(int mountainGuideId);
 	}
 }

@@ -324,15 +324,16 @@ namespace PeaksAndAdventures.Core.Services
 			return viewModel;
 		}
 
-		public async Task<IEnumerable<GetAllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId)
+		public async Task<IEnumerable<AllMountainsViewModel>> GetAllMountainsAsync(int mountainGuideId)
 		{
 			return await _repository
 				.AllReadOnly<Mountain>()
 				.Where(m => m.MountaineersMountains.Any(mm => mm.MountainGuideId == mountainGuideId))
-				.Select(mm => new GetAllMountainsViewModel()
+				.Select(mm => new AllMountainsViewModel()
 				{
 					Id = mm.Id,
-					Name = mm.Name
+					Name = mm.Name,
+					ImageUrls = mm.ImageUrls
 				})
 				.ToListAsync();
 		}
@@ -345,7 +346,8 @@ namespace PeaksAndAdventures.Core.Services
 				.Select(mr => new GetAllRoutesViewModel()
 				{
 					Id = mr.Id,
-					Name = mr.Name
+					Name = mr.Name,
+					ImageUrl = mr.ImageUrl
 				})
 				.ToListAsync();
 		}

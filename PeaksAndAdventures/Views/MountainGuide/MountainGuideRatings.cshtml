@@ -1,0 +1,10 @@
+﻿@model List<RatingDistributionViewModel>
+
+@{
+	ViewData["Title"] = "Дистрибуция на оценките на планинския водач";
+}
+
+<h4 class="text-center">@ViewData["Title"]</h4>
+<hr/>
+
+@await Html.PartialAsync("_DistributionRatingsPartial", Model)

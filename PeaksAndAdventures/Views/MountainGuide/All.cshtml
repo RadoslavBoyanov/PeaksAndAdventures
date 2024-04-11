@@ -8,20 +8,4 @@
 
 <hr />
 
-<link rel="stylesheet" href="~/css/MountainGuide/allStyle.css" />
-
-<div class="row">
-	@if (Model != null && Model.Count() > 0)
-	{
-		@foreach (var mountainGuide in Model)
-		{
-			<div class="card">
-				<img src="@mountainGuide.ImageUrl" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">@mountainGuide.FirstName @mountainGuide.LastName</h5>
-					<a asp-controller="MountainGuide" asp-action="Details" asp-route-id="@mountainGuide.Id" class="btn btn-primary btn-group-sm fw-bold">Информация</a>
-				</div>
-			</div>
-		}
-	}
-</div>
+@await Html.PartialAsync("_AllMountainGuidesPartial")

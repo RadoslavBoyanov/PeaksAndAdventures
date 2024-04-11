@@ -1,0 +1,95 @@
+﻿body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding-bottom: 40px;
+    background-color: #f4f4f4;
+}
+
+.card {
+    margin-bottom: 20px;
+    background-color: snow;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 5px;
+    border-image-repeat : round;
+    image-rendering: auto;
+}
+
+.card-title{
+    font-size: 32px;
+    color: gold;
+    padding-bottom: 10px;
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.card-text{
+    font-size: 18px;
+    padding: 5px;
+    line-height: 1.5;
+    color: #333;    
+}
+
+.card-text > span{
+    font-style: italic;
+    font-weight: 100;
+}
+
+.rating {
+    display: inline-block;
+    font-size: 24px;
+}
+
+    .rating input[type="radio"] {
+        display: none;
+    }
+
+    .rating label {
+        color: #ddd;
+        float: right;
+    }
+
+    .rating input[type="radio"]:checked ~ label {
+        color: #ffcc00;
+    }
+
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input[type="radio"]:checked ~ label {
+            color: #ffc107;
+        }
+
+.buttons-manipulation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: darkblue;
+        border-color: #0056b3;
+}
+
+.btn-danger{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        color: #fff;
+        background-color: darkred;
+        border-color: #bd2130;
+    }

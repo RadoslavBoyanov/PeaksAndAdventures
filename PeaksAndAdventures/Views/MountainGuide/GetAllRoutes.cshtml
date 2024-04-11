@@ -4,19 +4,17 @@
 	ViewBag.Title = "Всички маршрути на планинския водач";
 }
 
-<h3>@ViewBag.Title</h3>
+<h3 class="text-center">@ViewBag.Title</h3>
 <hr/>
 
-@if (Model != null && Model.Any())
+
+@if (Model.Any())
 {
-	<ul>
-		@foreach (var route in Model)
-		{
-			<li>
-				<a href="@Url.Action("Details", "Route", new { id = route.Id })">@route.Name</a>
-			</li>
-		}
-	</ul>
+	@await Html.PartialAsync("_AllRoutesPartial")
+}
+else
+{
+	<p class="text-danger text-lg-center">Няма записани маршрути!</p>
 }
 	
 
