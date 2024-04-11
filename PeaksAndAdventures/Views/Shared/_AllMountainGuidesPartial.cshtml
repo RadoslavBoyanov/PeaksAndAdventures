@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MountainGuideAllViewModel>
+
+<link rel="stylesheet" href="~/css/MountainGuide/allStyle.css" />
+
+@if (Model != null && Model.Count() > 0)
+{
+	<div class="row">
+		@foreach (var mountainGuide in Model)
+		{
+			<div class="card">
+				<img src="@mountainGuide.ImageUrl" class="card-img-top rounded-circle" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">@mountainGuide.FirstName @mountainGuide.LastName</h5>
+					<a asp-controller="MountainGuide" asp-action="Details" asp-route-id="@mountainGuide.Id" class="btn btn-primary btn-group-sm fw-bold">Информация</a>
+				</div>
+			</div>
+		}
+	</div>
+}
