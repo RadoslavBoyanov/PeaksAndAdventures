@@ -5,7 +5,7 @@ namespace PeaksAndAdventures
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 	        
@@ -16,7 +16,6 @@ namespace PeaksAndAdventures
             {
                 options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
             });
-
             builder.Services.AddApplicationServices();
 
             var app = builder.Build();
@@ -44,7 +43,9 @@ namespace PeaksAndAdventures
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
-            app.Run();
+            await app.ConfigureRolesAndAdmin();
+
+            await app.RunAsync();
         }
     }
 }
