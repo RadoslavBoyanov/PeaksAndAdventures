@@ -5,7 +5,7 @@ using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class RouteController : Controller
+	public class RouteController : BaseController
 	{
 		private readonly IRouteService _routeService;
 		private readonly IMountainService _mountainService;
