@@ -1,0 +1,92 @@
+﻿body {
+    background-image: url('/Img/Home/header-pic.jpg');
+    background-size: cover;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+text-align: center;
+    color: white;
+    margin-top: 50px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+h3{
+text-align: center;
+    color: white;
+    margin-top: 24px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid white;
+}
+
+#registerForm {
+}
+
+.form-floating {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+    .form-floating input {
+        width: 100%;
+        height: 40px;
+        padding: 0 10px;
+        font-size: 22px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+        .form-floating input:focus {
+            outline: none;
+            border: 1px solid #007bff;
+        }
+
+    .form-floating label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        font-size: 20px;
+        color: #666;
+        pointer-events: none;
+        transition: .3s;
+    }
+
+#account > div:nth-child(5) > div{
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#account > div:nth-child(7) > p {
+    margin-top: 10px;
+}
+
+    #account > div:nth-child(7) > p > a {
+        color: white;
+    }
+
+        #account > div:nth-child(7) > p > a:hover {
+            background-color: lightskyblue;
+            color: snow;
+            transition: 0.5s ease;
+        }
+
+#login-submit:hover {
+    background-color: lightskyblue;
+    color: snow;
+    transition: 0.5s ease;
+}
+
+#registerSubmit:hover {
+    background-color: lightskyblue;
+    color: snow;
+    transition: 0.5s ease;
+}

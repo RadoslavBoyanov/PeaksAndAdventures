@@ -49,6 +49,7 @@ namespace PeaksAndAdventures.Extensions
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<PeaksAndAdventuresDbContext>();
 
             return services;
