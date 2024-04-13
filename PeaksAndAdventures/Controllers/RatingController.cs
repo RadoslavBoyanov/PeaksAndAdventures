@@ -73,6 +73,37 @@ namespace PeaksAndAdventures.Controllers
 			return RedirectToAction("Details", entityType, new { id = id });
 		}
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteRatings(int id, string entityType)
+        {
+            if (entityType == TourAgencyConst)
+            {
+                if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+                {
+                    return NotFound();
+                }
+            }
+
+            if (entityType == RouteConst)
+            {
+                if (!await _routeService.CheckIfExistRouteById(id))
+                {
+                    return NotFound();
+                }
+            }
+
+            if (entityType == MountainGuideConst)
+            {
+                if (!await _mountainGuideService.CheckIfExistMountainGuideByIdAsync(id))
+                {
+                    return NotFound();
+                }
+            }
+
+            await _ratingService.DeleteRatings(id, entityType);
+            return RedirectToAction("Details", entityType, new { id = id });
+        }
+
 
 	}
 }

@@ -5,14 +5,10 @@
 }
 
 
-@Html.Partial("_AllHutsPartial", Model)
+@await Html.PartialAsync("_AllHutsPartial", Model)
 
 <p>
 	@Html.ActionLink("Върни се към всички планини", "All", "Mountain")
 </p>
 
 				
-				
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}

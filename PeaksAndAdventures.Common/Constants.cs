@@ -26,5 +26,13 @@
 		public const string AmateurMountaineerRole = "AmatuerMountaineer";
 		public const string MountaineerRole = "Mountaineer";
 		public const string TourAgencyRole = "TourAgency";
-    }
+
+
+		/// <summary>
+		/// Constants for the emails in the application
+		/// </summary>
+		public const string MountaineerEmail = "climber@mail.com";
+		public const string AmateurMountaineerEmail = "steph@mail.com";
+		public const string TourAgencyEmail = "hikers@mail.com";
+	}
 }

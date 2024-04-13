@@ -11,5 +11,6 @@ namespace PeaksAndAdventures.Core.Interfaces
         Task<List<RatingDistributionViewModel>> GetRatingDistributionByAgencyAsync(int agencyId);
         Task<List<RatingDistributionViewModel>> GetRatingDistributionByGuideAsync(int guideId);
         Task<List<RatingDistributionViewModel>> GetRatingDistributionByRouteAsync(int routeId);
+        Task DeleteRatings (int id, string entityType);
     }
 }

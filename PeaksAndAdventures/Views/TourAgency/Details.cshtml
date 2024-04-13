@@ -18,6 +18,14 @@
 		<p class="card-text">
 			<strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)
 			<a asp-controller="TourAgency" asp-action="AgencyRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
+			@if (User.IsInRole(AdminRole))
+			{
+				<form method="post" action="@Url.Action("DeleteRatings", "Rating")">
+					<input type="hidden" name="id" value="@Model.Id" />
+					<input type="hidden" name="entityType" value="TourAgency" />
+					<button type="submit">Изтрий оценките</button>
+				</form>
+			}
 		</p>
 		@if (User.Id() != Model.OwnerId)
 			{
@@ -43,7 +51,7 @@
 		<p class="navigation"><a asp-controller="TourAgency" asp-action="AllExpeditionsInAgency" asp-route-id="@Model.Id">Експедиции прелагани от агенцията</a></p>
 	</div>
 
-	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OwnerId)
+	@if (User.Identity.IsAuthenticated && User.Id() == Model.OwnerId || User.IsInRole(AdminRole))
 	{
 		<div class="card-footer d-flex justify-content-center">
 			<a asp-controller="TourAgency" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>

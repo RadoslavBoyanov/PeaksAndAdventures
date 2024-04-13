@@ -1,60 +1,57 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Infrastructure.Data.Configurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
-    {
-        public void Configure(EntityTypeBuilder<IdentityUser> builder)
-        {
+	public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
+	{
+		public void Configure(EntityTypeBuilder<IdentityUser> builder)
+		{
+			builder.HasData(GenerateUsers());
+		}
 
-            builder.HasData(GenerateUsers());
-        }
+		private IEnumerable<IdentityUser> GenerateUsers()
+		{
 
-        private IEnumerable<IdentityUser> GenerateUsers()
-        {
-            ICollection<IdentityUser> users = new HashSet<IdentityUser>();
+			var users = new List<IdentityUser>();
+			var hasher = new PasswordHasher<IdentityUser>();
 
-            var hasher = new PasswordHasher<IdentityUser>();
+			var mountaineerUser = new IdentityUser
+			{
+				Id = "0d59049e-81f2-48f1-abb2-a5fd09bc210f",
+				UserName = "climber@mail.com",
+				NormalizedUserName = "CLIMBER@MAIL.COM",
+				Email = "climber@mail.com",
+				NormalizedEmail = "CLIMBER@MAIL.COM"
+			};
+			mountaineerUser.PasswordHash = hasher.HashPassword(mountaineerUser, "climb1!");
+			users.Add(mountaineerUser);
 
-            var mountaineerUser = new IdentityUser()
-            {
-                Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                UserName = "mountaineer@mail.com",
-                NormalizedUserName = "mountaineer@mail.com",
-                Email = "mountaineer@mail.com",
-                NormalizedEmail = "mountaineer@mail.com"
-            };
-            users.Add(mountaineerUser);
+			var tourAgencyUser = new IdentityUser
+			{
+				Id = "007b397f-9a3d-48d5-a8e4-ad00bbc43326",
+				UserName = "hikers@mail.com",
+				NormalizedUserName = "HIKERS@MAIL.COM",
+				Email = "hikers@mail.com",
+				NormalizedEmail = "HIKERS@MAIL.COM"
+			};
+			tourAgencyUser.PasswordHash = hasher.HashPassword(tourAgencyUser, "Hik1");
+			users.Add(tourAgencyUser);
 
-            mountaineerUser.PasswordHash = hasher.HashPassword(mountaineerUser, "mountainGuide99");
+			var tourist = new IdentityUser
+			{
+				Id = "1e03c155-39f3-4713-897e-6dd625681add",
+				UserName = "steph@mail.com",
+				NormalizedUserName = "STEPH@MAIL.COM",
+				Email = "steph@mail.com",
+				NormalizedEmail = "STEPH@MAIL.COM"
+			};
+			tourist.PasswordHash = hasher.HashPassword(tourist, "Steph30");
+			users.Add(tourist);
 
-            var tourAgencyUser = new IdentityUser()
-            {
-                Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                UserName = "climbаndhike@mail.com",
-                NormalizedUserName = "climbаndhike@mail.com",
-                Email = "climbаndhike@mail.com",
-                NormalizedEmail = "climbаndhike@mail.com"
-            };
-            users.Add(tourAgencyUser);
-
-            tourAgencyUser.PasswordHash = hasher.HashPassword(tourAgencyUser, "tourAgency1");
-
-            var tourist = new IdentityUser()
-            {
-                Id = "2r2410ce-d421-0fc0-03d7-m6n3hk1f591e",
-                UserName = "tourist@mail.com",
-                NormalizedUserName = "tourist@mail.com",
-                Email = "tourist@mail.com",
-                NormalizedEmail = "tourist@mail.com"
-            };
-            users.Add(tourist);
-
-            tourist.PasswordHash = hasher.HashPassword(tourist, "tourist00");
-
-            return users;
-        }
-    }
+			return users;
+		}
+	}
 }

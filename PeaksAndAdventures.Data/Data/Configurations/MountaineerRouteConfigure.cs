@@ -37,19 +37,19 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             mountaineerRoutes.Add(new MountaineerRoute()
             {
                 RouteId = 2,
-                MountainGuideId = 1
+                MountainGuideId = 8
             });
 
             mountaineerRoutes.Add(new MountaineerRoute()
             {
                 RouteId = 6,
-                MountainGuideId = 1
+                MountainGuideId = 8
             });
 
             mountaineerRoutes.Add(new MountaineerRoute()
             {
                 RouteId = 8,
-                MountainGuideId = 1
+                MountainGuideId = 8
             });
 
             return mountaineerRoutes.ToArray();

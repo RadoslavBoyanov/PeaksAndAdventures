@@ -23,9 +23,9 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
 
             expeditionParticipants.Add(new ExpeditionParticipant()
             {
-                ExpeditionId = 1,
-                ParticipantId = "2r2410ce-d421-0fc0-03d7-m6n3hk1f591e"
-            });
+                ExpeditionId = 5,
+                ParticipantId = "1e03c155-39f3-4713-897e-6dd625681add"
+			});
 
             return expeditionParticipants.ToArray();
         }
