@@ -33,6 +33,14 @@
 		<p class="card-text">
 			<strong>Оценка:</strong> @(Model.Rating is null ? "Не е оценяван все още" : Model.Rating)
 			<a asp-controller="Route" asp-action="RouteRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
+			@if (User.IsInRole(AdminRole))
+			{
+				<form method="post" action="@Url.Action("DeleteRatings", "Rating")">
+					<input type="hidden" name="id" value="@Model.Id" />
+					<input type="hidden" name="entityType" value="Route" />
+					<button type="submit">Изтрий оценките</button>
+				</form>
+			}
 		</p>
 		<form asp-controller="Rating" asp-action="AddRating" method="post">
 			<input type="hidden" name="id" value="@Model.Id"/>
