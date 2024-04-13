@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Rating;
 using PeaksAndAdventures.Infrastructure.Data.Common;
@@ -153,6 +154,38 @@ namespace PeaksAndAdventures.Core.Services
         {
             var ratings = await _repository.All<Rating>().Where(x => x.RouteId == routeId).ToListAsync();
             return CalculateRatingDistribution(ratings);
+        }
+
+        public async Task DeleteRatings(int id, string entityType)
+        {
+            if (entityType == "Route")
+            {
+               var ratings = await _repository.All<Rating>().Where(x => x.RouteId == id).ToListAsync();
+               foreach (var rating in ratings)
+               {
+                    _repository.Delete(rating);
+                }
+            }
+
+            if (entityType == "TourAgency")
+            {
+               var ratings = await _repository.All<Rating>().Where(x => x.TourAgencyId == id).ToListAsync();
+               foreach (var rating in ratings)
+               {
+                      _repository.Delete(rating);
+                }
+            }
+
+            if (entityType == "MountainGuide")
+            {
+                var ratings = await _repository.All<Rating>().Where(x => x.MountainGuideId == id).ToListAsync();
+                foreach (var rating in ratings)
+                {
+                    _repository.Delete(rating);
+                }
+            }
+
+            await _repository.SaveChangesAsync();
         }
 
         private List<RatingDistributionViewModel> CalculateRatingDistribution(List<Rating> ratings)
