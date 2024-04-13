@@ -38,19 +38,19 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
             mountaineerMountains.Add(new MountaineerMountain()
             {
                 MountainId = 2,
-                MountainGuideId = 1
+                MountainGuideId = 8
             });
 
             mountaineerMountains.Add(new MountaineerMountain()
             {
                 MountainId = 6,
-                MountainGuideId = 1
+                MountainGuideId = 8
             });
 
             mountaineerMountains.Add(new MountaineerMountain()
             {
                 MountainId = 7,
-                MountainGuideId = 1
+                MountainGuideId = 8
             });
 
             return mountaineerMountains.ToArray();

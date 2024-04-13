@@ -23,14 +23,14 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
 
             mountainGuides.Add(new MountainGuide()
             {
-                Id = 1,
-                Email = "mountaineer@mail.com",
+                Id = 8,
+                Email = "climber@mail.com",
                 Experience = 7,
-                FirstName = "Momchil",
-                LastName = "Panayotov",
+                FirstName = "Илия",
+                LastName = "Петканов",
                 Phone = "0895123456",
-                TourAgencyId = 1,
-                OwnerId = "dea12856-c198-4129-b3f3-b893d8395082",
+                TourAgencyId = 4,
+                OwnerId = "0d59049e-81f2-48f1-abb2-a5fd09bc210f",
             });
 
             return mountainGuides.ToArray();

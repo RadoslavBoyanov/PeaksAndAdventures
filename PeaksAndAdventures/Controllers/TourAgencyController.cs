@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.TourAgency;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class TourAgencyController : BaseController
+	[Authorize(Roles = AdminRole)]
+	public class TourAgencyController : BaseController
 	{
 		private readonly ITourAgencyService _tourAgencyService;
 		private readonly IRatingService _ratingService;
@@ -67,6 +70,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+
 		public async Task<IActionResult> Details(int id)
 		{
 			var tourAgency = await _tourAgencyService.DetailsAsync(id);
@@ -91,7 +95,7 @@ namespace PeaksAndAdventures.Controllers
 				return NotFound();
 			}
 
-			if (tourAgency.OwnerId != User.Id())
+			if (tourAgency.OwnerId != User.Id() && !User.IsInRole(AdminRole))
 			{
 				return Unauthorized();
 			}
@@ -100,6 +104,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = AdminRole)]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			var isExistTourAgency = await _tourAgencyService.CheckIfExistTourAgencyById(id);
@@ -110,7 +115,7 @@ namespace PeaksAndAdventures.Controllers
 			}
 
 			var agency = await _tourAgencyService.DetailsAsync(id);
-			if (agency.OwnerId != User.Id())
+			if (agency.OwnerId != User.Id() && !User.IsInRole(AdminRole))
 			{
 				return Unauthorized();
 			}
