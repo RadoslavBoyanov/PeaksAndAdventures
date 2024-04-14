@@ -6,21 +6,21 @@
     padding: 0;
 }
 
-h1{
-text-align: center;
+h1 {
+    text-align: center;
     color: white;
     margin-top: 50px;
     text-shadow: 2px 2px 4px #000000;
 }
 
-h3{
-text-align: center;
+h3 {
+    text-align: center;
     color: white;
     margin-top: 24px;
     text-shadow: 2px 2px 4px #000000;
 }
 
-hr{
+hr {
     margin-top: 10px;
     margin-bottom: 10px;
     border: 2px solid white;
@@ -44,7 +44,7 @@ hr{
     }
 
         .form-floating input:focus {
-            outline: none;
+            outline:;
             border: 1px solid #007bff;
         }
 
@@ -59,7 +59,18 @@ hr{
         transition: .3s;
     }
 
-#account > div:nth-child(5) > div{
+.form-group {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.form-group label{
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+
+#account > div:nth-child(5) > div {
     font-weight: bold;
     color: white;
     text-shadow: 2px 2px 4px #000000;
