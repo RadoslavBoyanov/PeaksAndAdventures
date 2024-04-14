@@ -16,7 +16,8 @@ namespace PeaksAndAdventures.Core.Interfaces
         Task<IEnumerable<TourAgencyGetViewModel>> GetAllTourAgenciesAsync();
         Task<TourAgencyGetViewModel?> GetTourAgencyByNameAsync(string tourAgencyName);
 		Task<IEnumerable<ExpeditionAllViewModel>> GetExpeditionsInAgencyAsync(int tourAgencyId);
-        Task<bool> CheckIfExistTourAgencyByName(string tourAgencyName);
-		Task<bool> CheckIfExistTourAgencyById(int tourAgencyId);
+        Task<bool> CheckIfExistTourAgencyByNameAsync(string tourAgencyName);
+		Task<bool> CheckIfExistTourAgencyByIdAsync(int tourAgencyId);
+		Task<bool> CheckIfExistTourAgencyByOwnerIdAsync(string ownerId);
     }
 }

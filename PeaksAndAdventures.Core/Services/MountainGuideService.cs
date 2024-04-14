@@ -123,6 +123,12 @@ namespace PeaksAndAdventures.Core.Services
 				.AnyAsync(mg => mg.Id == mountainGuideId);
 		}
 
+		public async Task<bool> CheckIfExistMountainGuideByOwnerIdAsync(string ownerId)
+		{
+			return await _repository.AllReadOnly<MountainGuide>()
+				.AnyAsync(mg => mg.OwnerId == ownerId);
+		}
+
 		public async Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.AllReadOnly<MountainGuide>()

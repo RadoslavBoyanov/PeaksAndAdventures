@@ -105,6 +105,13 @@ namespace PeaksAndAdventures.Controllers
 		[Authorize(Roles = MountaineerRole)]
         public async Task<IActionResult> Add()
         {
+			var isExistingGuideProfile = await _mountainGuideService.CheckIfExistMountainGuideByOwnerIdAsync(User.Id());
+			if (isExistingGuideProfile)
+			{
+				TempData["Message"] = YouHaveAlreadyMountaineerProfile;
+				return RedirectToAction("Index", "Home");
+			}
+
             var mountainGuide = new MountainGuideAddViewModel()
             {
                 TourAgencies = await _tourAgencyService.GetAllTourAgenciesAsync()

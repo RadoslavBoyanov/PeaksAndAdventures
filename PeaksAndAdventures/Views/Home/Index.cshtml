@@ -3,6 +3,12 @@
 }
 
 <link rel="stylesheet" href="~/css/Home/index.css" />
+@if (TempData["Message"] != null)
+{
+	<div class="alert alert-danger">
+		@TempData["Message"]
+	</div>
+}
 
 <div class="text-center header-container">
 	<h1 class="display-4 text-white">Welcome!</h1>

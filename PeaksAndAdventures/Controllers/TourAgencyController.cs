@@ -13,7 +13,7 @@ namespace PeaksAndAdventures.Controllers
 		private readonly ITourAgencyService _tourAgencyService;
 		private readonly IRatingService _ratingService;
 
-		public TourAgencyController(ITourAgencyService tourAgencyService, 
+		public TourAgencyController(ITourAgencyService tourAgencyService,
 			IRatingService ratingService)
 		{
 			_tourAgencyService = tourAgencyService;
@@ -43,19 +43,26 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
-		[Authorize(Roles = $"{TourAgencyRole}, {AdminRole}")]
+		[Authorize(Roles = TourAgencyRole)]
 		public async Task<IActionResult> Add()
 		{
+			var isExistingAgencyByOwnerId = await _tourAgencyService.CheckIfExistTourAgencyByOwnerIdAsync(User.Id());
+			if (isExistingAgencyByOwnerId)
+			{
+				TempData["Message"] = YouHaveAlreadyAgencyProfile;
+				return RedirectToAction("Index", "Home");
+			}
+
 			var tourAgency = new TourAgencyAddViewModel();
 
 			return View(tourAgency);
 		}
 
 		[HttpPost]
-		[Authorize(Roles = $"{TourAgencyRole}, {AdminRole}")]
+		[Authorize(Roles = TourAgencyRole)]
 		public async Task<IActionResult> Add(TourAgencyAddViewModel tourAgencyForm)
 		{
-			if (await _tourAgencyService.CheckIfExistTourAgencyByName(tourAgencyForm.Name))
+			if (await _tourAgencyService.CheckIfExistTourAgencyByNameAsync(tourAgencyForm.Name))
 			{
 				ModelState.AddModelError(nameof(tourAgencyForm.Name), AgencyWithThisNameIsExist);
 				return View(tourAgencyForm);
@@ -108,7 +115,7 @@ namespace PeaksAndAdventures.Controllers
 		[Authorize(Roles = AdminRole)]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			var isExistTourAgency = await _tourAgencyService.CheckIfExistTourAgencyById(id);
+			var isExistTourAgency = await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id);
 
 			if (!isExistTourAgency)
 			{
@@ -130,14 +137,14 @@ namespace PeaksAndAdventures.Controllers
 			}
 
 			TempData["DeleteAgencySuccess"] = message;
-			
+
 			return View("DeleteConfirmed");
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
-			if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+			if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
 			{
 				return NotFound();
 			}
@@ -177,7 +184,7 @@ namespace PeaksAndAdventures.Controllers
 		[HttpGet]
 		public async Task<IActionResult> AgencyRatings(int id)
 		{
-			if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+			if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
 			{
 				return BadRequest();
 			}

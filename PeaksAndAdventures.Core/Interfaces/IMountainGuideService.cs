@@ -10,7 +10,8 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<IEnumerable<MountainGuideAllViewModel>> AllAsync();
 		Task<bool> AddRouteToMountainGuideAsync(int mountainGuideId, int routeId, string ownerId);
 		Task<bool> AddMountainToMountainGuideAsync(int id, int mountainId, string ownerId);
-		Task<bool> CheckIfExistMountainGuideByIdAsync(int mountainGuideId); 
+		Task<bool> CheckIfExistMountainGuideByIdAsync(int mountainGuideId);
+		Task<bool> CheckIfExistMountainGuideByOwnerIdAsync(string ownerId);
 		Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId);
 		Task<MountainGuideDeleteViewModel> DeleteGetAsync(int mountainGuideId);
 		Task<int> DeleteConfirmedAsync(int mountainGuideId);

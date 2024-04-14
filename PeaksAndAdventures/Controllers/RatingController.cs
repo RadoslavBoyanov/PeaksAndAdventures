@@ -32,7 +32,7 @@ namespace PeaksAndAdventures.Controllers
 		{
 			if (entityType == TourAgencyConst)
 			{
-				if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+				if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
 				{
 					return NotFound();
 				}
@@ -80,7 +80,7 @@ namespace PeaksAndAdventures.Controllers
         {
             if (entityType == TourAgencyConst)
             {
-                if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+                if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
                 {
                     return NotFound();
                 }
