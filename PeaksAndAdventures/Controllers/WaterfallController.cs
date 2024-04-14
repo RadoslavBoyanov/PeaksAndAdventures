@@ -2,16 +2,59 @@
 using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
+using static PeaksAndAdventures.Common.Constants;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class WaterfallController : BaseController
+	public class WaterfallController : BaseController
 	{
 		private readonly IWaterfallService _waterfallService;
+		private readonly IMountainService _mountainService;
 
-		public WaterfallController(IWaterfallService waterfallService)
+
+		public WaterfallController(
+			IWaterfallService waterfallService,
+			IMountainService mountainService)
 		{
 			_waterfallService = waterfallService;
+			_mountainService = mountainService;
+		}
+
+		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddWaterfall()
+
+		{
+			var waterfall = new WaterfallAddViewModel
+			{
+				Mountains = await _mountainService.GetAllMountains()
+			};
+
+			return View(waterfall);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddWaterfall(WaterfallAddViewModel waterfallForm)
+		{
+			bool isWaterfallExist = await _waterfallService.CheckWaterfallExistsByNameAsync(waterfallForm.Name);
+
+			if (isWaterfallExist)
+			{
+				ModelState.AddModelError(nameof(waterfallForm.Name), WaterfallIsAlreadyExist);
+				waterfallForm.Mountains = await _mountainService.GetAllMountains();
+				return View(waterfallForm);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				waterfallForm.Mountains = await _mountainService.GetAllMountains();
+				return View(waterfallForm);
+			}
+
+			await _waterfallService.AddWaterfallToMountain(waterfallForm);
+			return RedirectToAction("All", "Waterfall");
 		}
 
 		public async Task<IActionResult> All(int page = 1, int pageSize = 3)
