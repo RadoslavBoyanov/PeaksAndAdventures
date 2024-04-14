@@ -29,7 +29,7 @@
 						<p>
 							<strong>Средна оценка:</strong> @Model.Rating
 							<a asp-controller="MountainGuide" asp-action="MountainGuideRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
-							@if (User.IsInRole(AdminRole))
+							@if (User.IsAdmin())
 							{
 								<form method="post" action="@Url.Action("DeleteRatings", "Rating")">
 									<input type="hidden" name="id" value="@Model.Id" />
@@ -83,7 +83,7 @@
 			<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 		</div>
 	}
-	else if (User.IsInRole(AdminRole))
+	else if (User.IsAdmin())
 	{
 		<div class="col-md-12 text-center mt-4">
 			<a asp-controller="MountainGuide" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 
@@ -43,6 +44,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
@@ -55,6 +57,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
@@ -67,6 +70,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _waterfallService.CheckWaterfallExistsByIdAsync(id))
@@ -79,6 +83,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Edit(WaterfallEditViewModel waterfallForm)
 		{
 			if (waterfallForm is null)

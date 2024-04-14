@@ -10,11 +10,14 @@
 			<h2>@Model.Name</h2>
 			<p>@Model.Description</p>
 			<p>Планина: @Model.MountainName</p>
-            <p>Маршрути: <a asp-controller="Waterfall" asp-action="GetRoutesToWaterfall" asp-route-id="@Model.Id" class="btn btn-primary">Виж</a></p>
-			<div class="btn-group" role="group" aria-label="Управление">
-				<a asp-controller="Waterfall" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редакция</a>
-				<a asp-controller="Waterfall" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтриване</a>
-			</div>
+			<p>Маршрути: <a asp-controller="Waterfall" asp-action="GetRoutesToWaterfall" asp-route-id="@Model.Id" class="btn btn-primary">Виж</a></p>
+            @if (User.IsAdmin() || User.IsMountaineer() || User.IsTourAgency())
+			{
+				<div class="btn-group" role="group" aria-label="Управление">
+					<a asp-controller="Waterfall" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редакция</a>
+					<a asp-controller="Waterfall" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтриване</a>
+				</div>
+			}
 		</div>
 		<div class="col-md-6">
 			<img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid">

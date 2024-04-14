@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
 using PeaksAndAdventures.Core.Models.ViewModels.Peak;
 using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
+using static PeaksAndAdventures.Common.Constants;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class MountainController : BaseController
+	public class MountainController : BaseController
     {
         private readonly IMountainService _mountainService;
         private readonly IPeakService _peakService;
@@ -101,7 +103,8 @@ namespace PeaksAndAdventures.Controllers
 		}
 
         [HttpGet]
-        public IActionResult Add()
+        [Authorize(Roles = "Admin, Mountaineer, TourAgency")]
+		public IActionResult Add()
         {
 	        var mountain = new MountainFormViewModel();
 
@@ -109,6 +112,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
         public async Task<IActionResult> Add(MountainFormViewModel mountainForm)
         {
 	        bool isMountainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
@@ -129,6 +133,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
         public async Task<IActionResult> AddPeak()
         {
 	        var peak = new PeakAddViewModel()
@@ -139,6 +144,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
         public async Task<IActionResult> AddPeak(PeakAddViewModel peakForm)
         {
 	        var isPeakExist = await _peakService.CheckPeakExistsByNameAsync(peakForm.Name);
@@ -160,6 +166,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
         public async Task<IActionResult> AddLake()
         {
 	        var lake = new LakeAddViewModel
@@ -171,7 +178,8 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
+        [Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
         {
 	        bool isLakeExist = await _lakeService.CheckLakeExistsByNameAsync(lakeForm.Name);
 
@@ -193,6 +201,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
         public async Task<IActionResult> AddWaterfall()
         
         {
@@ -205,6 +214,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
         public async Task<IActionResult> AddWaterfall(WaterfallAddViewModel waterfallForm)
         {
 	        bool isWaterfallExist = await _waterfallService.CheckWaterfallExistsByNameAsync(waterfallForm.Name);
@@ -227,7 +237,8 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddHut()
+        [Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddHut()
         {
 	        var hut = new AddHutViewModel()
 	        {
@@ -238,6 +249,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
         public async Task<IActionResult> AddHut(AddHutViewModel hutForm)
         {
 	        bool isHutExist = await _hutService.CheckHutExistsByNameAsync(hutForm.Name);
@@ -260,6 +272,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
         public async Task<IActionResult> Edit(int id)
         {
 	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
@@ -272,7 +285,8 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MountainEditViewModel mountainEdit)
+        [Authorize(Roles = "Admin, Mountaineer, TourAgency")]
+		public async Task<IActionResult> Edit(MountainEditViewModel mountainEdit)
         {
 	        if (mountainEdit is null)
 	        {

@@ -8,7 +8,6 @@ using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Controllers
 {
-	[Authorize(Roles = AdminRole)]
 	public class TourAgencyController : BaseController
 	{
 		private readonly ITourAgencyService _tourAgencyService;
@@ -44,6 +43,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{TourAgencyRole}, {AdminRole}")]
 		public async Task<IActionResult> Add()
 		{
 			var tourAgency = new TourAgencyAddViewModel();
@@ -52,6 +52,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{TourAgencyRole}, {AdminRole}")]
 		public async Task<IActionResult> Add(TourAgencyAddViewModel tourAgencyForm)
 		{
 			if (await _tourAgencyService.CheckIfExistTourAgencyByName(tourAgencyForm.Name))

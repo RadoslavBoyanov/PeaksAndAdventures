@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
@@ -25,7 +26,8 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        [Authorize(Roles = $"{TourAgencyRole}, {AdminRole}")]
+		public async Task<IActionResult> Add()
         {
             var expedition = new ExpeditionAddViewModel()
             {
@@ -36,6 +38,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = $"{TourAgencyRole}, {AdminRole}")]
         public async Task<IActionResult> Add(ExpeditionAddViewModel expeditionForm)
         {
 	        if (await _expeditionService.CheckIfExistExpeditionByNameAsync(expeditionForm.Name))
@@ -158,6 +161,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AmateurMountaineerRole}, {MountaineerRole}")]
 		public async Task<IActionResult> JoinExpedition(int expeditionId, string userId)
 		{
 			var result = await _expeditionService.RegisterForExpeditionAsync(userId, expeditionId);
@@ -173,6 +177,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AmateurMountaineerRole}, {MountaineerRole}")]
 		public async Task<IActionResult> LeaveExpedition(int expeditionId, string userId)
 		{
 			var result = await _expeditionService.UnregisterFromExpeditionAsync(userId, expeditionId);
@@ -188,6 +193,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AmateurMountaineerRole}, {MountaineerRole}")]
 		public async Task<IActionResult> MyExpeditions()
 		{
 			var myExpeditions = await _expeditionService.UserExpeditionsAsync(ClaimsPrincipalExtensions.Id(User));

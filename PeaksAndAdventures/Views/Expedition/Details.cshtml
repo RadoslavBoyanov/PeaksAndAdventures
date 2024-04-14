@@ -48,7 +48,7 @@
 		<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 	</div>
 }
-else if (User.IsInRole(AdminRole))
+else if (User.IsAdmin())
 {
 	<div class="flex-row">
 		<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>

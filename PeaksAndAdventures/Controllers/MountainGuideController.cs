@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
 using PeaksAndAdventures.Extensions;
@@ -101,6 +102,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
         [HttpGet]
+		[Authorize(Roles = MountaineerRole)]
         public async Task<IActionResult> Add()
         {
             var mountainGuide = new MountainGuideAddViewModel()
@@ -112,6 +114,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = MountaineerRole)]
         public async Task<IActionResult> Add(MountainGuideAddViewModel mountainGuideForm)
         {
             if (!ModelState.IsValid)
@@ -172,7 +175,7 @@ namespace PeaksAndAdventures.Controllers
 		        return BadRequest(); 
 	        }
 
-	        if (viewModel.OwnerId != ClaimsPrincipalExtensions.Id(User))
+	        if (viewModel.OwnerId != User.Id())
 	        {
 		        return Unauthorized();
 	        }
@@ -186,7 +189,7 @@ namespace PeaksAndAdventures.Controllers
         {
 	        bool success = await _mountainGuideService.AddRouteToMountainGuideAsync(id, routeId, ownerId);
 
-	        if (ClaimsPrincipalExtensions.Id(User) != ownerId)
+	        if (User.Id() != ownerId)
 	        {
 		        return Unauthorized();
 	        }
@@ -211,7 +214,7 @@ namespace PeaksAndAdventures.Controllers
 				return BadRequest();
 			}
 
-			if (mountainGuide.OwnerId != ClaimsPrincipalExtensions.Id(User))
+			if (mountainGuide.OwnerId != User.Id())
 			{
 				return Unauthorized();
 			}

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.QueryModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Extensions;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -45,6 +47,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))
@@ -57,6 +60,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))
@@ -69,6 +73,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))
@@ -81,6 +86,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Edit(HutEditViewModel hutForm)
 		{
 			if (hutForm is null)

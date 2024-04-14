@@ -53,9 +53,12 @@
 			<a asp-controller="Hut" asp-action="GetRoutesToHut" asp-route-id="@Model.Id" class="btn-details">Виж</a>
 		</p>
 	</div>
-	<div class="card-footer">
-		<a asp-action="All" class="btn btn-secondary">Назад</a>
-		<a asp-controller="Hut" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-		<a asp-controller="Hut" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
-	</div>
+	@if (User.IsAdmin() || User.IsMountaineer() || User.IsTourAgency())
+	{
+		<div class="card-footer">
+			<a asp-action="All" class="btn btn-secondary">Назад</a>
+			<a asp-controller="Hut" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+			<a asp-controller="Hut" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+		</div>
+	}
 </div>
