@@ -25,6 +25,12 @@
 								<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Изтрий</a>
 							</div>
 						}
+						else if(User.IsInRole(AdminRole))
+						{
+							<div>
+								<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Изтрий</a>
+							</div>
+						}
 					</div>
 				</div>
 			</div>

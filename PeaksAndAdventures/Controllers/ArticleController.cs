@@ -3,6 +3,7 @@ using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Article;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -80,7 +81,7 @@ namespace PeaksAndAdventures.Controllers
 
 			var currentArticle = await _articleService.EditGetAsync(id);
 
-			if (currentArticle.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			if (currentArticle.AuthorId != User.Id())
 			{
 				return Unauthorized();
 			}
@@ -96,7 +97,7 @@ namespace PeaksAndAdventures.Controllers
 				return BadRequest();
 			}
 
-			if (articleEditView.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			if (articleEditView.AuthorId != User.Id())
 			{
 				return Unauthorized();
 			}
@@ -127,9 +128,9 @@ namespace PeaksAndAdventures.Controllers
 				return NotFound();
 			}
 
-			if (deleteArticle.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			if (deleteArticle.AuthorId != User.Id() && !User.IsInRole(AdminRole))
 			{
-				return Forbid();
+				return Unauthorized();
 			}
 
 			return View(deleteArticle);
@@ -146,9 +147,9 @@ namespace PeaksAndAdventures.Controllers
 			}
 
 			var article = await _articleService.DetailsAsync(id);
-			if (article.AuthorId != ClaimsPrincipalExtensions.Id(User))
+			if (article.AuthorId != User.Id() && !User.IsInRole(AdminRole))
 			{
-				return Forbid();
+				return Unauthorized();
 			}
 
 			await _articleService.DeletePostAsync(id);

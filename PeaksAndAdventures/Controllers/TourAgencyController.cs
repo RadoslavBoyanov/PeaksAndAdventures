@@ -143,7 +143,7 @@ namespace PeaksAndAdventures.Controllers
 
 			var currentTourAgency = await _tourAgencyService.EditGetAsync(id);
 
-			if (currentTourAgency.OwnerId != ClaimsPrincipalExtensions.Id(User))
+			if (currentTourAgency.OwnerId != User.Id())
 			{
 				return Unauthorized();
 			}
@@ -159,7 +159,7 @@ namespace PeaksAndAdventures.Controllers
 				return BadRequest();
 			}
 
-			if (tourAgencyForm.OwnerId != ClaimsPrincipalExtensions.Id(User))
+			if (tourAgencyForm.OwnerId != User.Id())
 			{
 				return Unauthorized();
 			}

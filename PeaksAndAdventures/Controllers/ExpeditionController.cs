@@ -4,6 +4,7 @@ using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -91,9 +92,9 @@ namespace PeaksAndAdventures.Controllers
 				return BadRequest();
 			}
 
-			if (expedition.OrganiserId != User.Id())
+			if (expedition.OrganiserId != User.Id() && !User.IsInRole(AdminRole))
 			{
-				return Forbid();
+				return Unauthorized();
 			}
 
 			return View(expedition);
@@ -110,9 +111,9 @@ namespace PeaksAndAdventures.Controllers
 			}
 
 			var expedition = await _expeditionService.DetailsAsync(id);
-			if (expedition.OrganiserId != User.Id())
+			if (expedition.OrganiserId != User.Id() && !User.IsInRole(AdminRole))
 			{
-				return Forbid();
+				return Unauthorized();
 			}
 
 			await _expeditionService.DeleteConfirmedAsync(id);
@@ -141,7 +142,7 @@ namespace PeaksAndAdventures.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(ExpeditionEditViewModel expeditionForm)
 		{
-			if (expeditionForm.OrganiserId != ClaimsPrincipalExtensions.Id(User))
+			if (expeditionForm.OrganiserId != User.Id())
 			{
 				return Unauthorized();
 			}

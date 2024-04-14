@@ -4,6 +4,7 @@ using PeaksAndAdventures.Core.Models.ViewModels.MountainGuide;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.ErrorMessages;
 using static PeaksAndAdventures.Common.SuccessMessages;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Controllers
 {
@@ -133,7 +134,7 @@ namespace PeaksAndAdventures.Controllers
 		        return NotFound();
 	        }
 
-	        if (deleteMountainGuide.OwnerId != User.Id())
+	        if (deleteMountainGuide.OwnerId != User.Id() && !User.IsInRole(AdminRole))
 	        {
 		        return Unauthorized();
 	        }
@@ -152,7 +153,7 @@ namespace PeaksAndAdventures.Controllers
 	        }
 
 	        var mountainGuide = await _mountainGuideService.DetailsAsync(id);
-	        if (mountainGuide.OwnerId != User.Id())
+	        if (mountainGuide.OwnerId != User.Id() && !User.IsInRole(AdminRole))
 	        {
 		        return Unauthorized();
 	        }

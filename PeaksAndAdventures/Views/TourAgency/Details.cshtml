@@ -51,10 +51,16 @@
 		<p class="navigation"><a asp-controller="TourAgency" asp-action="AllExpeditionsInAgency" asp-route-id="@Model.Id">Експедиции прелагани от агенцията</a></p>
 	</div>
 
-	@if (User.Identity.IsAuthenticated && User.Id() == Model.OwnerId || User.IsInRole(AdminRole))
+	@if (User.Identity != null && User.Identity.IsAuthenticated && User.Id() == Model.OwnerId)
 	{
 		<div class="card-footer d-flex justify-content-center">
 			<a asp-controller="TourAgency" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+			<a asp-controller="TourAgency" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+		</div>
+	}
+	else if (User.IsInRole(AdminRole))
+	{
+		<div class="card-footer d-flex justify-content-center">
 			<a asp-controller="TourAgency" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 		</div>
 	}
