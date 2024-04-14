@@ -55,7 +55,10 @@
 	</div>
 
 	<div class="col-md-12 text-center mt-4">
-		<a asp-controller="Mountain" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm fw-bold">Редактирай</a>
-		<a asp-controller="Mountain" asp-action="All" class="btn btn-primary btn-sm fw-bold">Върни се</a>
+		@if (User.IsAdmin() || User.IsMountaineer() || User.IsTourAgency())
+		{
+			<a asp-controller="Mountain" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm fw-bold">Редактирай</a>
+		}
+		<a asp-controller="Mountain" asp-action="All" class="btn btn-primary btn-sm fw-bold">Назад</a>
 	</div>
 </div>

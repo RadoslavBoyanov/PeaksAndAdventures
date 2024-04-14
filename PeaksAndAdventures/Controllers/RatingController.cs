@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.Constants;
@@ -31,7 +32,7 @@ namespace PeaksAndAdventures.Controllers
 		{
 			if (entityType == TourAgencyConst)
 			{
-				if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+				if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
 				{
 					return NotFound();
 				}
@@ -74,11 +75,12 @@ namespace PeaksAndAdventures.Controllers
 		}
 
         [HttpPost]
+		[Authorize(Roles = AdminRole)]
         public async Task<IActionResult> DeleteRatings(int id, string entityType)
         {
             if (entityType == TourAgencyConst)
             {
-                if (!await _tourAgencyService.CheckIfExistTourAgencyById(id))
+                if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
                 {
                     return NotFound();
                 }

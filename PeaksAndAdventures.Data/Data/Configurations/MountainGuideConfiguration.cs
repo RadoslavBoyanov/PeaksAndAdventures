@@ -29,7 +29,8 @@ namespace PeaksAndAdventures.Infrastructure.Data.Configurations
                 FirstName = "Илия",
                 LastName = "Петканов",
                 Phone = "0895123456",
-                TourAgencyId = 4,
+                ImageUrl = "https://i.pik.bg/news/326/660_5a4e3ddb77802504f456d107ec12255d.jpg",
+				TourAgencyId = 4,
                 OwnerId = "0d59049e-81f2-48f1-abb2-a5fd09bc210f",
             });
 

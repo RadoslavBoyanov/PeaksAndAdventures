@@ -123,6 +123,12 @@ namespace PeaksAndAdventures.Core.Services
 				.AnyAsync(mg => mg.Id == mountainGuideId);
 		}
 
+		public async Task<bool> CheckIfExistMountainGuideByOwnerIdAsync(string ownerId)
+		{
+			return await _repository.AllReadOnly<MountainGuide>()
+				.AnyAsync(mg => mg.OwnerId == ownerId);
+		}
+
 		public async Task<MountainGuideDetailsViewModel> DetailsAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.AllReadOnly<MountainGuide>()
@@ -232,23 +238,40 @@ namespace PeaksAndAdventures.Core.Services
 				.Include(mg => mg.TourAgency)
 				.FirstOrDefaultAsync(mg => mg.Id == mountainGuideId);
 
-			var tourAgency = await _repository.GetByIdAsync<TourAgency>(currentMountainGuide.TourAgencyId);
-			var owner = await _repository.GetByIdAsync<IdentityUser>(currentMountainGuide.OwnerId);
+			MountainGuideEditViewModel mountainGuide;
 
-			var mountainGuide = new MountainGuideEditViewModel()
+			if (currentMountainGuide?.TourAgency is null)
 			{
-				Id = currentMountainGuide.Id,
-				FirstName = currentMountainGuide.FirstName,
-				LastName = currentMountainGuide.LastName,
-				Age = currentMountainGuide.Age,
-				Email = currentMountainGuide.Email,
-				Phone = currentMountainGuide.Phone,
-				Experience = currentMountainGuide.Experience,
-				ImageUrl = currentMountainGuide.ImageUrl,
-				OwnerId = currentMountainGuide.OwnerId,
-				TourAgencyId = currentMountainGuide.TourAgencyId,
-				TourAgencyName = currentMountainGuide.TourAgency.Name
-			};
+				mountainGuide = new MountainGuideEditViewModel()
+				{
+					Id = currentMountainGuide.Id,
+					FirstName = currentMountainGuide.FirstName,
+					LastName = currentMountainGuide.LastName,
+					Age = currentMountainGuide.Age,
+					Email = currentMountainGuide.Email,
+					Phone = currentMountainGuide.Phone,
+					Experience = currentMountainGuide.Experience,
+					ImageUrl = currentMountainGuide.ImageUrl,
+					OwnerId = currentMountainGuide.OwnerId,
+				};
+			}
+			else
+			{
+				mountainGuide = new MountainGuideEditViewModel()
+				{
+					Id = currentMountainGuide.Id,
+					FirstName = currentMountainGuide.FirstName,
+					LastName = currentMountainGuide.LastName,
+					Age = currentMountainGuide.Age,
+					Email = currentMountainGuide.Email,
+					Phone = currentMountainGuide.Phone,
+					Experience = currentMountainGuide.Experience,
+					ImageUrl = currentMountainGuide.ImageUrl,
+					OwnerId = currentMountainGuide.OwnerId,
+					TourAgencyId = currentMountainGuide.TourAgencyId,
+					TourAgencyName = currentMountainGuide.TourAgency.Name
+				};
+			}
 
 			return mountainGuide;
 		}

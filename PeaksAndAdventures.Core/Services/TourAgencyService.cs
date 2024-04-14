@@ -200,16 +200,22 @@ namespace PeaksAndAdventures.Core.Services
         }
 
 
-        public async Task<bool> CheckIfExistTourAgencyByName(string tourAgencyName)
+        public async Task<bool> CheckIfExistTourAgencyByNameAsync(string tourAgencyName)
         {
             return await _repository.AllReadOnly<TourAgency>()
                 .AnyAsync(ta => ta.Name == tourAgencyName);
         }
 
-        public Task<bool> CheckIfExistTourAgencyById(int tourAgencyId)
+        public async Task<bool> CheckIfExistTourAgencyByIdAsync(int tourAgencyId)
         {
-	        return _repository.AllReadOnly<TourAgency>()
+	        return await _repository.AllReadOnly<TourAgency>()
 		        .AnyAsync(ta => ta.Id == tourAgencyId);
+        }
+
+        public async Task<bool> CheckIfExistTourAgencyByOwnerIdAsync(string ownerId)
+        {
+	        return await _repository.AllReadOnly<TourAgency>()
+		        .AnyAsync(ta => ta.OwnerId == ownerId);
         }
 	}
 }

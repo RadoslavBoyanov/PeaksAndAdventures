@@ -1,34 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.Models.ViewModels.Hut;
-using PeaksAndAdventures.Core.Models.ViewModels.Lake;
 using PeaksAndAdventures.Core.Models.ViewModels.Mountain;
-using PeaksAndAdventures.Core.Models.ViewModels.Peak;
-using PeaksAndAdventures.Core.Models.ViewModels.Waterfall;
 using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class MountainController : BaseController
+	public class MountainController : BaseController
     {
         private readonly IMountainService _mountainService;
-        private readonly IPeakService _peakService;
-        private readonly ILakeService _lakeService;
-        private readonly IWaterfallService _waterfallService;
-		private readonly IHutService _hutService;
 
         public MountainController(
-	        IMountainService mountainService, 
-	        IPeakService peakService, 
-	        ILakeService lakeService, 
-	        IWaterfallService waterfallService,
-	        IHutService hutService)
+	        IMountainService mountainService)
         {
             _mountainService = mountainService;
-            _peakService = peakService;
-            _lakeService = lakeService;
-            _waterfallService = waterfallService;
-            _hutService = hutService;
         }
 
         [HttpGet]
@@ -101,7 +86,8 @@ namespace PeaksAndAdventures.Controllers
 		}
 
         [HttpGet]
-        public IActionResult Add()
+        [Authorize(Roles = "Admin, Mountaineer, TourAgency")]
+		public IActionResult Add()
         {
 	        var mountain = new MountainFormViewModel();
 
@@ -109,6 +95,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
         public async Task<IActionResult> Add(MountainFormViewModel mountainForm)
         {
 	        bool isMountainExist = await _mountainService.CheckMountainExistsByNameAsync(mountainForm.Name);
@@ -129,137 +116,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddPeak()
-        {
-	        var peak = new PeakAddViewModel()
-	        {
-                Mountains = await _mountainService.GetAllMountains(),
-	        };
-	        return View(peak);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddPeak(PeakAddViewModel peakForm)
-        {
-	        var isPeakExist = await _peakService.CheckPeakExistsByNameAsync(peakForm.Name);
-	        if (isPeakExist)
-	        {
-                ModelState.AddModelError(nameof(peakForm.Name), PeakIsAlreadyExist);
-                peakForm.Mountains = await _mountainService.GetAllMountains();
-                return View(peakForm);
-	        }
-
-	        if (!ModelState.IsValid)
-	        {
-		        peakForm.Mountains = await _mountainService.GetAllMountains();
-		        return View(peakForm);
-	        }
-
-	        await _peakService.AddPeakToMountainAsync(peakForm);
-	        return RedirectToAction("All", "Peak");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddLake()
-        {
-	        var lake = new LakeAddViewModel
-	        {
-		        Mountains = await _mountainService.GetAllMountains()
-	        };
-
-	        return View(lake);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
-        {
-	        bool isLakeExist = await _lakeService.CheckLakeExistsByNameAsync(lakeForm.Name);
-
-	        if (isLakeExist)
-	        {
-		        ModelState.AddModelError(nameof(lakeForm.Name), LakeIsAlreadyExist);
-		        lakeForm.Mountains = await _mountainService.GetAllMountains();
-				return View(lakeForm);
-	        }
-
-	        if (!ModelState.IsValid)
-	        {
-		        lakeForm.Mountains = await _mountainService.GetAllMountains();
-                return View(lakeForm);
-	        }
-
-	        await _lakeService.AddLakeToMountainAsync(lakeForm);
-	        return RedirectToAction("All", "Lake");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddWaterfall()
-        
-        {
-	        var waterfall = new WaterfallAddViewModel
-	        {
-		        Mountains = await _mountainService.GetAllMountains()
-	        };
-
-	        return View(waterfall);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddWaterfall(WaterfallAddViewModel waterfallForm)
-        {
-	        bool isWaterfallExist = await _waterfallService.CheckWaterfallExistsByNameAsync(waterfallForm.Name);
-
-	        if (isWaterfallExist)
-	        {
-		        ModelState.AddModelError(nameof(waterfallForm.Name), WaterfallIsAlreadyExist);
-		        waterfallForm.Mountains = await _mountainService.GetAllMountains();
-				return View(waterfallForm);
-	        }
-
-	        if (!ModelState.IsValid)
-	        {
-		        waterfallForm.Mountains = await _mountainService.GetAllMountains();
-		        return View(waterfallForm);
-	        }
-
-	        await _waterfallService.AddWaterfallToMountain(waterfallForm);
-	        return RedirectToAction("All", "Waterfall");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddHut()
-        {
-	        var hut = new AddHutViewModel()
-	        {
-				Mountains = await _mountainService.GetAllMountains()
-	        };
-
-			return View(hut);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddHut(AddHutViewModel hutForm)
-        {
-	        bool isHutExist = await _hutService.CheckHutExistsByNameAsync(hutForm.Name);
-	        
-	        if (isHutExist)
-	        {
-		        ModelState.AddModelError(nameof(hutForm.Name), HutIsAlreadyExist);
-		        hutForm.Mountains = await _mountainService.GetAllMountains();
-		        return View(hutForm);
-	        }
-
-	        if (!ModelState.IsValid)
-	        {
-		        hutForm.Mountains = await _mountainService.GetAllMountains();
-				return View(hutForm);
-	        }
-
-	        await _hutService.AddHutToMountainAsync(hutForm);
-	        return RedirectToAction("All", "Hut");
-        }
-
-        [HttpGet]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
         public async Task<IActionResult> Edit(int id)
         {
 	        if (!await _mountainService.CheckMountainExistsByIdAsync(id))
@@ -272,7 +129,8 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MountainEditViewModel mountainEdit)
+        [Authorize(Roles = "Admin, Mountaineer, TourAgency")]
+		public async Task<IActionResult> Edit(MountainEditViewModel mountainEdit)
         {
 	        if (mountainEdit is null)
 	        {

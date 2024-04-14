@@ -23,10 +23,13 @@
 			<a asp-controller="Lake" asp-action="GetRoutesToLake" asp-route-id="@Model.Id" class="btn-details">Виж</a>
 		</p>
 	</div>
-	<div class="card-footer">
-		<a asp-action="All" class="btn btn-secondary">Назад</a>
-		<a asp-controller="Lake" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-		<a asp-controller="Lake" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
-	</div>
+	@if(User.IsAdmin() || User.IsMountaineer() || User.IsTourAgency())
+	{
+		<div class="card-footer">
+			<a asp-action="All" class="btn btn-secondary">Назад</a>
+			<a asp-controller="Lake" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+			<a asp-controller="Lake" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+		</div>
+	})
 </div>
 

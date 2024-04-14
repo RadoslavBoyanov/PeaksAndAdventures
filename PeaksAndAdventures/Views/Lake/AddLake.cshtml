@@ -1,12 +1,13 @@
-﻿@model WaterfallAddViewModel
+﻿@model LakeAddViewModel
 
 @{
-	ViewBag.Title = "Добави водопад";
+	ViewBag.Title = "Добавяне на езеро";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="text-cente">@ViewBag.Title</h2>
+<hr/>
 
-<form asp-action="AddWaterfall" method="post">
+<form asp-action="AddLake" method="post">
 	<div class="form-group">
 		<label asp-for="Name" class="control-label"></label>
 		<input asp-for="Name" class="form-control" />
@@ -36,7 +37,7 @@
 		<span asp-validation-for="MountainId" class="text-danger"></span>
 	</div>
     
-	<button type="submit" class="btn btn-primary">Запази</button>
+	<button type="submit" class="btn btn-primary">Добави</button>
 </form>
 
 

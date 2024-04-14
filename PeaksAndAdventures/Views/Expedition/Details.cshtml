@@ -4,7 +4,7 @@
 	ViewBag.Title = "Информация за експедицията";
 }
 
-<h3>@ViewBag.Title</h3>
+<h3 class="text-center">@ViewBag.Title</h3>
 <hr/>
 
 <div class="card">
@@ -25,25 +25,33 @@
 		}
 		<p class="card-text"><strong>Цена: </strong>@Model.Price</p>
 	</div>
-	<div class="d-xxl-inline-flex justify-content-around ">
-		<form asp-controller="Expedition" asp-action="JoinExpedition" method="post">
-			<input type="hidden" name="expeditionId" value="@Model.Id" />
-			<input type="hidden" name="userId" value="@ClaimsPrincipalExtensions.Id(User)" />
-			<button class="btn btn-primary" type="submit">Запиши се за експедицията</button>
-		</form>
-		<form asp-controller="Expedition" asp-action="LeaveExpedition" method="post">
-			<input type="hidden" name="expeditionId" value="@Model.Id" />
-			<input type="hidden" name="userId" value="@ClaimsPrincipalExtensions.Id(User)" />
-			<button class="btn btn-danger" type="submit">Отпиши се от експедицията</button>
-		</form>
-	</div>
-	
-	@if (User.Identity.IsAuthenticated && ClaimsPrincipalExtensions.Id(User) == Model.OrganiserId)
-	{
-		<div class="flex-row">
-			<a asp-controller="Expedition" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-			<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+	<div class="card-footer">
+		<div class="d-flex justify-content-between">
+			<form asp-controller="Expedition" asp-action="JoinExpedition" method="post">
+				<input type="hidden" name="expeditionId" value="@Model.Id"/>
+				<input type="hidden" name="userId" value="@User.Id()"/>
+				<button class="btn btn-primary" type="submit">Запиши се за експедицията</button>
+			</form>
+			<form asp-controller="Expedition" asp-action="LeaveExpedition" method="post">
+				<input type="hidden" name="expeditionId" value="@Model.Id"/>
+				<input type="hidden" name="userId" value="@User.Id()"/>
+				<button class="btn btn-danger" type="submit">Отпиши се от експедицията</button>
+			</form>
 		</div>
-	}
+	</div>
 </div>
+
+@if (User.Identity.IsAuthenticated && User.Id() == Model.OrganiserId)
+{
+	<div class="flex-row">
+		<a asp-controller="Expedition" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+		<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+	</div>
+}
+else if (User.IsAdmin())
+{
+	<div class="flex-row">
+		<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+	</div>
+}
 

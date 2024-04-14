@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Route;
 using static PeaksAndAdventures.Common.ErrorMessages;
@@ -35,6 +36,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize (Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Add()
 		{
 			var route = new RouteAddViewModel()
@@ -50,6 +52,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize (Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Add(RouteAddViewModel routeForm)
 		{
 			if (await _routeService.CheckIfExistRouteByName(routeForm.Name))
@@ -114,6 +117,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _routeService.CheckIfExistRouteById(id))
@@ -126,6 +130,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Edit(RouteEditViewModel routeForm)
 		{
 			if (!ModelState.IsValid)
@@ -143,6 +148,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			var route = await _routeService.DeleteAsync(id);
@@ -156,6 +162,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Admin, Mountaineer, TourAgency")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			var isExist = await _routeService.CheckIfExistRouteById(id);

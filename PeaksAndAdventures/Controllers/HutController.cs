@@ -1,18 +1,60 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.QueryModels.Hut;
 using PeaksAndAdventures.Core.Models.ViewModels.Hut;
 using PeaksAndAdventures.Extensions;
+using static PeaksAndAdventures.Common.Constants;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class HutController : BaseController
+	public class HutController : BaseController
 	{
 		private readonly IHutService _hutService;
+		private readonly IMountainService _mountainService;
 
-		public HutController(IHutService hutService)
+		public HutController(
+			IHutService hutService,
+			IMountainService mountainService)
 		{
 			_hutService = hutService;
+			_mountainService = mountainService;
+		}
+
+		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddHut()
+		{
+			var hut = new AddHutViewModel()
+			{
+				Mountains = await _mountainService.GetAllMountains()
+			};
+
+			return View(hut);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddHut(AddHutViewModel hutForm)
+		{
+			bool isHutExist = await _hutService.CheckHutExistsByNameAsync(hutForm.Name);
+
+			if (isHutExist)
+			{
+				ModelState.AddModelError(nameof(hutForm.Name), HutIsAlreadyExist);
+				hutForm.Mountains = await _mountainService.GetAllMountains();
+				return View(hutForm);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				hutForm.Mountains = await _mountainService.GetAllMountains();
+				return View(hutForm);
+			}
+
+			await _hutService.AddHutToMountainAsync(hutForm);
+			return RedirectToAction("All", "Hut");
 		}
 
 		public async Task<IActionResult> All([FromQuery] AllHutsQueryModel query)
@@ -45,6 +87,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))
@@ -57,6 +100,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))
@@ -69,6 +113,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _hutService.CheckHutExistsByIdAsync(id))
@@ -81,6 +126,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Edit(HutEditViewModel hutForm)
 		{
 			if (hutForm is null)

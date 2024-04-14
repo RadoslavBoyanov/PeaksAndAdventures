@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using static PeaksAndAdventures.Common.Constants;
 
 namespace PeaksAndAdventures.Areas.Identity.Pages.Account
 {
@@ -60,12 +62,29 @@ namespace PeaksAndAdventures.Areas.Identity.Pages.Account
 			[Display(Name = "Confirm password")]
 			[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
 			public string ConfirmPassword { get; set; }
-		}
+
+            [Required]
+            [Display(Name = "Роля")]
+            public string Role { get; set; }
+
+            public List<SelectListItem> RoleOptions { get; set; }
+        }
 
 
 		public async Task OnGetAsync(string returnUrl = null)
 		{
 			ReturnUrl = returnUrl;
+			Input = new InputModel
+			{
+				RoleOptions = new List<SelectListItem>
+				{
+					new SelectListItem { Value = AmateurMountaineerRole, Text = "Турист" },
+					new SelectListItem { Value = MountaineerRole, Text = "Планински водач" },
+					new SelectListItem { Value = TourAgencyRole, Text = "Туристическа агенция" },
+					
+					// Други роли, които искате да предложите
+				}
+			};
 		}
 
 		public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -82,6 +101,24 @@ namespace PeaksAndAdventures.Areas.Identity.Pages.Account
 
 				if (result.Succeeded)
 				{
+					var roleResult = await _userManager.AddToRoleAsync(user, Input.Role);
+					if (!roleResult.Succeeded)
+					{
+						ModelState.AddModelError(string.Empty, "Грешка при добавяне на ролята на потребителя.");
+						Input = new InputModel
+						{
+							RoleOptions = new List<SelectListItem>
+							{
+								new SelectListItem { Value = AmateurMountaineerRole, Text = "Турист" },
+								new SelectListItem { Value = MountaineerRole, Text = "Планински водач" },
+								new SelectListItem { Value = TourAgencyRole, Text = "Туристическа агенция" },
+					
+								// Други роли, които искате да предложите
+							}
+						};
+						return Page();
+					}
+
 					await _signInManager.SignInAsync(user, isPersistent: false);
 					return LocalRedirect(returnUrl);
 				}

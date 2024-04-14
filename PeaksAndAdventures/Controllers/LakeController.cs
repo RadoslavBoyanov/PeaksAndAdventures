@@ -1,16 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Lake;
+using PeaksAndAdventures.Core.Services;
+using static PeaksAndAdventures.Common.Constants;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class LakeController : BaseController
+	public class LakeController : BaseController
 	{
 		private readonly ILakeService _lakeService;
+		private readonly IMountainService _mountainService;
 
-		public LakeController(ILakeService lakeService)
+		public LakeController(
+			ILakeService lakeService,
+			IMountainService mountainService)
 		{
 			_lakeService = lakeService;
+			_mountainService = mountainService;
+		}
+
+		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddLake()
+		{
+			var lake = new LakeAddViewModel
+			{
+				Mountains = await _mountainService.GetAllMountains()
+			};
+
+			return View(lake);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
+		public async Task<IActionResult> AddLake(LakeAddViewModel lakeForm)
+		{
+			bool isLakeExist = await _lakeService.CheckLakeExistsByNameAsync(lakeForm.Name);
+
+			if (isLakeExist)
+			{
+				ModelState.AddModelError(nameof(lakeForm.Name), LakeIsAlreadyExist);
+				lakeForm.Mountains = await _mountainService.GetAllMountains();
+				return View(lakeForm);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				lakeForm.Mountains = await _mountainService.GetAllMountains();
+				return View(lakeForm);
+			}
+
+			await _lakeService.AddLakeToMountainAsync(lakeForm);
+			return RedirectToAction("All", "Lake");
 		}
 
 		[HttpGet]
@@ -42,6 +85,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
@@ -54,6 +98,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
@@ -66,6 +111,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Edit(int id)
 		{
 			if (!await _lakeService.CheckLakeExistsByIdAsync(id))
@@ -78,6 +124,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Edit(LakeEditViewModel lakeForm)
 		{
 			if (lakeForm is null)

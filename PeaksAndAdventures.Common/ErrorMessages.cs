@@ -19,5 +19,7 @@
         public const string DurationFormatIsWrong = "Невалиден формат. Форматът трябва да бъде 'дни.часове:минути'.";
         public const string CantDeleteTourAgencyBecauseOfExpeditionParticipant = "Изтриването на експедицията е неуспешно, тъй като има участници в нея. Моля, уведомете или отпишете участниците преди да продължите.";
         public const string YouCanVoteOnlyOnce = "Вече сте гласували!";
+        public const string YouHaveAlreadyMountaineerProfile = "Вече имате създаден профил на планински водач.";
+        public const string YouHaveAlreadyAgencyProfile = "Вече имате създаден профил на туристическа агенция.";
 	}
 }
