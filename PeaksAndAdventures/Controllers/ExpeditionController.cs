@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Expedition;
 using PeaksAndAdventures.Extensions;
-using static PeaksAndAdventures.Common.ErrorMessages;
 using static PeaksAndAdventures.Common.Constants;
+using static PeaksAndAdventures.Common.ErrorMessages;
 
 namespace PeaksAndAdventures.Controllers
 {
-    public class ExpeditionController : BaseController
+	public class ExpeditionController : BaseController
 	{
 		private readonly IExpeditionService _expeditionService;
 		private readonly IRouteService _routeService;

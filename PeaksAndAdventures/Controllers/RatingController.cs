@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PeaksAndAdventures.Areas.Admin.Controllers;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Extensions;
 using static PeaksAndAdventures.Common.Constants;
@@ -8,7 +9,7 @@ using static PeaksAndAdventures.Extensions.CookieHelper;
 
 namespace PeaksAndAdventures.Controllers
 {
-	public class RatingController : Controller
+	public class RatingController : BaseController
 	{
 		private readonly IRatingService _ratingService;
 		private readonly IRouteService _routeService;
@@ -63,6 +64,7 @@ namespace PeaksAndAdventures.Controllers
 			}
 
 			HttpContext.Response.Cookies.Append(cookieNameHash, "true", new CookieOptions
+
 			{
 				Expires = DateTime.UtcNow.AddDays(7),
 				HttpOnly = true,
@@ -71,41 +73,7 @@ namespace PeaksAndAdventures.Controllers
 			});
 
 			await _ratingService.AddRatingAsync(id, entityType, (int)value);
-			return RedirectToAction("Details", entityType, new { id = id });
+			return RedirectToAction(  "Details" ,entityType, new { id = id, area = "" });
 		}
-
-        [HttpPost]
-		[Authorize(Roles = AdminRole)]
-        public async Task<IActionResult> DeleteRatings(int id, string entityType)
-        {
-            if (entityType == TourAgencyConst)
-            {
-                if (!await _tourAgencyService.CheckIfExistTourAgencyByIdAsync(id))
-                {
-                    return NotFound();
-                }
-            }
-
-            if (entityType == RouteConst)
-            {
-                if (!await _routeService.CheckIfExistRouteById(id))
-                {
-                    return NotFound();
-                }
-            }
-
-            if (entityType == MountainGuideConst)
-            {
-                if (!await _mountainGuideService.CheckIfExistMountainGuideByIdAsync(id))
-                {
-                    return NotFound();
-                }
-            }
-
-            await _ratingService.DeleteRatings(id, entityType);
-            return RedirectToAction("Details", entityType, new { id = id });
-        }
-
-
 	}
 }
