@@ -40,10 +40,23 @@ namespace PeaksAndAdventures
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+			app.UseEndpoints(endpoints =>
+			{
 
-            await app.ConfigureRolesAndAdmin();
+				// Тук добави маршрути за административната област
+
+				endpoints.MapControllerRoute(
+					name: "Admin",
+					pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+
+				endpoints.MapControllerRoute(
+	                name: "default",
+	                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+				endpoints.MapRazorPages();
+			});
+
+			await app.ConfigureRolesAndAdmin();
 
             await app.RunAsync();
         }
