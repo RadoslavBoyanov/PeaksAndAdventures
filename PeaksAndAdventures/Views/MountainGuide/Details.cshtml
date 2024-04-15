@@ -28,10 +28,10 @@
 						<p><strong>Опит:</strong> @Model.Experience years</p>
 						<p>
 							<strong>Средна оценка:</strong> @Model.Rating
-							<a asp-controller="MountainGuide" asp-action="MountainGuideRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
+							<a asp asp-controller="MountainGuide" asp-action="MountainGuideRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
 							@if (User.IsAdmin())
 							{
-								<form method="post" action="@Url.Action("DeleteRatings", "Rating")">
+								<form  asp-controller="Rating" asp-action="DeleteRatings" method="post">
 									<input type="hidden" name="id" value="@Model.Id" />
 									<input type="hidden" name="entityType" value="MountainGuide"/>
 									<button type="submit">Изтрий оценките</button>

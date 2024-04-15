@@ -20,7 +20,7 @@
 			<a asp-controller="TourAgency" asp-action="AgencyRatings" asp-route-id="@Model.Id" class="btn btn-primary">Виж оценките</a>
 			@if (User.IsAdmin())
 			{
-				<form method="post" action="@Url.Action("DeleteRatings", "Rating")">
+				<form  asp-controller="Rating" asp-action="DeleteRatings" method="post">
 					<input type="hidden" name="id" value="@Model.Id" />
 					<input type="hidden" name="entityType" value="TourAgency" />
 					<button type="submit">Изтрий оценките</button>

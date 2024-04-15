@@ -25,4 +25,8 @@
     <ProjectReference Include="..\PeaksAndAdventures.Data\PeaksAndAdventures.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>
