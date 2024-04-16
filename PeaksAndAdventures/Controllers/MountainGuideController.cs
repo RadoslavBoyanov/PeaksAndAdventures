@@ -102,8 +102,8 @@ namespace PeaksAndAdventures.Controllers
 		}
 
         [HttpGet]
-		[Authorize(Roles = MountaineerRole)]
-        public async Task<IActionResult> Add()
+        [Authorize(Roles = $"{AdminRole}, {MountaineerRole}")]
+		public async Task<IActionResult> Add()
         {
 			var isExistingGuideProfile = await _mountainGuideService.CheckIfExistMountainGuideByOwnerIdAsync(User.Id());
 			if (isExistingGuideProfile)
@@ -121,7 +121,7 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [HttpPost]
-		[Authorize(Roles = MountaineerRole)]
+		[Authorize(Roles = $"{AdminRole}, {MountaineerRole}")]
         public async Task<IActionResult> Add(MountainGuideAddViewModel mountainGuideForm)
         {
             if (!ModelState.IsValid)

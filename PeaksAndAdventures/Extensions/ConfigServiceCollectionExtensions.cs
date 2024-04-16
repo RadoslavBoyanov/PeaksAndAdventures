@@ -22,6 +22,7 @@ namespace PeaksAndAdventures.Extensions
             services.AddScoped<IRouteService, RouteService>();
             services.AddScoped<ITourAgencyService, TourAgencyService>();
             services.AddScoped<IMountainGuideService, MountainGuideService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }
