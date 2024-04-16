@@ -1,0 +1,34 @@
+﻿@{
+	ViewData["Title"] = "Admin Page";
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+	<h2 class="display-4">Здравей, админе!</h2>
+	<p class="lead mb-1 mt-3">
+		Това е твоето меню, от където може да разбереш за, свойте правомощия. Тук може да добавяш планини, езера, върхове, водопади, маршрути, статии, профили на туристически агнеции и техни експедиции и профили на планински водачи.
+	</p>
+	<p class="lead mt-1">
+		Отделно ти можеш да манипулираш със съдържанието на сайта, като редактираш и изтриваш информация.
+	</p>
+	<p class="lead mt-1">
+		Приятно администриране!
+	</p>
+
+	<hr class="my-4" />
+	<div class="navigation-buttons">
+		<a asp-area="" asp-controller="Article" asp-action="Create" class="btn btn-primary btn-group-sm fw-bold">Напиши статия</a>
+		<a asp-area="" asp-controller="Mountain" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави планина</a>
+		<a asp-area="" asp-controller="Peak" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>
+		<a asp-area="" asp-controller="Lake" asp-action="AddLake" class="btn btn-primary btn-group-sm fw-bold">Добави езеро</a>
+		<a asp-area="" asp-controller="Waterfall" asp-action="AddWaterfall" class="btn btn-primary btn-group-sm fw-bold">Добави водопад</a>
+		<a asp-area="" asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави маршрут</a>
+		<a asp-area="" asp-controller="TourAgency" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави туристическа агенция</a>
+		<a asp-area="" asp-controller="Expedition" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави експедиция</a>
+		<a asp-area="" asp-controller="MountainGuide" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави планински водач</a>
+	</div>
+
+	<hr class="my-4" />
+
+	<p class="lead mt-1">Освен това ти можеш да виждаш регистрираните потребители и тяхната информация. Ако счетеш за необходимо, можеж да премахнеш регистриран потребител, когато е нарушил правилата.</p>
+	<a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-primary btn-group-sm fw-bold">Виж всички потребители</a>
+</div>

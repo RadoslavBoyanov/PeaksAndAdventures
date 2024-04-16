@@ -43,7 +43,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpGet]
-		[Authorize(Roles = TourAgencyRole)]
+		[Authorize(Roles = $"{AdminRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Add()
 		{
 			var isExistingAgencyByOwnerId = await _tourAgencyService.CheckIfExistTourAgencyByOwnerIdAsync(User.Id());
@@ -59,7 +59,7 @@ namespace PeaksAndAdventures.Controllers
 		}
 
 		[HttpPost]
-		[Authorize(Roles = TourAgencyRole)]
+		[Authorize(Roles = $"{AdminRole}, {TourAgencyRole}")]
 		public async Task<IActionResult> Add(TourAgencyAddViewModel tourAgencyForm)
 		{
 			if (await _tourAgencyService.CheckIfExistTourAgencyByNameAsync(tourAgencyForm.Name))
