@@ -1,0 +1,30 @@
+﻿@{
+	ViewData["Title"] = "Tour agency page";
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+	<h3 class="display-4">Здравей</h3>
+	<p class="lead mt-1">
+		Като туристическа агенция, вие можете да създадете свой профил в сайта, от който потенциални клиенти могат да се запознаят с вашите услуги и предложения.
+		Тук може да откриете регистрирани планински водачи, с които да си сътрудничите за водене на туристически маршрути и експедиции и да ги наемете да работят за Вас. 
+	</p>
+	<p class="lead mt-1">
+		Ако сте туристическа агенция и искате да си създадете профил в сайта, може да го направите от <a asp-area="" asp-controller="TourAgency" asp-action="Add">тук</a>.
+	</p>
+	<p class="lead mt-1">
+		Освен това, ние разчитаме на вас за това да си обогатим базата данни и да добавиш нови маршрути, върхове, езера и водопади, които смятате, че са достойни за включване в сайта.
+		Като туристическа агенция, за нас е ценно да споделиш твоите знания и опит с нас, както и с любителите планинари. По този начин ги насърчаваме да ходят в планината, да я обичат и уважават.
+	</p>
+	
+	<hr class="my-4" />
+	<div class="navigation-buttons">
+		<a asp-area="" asp-controller="Article" asp-action="Create" class="btn btn-primary btn-group-sm fw-bold">Напиши статия</a>
+		<a asp-area="" asp-controller="Mountain" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави планина</a>
+		<a asp-area="" asp-controller="Peak" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>
+		<a asp-area="" asp-controller="Lake" asp-action="AddLake" class="btn btn-primary btn-group-sm fw-bold">Добави езеро</a>
+		<a asp-area="" asp-controller="Waterfall" asp-action="AddWaterfall" class="btn btn-primary btn-group-sm fw-bold">Добави водопад</a>
+		<a asp-area="" asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави маршрут</a>
+		<a asp-area="" asp-controller="Expedition" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави експедиция</a>
+	</div>
+</div>
+
