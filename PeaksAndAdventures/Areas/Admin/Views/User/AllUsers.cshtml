@@ -23,7 +23,7 @@
 				<td>@user.UserName</td>
 				<td>@user.Email</td>
 				<td>
-					<a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Изтрий</a>
+					<a asp-area="Admin" asp-controller="User" asp-action="GetUserRole" asp-route-id="@user.Id" class="btn btn-outline-primary">Виж роля</a>
 				</td>
 			</tr>
 		}

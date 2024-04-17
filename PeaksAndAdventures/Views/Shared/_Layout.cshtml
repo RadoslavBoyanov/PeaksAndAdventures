@@ -1,112 +1,111 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Peaks And Adventures </title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/reset.css"/>
-    <link rel="stylesheet" href="~/PeaksAndAdventures.styles.css" asp-append-version="true" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Peaks And Adventures </title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/reset.css" />
+	<link rel="stylesheet" href="~/PeaksAndAdventures.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/Img/Home/logo.png"/></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-	                <ul class="nav nav-tabs">
-		                <li class="nav-item">
-			                <a class="nav-link text-dark" asp-area="" asp-controller="Mountain" asp-action="All">Планини</a>
-		                </li>
-		                <li class="dropdown">
-			                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                Статии
-			                </button>
-			                <ul class="dropdown-menu">
-				                <li><a class="dropdown-item" asp-controller="Article" asp-action="All">Всички статии</a></li>
-				                <li><a class="dropdown-item" asp-controller="Article" asp-action="Create">Напиши статия</a></li>
-				                <li><a class="dropdown-item" asp-controller="Article" asp-action="UserArticles">Мои статии</a></li>
-			                </ul>
-		                </li>
-		                <li class="dropdown">
-			                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                Обекти
-			                </button>
-			                <ul class="dropdown-menu">
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/Img/Home/logo.png" /></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="nav nav-tabs">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Mountain" asp-action="All">Планини</a>
+						</li>
+						<li class="dropdown">
+							<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Статии
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Create">Напиши статия</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="UserArticles">Мои статии</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Обекти
+							</button>
+							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" asp-area="" asp-controller="Peak" asp-action="All">Върхове</a></li>
 								<li><a class="dropdown-item" asp-area="" asp-controller="Hut" asp-action="All">Хижи</a></li>
 								<li><a class="dropdown-item" asp-area="" asp-controller="Lake" asp-action="All">Езера</a></li>
 								<li><a class="dropdown-item" asp-area="" asp-controller="Waterfall" asp-action="All">Водопади</a></li>
-			                </ul>
-		                </li>
-		                <li class="dropdown">
-			                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                Планински водачи
-			                </button>
-			                <ul class="dropdown-menu">
-								<li><a class="dropdown-item" asp-area="" asp-controller="MountainGuide" asp-action="All">Всички водачи</a></li>
-				                <li><a class="dropdown-item" asp-controller="MountainGuide" asp-action="Add">Добави планински водач</a></li>
-			                </ul>
-		                </li>
-		                <li class="dropdown">
-			                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                Туристически агенции
-			                </button>
-			                <ul class="dropdown-menu">
-								<li><a class="dropdown-item" asp-area="" asp-controller="TourAgency" asp-action="All">Всички агенции</a></li>
-				                <li><a class="dropdown-item" asp-controller="TourAgency" asp-action="Add">Добави туристическа агенция</a></li>
-			                </ul>
-		                </li>
-		                <li class="dropdown">
-			                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                Експедиции
-			                </button>
-			                <ul class="dropdown-menu">
-								<li><a class="dropdown-item" asp-area="" asp-controller="Expedition" asp-action="All">Всички експедиции</a></li>
+							</ul>
+						</li>
+						<li class="nav-item">
+						<li><a class="dropdown-item" asp-area="" asp-controller="MountainGuide" asp-action="All">Професионални водачи</a></li>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item" asp-area="" asp-controller="TourAgency" asp-action="All">Aгенции</a>
+						</li>
+						<li class="dropdown">
+							<button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Експедиции
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" asp-area="" asp-controller="Expedition" asp-action="All">Eкспедиции</a></li>
 								<li><a class="dropdown-item" asp-area="" asp-controller="Expedition" asp-action="MyExpeditions">Експедии, в който съм записан</a></li>
-				                <li><a class="dropdown-item" asp-controller="Expedition" asp-action="Add">Добави експедиция</a></li>
-			                </ul>
-		                </li>
-		                <li class="dropdown">
-			                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                Маршрути
-			                </button>
-			                <ul class="dropdown-menu">
-				                <li><a class="dropdown-item" asp-area="" asp-controller="Route" asp-action="All">Всички маршрути</a></li>
-				                <li><a class="dropdown-item" asp-controller="Route" asp-action="Add">Добави маршрут</a></li>
-			                </ul>
-		                </li>
-	                </ul>
-					@if (User.IsAdmin())
-	                {
-		                <li class="nav-item">
-			                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Админ</a>
-		                </li>
-	                }
-	                <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-<div class="container">
-	<main role="main" class="pb-3">
-		@RenderBody()
-	</main>
-</div>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item" asp-area="" asp-controller="Route" asp-action="All">Mаршрути</a>
+						</li>
+						@if (User.IsAdmin())
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Админ</a>
+							</li>
+						}
+						else if (User.IsTourAgency())
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="TourAgency" asp-controller="Home" asp-action="Index">Агенция</a>
+							</li>
+						}
+						else if (User.IsMountaineer())
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="MountainGuide" asp-controller="Home" asp-action="Index">Водач</a>
+							</li>
+						}
+						else if (User.IsAmateurMountaineer())
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="AmateurMountaineer" asp-controller="Home" asp-action="Index">Любител планинар</a>
+							</li>
+						}
+					</ul>
+					<partial name="_LoginPartial" />
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
-<footer class="border-top footer text-muted">
-        <div class="container">
-	        &copy; @DateTime.Now.Year - PeaksAndAdventures
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; @DateTime.Now.Year - PeaksAndAdventures
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
