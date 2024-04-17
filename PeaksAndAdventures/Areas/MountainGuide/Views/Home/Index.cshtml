@@ -1,0 +1,31 @@
+﻿@{
+	ViewData["Title"] = "Mountain Guide Page";
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+	<h3 class="display-4">Здравей </h3>
+	<p class="lead mt-1">
+		Като лиценцзиран планински водач, вие можете да създадете свой профил в сайта, от който потенциални клиенти могат да се запознаят с вашите умения и опит.
+		Също така, ако не работите в туристическа агенция, то тук те могат да ви намерят и да се свържат с вас за водене на туристически маршрути и експедиции и да Ви наемат на работа.
+		Също така не изпускайте да се запишете за експедиции, които се организират от туристически агенции.
+	</p>
+	<p class="lead mt-1">
+		Ако сте планински водач и искате да се регистрирате в сайта, може да го направите от <a asp-area="" asp-controller="MountainGuide" asp-action="Add">тук</a>.
+	</p>
+	<p class="lead mt-1">
+		Освен това, ние разчитаме на теб за това да си обогатим базата данни и да добавиш нови маршрути, върхове, езера и водопади, които си посетил и смяташ, че са достойни за включване в сайта.
+		Като планински водач, за нас е ценно да споделиш твойте знания и опит с нас, както и с любителите планинари, като по този начин ги насърчим да ходят в планината, да я обичат и уважават.
+	</p>
+
+	<hr class="my-4" />
+	<div class="navigation-buttons">
+		<a asp-area="" asp-controller="Article" asp-action="Create" class="btn btn-primary btn-group-sm fw-bold">Напиши статия</a>
+		<a asp-area="" asp-controller="Mountain" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави планина</a>
+		<a asp-area="" asp-controller="Peak" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>
+		<a asp-area="" asp-controller="Lake" asp-action="AddLake" class="btn btn-primary btn-group-sm fw-bold">Добави езеро</a>
+		<a asp-area="" asp-controller="Waterfall" asp-action="AddWaterfall" class="btn btn-primary btn-group-sm fw-bold">Добави водопад</a>
+		<a asp-area="" asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави маршрут</a>
+		<hr class="my-4" />
+	</div>
+
+</div>

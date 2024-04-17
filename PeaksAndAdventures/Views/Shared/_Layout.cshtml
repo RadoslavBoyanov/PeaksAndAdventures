@@ -28,9 +28,9 @@
 				                Статии
 			                </button>
 			                <ul class="dropdown-menu">
-				                <li><a class="dropdown-item" asp-controller="Article" asp-action="All">Всички статии</a></li>
-				                <li><a class="dropdown-item" asp-controller="Article" asp-action="Create">Напиши статия</a></li>
-				                <li><a class="dropdown-item" asp-controller="Article" asp-action="UserArticles">Мои статии</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Create">Напиши статия</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="UserArticles">Мои статии</a></li>
 			                </ul>
 		                </li>
 		                <li class="dropdown">
@@ -50,7 +50,7 @@
 			                </button>
 			                <ul class="dropdown-menu">
 								<li><a class="dropdown-item" asp-area="" asp-controller="MountainGuide" asp-action="All">Всички водачи</a></li>
-				                <li><a class="dropdown-item" asp-controller="MountainGuide" asp-action="Add">Добави планински водач</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="MountainGuide" asp-action="Add">Добави планински водач</a></li>
 			                </ul>
 		                </li>
 		                <li class="dropdown">
@@ -59,7 +59,7 @@
 			                </button>
 			                <ul class="dropdown-menu">
 								<li><a class="dropdown-item" asp-area="" asp-controller="TourAgency" asp-action="All">Всички агенции</a></li>
-				                <li><a class="dropdown-item" asp-controller="TourAgency" asp-action="Add">Добави туристическа агенция</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="TourAgency" asp-action="Add">Добави туристическа агенция</a></li>
 			                </ul>
 		                </li>
 		                <li class="dropdown">
@@ -69,7 +69,7 @@
 			                <ul class="dropdown-menu">
 								<li><a class="dropdown-item" asp-area="" asp-controller="Expedition" asp-action="All">Всички експедиции</a></li>
 								<li><a class="dropdown-item" asp-area="" asp-controller="Expedition" asp-action="MyExpeditions">Експедии, в който съм записан</a></li>
-				                <li><a class="dropdown-item" asp-controller="Expedition" asp-action="Add">Добави експедиция</a></li>
+				                <li><a class="dropdown-item" asp-area="" asp-controller="Expedition" asp-action="Add">Добави експедиция</a></li>
 			                </ul>
 		                </li>
 		                <li class="dropdown">
@@ -78,16 +78,28 @@
 			                </button>
 			                <ul class="dropdown-menu">
 				                <li><a class="dropdown-item" asp-area="" asp-controller="Route" asp-action="All">Всички маршрути</a></li>
-				                <li><a class="dropdown-item" asp-controller="Route" asp-action="Add">Добави маршрут</a></li>
+				                <li><a class="dropdown-item" asp-area="" asp-controller="Route" asp-action="Add">Добави маршрут</a></li>
 			                </ul>
 		                </li>
+		                @if (User.IsAdmin())
+		                {
+			                <li class="nav-item">
+				                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Админ</a>
+			                </li>
+		                }
+						else if (User.IsTourAgency())
+						{
+							<li class ="nav-item">
+								<a class="nav-link text-dark" asp-area="TourAgency" asp-controller="Home" asp-action="Index">Агенция</a>
+							</li>
+						}
+                        else if (User.IsMountaineer())
+{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="MountainGuide" asp-controller="Home" asp-action="Index">Водач</a>
+							</li>
+						}
 	                </ul>
-					@if (User.IsAdmin())
-	                {
-		                <li class="nav-item">
-			                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Админ</a>
-		                </li>
-	                }
 	                <partial name="_LoginPartial" />
                 </div>
             </div>
