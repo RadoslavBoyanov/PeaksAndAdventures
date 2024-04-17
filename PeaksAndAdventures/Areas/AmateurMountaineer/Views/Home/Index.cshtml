@@ -1,0 +1,29 @@
+﻿@{
+	ViewData["Title"] = "Amateur mountaineer Page";
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+	<h2 class="display-4">Здравей, планинарю!</h2>
+	<p class="lead mt-1">
+		Като планинар имаш възможност да се включиш в експедиции, да пишеш статии и да споделяш информация за планините, които си посетил.
+	</p>
+	<p class="lead mt-1">
+		Отделно можеш да се включиш в общността на планинарите и да споделяш с тях своите преживявания и съвети.
+	</p>
+	<p class="lead mt-1">
+		Приятно планинарене!
+	</p>
+
+	<hr class="my-4" />
+	<div class="navigation-buttons">
+		<a asp-area="" asp-controller="Article" asp-action="Create" class="btn btn-primary btn-group-sm fw-bold">Напиши статия</a>
+		<a asp-area="" asp-controller="Expedition" asp-action="All" class="btn btn-primary btn-group-sm fw-bold">Виж всички експедиции</a>
+		<a asp-area="" asp-controller="Expedition" asp-action="MyExpeditions" class="btn btn-primary btn-group-sm fw-bold">Моите експедиции</a>
+		<a asp-area="" asp-controller="Article" asp-action="UserArticles" class="btn btn-primary btn-group-sm fw-bold">Моите статии</a>
+	</div>
+
+	<hr class="my-4" />
+
+	<p class="lead mt-1">Освен това можеш да виждаш информация за планините, които си посетил.</p>
+	<a asp-area="" asp-controller="Mountain" asp-action="All" class="btn btn-primary btn-group-sm fw-bold">Виж всички планини</a>
+</div>
