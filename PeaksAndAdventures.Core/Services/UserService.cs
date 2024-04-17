@@ -36,6 +36,21 @@ namespace PeaksAndAdventures.Core.Services
 			return result;
 		}
 
+		public async Task<string> GetRoleOfUser(string userId)
+		{
+			var user = await _userManager.FindByIdAsync(userId);
+			if (user == null)
+			{
+				throw new InvalidOperationException("User not found");
+			}
 
+			var roles = await _userManager.GetRolesAsync(user);
+			return roles.FirstOrDefault();
+		}
+
+		public async Task<IdentityUser> GetUserId(string userId)
+		{
+			return await _repository.GetByIdAsync<IdentityUser>(userId);
+		}
 	}
 }

@@ -1,0 +1,36 @@
+﻿@{
+	var role = TempData["UserRole"] as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Роля на потребителя</title>
+</head>
+<body>
+<h1>Роля на потребителя</h1>
+<p>
+	Ролята на потребителя:
+	@if (role == AmateurMountaineerRole)
+	{
+		<strong>Турист</strong>
+	}
+		else if (role == MountaineerRole)
+	{
+		<strong>Водач</strong>
+	}
+		else if (role == TourAgencyRole)
+	{
+		<strong>Туристическа агенция</strong>
+	}
+		else if (role == null)
+	{
+		<strong>Няма роля</strong>
+	}
+	else if (role == AdminRole)
+	{
+		<strong>Админ</strong>
+	}
+</p>
+</body>
+</html>

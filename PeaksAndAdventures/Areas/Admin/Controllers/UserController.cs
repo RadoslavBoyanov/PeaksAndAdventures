@@ -18,5 +18,20 @@ namespace PeaksAndAdventures.Areas.Admin.Controllers
 
 			return View(allUsers);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetUserRole(string id)
+		{
+			if (await _userService.GetUserId(id) == null)
+			{
+				return BadRequest();
+			}
+
+			var role = await _userService.GetRoleOfUser(id);
+
+			TempData["UserRole"] = role;
+
+			return View();
+		}
 	}
 }
