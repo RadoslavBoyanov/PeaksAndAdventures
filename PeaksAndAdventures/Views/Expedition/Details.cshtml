@@ -1,57 +1,58 @@
 ﻿@model ExpeditionDetailsViewModel
 
 @{
-	ViewBag.Title = "Информация за експедицията";
+    ViewBag.Title = "Информация за експедицията";
 }
 
+<link rel="stylesheet" href="~/css/Expedition/detailsStyle.css" />
+
 <h3 class="text-center">@ViewBag.Title</h3>
-<hr/>
+<hr />
 
 <div class="card">
-	<div class="card-body">
-		<h5 class="card-title">@Model.Name</h5>
-		<p class="card-text"><strong>Начална дата: </strong> @Model.StartDate</p>
-		<p class="card-text"><strong>Крайна дата: </strong>@Model.EndDate</p>
-		<p class="card-text"><strong>Продължителност: </strong>@Model.Days дни</p>
-		<p class="card-text"><strong>Туроператор: </strong>@Model.TourAgencyName</p>
-		<p class="card-text"><strong>Маршрут: </strong>@Model.RouteName</p>
-		<p class="card-text"><strong>Свободни места за записване: </strong>@Model.Enrolment</p>
-		<p class="card-text"><strong>Програма: </strong>@Model.Program</p>
-		<p class="card-text"><strong>Включва: </strong>@Model.Includes</p>
-		<p class="card-text"><strong>Изключва: </strong>@Model.Excludes</p>
-		@if (!string.IsNullOrEmpty(Model.Extras))
-		{
-			<p class="card-text"><strong>Допълнителни услуги: </strong>@Model.Extras</p>
-		}
-		<p class="card-text"><strong>Цена: </strong>@Model.Price</p>
-	</div>
-	<div class="card-footer">
-		<div class="d-flex justify-content-between">
-			<form asp-controller="Expedition" asp-action="JoinExpedition" method="post">
-				<input type="hidden" name="expeditionId" value="@Model.Id"/>
-				<input type="hidden" name="userId" value="@User.Id()"/>
-				<button class="btn btn-primary" type="submit">Запиши се за експедицията</button>
-			</form>
-			<form asp-controller="Expedition" asp-action="LeaveExpedition" method="post">
-				<input type="hidden" name="expeditionId" value="@Model.Id"/>
-				<input type="hidden" name="userId" value="@User.Id()"/>
-				<button class="btn btn-danger" type="submit">Отпиши се от експедицията</button>
-			</form>
-		</div>
-	</div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text"><strong>Начална дата: </strong> @Model.StartDate</p>
+        <p class="card-text"><strong>Крайна дата: </strong>@Model.EndDate</p>
+        <p class="card-text"><strong>Продължителност: </strong>@Model.Days дни</p>
+        <p class="card-text"><strong>Туроператор: </strong>@Model.TourAgencyName</p>
+        <p class="card-text"><strong>Маршрут: </strong>@Model.RouteName</p>
+        <p class="card-text"><strong>Свободни места за записване: </strong>@Model.Enrolment</p>
+        <p class="card-text"><strong>Програма: </strong>@Model.Program</p>
+        <p class="card-text"><strong>Включва: </strong>@Model.Includes</p>
+        <p class="card-text"><strong>Изключва: </strong>@Model.Excludes</p>
+        @if (!string.IsNullOrEmpty(Model.Extras))
+        {
+            <p class="card-text"><strong>Допълнителни услуги: </strong>@Model.Extras</p>
+        }
+        <p class="card-text"><strong>Цена: </strong>@Model.Price</p>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <form asp-controller="Expedition" asp-action="JoinExpedition" method="post">
+                <input type="hidden" name="expeditionId" value="@Model.Id" />
+                <input type="hidden" name="userId" value="@User.Id()" />
+                <button class="btn btn-primary" type="submit">Запиши се за експедицията</button>
+            </form>
+            <form asp-controller="Expedition" asp-action="LeaveExpedition" method="post">
+                <input type="hidden" name="expeditionId" value="@Model.Id" />
+                <input type="hidden" name="userId" value="@User.Id()" />
+                <button class="btn btn-danger" type="submit">Отпиши се от експедицията</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 @if (User.Identity.IsAuthenticated && User.Id() == Model.OrganiserId)
 {
-	<div class="flex-row">
-		<a asp-controller="Expedition" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
-		<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
-	</div>
+    <div class="flex-row">
+        <a asp-controller="Expedition" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
+        <a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+    </div>
 }
 else if (User.IsAdmin())
 {
-	<div class="flex-row">
-		<a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
-	</div>
+    <div class="flex-row">
+        <a asp-controller="Expedition" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
+    </div>
 }
-

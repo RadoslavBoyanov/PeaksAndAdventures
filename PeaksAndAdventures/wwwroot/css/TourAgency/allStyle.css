@@ -4,13 +4,16 @@
 }
 
 .card-title {
-    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.35rem;
     margin-bottom: .75rem;
 }
 
-.card-text {
-    margin-bottom: 1rem;
+body > div > main > div > div > div > div > p{
+    text-align: center;
 }
+
 
 .btn-primary {
     background-color: #007bff;
@@ -21,4 +24,6 @@
     .btn-primary:hover {
         background-color: #0056b3;
         border-color: #0056b3;
+        animation-timing-function:ease-in-out;
+        
     }

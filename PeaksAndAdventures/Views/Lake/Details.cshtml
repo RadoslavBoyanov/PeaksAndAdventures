@@ -4,6 +4,7 @@
 	ViewBag.Title = "Информация за езерото";
 }
 
+<link rel="stylesheet" href="~/css/Lake/detailsStyle.css" />
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
@@ -30,6 +31,6 @@
 			<a asp-controller="Lake" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Редактирай</a>
 			<a asp-controller="Lake" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрий</a>
 		</div>
-	})
+	}
 </div>
 
