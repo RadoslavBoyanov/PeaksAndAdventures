@@ -2,7 +2,7 @@
     border: 1px solid #dee2e6;
     border-radius: 12px;
     margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
@@ -82,3 +82,8 @@
     .rating input[type="radio"]:checked ~ label {
         color: #ffc107;
     }
+
+.delete {
+    margin-top: 20px;
+    text-align: center;
+}

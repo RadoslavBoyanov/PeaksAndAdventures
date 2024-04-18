@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures.Core", "PeaksAndAdventures.Core\PeaksAndAdventures.Core.csproj", "{6A3A9B24-E190-419B-9042-73506490F8C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Common", "PeaksAndAdventures.Common\PeaksAndAdventures.Common.csproj", "{47B021D4-4256-4711-8283-EA175C71C721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeaksAndAdventures.Common", "PeaksAndAdventures.Common\PeaksAndAdventures.Common.csproj", "{47B021D4-4256-4711-8283-EA175C71C721}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeaksAndAdventures.Tests", "PeaksAndAdventures.Tests\PeaksAndAdventures.Tests.csproj", "{2217677C-D1B9-4B04-BDE7-7CDE1B2B5994}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{47B021D4-4256-4711-8283-EA175C71C721}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47B021D4-4256-4711-8283-EA175C71C721}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47B021D4-4256-4711-8283-EA175C71C721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2217677C-D1B9-4B04-BDE7-7CDE1B2B5994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2217677C-D1B9-4B04-BDE7-7CDE1B2B5994}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2217677C-D1B9-4B04-BDE7-7CDE1B2B5994}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2217677C-D1B9-4B04-BDE7-7CDE1B2B5994}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

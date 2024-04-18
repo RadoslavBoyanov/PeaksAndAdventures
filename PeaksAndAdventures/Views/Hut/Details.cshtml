@@ -4,6 +4,8 @@
 	ViewBag.Title = "Информация за хижа";
 }
 
+<link rel="stylesheet" href="~/css/Hut/detailsStyle.css" />
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -15,37 +17,37 @@
 	<div class="card-body">
 		<h5 class="card-title text-center">@Model.Name</h5>
 		<p class="card-text">
-			<strong>Description:</strong> @Model.Description
+			<strong>Описание:</strong> @Model.Description
 		</p>
 		<p class="card-text">
-			<strong>Work Time:</strong> @Model.WorkTime
+			<strong>Работно време:</strong> @Model.WorkTime
 		</p>
 		<p class="card-text">
-			<strong>Places:</strong> @Model.Places
+			<strong>Места:</strong> @Model.Places
 		</p>
 		<p class="card-text">
-			<strong>Camping:</strong> @Model.Camping
+			<strong>Къмпинг:</strong> @Model.Camping
 		</p>
 		<p class="card-text">
-			<strong>Altitude:</strong> @(Model.Altitude.HasValue ? Model.Altitude.Value.ToString() : "N/A")
+			<strong>Надморска височина:</strong> @(Model.Altitude.HasValue ? Model.Altitude.Value.ToString() : "N/A") метра
 		</p>
 		<p class="card-text">
-			<strong>Has Bathroom:</strong> @Model.HasBathroom
+			<strong>Баня:</strong> @Model.HasBathroom
 		</p>
 		<p class="card-text">
-			<strong>Has Toilet:</strong> @Model.HasToilet
+			<strong>Тоалетна:</strong> @Model.HasToilet
 		</p>
 		<p class="card-text">
-			<strong>Has Canteen:</strong> @Model.HasCanteen
+			<strong>Столова:</strong> @Model.HasCanteen
 		</p>
 		@if (!string.IsNullOrEmpty(Model.Phone))
 		{
 			<p class="card-text">
-				<strong>Phone:</strong> @Model.Phone
+				<strong>Телефон:</strong> @Model.Phone
 			</p>
 		}
 		<p class="card-text">
-			<strong>Mountain:</strong> @Model.MountainName
+			<strong>Планина:</strong> @Model.MountainName
 		</p>
 		<p class="card-text">
 			<i class="fa-solid fa-route" style="color: #74C0FC;"></i> 
