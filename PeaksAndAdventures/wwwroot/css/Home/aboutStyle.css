@@ -1,0 +1,36 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-image: url(/Img/Home/header-pic.jpg);
+    background-size: cover;
+    color: #333;
+}
+
+.container-info{
+    margin-top: 50px;
+}
+
+h2 {
+    color: #007bff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+h3 {
+    font-size: 2.0rem;
+    color: forestgreen;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+p {
+    color: black;
+    font-size: 18px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #007bff;
+}

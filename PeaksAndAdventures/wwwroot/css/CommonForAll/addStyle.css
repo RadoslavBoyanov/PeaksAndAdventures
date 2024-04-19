@@ -1,0 +1,65 @@
+﻿body{
+    font-family: Arial, sans-serif;
+    background-color: snow;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+
+.control-label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+
+.form-control {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+    .form-control select {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: #fff;
+    }
+
+    .form-control textarea {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .form-control button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .form-control button:hover {
+            background-color: #0056b3;
+        }
+
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    font-style: italic;
+}
