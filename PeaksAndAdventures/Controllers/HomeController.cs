@@ -19,6 +19,12 @@ namespace PeaksAndAdventures.Controllers
         }
 
         [AllowAnonymous]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)
         {
