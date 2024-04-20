@@ -77,6 +77,11 @@ namespace PeaksAndAdventures.Core.Services
 		        .Include(l=> l.Mountain)
 		        .FirstOrDefaultAsync(l=>l.Id == lakeId);
 
+	        if (lake is null)
+	        {
+		        return null;
+	        }
+
 	        var lakeDetails = new LakeDetailsViewModel()
 	        {
 		        Id = lake.Id,

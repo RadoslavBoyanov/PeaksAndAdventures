@@ -1,93 +1,72 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PeaksAndAdventures.Core.Interfaces;
-using PeaksAndAdventures.Core.Models.QueryModels.Hut;
-using PeaksAndAdventures.Core.Models.ViewModels.Hut;
+using PeaksAndAdventures.Core.Models.ViewModels.Peak;
 using PeaksAndAdventures.Core.Services;
-using PeaksAndAdventures.Extensions;
 using PeaksAndAdventures.Infrastructure.Data;
 using PeaksAndAdventures.Infrastructure.Data.Common;
-using PeaksAndAdventures.Infrastructure.Data.Enums.Hut;
 using PeaksAndAdventures.Infrastructure.Data.Enums.Route;
 using PeaksAndAdventures.Infrastructure.Data.Models;
 
 namespace PeaksAndAdventures.Tests
 {
 	[TestFixture]
-	public class HutServiceTests
+	public class PeakServiceTests
 	{
 		private PeaksAndAdventuresDbContext dbContext;
 
 		private IRepository repository;
-		private IHutService hutService;
+		private PeakService _peakService;
 
-		private IEnumerable<Hut> huts;
+		private IEnumerable<Peak> peaks;
 		private IEnumerable<Mountain> mountains;
 		private IEnumerable<Route> routes;
-		private IEnumerable<RouteHut> routesHuts;
+		private IEnumerable<RoutePeak> routePeaks;
+
 
 		[SetUp]
 		public void Setup()
 		{
 			var options = new DbContextOptionsBuilder<PeaksAndAdventuresDbContext>()
-				.UseInMemoryDatabase(databaseName: "PeaksAndAdventuresTest" + Guid.NewGuid().ToString())
+				.UseInMemoryDatabase("PeaksAndAdventuresTest" + Guid.NewGuid().ToString())
 				.Options;
 
 			dbContext = new PeaksAndAdventuresDbContext(options);
 
 			repository = new Repository(this.dbContext);
-			hutService = new HutService(repository);
+			_peakService = new PeakService(repository);
 
-			this.huts = new List<Hut>
+			this.peaks = new List<Peak>
 			{
-				new Hut
+				new Peak
 				{
-					Id = 1,
-					Name = "Безбог",
-					Altitude = 2240,
-					Camping = Camping.Permitted,
-					WorkTime = WorkTime.All,
-					Phone = "0888286102",
-					HasBathroom = true,
-					HasCanteen = true,
-					HasToilet = true,
-					Description = "Разположена е край северната част на Безбожкото езеро в Северен Пирин. Предаставлява масивна пететажна сграда с капацитет 130 места с етажни санитарни възли и бани. Хижата е електрифицирана, водоснабдена, с централно отопление. Има ресторант, кафе-аперитив, лафка.",
-					Places = 130,
-					ImageUrl = "https://www.tourism-bg.net/hiji/img/bezbog.jpg",
-					MountainId = 3
+					Id=1,
+					Name = "Ботев",
+					Altitude = 2376,
+					Partition = "Средна Стара планина",
+					SpecificLocation = "Калоферска планина, И от заслон Ботев",
+					Description = "Връх Ботев е най-високият връх в Стара планина и с неговите 2375,9 м тя нарежда планината на 3-то място по височина в България, след Рила (връх Мусала – 2925 м) и Пирин (връх Вихрен – 2914 м). Намира се в Средна Стара планина, в Национален парк „Централен Балкан“. Разположението му в сърцето на страната и множеството туристически маршрути, които го опасват, го правят привлекателен за множество планинари. В подножието му се намира и най-високия водопад на Балканския полуостров – Райското пръскало. Той е основна атракция в местността със своите 124,5 м, което допълнително популяризира връх Ботев.",
+					ImageUrl = "https://izbulgaria.com/wp-content/uploads/2021/07/gledka-kam-vrah-botev-1024x768.jpg",
+					MountainId = 1
 				},
-				new Hut
+				new Peak
 				{
 					Id = 2,
-					Name = "Рилски езера",
-					Altitude = 2115,
-					Camping = Camping.Permitted,
-					WorkTime = WorkTime.All,
-					Description = "Хижа „Рилски езера“ е туристическа хижа, намираща се в Рила планина.Разположена е в близост до Седемте рилски езера, на около 2000 м надморска височина.Предлага настаняване в стаи с 2, 3, 4, 6, 7, 11 и 12 легла, като голяма част от по-малките стаи имат собствени санитарни възли. Останалите ползват тоалетни и умивалници на етажа и общи бани на някои от етажите. Хижата разполага с ресторант-столова, дневна с телевизор, бар с топли, студени и алкохолни напитки, както и сладки храни. Работи целогодишно.До хижата се достига пеш или чрез двуседалковия лифт „Рилски езера“, който тръгва от района на хижа Пионерска в Паничище.Сухият рид над хижата предлага идеални условия за каране на ски както от начинаещи (по писта), така и за екстремни ски и ски свободен стил по улеите над нея. На разположение на туристите е ски-влек тип 'паничка'.На 40 мин. път се намира по-старата хижа „Седемте езера“.",
-					Places = 120,
-					HasToilet = true,
-					HasCanteen = true,
-					HasBathroom = true,
-					Phone = "0886509409",
-					ImageUrl = "https://www.btsbg.org/sites/default/files/styles/768x576/public/hiji/%D1%80%D0%B8%D0%BB%D1%81%D0%BA%D0%B8%20%D0%B5%D0%B7%D0%B5%D1%80%D0%B0%D0%B0.jpg?itok=B2mSYcnJ",
+					Name = "Мусала",
+					Altitude = 2925,
+					Partition = "Източна Рила",
+					Description = "Мусала е първенецът на Рила и най-високият планински връх в България и на целия Балкански полуостров. Надморската му височина е 2925,4 m, измерена от равнището на пристанище Варна. По-висок е с 8 m от следващия по височина връх на Балканите, Митикас в планината Олимп в Гърция, и с 11 m от първенеца на Пирин, връх Вихрен, който заема третото място в класацията. Мусала има относителна надморска височина от 2473 m, което го подрежда на 7-о място в Европа.",
+					ImageUrl = "https://svetogled.com/wp-content/uploads/2021/08/DSC_0050_1.jpg",
 					MountainId = 2
 				},
-				new Hut
+				new Peak
 				{
 					Id = 3,
-					Name = "Мазалат",
-					Altitude = 1620,
-					Camping = Camping.Permitted,
-					WorkTime = WorkTime.All,
-					Description = "Намира се на главното било в местността Мандрището, на 1523 м н.в. Построена е през 1935 година, а през 1962 година е реконструирана. Представлява двуетажна масивна сграда с капацитет 60 места с вътрешна тоалетна. Разполага с туристическа кухня и столова. Към хижата има и друга двуетажна сграда с 30 легла и вътрешна тоалетна и умивалник. Хижа „Мазалат“ се нарежда на първите места сред най-добрите хижи в България.",
-					HasToilet = true,
-					HasCanteen = true,
-					HasBathroom = true,
-					Places = 60,
-					Phone = "0897475538",
-					ImageUrl = "https://planinka.bg/wp-content/uploads/2022/02/MANE7681-copy-1024x683.webp",
-					MountainId = 1
-
-				}
+					Name = "Вихрен",
+					Altitude = 2914,
+					Partition = "Северен Пирин",
+					Description = "Вѝхрен (до 29 юни 1942 г. Елтепе, Ел-тепе) е най-високият връх на Пирин. Със своите 2914 метра Вихрен е втори по височина в България след Мусала (2925,4) в Рила и трети на Балканския полуостров след Митикас (2917,727[3]) в Олимп. Гледан от Банско Вихрен прилича на пресечена пирамида, а от юг – на четиристенна пирамида. За този връх е характерно, че изглежда по много различен начин от различните посоки. Скалите, които изграждат Вихрен, са мрамори, които не задържат вода, поради което в целия район на върха няма реки и езера. Най-близките езера са Влахините на югозапад. Растителността по склоновете на Вихрен е бедна – трева и лишеи, докато животинският свят е по-богат – има птици, дребни гризачи, но най-вече диви кози, които обитават Казаните в подножието на върха. Цветето еделвайс се среща в изобилие по скалния ръб Джамджиеви скали.",
+					ImageUrl = "https://planinka.bg/wp-content/uploads/2022/07/MANE2800a.jpg",
+					MountainId = 3
+				},
 			};
 
 			this.mountains = new List<Mountain>
@@ -127,24 +106,11 @@ namespace PeaksAndAdventures.Tests
 				},
 			};
 
-			this.routes = new List<Route>()
+			this.routes = new List<Route>
 			{
-				new Route()
+				new Route
 				{
-					Id = 1,
-					Name = "Връх Безбог",
-					Description = "Връхът може да се изкачи по два маршрута. Най-популярният е като тръгнете към “душеватката” и Попово езеро, след което се изкачите на седловината между върховете Полежан и Безбог (вторият етап на прехода, който сме описали тук, но в обратна посока). Маршрутът тръгва покрай десния бряг Безбожкото езеро, където вдясно ще видите изоставена постройка. Това са руините на старата хижа „Безбог“, която е разрушена от лавина през 1971 година. Пътеката към върха минава вляво на постройката. По тази пътека няма маркировка, но „пирамидките“ от камъни могат да ви водят.Поглед към връх Безбог в Пирин.Пътеката е доста стръмна и през по- голямата част е през клекове. Малко преди върха започва каменист участък, който също е стръмен. Внимавайте къде стъпвате между камъните.На самия връх има кръст и веднага ще го познаете щом го видите.Гледката оттук е много красива: на Изток част от Кременското езеро, до него върховете Севрия, Джано, Джангал както и част от Поповото езеро. В другата посока се виждат връх Полежан, Стражите и Десилица.",
-					StartingPoint = "Хижа Безбог",
-					Difficulty = Difficulty.Moderate,
-					DisplacementPositive = 450,
-					DisplacementNegative = 450,
-					Duration = "0.02:40",
-					ImageUrl = "https://planinka.bg/wp-content/uploads/2022/09/DSCF5440-1024x819.webp",
-					MountainId = 3
-				},
-				new Route()
-				{
-					Id = 2,
+					 Id = 1,
 				Name = "Връх Мусала – най-високият връх в България и на Балканите",
 				StartingPoint = "Хижа Ястребец",
 				Description = "Хижа „Ястребец“ – хижа „Мусала“\r\nОт лифта тръгнете по главната пътека към хижата. Пътеката е почти равна и широка. Най-вероятно ще видите много хора и трудно бихте се объркали. Маршрута до хижата отнема около час, а маркировката, която трябва да следвате е червена. Повече информация може да прочетете в статията ни за хижа „Мусала.\r\n\r\nВръх Иречек вляво и връх Мусала вдясно, отпред Мусаленското езеро\r\nХижа „Мусала“ – Ледено езеро\r\nСлед като стигнете хижа „Мусала“ ви остават около 2 часа преход до върха. До хижата се намират първите три езера от езерната група Мусаленски езера. Тръгнете по дясната страна на езерото пред хижа „Мусала“. От тук започва постепенно изкачване, пътеката става все по-камениста и все по-често се върви по морени. По пътеката ще минете покрай две езера, първото от които е Алековото езеро. След около 30-35 минути ще достигнете до Леденото езеро.\r\n\r\n\r\nЛедено езеро – връх Мусала\r\nСега е моментът да си отдъхнете преди последното изкачване. То е най-трудно и изморително заради голямата денивелация. Тук е и единствената чешма по пътя.\r\n\r\n\r\n\r\nИма две пътеки – лятна и зимна. Зимната е камениста и стръмна, но има обезопасително метално въже.\r\n\r\n\r\nЗа по-неопитните туристи е препоръчително да изберат лятната пътека. След около половин час нагоре ще стигнете най-високата точка на България.\r\n\r\nГледка от връх Мусала към Леденото езеро\r\n\r\nПред вас ще се открие уникална гледка към върхове и езера. На юг са Маричините езера, на север – Ледено езеро и местността, от която дойдохте, на изток – върховете Малка Мусала (2902 м) и Иречек (2852 м). При ясно време можете да видите в далечината на запад връх Мальовица.",
@@ -155,252 +121,215 @@ namespace PeaksAndAdventures.Tests
 				ImageUrl = "https://planinka.bg/wp-content/uploads/2022/09/DSC6986-1024x680.webp",
 				MountainId = 2
 				},
-				new Route()
-				{
-					 Id = 3,
-				Name = "Хижа „Мазалат“ – уют и красиви гледки в Стара планина",
-				StartingPoint = "Партизанска Песен",
-				Description =
-					"Хижа „Партизанска Песен“ – чешма\r\nПътеката започва от хижа „Партизанска песен“, като първите 30 минути се върви в прохладна гора. Маршрутът до хижата е част от Е3, по-известен като Ком-Емине, и е добре маркиран (следвайте Пътеката започва от хижа „Партизанска песен“, като първите 30 минути се върви в прохладна гора. Маршрутът до хижата е част от Е3, по-известен като „Ком-Емине“, и е добре маркиран (следвайте червената маркировка). Пътеката ясно се вижда и трудно бихте могли да се изгубите. След приятната горичка лека по-лека наклона става по-голям и излизате на открит участък, от където в далечината се виждат върховете Бузлуджа и Шипка, както и няколко вятърни турбини. Има едно местенце с голямо дърво и пейки, където можете да направите кратка почивка. Не след дълго се излиза на чешмичката, тя е над пътеката и трябва да внимавате да не я пропуснете. Отдъхнете и напълнете вода, защото е единствената по пътя.\r\n\r\n\r\n\r\n\r\nЧешма – хижа „Мазалат“\r\nОт чешмичката поемете нагоре и надясно по баира. Тук е най-голямото изкачване от маршрута. Тази част се минава трудно, защото през лятото е пълно с боровинки, на които не бихте устояли. След като изкачите възвишението пътеката става почти равна и навлиза в букова гора. Не забравяйте да вдигате достатъчно шум, за да избегнете среща с дивите животни и най-вече с мечките. Пътеката е много приятна и живописна. Скоро след като излезете от гората ще стигнете табела на Национален парк, от там пътят става широк и открит. Това е последната част от маршрута. До хижата остават около 20-30 минути. В хижата можете да хапнете, починете и да се насладите на гледките към масива Триглав. Ако имате достатъчно време, може да се разходите до връх Вълча глава (30 минути), скален феномен Пеещите скали (55 минути) или да направите маршрута до връх Голям Кадемлия.",
-				Difficulty = Difficulty.Moderate,
-				DisplacementNegative = 151,
-				DisplacementPositive = 498,
-				Duration = "0.06:00",
-				ImageUrl = "https://planinka.bg/wp-content/uploads/2022/02/MANE7558-copy-1024x683.webp",
-				MountainId = 1
-				}
 			};
 
-			routesHuts = new List<RouteHut>()
+			this.routePeaks = new List<RoutePeak>
 			{
-				new RouteHut()
-				{
-					RouteId = 1,
-					HutId = 1,
-				},
-				new RouteHut()
-				{
-					RouteId = 3,
-					HutId = 3,
-				},
+				new RoutePeak { RouteId = 1, PeakId = 2 },
 			};
 
-			this.dbContext.AddRange(this.huts);
+			this.dbContext.AddRange(this.peaks);
 			this.dbContext.AddRange(this.mountains);
 			this.dbContext.AddRange(this.routes);
-			this.dbContext.AddRange(this.routesHuts);
+			this.dbContext.AddRange(this.routePeaks);
 			this.dbContext.SaveChanges();
 		}
 
 		[TearDown]
-		public async Task TearDown()
+		public async Task Cleanup()
 		{
 			await this.dbContext.Database.EnsureDeletedAsync();
 			await this.dbContext.DisposeAsync();
 		}
 
 		[Test]
-		public async Task All_ReturnsCorrectHuts()
+		public async Task All_ShouldReturnAllPeaks()
 		{
-			var result = await hutService.AllAsync();
+			var result = await _peakService.AllAsync();
 
 			Assert.That(result.Count(), Is.EqualTo(3));
-
-			var expectedHuts = new List<string> { "Безбог", "Рилски езера", "Мазалат" };
-			foreach (var hut in result)
-			{
-				Assert.IsTrue(expectedHuts.Contains(hut.Name));
-			}
 		}
 
 		[Test]
-		public async Task Add_ShouldAddHutToMountainAsync()
+		public async Task AllPagination_ShouldReturnAllPeaks()
 		{
-			var hut = new AddHutViewModel()
+			int page = 1;
+			int pageSize = 10;
+
+			var result = await _peakService.AllPaginationAsync(page, pageSize);
+
+			Assert.That(result.Peaks.Count(), Is.EqualTo(3));
+			Assert.That(result.TotalPages, Is.EqualTo(1));
+		}
+
+		[Test]
+		public async Task AddPeakToMountain_ShouldAddPeakToMountain()
+		{
+			var peakForm = new PeakAddViewModel
 			{
-				Name = "Ком",
-				Altitude = 1520,
-				WorkTime = WorkTime.All,
-				HasToilet = true,
-				HasCanteen = true,
-				HasBathroom = true,
-				Phone = "0891234567",
-				Places = 60,
-				Description = "Представлява масивна двуетажна сграда с капацитет 120 места. Има 38 стаи с по 2,3 и 4 легла, половината от които със собствен санитарен възел. Сградата е водоснабдена и електрифицирана, с централно отопление.\r\n\r\nРазполага с туристическа кухня и гостилница, интернет, маса за тенис и телевизия. Пътят до хижата е асфалтиран, има паркинг, барбекю, детска площадка и летен бар.\r\n\r\nПредлага се топла храна по всяко време. За пакет нощувки и храна цените се договарят допълнително.\r\n\r\nВ близост се намира ски писта с влек.",
-				Camping = Camping.Permitted,
-				ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Beklemeto.jpg/1280px-Beklemeto.jpg",
-				MountainId = 1
+				Name = "Мальовица",
+				Altitude = 2729,
+				Partition = "Северозападна Рила",
+				SpecificLocation = "СЗ от Еленино езеро",
+				Description = "Мальовица е името на връх в северозападната част на планина Рила, висок 2729 m. Името на върха е свързано с Мальо войвода – борец срещу поробителите, загинал според преданието нейде в Мальовишката долина. Друго предположение е, че името произлиза от Малите езера, както планинците наричат езерата в североизточното подножие на върха. На най-старите карти върхът е отбелязан с името Малевица. По труднодостъпните северни и източни склонове на връх Мальовица се намират едни от най-посещаваните от алпинисти скални стени в България. Северната отвесна стена на Мальовица е висока 124 метра и е символ в българския алпинизъм.",
+				ImageUrl = "https://www.standartnews.com/media/1/2023/10/14/388220/960x540.jpg?timer=1697268969",
+				MountainId = 2
 			};
 
-			await hutService.AddHutToMountainAsync(hut);
+			await _peakService.AddPeakToMountainAsync(peakForm);
 
-			var result = await this.dbContext.Huts.FirstOrDefaultAsync(h => h.Name == "Ком");
+			var allPeaks = await _peakService.AllAsync();
+
+			Assert.That(allPeaks.Count(), Is.EqualTo(4));
+
+			var result = this.dbContext.Peaks.FirstOrDefault(p => p.Name == "Мальовица");
 
 			Assert.IsNotNull(result);
-			
-			Assert.That(result.Name, Is.EqualTo("Ком"));
-			Assert.That(result.WorkTime, Is.EqualTo(WorkTime.All));
-			Assert.That(result.Altitude, Is.EqualTo(1520));
-			Assert.That(result.HasToilet, Is.EqualTo(true));
-			Assert.That(result.HasCanteen, Is.EqualTo(true));
-			Assert.That(result.HasBathroom, Is.EqualTo(true));
-			Assert.That(result.Phone, Is.EqualTo("0891234567"));
-			Assert.That(result.Places, Is.EqualTo(60));
-			Assert.That(result.Description, Is.EqualTo("Представлява масивна двуетажна сграда с капацитет 120 места. Има 38 стаи с по 2,3 и 4 легла, половината от които със собствен санитарен възел. Сградата е водоснабдена и електрифицирана, с централно отопление.\r\n\r\nРазполага с туристическа кухня и гостилница, интернет, маса за тенис и телевизия. Пътят до хижата е асфалтиран, има паркинг, барбекю, детска площадка и летен бар.\r\n\r\nПредлага се топла храна по всяко време. За пакет нощувки и храна цените се договарят допълнително.\r\n\r\nВ близост се намира ски писта с влек."));
-			Assert.That(result.Camping, Is.EqualTo(Camping.Permitted));
-			Assert.That(result.ImageUrl, Is.EqualTo("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Beklemeto.jpg/1280px-Beklemeto.jpg"));
-			Assert.That(result.MountainId, Is.EqualTo(1));
+			Assert.That(result.Altitude, Is.EqualTo(peakForm.Altitude));
+			Assert.That(result.Partition, Is.EqualTo(peakForm.Partition));
+			Assert.That(result.SpecificLocation, Is.EqualTo(peakForm.SpecificLocation));
+			Assert.That(result.Name, Is.EqualTo(peakForm.Name));
+			Assert.That(result.Description, Is.EqualTo(peakForm.Description));
+			Assert.That(result.ImageUrl, Is.EqualTo(peakForm.ImageUrl));
+			Assert.That(result.MountainId, Is.EqualTo(peakForm.MountainId));
 		}
 
 		[Test]
-		public async Task CheckHutExistsByIdAsync_ShouldReturnTrue()
+		public async Task CheckPeakExistByIdAsync_ShouldReturnTrue()
 		{
-			var result = await hutService.CheckHutExistsByIdAsync(1);
+			var result = await _peakService.CheckPeakExistsByIdAsync(1);
 
-			Assert.IsTrue(result);
+			Assert.That(result, Is.True);
 		}
 
 		[Test]
-		public async Task CheckHutExistsByIdAsync_ShouldReturnFalse()
+		public async Task CheckPeakExistByIdAsync_ShouldReturnFalse()
 		{
-			var result = await hutService.CheckHutExistsByIdAsync(4);
+			var result = await _peakService.CheckPeakExistsByIdAsync(4);
 
-			Assert.IsFalse(result);
+			Assert.That(result, Is.False);
 		}
 
 		[Test]
-		public async Task CheckHutExistsByNameAsync_ShouldReturnTrue()
+		public async Task CheckPeakExistByNameAsync_ShouldReturnTrue()
 		{
-			var result = await hutService.CheckHutExistsByNameAsync("Безбог");
+			var result = await _peakService.CheckPeakExistsByNameAsync("Ботев");
 
-			Assert.IsTrue(result);
+			Assert.That(result, Is.True);
 		}
 
 		[Test]
-		public async Task CheckHutExistsByNameAsync_ShouldReturnFalse()
+		public async Task CheckPeakExistByNameAsync_ShouldReturnFalse()
 		{
-			var result = await hutService.CheckHutExistsByNameAsync("Ком");
+			var result = await _peakService.CheckPeakExistsByNameAsync("Мальовица");
 
-			Assert.IsFalse(result);
+			Assert.That(result, Is.False);
 		}
 
 		[Test]
-		public async Task DetailsAsync_ShouldReturnCorrectHutDetails()
+		public async Task DeleteGet_ShouldReturnCorrectPeakDeleteViewModel()
 		{
-			var result = await hutService.DetailsAsync(1);
+			var result = await _peakService.DeleteGetAsync(2);
 
-			Assert.That(result.Id, Is.EqualTo(1));
-			Assert.That(result.Name, Is.EqualTo("Безбог"));
-			Assert.That(result.Altitude, Is.EqualTo(2240));
-			Assert.That(result.Description, Is.EqualTo("Разположена е край северната част на Безбожкото езеро в Северен Пирин. Предаставлява масивна пететажна сграда с капацитет 130 места с етажни санитарни възли и бани. Хижата е електрифицирана, водоснабдена, с централно отопление. Има ресторант, кафе-аперитив, лафка."));
-			Assert.That(result.WorkTime, Is.EqualTo(WorkTime.All.GetDisplayName()));
-			Assert.That(result.HasToilet, Is.EqualTo("да"));
-			Assert.That(result.HasCanteen, Is.EqualTo("да"));
-			Assert.That(result.HasBathroom, Is.EqualTo("да"));
-			Assert.That(result.Places, Is.EqualTo(130));
-			Assert.That(result.Camping, Is.EqualTo(Camping.Permitted.GetDisplayName()));
-			Assert.That(result.Phone, Is.EqualTo("0888286102"));
-			Assert.That(result.ImageUrl, Is.EqualTo("https://www.tourism-bg.net/hiji/img/bezbog.jpg"));
-			Assert.That(result.MountainId, Is.EqualTo(3));
-			Assert.That(result.MountainName, Is.EqualTo("Пирин"));
+			Assert.That(result.Id, Is.EqualTo(2));
+			Assert.That(result.Name, Is.EqualTo("Мусала"));
+			Assert.That(result.MountainName, Is.EqualTo("Рила"));
 		}
 
 		[Test]
-		public async Task DeleteGetAsync_ShouldReturnCorrectHutDeleteViewModel()
+		public async Task DeleteConfirmed_ShouldDeletePeak()
 		{
-			var result = await hutService.DeleteGetAsync(1);
+			var peakId = 1;
 
-			Assert.That(result.Id, Is.EqualTo(1));
-			Assert.That(result.Name, Is.EqualTo("Безбог"));
-			Assert.That(result.Phone, Is.EqualTo("0888286102"));
-			Assert.That(result.ImageUrl, Is.EqualTo("https://www.tourism-bg.net/hiji/img/bezbog.jpg"));
-			Assert.That(result.MountainName, Is.EqualTo("Пирин"));
-		}
+			await _peakService.DeleteConfirmedAsync(peakId);
 
-		[Test]
-		public async Task DeletePostAsync_ShouldDeleteHut()
-		{
-			await hutService.DeleteConfirmedAsync(1);
-
-			var result = await this.dbContext.Huts.FirstOrDefaultAsync(h => h.Id == 1);
+			var result = this.dbContext.Peaks.FirstOrDefault(p => p.Id == peakId);
 
 			Assert.IsNull(result);
 		}
 
 		[Test]
-		public async Task EditGetAsync_ShouldReturnCorrectHutEditViewModel()
+		public async Task DeleteConfirmed_ShouldDeletePeakWithRouteToHim()
 		{
-			var result = await hutService.EditGetAsync(1);
+			var peakId = 2;
 
-			Assert.That(result.Name, Is.EqualTo("Безбог"));
-			Assert.That(result.Altitude, Is.EqualTo(2240));
-			Assert.That(result.Description, Is.EqualTo("Разположена е край северната част на Безбожкото езеро в Северен Пирин. Предаставлява масивна пететажна сграда с капацитет 130 места с етажни санитарни възли и бани. Хижата е електрифицирана, водоснабдена, с централно отопление. Има ресторант, кафе-аперитив, лафка."));
-			Assert.That(result.WorkTime, Is.EqualTo(WorkTime.All));
-			Assert.That(result.HasToilet, Is.EqualTo(true));
-			Assert.That(result.HasCanteen, Is.EqualTo(true));
-			Assert.That(result.HasBathroom, Is.EqualTo(true));
-			Assert.That(result.Places, Is.EqualTo(130));
-			Assert.That(result.Camping, Is.EqualTo(Camping.Permitted));
-			Assert.That(result.Phone, Is.EqualTo("0888286102"));
-			Assert.That(result.ImageUrl, Is.EqualTo("https://www.tourism-bg.net/hiji/img/bezbog.jpg"));
+			await _peakService.DeleteConfirmedAsync(peakId);
+
+			var result = this.dbContext.Peaks.FirstOrDefault(p => p.Id == peakId);
+
+			Assert.IsNull(result);
 		}
 
 		[Test]
-		public async Task EditPostAsync_ShouldEditCorrectHut()
+		public async Task Details_ShouldReturnCorrectPeakDetailsViewModel()
 		{
-			var hutId = 1;
+			var result = await _peakService.DetailsAsync(2);
 
-			var editHut = new HutEditViewModel()
+			Assert.That(result.Id, Is.EqualTo(2));
+			Assert.That(result.Name, Is.EqualTo("Мусала"));
+			Assert.That(result.Altitude, Is.EqualTo(2925));
+			Assert.That(result.Partition, Is.EqualTo("Източна Рила"));
+			Assert.That(result.SpecificLocation, Is.EqualTo(null));
+			Assert.That(result.Description,
+				Is.EqualTo(
+					"Мусала е първенецът на Рила и най-високият планински връх в България и на целия Балкански полуостров. Надморската му височина е 2925,4 m, измерена от равнището на пристанище Варна. По-висок е с 8 m от следващия по височина връх на Балканите, Митикас в планината Олимп в Гърция, и с 11 m от първенеца на Пирин, връх Вихрен, който заема третото място в класацията. Мусала има относителна надморска височина от 2473 m, което го подрежда на 7-о място в Европа."));
+		}
+
+		[Test]
+		public async Task EditGet_ShouldReturnCorrectPeakEditViewModel()
+		{
+			var result = await _peakService.EditGetAsync(2);
+
+			Assert.That(result.Id, Is.EqualTo(2));
+			Assert.That(result.Name, Is.EqualTo("Мусала"));
+			Assert.That(result.Altitude, Is.EqualTo(2925));
+			Assert.That(result.Partition, Is.EqualTo("Източна Рила"));
+			Assert.That(result.SpecificLocation, Is.EqualTo(null));
+			Assert.That(result.Description,
+				Is.EqualTo(
+					"Мусала е първенецът на Рила и най-високият планински връх в България и на целия Балкански полуостров. Надморската му височина е 2925,4 m, измерена от равнището на пристанище Варна. По-висок е с 8 m от следващия по височина връх на Балканите, Митикас в планината Олимп в Гърция, и с 11 m от първенеца на Пирин, връх Вихрен, който заема третото място в класацията. Мусала има относителна надморска височина от 2473 m, което го подрежда на 7-о място в Европа."));
+		}
+
+		[Test]
+		public async Task EditPost_ShouldEditPeak()
+		{
+			var peakForm = new PeakEditViewModel
 			{
-				Id = 1,
-				Name = "Безбог",
-				Places = 145,
-				Altitude = 2240,
-				Camping = Camping.Permitted,
-				WorkTime = WorkTime.All,
-				Description =
-					"Разположена е край северната част на Безбожкото езеро в Северен Пирин. Предаставлява масивна пететажна сграда с капацитет 130 места с етажни санитарни възли и бани. Хижата е електрифицирана, водоснабдена, с централно отопление. Има ресторант, кафе-аперитив, лафка.",
-				HasToilet = true,
-				HasCanteen = true,
-				HasBathroom = true,
-				Phone = "0888286110",
-				ImageUrl = "https://www.tourism-bg.net/hiji/img/bezbog.jpg"
+				Id = 2,
+				Name = "Мусала",
+				Altitude = 2925,
+				Partition = "Източна Рила",
+				SpecificLocation = "на около 80 km от София",
+				Description = "Мусала е първенецът на Рила и най-високият планински връх в България и на целия Балкански полуостров. Надморската му височина е 2925,4 m, измерена от равнището на пристанище Варна. По-висок е с 8 m от следващия по височина връх на Балканите, Митикас в планината Олимп в Гърция, и с 11 m от първенеца на Пирин, връх Вихрен, който заема третото място в класацията. Мусала има относителна надморска височина от 2473 m, което го подрежда на 7-о място в Европа.",
+				ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Musala_peak.jpg/1280px-Musala_peak.jpg",
 			};
 
-			var updatedHut = await hutService.EditPostAsync(editHut);
-			var hutCheck = await hutService.EditGetAsync(updatedHut);
+			var updatedPeak = await _peakService.EditPostAsync(peakForm);
+			var peakCheck = await _peakService.EditGetAsync(updatedPeak);
 
-			Assert.That(updatedHut, Is.EqualTo(hutId));
-
-			Assert.That(1, Is.EqualTo(updatedHut));
-
-			Assert.That(editHut.Name, Is.EqualTo(hutCheck.Name));
-			Assert.That(editHut.Altitude, Is.EqualTo(hutCheck.Altitude));
-			Assert.That(editHut.Camping, Is.EqualTo(hutCheck.Camping));
-			Assert.That(editHut.WorkTime, Is.EqualTo(hutCheck.WorkTime));
-			Assert.That(editHut.Description, Is.EqualTo(hutCheck.Description));
-			Assert.That(editHut.HasBathroom, Is.EqualTo(hutCheck.HasBathroom));
-			Assert.That(editHut.HasCanteen, Is.EqualTo(hutCheck.HasCanteen));
-			Assert.That(editHut.HasToilet, Is.EqualTo(hutCheck.HasToilet));
-			Assert.That(editHut.Phone, Is.EqualTo(hutCheck.Phone));
-			Assert.That(editHut.ImageUrl, Is.EqualTo(hutCheck.ImageUrl));
+			Assert.IsNotNull(peakCheck);
+			Assert.That(peakCheck.Altitude, Is.EqualTo(peakForm.Altitude));
+			Assert.That(peakCheck.Partition, Is.EqualTo(peakForm.Partition));
+			Assert.That(peakCheck.SpecificLocation, Is.EqualTo(peakForm.SpecificLocation));
+			Assert.That(peakCheck.Name, Is.EqualTo(peakForm.Name));
+			Assert.That(peakCheck.Description, Is.EqualTo(peakForm.Description));
+			Assert.That(peakCheck.ImageUrl, Is.EqualTo(peakForm.ImageUrl));
 		}
 
 		[Test]
-		public async Task GetAllRoutesForHut_ShouldTakeRoutesWithHut()
+		public async Task GetRoutesToPeak_ShouldReturnAllRoutesToPeak()
 		{
-			var routes = await hutService.GetRoutesAsync(1);
+			var result = await _peakService.GetRoutesToPeakAsync(2);
 
-			Assert.That(1, Is.EqualTo(routes.Count()));
+			Assert.That(result.Count(), Is.EqualTo(1));
 		}
 
 		[Test]
-		public async Task GetAllRoutesWithHut_ShouldGive0IfThereIsNoRouteWithThisHut()
+		public async Task GetRoutesToPeak_ShouldReturnEmptyCollection()
 		{
-			var routes = await hutService.GetRoutesAsync(2);
+			var result = await _peakService.GetRoutesToPeakAsync(3);
 
-			Assert.That(0, Is.EqualTo(routes.Count()));
+			Assert.That(result.Count(), Is.EqualTo(0));
 		}
-
 	}
 }
