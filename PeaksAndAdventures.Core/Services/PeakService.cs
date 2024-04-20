@@ -10,12 +10,10 @@ namespace PeaksAndAdventures.Core.Services
     public class PeakService : IPeakService
     {
         private readonly IRepository _repository;
-        private readonly IMountainService _mountainService;
 
-        public PeakService(IRepository repository, IMountainService mountainService)
+        public PeakService(IRepository repository)
         {
 	        _repository = repository;
-	        _mountainService = mountainService;
         }
 
 
@@ -176,7 +174,7 @@ namespace PeaksAndAdventures.Core.Services
             peak.Description = peakForm.Description;
             peak.Altitude = peakForm.Altitude;
             peak.Partition = peakForm.Partition;
-            peak.SpecificLocation = peak.SpecificLocation;
+            peak.SpecificLocation = peakForm.SpecificLocation;
             peak.ImageUrl = peakForm.ImageUrl;
 
             await _repository.SaveChangesAsync();
