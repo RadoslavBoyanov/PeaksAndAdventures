@@ -26,7 +26,7 @@ namespace PeaksAndAdventures.Tests
 		public void Setup()
 		{
 			var options = new DbContextOptionsBuilder<PeaksAndAdventuresDbContext>()
-				.UseInMemoryDatabase("PeaksAndAdventuresTest")
+				.UseInMemoryDatabase("PeaksAndAdventuresTest" + Guid.NewGuid().ToString())
 				.Options;
 
 			dbContext = new PeaksAndAdventuresDbContext(options);
