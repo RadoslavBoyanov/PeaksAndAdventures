@@ -452,7 +452,7 @@ namespace PeaksAndAdventures.Core.Services
 
 		public async Task<int> DeleteConfirmedAsync(int routeId)
 		{
-			var route = await _repository.AllReadOnly<Route>()
+			var route = await _repository.All<Route>()
 				.Include(r => r.RoutesHuts)
 				.ThenInclude(h => h.Hut)
 				.Include(r => r.RoutesLakes)
@@ -509,11 +509,6 @@ namespace PeaksAndAdventures.Core.Services
 			await _repository.SaveChangesAsync();
 
 			return routeId;
-		}
-
-		public Task RateAsync(int routeId, double rating)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

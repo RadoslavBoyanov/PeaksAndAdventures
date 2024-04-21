@@ -22,6 +22,5 @@ namespace PeaksAndAdventures.Core.Interfaces
 		Task<RouteDetailsViewModel> DetailsAsync(int routeId);
 		Task<RouteDeleteViewModel> DeleteAsync(int routeId);
 		Task<int> DeleteConfirmedAsync(int routeId);
-		Task RateAsync(int routeId, double rating);
 	}
 }
