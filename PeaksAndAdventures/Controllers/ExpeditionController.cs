@@ -163,6 +163,11 @@ namespace PeaksAndAdventures.Controllers
 		[Authorize(Roles = $"{AmateurMountaineerRole}, {MountaineerRole}")]
 		public async Task<IActionResult> JoinExpedition(int expeditionId, string userId)
 		{
+			if (!await _expeditionService.CheckIfExistExpeditionByIdAsync(expeditionId))
+			{
+				return BadRequest();
+			}
+
 			var result = await _expeditionService.RegisterForExpeditionAsync(userId, expeditionId);
 
 			if (result.Success)
@@ -179,6 +184,12 @@ namespace PeaksAndAdventures.Controllers
 		[Authorize(Roles = $"{AmateurMountaineerRole}, {MountaineerRole}")]
 		public async Task<IActionResult> LeaveExpedition(int expeditionId, string userId)
 		{
+
+			if (!await _expeditionService.CheckIfExistExpeditionByIdAsync(expeditionId))
+			{
+				return BadRequest();
+			}
+
 			var result = await _expeditionService.UnregisterFromExpeditionAsync(userId, expeditionId);
 
 			if (result.Success)

@@ -75,7 +75,13 @@ namespace PeaksAndAdventures.Core.Services
 
 		public async Task<ExpeditionDetailsViewModel> DetailsAsync(int expeditionId)
 		{
+
 			var expedition = await _repository.AllReadOnly<Expedition>().FirstOrDefaultAsync(e => e.Id == expeditionId);
+
+			if (expedition is null)
+			{
+				return null;
+			}
 
 			var route = await _repository.GetByIdAsync<Route>(expedition.RouteId);
 			string routeName = route != null ? route.Name : "Няма информация";
@@ -83,6 +89,7 @@ namespace PeaksAndAdventures.Core.Services
 			var tourAgency = await _repository.GetByIdAsync<TourAgency>(expedition.TourAgencyId);
 			string tourAgencyName = tourAgency != null ? tourAgency.Name : "Няма информация";
 
+			
 			var expeditionDetails = new ExpeditionDetailsViewModel()
 			{
 				Id = expedition.Id,
@@ -103,15 +110,22 @@ namespace PeaksAndAdventures.Core.Services
 				RouteName = routeName
 			};
 
+			
+
 			return expeditionDetails;
 		}
 
 		public async Task<ExpeditionDeleteViewModel> DeleteGetAsync(int expeditionId)
 		{
-			var expedition = await _repository.AllReadOnly<Expedition>()
+			var expedition = await _repository.All<Expedition>()
 				.Include(e => e.ExpeditionsParticipants)
 				.ThenInclude(ep => ep.Participant)
 				.FirstOrDefaultAsync(e => e.Id == expeditionId);
+
+			if (expedition is null)
+			{
+				return null;
+			}
 
 			var tourAgency = await _repository.GetByIdAsync<TourAgency>(expedition.TourAgencyId);
 
@@ -131,10 +145,9 @@ namespace PeaksAndAdventures.Core.Services
 
 		public async Task<int> DeleteConfirmedAsync(int expeditionId)
 		{
-			var expedition = await _repository.AllReadOnly<Expedition>()
+			var expedition = await _repository.All<Expedition>()
 				.Include(e => e.ExpeditionsParticipants)
 				.ThenInclude(ep => ep.Participant)
-				.AsNoTracking()
 				.FirstOrDefaultAsync(e => e.Id == expeditionId);
 
 			if (expedition.ExpeditionsParticipants.Any())
