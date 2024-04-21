@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Models.ViewModels.Peak;
 using PeaksAndAdventures.Core.Services;
 using PeaksAndAdventures.Infrastructure.Data;
@@ -14,7 +15,7 @@ namespace PeaksAndAdventures.Tests
 		private PeaksAndAdventuresDbContext dbContext;
 
 		private IRepository repository;
-		private PeakService _peakService;
+		private IPeakService _peakService;
 
 		private IEnumerable<Peak> peaks;
 		private IEnumerable<Mountain> mountains;
