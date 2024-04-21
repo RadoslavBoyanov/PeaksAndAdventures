@@ -49,6 +49,11 @@ namespace PeaksAndAdventures.Core.Services
          {
 	         var mountain = await _repository.GetByIdAsync<Mountain>(id);
 
+	         if (mountain is null)
+	         {
+		         return null;
+	         }
+
 	         var mountainDetails = new MountainDetailsViewModel()
 	         {
 				 Id = mountain.Id,
@@ -204,9 +209,9 @@ namespace PeaksAndAdventures.Core.Services
 			 mountain.Name = mountainForm.Name;
 			 mountain.Location = mountainForm.Location;
 			 mountain.Climate = mountainForm.Climate;
-			 mountain.Waters = mountain.Waters;
-			 mountain.Flora = mountain.Flora;
-			 mountain.ImageUrls = mountain.ImageUrls;
+			 mountain.Waters = mountainForm.Waters;
+			 mountain.Flora = mountainForm.Flora;
+			 mountain.ImageUrls = mountainForm.ImageUrls;
 
 			 await _repository.SaveChangesAsync();
 

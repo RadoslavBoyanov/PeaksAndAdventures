@@ -306,20 +306,30 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<MountainGuideAddRouteViewModel> GetMountainGuideAddRouteAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
-			var ownerId = mountainGuide.OwnerId;
 
-			if (mountainGuide == null || ownerId == null)
+			if (mountainGuide == null || mountainGuide.OwnerId == null)
 			{
 				return null; // Ако планинският водач или ownerId не съществуват, върнете null
 			}
 
-			var routes = await _repository.AllReadOnly<Route>().ToListAsync();
+			// Извличане на списък от маршрути, които вече са добавени към планинския водач
+			var addedRouteIds = await _repository
+				.AllReadOnly<MountaineerRoute>()
+				.Where(mgr => mgr.MountainGuideId == mountainGuideId)
+				.Select(mgr => mgr.RouteId)
+				.ToListAsync();
+
+			// Извличане на списък от маршрути, които все още не са добавени към планинския водач
+			var routesToAdd = await _repository
+				.AllReadOnly<Route>()
+				.Where(r => !addedRouteIds.Contains(r.Id)) // Филтриране на маршрутите, които не са вече добавени
+				.ToListAsync();
 
 			var viewModel = new MountainGuideAddRouteViewModel
 			{
 				Id = mountainGuide.Id,
-				OwnerId = ownerId,
-				Routes = routes.Select(r => new GetAllRoutesViewModel { Id = r.Id, Name = r.Name })
+				OwnerId = mountainGuide.OwnerId,
+				Routes = routesToAdd.Select(r => new GetAllRoutesViewModel { Id = r.Id, Name = r.Name })
 			};
 
 			return viewModel;
@@ -328,20 +338,30 @@ namespace PeaksAndAdventures.Core.Services
 		public async Task<MountainGuideAddMountainViewModel> GetMountainGuideAddMountainAsync(int mountainGuideId)
 		{
 			var mountainGuide = await _repository.GetByIdAsync<MountainGuide>(mountainGuideId);
-			var ownerId = mountainGuide.OwnerId;
 
-			if (mountainGuide == null || ownerId == null)
+			if (mountainGuide == null || mountainGuide.OwnerId == null)
 			{
 				return null; // Ако планинският водач или ownerId не съществуват, върнете null
 			}
 
-			var routes = await _repository.AllReadOnly<Mountain>().ToListAsync();
+			// Извличане на списък от планини, които вече са добавени към планинския водач
+			var addedMountainIds = await _repository
+				.AllReadOnly<MountaineerMountain>()
+				.Where(mgm => mgm.MountainGuideId == mountainGuideId)
+				.Select(mgm => mgm.MountainId)
+				.ToListAsync();
+
+			// Извличане на списък от планини, които все още не са добавени към планинския водач
+			var mountainsToAdd = await _repository
+				.AllReadOnly<Mountain>()
+				.Where(m => !addedMountainIds.Contains(m.Id)) // Филтриране на планините, които не са вече добавени
+				.ToListAsync();
 
 			var viewModel = new MountainGuideAddMountainViewModel()
 			{
 				Id = mountainGuide.Id,
-				OwnerId = ownerId,
-				Mountains = routes.Select(mountain => new GetAllMountainsViewModel() { Id = mountain.Id, Name = mountain.Name })
+				OwnerId = mountainGuide.OwnerId,
+				Mountains = mountainsToAdd.Select(mountain => new GetAllMountainsViewModel() { Id = mountain.Id, Name = mountain.Name })
 			};
 
 			return viewModel;
