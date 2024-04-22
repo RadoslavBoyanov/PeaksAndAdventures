@@ -436,6 +436,11 @@ namespace PeaksAndAdventures.Core.Services
 				.ThenInclude(mr => mr.MountainGuide)
 				.FirstOrDefaultAsync(r => r.Id == routeId);
 
+			if (route is null)
+			{
+				return null;
+			}
+
 			var mountain = await _repository.GetByIdAsync<Mountain>(route.MountainId);
 
 			var routeDelete = new RouteDeleteViewModel()

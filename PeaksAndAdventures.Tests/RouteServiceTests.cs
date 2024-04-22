@@ -490,6 +490,14 @@ namespace PeaksAndAdventures.Tests
 		}
 
 		[Test]
+		public async Task DeleteAsync_ShouldReturnNullIfDoesntExist()
+		{
+			var result = await _routeService.DeleteAsync(6);
+
+			Assert.That(result, Is.Null);
+		}
+
+		[Test]
 		public async Task DeleteAsync_ShouldDeleteRoute()
 		{
 			await _routeService.DeleteConfirmedAsync(1);

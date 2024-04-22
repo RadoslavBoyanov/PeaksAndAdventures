@@ -181,7 +181,7 @@ namespace PeaksAndAdventures.Controllers
 		{
 			if (!await _routeService.CheckIfExistRouteById(id))
 			{
-				BadRequest();
+				return BadRequest();
 			}
 
 			var rating = await _ratingService.GetRatingDistributionByRouteAsync(id);

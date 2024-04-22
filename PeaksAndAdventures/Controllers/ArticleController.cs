@@ -64,7 +64,7 @@ namespace PeaksAndAdventures.Controllers
 				return View(articleForm);
 			}
 
-			string userId = ClaimsPrincipalExtensions.Id(User);
+			string userId = User.Id();
 
 			await _articleService.WriteArticleAsync(articleForm, userId);
 
