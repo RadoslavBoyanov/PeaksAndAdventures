@@ -142,6 +142,16 @@ namespace PeaksAndAdventures.Tests
 		}
 
 		[Test]
+		public async Task Details_ShouldReturnNullIfDoesntExist()
+		{
+			var detailsId = 20;
+ 
+			var result = await _articleService.DetailsAsync(detailsId);
+
+			Assert.That(result, Is.Null);
+		}
+
+		[Test]
 		public async Task WriteArticleAsync_ShouldWriteArticleInDB()
 		{
 
@@ -187,6 +197,14 @@ namespace PeaksAndAdventures.Tests
 		}
 
 		[Test]
+		public async Task EditGetAsync_ShouldReturnNullIfArticleDoesntExist()
+		{
+			var result = await _articleService.EditGetAsync(20);
+
+			Assert.That(result, Is.Null);
+		}
+
+		[Test]
 		public async Task EditPostAsync_ShouldEditArticleInDB()
 		{
 			var datePublished = DateTime.Now.AddDays(-15);
@@ -223,6 +241,14 @@ namespace PeaksAndAdventures.Tests
 			Assert.That(result.ImageUrl,
 				Is.EqualTo("https://planinka.bg/wp-content/uploads/2023/05/MANE3457-1024x819.webp"));
 			Assert.That(result.AuthorId, Is.EqualTo("0d59049e-81f2-48f1-abb2-a5fd09bc210f"));
+		}
+
+		[Test]
+		public async Task DeleteGetAsync_ShouldReturnNullIfArticleDoesntExist()
+		{
+			var result = await _articleService.DeleteGetAsync(20);
+
+			Assert.That(result, Is.Null);
 		}
 
 		[Test]
