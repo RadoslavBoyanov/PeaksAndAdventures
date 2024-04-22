@@ -43,6 +43,11 @@ namespace PeaksAndAdventures.Core.Services
 		{
 			var article = await _repository.GetByIdAsync<Article>(articleId);
 
+			if (article is null)
+			{
+				return null;
+			}
+
 			var articleDetails = new ArticleDetailsViewModel()
 			{
 				Id = article.Id,
@@ -76,6 +81,11 @@ namespace PeaksAndAdventures.Core.Services
 			var currentArticle = await _repository.All<Article>()
 				.FirstOrDefaultAsync(a => a.Id == articleId);
 
+			if (currentArticle is null)
+			{
+				return null;
+			}
+
 			var article = new ArticleEditViewModel()
 			{
 				Id = currentArticle.Id,
@@ -95,6 +105,7 @@ namespace PeaksAndAdventures.Core.Services
 				.Where(a => a.Id == articleForm.Id)
 				.FirstOrDefaultAsync();
 
+
 			article.Title = articleForm.Title;
 			article.Content = articleForm.Content;
 			article.ImageUrl = articleForm.ImageUrl;
@@ -110,6 +121,11 @@ namespace PeaksAndAdventures.Core.Services
 			var article = await _repository.AllReadOnly<Article>()
 				.Where(a => a.Id == articleId)
 				.FirstOrDefaultAsync();
+
+			if (article is null)
+			{
+				return null;
+			}
 
 			var deleteArticle = new ArticleDeleteViewModel()
 			{
