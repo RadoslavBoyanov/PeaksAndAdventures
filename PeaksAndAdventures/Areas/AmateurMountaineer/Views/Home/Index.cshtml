@@ -2,6 +2,8 @@
 	ViewData["Title"] = "Amateur mountaineer Page";
 }
 
+<link rel="stylesheet" href="~/css/Areas/areasHomeStyle.css" />
+
 <div class="mt-4 p-5 bg-light text-center">
 	<h2 class="display-4">Здравей, планинарю!</h2>
 	<p class="lead mt-1">
@@ -21,9 +23,4 @@
 		<a asp-area="" asp-controller="Expedition" asp-action="MyExpeditions" class="btn btn-primary btn-group-sm fw-bold">Моите експедиции</a>
 		<a asp-area="" asp-controller="Article" asp-action="UserArticles" class="btn btn-primary btn-group-sm fw-bold">Моите статии</a>
 	</div>
-
-	<hr class="my-4" />
-
-	<p class="lead mt-1">Освен това можеш да виждаш информация за планините, които си посетил.</p>
-	<a asp-area="" asp-controller="Mountain" asp-action="All" class="btn btn-primary btn-group-sm fw-bold">Виж всички планини</a>
 </div>
