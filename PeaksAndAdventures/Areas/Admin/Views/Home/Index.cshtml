@@ -2,10 +2,10 @@
 	ViewData["Title"] = "Admin Page";
 }
 
-<link rel="stylesheet" href="~/css/Areas/adminHomeStyle.css" />
+<link rel="stylesheet" href="~/css/Areas/areasHomeStyle.css" />
 
 <div class="mt-4 p-5 bg-light text-center">
-	<h2 class="display-4">Здравей, админе!</h2>
+	<h4 class="display-4">Здравей, админе!</h4>
 	<p class="lead mt-1">
 		Като админ ти имаш изключителни правомощия. Тук може да добавяш планини, езера, върхове, водопади, маршрути, статии, профили на туристически агенции и техни експедиции и профили на планински водачи.
 	</p>
@@ -19,7 +19,6 @@
 	<hr class="my-4" />
 	<div class="navigation-buttons">
 		<div>
-			<a asp-area="" asp-controller="Article" asp-action="Create" class="btn btn-primary btn-group-sm fw-bold">Напиши статия</a>
 			<a asp-area="" asp-controller="Mountain" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави планина</a>
 			<a asp-area="" asp-controller="Peak" asp-action="AddPeak" class="btn btn-primary btn-group-sm fw-bold">Добави връх</a>
 			<a asp-area="" asp-controller="Lake" asp-action="AddLake" class="btn btn-primary btn-group-sm fw-bold">Добави езеро</a>
@@ -28,6 +27,7 @@
 		</div>
 		<hr/>
 		<div>
+			<a asp-area="" asp-controller="Article" asp-action="Create" class="btn btn-primary btn-group-sm fw-bold">Напиши статия</a>
 			<a asp-area="" asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави маршрут</a>
 			<a asp-area="" asp-controller="TourAgency" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави туристическа агенция</a>
 			<a asp-area="" asp-controller="Expedition" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави експедиция</a>
@@ -38,5 +38,7 @@
 	<hr class="my-4" />
 
 	<p class="lead mt-1">Освен това ти можеш да виждаш регистрираните потребители и тяхната информация.</p>
-	<a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-primary btn-group-sm fw-bold">Виж всички потребители</a>
+	<div class="user-btn">
+		<a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-primary btn-group-sm fw-bold">Виж всички потребители</a>
+	</div>
 </div>
