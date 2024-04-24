@@ -8,4 +8,11 @@
 <hr/>
 
 
-@await Html.PartialAsync("_AllWaterfallsPartial", Model)
+@if (Model.Any())
+{
+	@await Html.PartialAsync("_AllWaterfallsPartial", Model)
+}
+else
+{
+	<h3 class="text-center">Няма добавени водопади!</h3>	
+}

@@ -44,12 +44,13 @@ body {
 
 .icon-item {
     width: 100px;
-    margin-right: 10px;
+    margin-left:10px;
     text-align: center;
 }
 
 .icon {
-    width: 50px;
+    width: 60px;
+    padding-right: 10px;
     height: 50px;
     margin-bottom: 5px;
 }

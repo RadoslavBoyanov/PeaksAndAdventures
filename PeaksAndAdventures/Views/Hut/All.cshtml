@@ -5,14 +5,15 @@
 	ViewBag.Title = "Хижи";
 }
 
-
 <h2 class="text-center">Хижи</h2>
+
+<hr/>
+
 <form method="get" id="searchForm">
 	<div class="row">
 		<div class="form-group col-md-3">
 			<label asp-for="WorkTime"></label>
-			<select asp-for="WorkTime" class="form-control">
-				<option value="">-- Изберете --</option>
+			<select asp-for="WorkTime" class="form-select">
 				@foreach (WorkTime workTime in Enum.GetValues(typeof(WorkTime)))
 				{
 					var displayAttribute = typeof(WorkTime)
@@ -25,7 +26,7 @@
 					string displayName = displayAttribute != null ? displayAttribute.Name : workTime.ToString();
 					string value = ((int)workTime).ToString();
 
-					if (workTime == default(WorkTime))
+					if (workTime == Enum.GetValues(typeof(WorkTime)).OfType<WorkTime>().Last())
 					{
 						<option value="@value" selected>@displayName</option>
 					}
@@ -39,7 +40,6 @@
 		<div class="form-group col-md-3">
 			<label asp-for="Camping"></label>
 			<select asp-for="Camping" class="form-select">
-				<option selected="selected">-- Изберете --</option> <!-- Първоначална опция -->
 				@foreach (Camping camping in Enum.GetValues(typeof(Camping)))
 				{
 					var displayAttribute = typeof(Camping)
@@ -65,19 +65,24 @@
 			<input asp-for="MountainName" class="form-control" placeholder="...">
 		</div>
 	</div>
-	<div class="col-md-3">
-		<div class="form-group mt-4 p-2">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<!-- Кнопка за търсене -->
 			<button type="button" id="searchButton" class="btn btn-primary">Търси</button>
 		</div>
 	</div>
+	
 </form>
+
+<hr/>
 
 @if (!Model.Huts.Any())
 {
-    <h2 class="text-center">No huts found by the given criteria!</h2>
+	<h2 class="text-center">Не са намерени хижи със съответните критерии!</h2>
+	<p class="text-center">При отваряне на страницата, обикновено излиза този резултат. След натискане на бутона търси, резултата може да бъде различен, на според информацията, с която разполагаме!</p>
 }
 
-@if (Model != null && Model.TotalHutsCount > 0)
+@if (Model.TotalHutsCount > 0)
 {
     <div class="row">
         @foreach (var hut in Model.Huts)
@@ -140,11 +145,25 @@
 
 @section Scripts {
 	<script>
-		document.getElementById('searchButton').addEventListener('click', function () {
-			var form = document.getElementById('searchForm');
-			form.submit();
-		});
-	</script>
+        $(document).ready(function () {
+            // Проверка дали бутона за търсене е бил цъкнат поне веднъж
+            var searchButtonClicked = false;
+
+            // Функция, която изпълнява търсене и обновява резултата
+            function performSearch() {
+                var form = $('#searchForm');
+                form.submit(); // Изпращане на формата
+            }
+
+            // Обновяване на търсенето при натискане на бутона за търсене
+            $('#searchButton').click(function () {
+                if (!searchButtonClicked) {
+                    searchButtonClicked = true; // Отбелязваме, че бутона е бил цъкнат
+                    performSearch(); // Изпълнение на търсенето
+                }
+            });
+        });
+    </script>
 
 	<partial name="_ValidationScriptsPartial" />
 }
