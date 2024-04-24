@@ -38,5 +38,3 @@ Here, we gather professionals and amateurs alike, united by our love for the mou
     ]
   }
 }
-  }
-}
