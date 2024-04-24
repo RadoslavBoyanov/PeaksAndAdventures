@@ -84,7 +84,7 @@
 	    </select>
         <span asp-validation-for="TourAgencyId" class="text-danger"></span>
     </div>
-    <input type="hidden" asp-for="OrganiserId" value="@ClaimsPrincipalExtensions.Id(User)" />
+    <input type="hidden" asp-for="OrganiserId" value="@User.Id()" />
 
     <button type="submit" class="btn btn-primary">Добави</button>
 </form>

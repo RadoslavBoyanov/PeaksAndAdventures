@@ -14,8 +14,11 @@
 	}
 	else
 	{
-		<p class="text-center text-warning">Няма добавени маршрути до този водопад.</p>
-		<p class="text-center">Добави маршрут към този водопад, ако знаеш.</p>
-		<a asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави</a>
+		<h3 class="text-center text-warning">Няма добавени маршрути до този водопад.</h3>
+		@if (User.IsAdmin() || User.IsTourAgency() || User.IsMountaineer())
+		{
+			<p class="text-center">Добави маршрут до тази хижа, ако знаеш.</p>
+			<a asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави</a>
+		}
 	}
 }

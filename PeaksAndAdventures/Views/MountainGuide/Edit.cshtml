@@ -57,7 +57,7 @@
 	    <span asp-validation-for="TourAgencyName"></span>
     </div>
     
-    <input type="hidden" asp-for="OwnerId" value="@ClaimsPrincipalExtensions.Id(User)" />
+    <input type="hidden" asp-for="OwnerId" value="@User.Id()" />
     <div class="text-center">
 	    <button type="submit" class="btn btn-primary">Запази</button>
     </div>

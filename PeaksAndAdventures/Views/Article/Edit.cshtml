@@ -33,8 +33,11 @@
 		<span asp-validation-for="ImageUrl" class="text-danger"></span>
 	</div>
 
-	<input type="hidden" asp-for="AuthorId" value="@ClaimsPrincipalExtensions.Id(User)" />
+	<input type="hidden" asp-for="AuthorId" value="@User.Id()" />
 
 
-	<button type="submit" class="btn btn-primary">Запази</button>
 </form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

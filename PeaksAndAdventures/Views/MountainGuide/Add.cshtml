@@ -54,7 +54,7 @@
     
     <div class="form-group">
 	    <label asp-for="TourAgencyId" class="control-label">Туристическа агенция</label>
-	    <select asp-for="TourAgencyId" class="form-control">
+	    <select asp-for="TourAgencyId" class="form-select">
 		    @foreach (var tourAgency in Model.TourAgencies)
 		    {
 			    <option value="@tourAgency.Id">@tourAgency.Name</option>
@@ -63,7 +63,7 @@
 	    <span asp-validation-for="TourAgencyId" class="text-danger"></span>
     </div>
 
-    <input type="hidden" asp-for="OwnerId" value="@ClaimsPrincipalExtensions.Id(User)" />
+    <input type="hidden" asp-for="OwnerId" value="@User.Id()" />
 
     <button type="submit" class="btn btn-primary">Запази</button>
 </form>

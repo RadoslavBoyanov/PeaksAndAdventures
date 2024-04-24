@@ -14,9 +14,12 @@
 	}
 	else
 	{
-		<p class="text-center text-warning">Няма добавени маршрути до върха.</p>
-		<p class="text-center">Добави маршрут към този връх, ако знаеш.</p>
-		<a asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави</a>
+		<h3 class="text-center text-warning">Няма добавени маршрути до върха.</h3>
+		@if (User.IsAdmin() || User.IsTourAgency() || User.IsMountaineer())
+		{
+			<p class="text-center">Добави маршрут до тази връх, ако знаеш.</p>
+			<a asp-controller="Route" asp-action="Add" class="btn btn-primary btn-group-sm fw-bold">Добави</a>
+		}
 	}
 }
 

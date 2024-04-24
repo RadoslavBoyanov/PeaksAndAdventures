@@ -25,7 +25,7 @@
 
 	<div class="form-group">
 		<label asp-for="WorkTime" class="control-label"></label>
-		<select asp-for="WorkTime" class="form-control">
+		<select asp-for="WorkTime" class="form-select">
 			@foreach (WorkTime workTimeOption in Enum.GetValues(typeof(WorkTime)))
 			{
 				<option value="@workTimeOption.ToString()">
@@ -44,7 +44,7 @@
     
 	<div class="form-group">
 		<label asp-for="Camping" class="control-label"></label>
-		<select asp-for="Camping" class="form-control">
+		<select asp-for="Camping" class="form-select">
 			@foreach (Camping campingOption in Enum.GetValues(typeof(Camping)))
 			{
 				<option value="@campingOption.ToString()">
@@ -117,7 +117,7 @@
 
 	<div class="form-group">
 		<label asp-for="MountainId" class="control-label">Планина</label>
-		<select asp-for="MountainId" class="form-control">
+		<select asp-for="MountainId" class="form-select">
 			@foreach (var mountain in Model.Mountains)
 			{
 				<option value="@mountain.Id">@mountain.Name</option>
