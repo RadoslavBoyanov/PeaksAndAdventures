@@ -5,10 +5,17 @@
 }
 
 
-@await Html.PartialAsync("_AllHutsPartial", Model)
+<h2 class="text-center">Хижи в планината</h2>
 
-<p>
-	@Html.ActionLink("Върни се към всички планини", "All", "Mountain")
-</p>
+<hr/>
+
+@if (Model.Any())
+{
+	@await Html.PartialAsync("_AllHutsPartial", Model)
+}
+else
+{
+	<h3 class="text-center">Няма добавени хижи!</h3>	
+}
 
 				

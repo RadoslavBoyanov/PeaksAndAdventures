@@ -37,7 +37,8 @@ namespace PeaksAndAdventures.Core.Models.ViewModels.Mountain
 
         [Required(ErrorMessage = RequireErrorMessage)]
         [StringLength(FaunaMaxLength, MinimumLength = FaunaMinLength, ErrorMessage = StringLengthErrorMessage)]
-        public string Fauna { get; set; } = string.Empty;
+        [Display(Name = "Фауна")]
+		public string Fauna { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequireErrorMessage)]
         [Display(Name = "Изображение - URL адрес")]
