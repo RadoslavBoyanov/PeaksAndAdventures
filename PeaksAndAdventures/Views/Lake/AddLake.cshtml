@@ -30,7 +30,7 @@
     
 	<div class="form-group">
 		<label asp-for="MountainId" class="control-label">Планина</label>
-		<select asp-for="MountainId" class="form-control">
+		<select asp-for="MountainId" class="form-select">
 			@foreach (var mountain in Model.Mountains)
 			{
 				<option value="@mountain.Id">@mountain.Name</option>

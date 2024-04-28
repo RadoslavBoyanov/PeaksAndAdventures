@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="~/css/CommonForAll/addStyle.css" />
 
-<h1 class="text-center">@ViewBag.Title</h1>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr/>
 
 
@@ -51,7 +51,7 @@
 	
 	<div class="form-group">
 		<label asp-for="MountainId" class="control-label">Планина</label>
-		<select asp-for="MountainId" class="form-control">
+		<select asp-for="MountainId" class="form-select">
 			@foreach (var mountain in Model.Mountains)
 			{
 				<option value="@mountain.Id">@mountain.Name</option>
