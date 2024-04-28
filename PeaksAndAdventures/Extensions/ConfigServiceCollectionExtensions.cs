@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PeaksAndAdventures.Core.Interfaces;
 using PeaksAndAdventures.Core.Services;
@@ -23,6 +24,8 @@ namespace PeaksAndAdventures.Extensions
             services.AddScoped<ITourAgencyService, TourAgencyService>();
             services.AddScoped<IMountainGuideService, MountainGuideService>();
             services.AddScoped<IUserService, UserService>();
+            ///add auto validate antiforgery token
+            services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
             return services;
         }
